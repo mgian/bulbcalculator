@@ -1,0 +1,21 @@
+creator: gian <gian@grys.it>
+
+
+extra_strings:
+- BLOCKS:8ef6ac13-04e2-42fb-a7e9-46cca8783fff
+
+
+reporter: gian <gian@grys.it>
+
+
+severity: wishlist
+
+
+status: open
+
+
+summary: Add the calculation for the  true 2D  area, with the barycentre calculation
+
+
+time: Fri, 05 Nov 2010 09:26:52 +0000
+

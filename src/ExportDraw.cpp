@@ -1,0 +1,167 @@
+#include <QString>
+#include <QtGui>
+#include <QDialog>
+#include <QFileDialog>
+
+#include "../include/ExportDraw.h"
+#include "../include/Utils.h"
+
+ExportDraw::ExportDraw() {
+
+}
+
+void ExportDraw::SetBc(BulbCalculator *bcp) {
+
+    this->bc = bcp;
+
+}
+
+void ExportDraw::ExportTextFile(QString fileName) {
+
+
+
+    QString ext = ".txt";
+
+    if (!fileName.endsWith(ext)) {
+        fileName.append(ext);
+    }
+
+    switch (this->bc->units) {
+        case UNIT_MM:
+            this->ExportTextFileMM(fileName);
+            break;
+        case UNIT_INCH:
+            this->ExportTextFileInchD(fileName);
+            break;
+        case UNIT_INCH_F:
+            this->ExportTextFileInchF(fileName);
+            break;
+    }
+}
+
+void ExportDraw::ExportTextFileMM(QString FileOut) {
+
+    double tl;
+
+    tl = pow((this->bc->target_weight*1000.0)/(this->bc->naca_profile.volume*this->bc->material_density), 1.0/3.0);
+
+
+
+    QFile fo(FileOut);
+    if (!fo.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QMessageBox::warning(NULL, tr("Error"), tr("Could not open file"), QMessageBox::Ok);
+        return;
+    }
+
+    QTextStream fos(&fo);
+
+    // write the data
+    fos << QString("%1").arg("Foil Type", -20, ' ') << ": " << this->bc->naca_profile.foil_name.c_str() << "\n";
+    fos << QString("%1").arg("Height/Length Ratio",-20,' ') << ": " << QString::number(this->bc->naca_profile.HLRatio*100.0) << "%" << "\n";
+    fos << QString("%1").arg("Width/Height Ratio", -20, ' ') << ": "  << QString::number(this->bc->naca_profile.WHRatio*100.0) << "%" << "\n";
+
+    fos << QString("%1").arg("Lenght (cm)", -25, ' ') << ": " << this->bc->length << "\n";
+    fos << QString("%1").arg("Center (cm)", -25, ' ') << ": " << tl * this->bc->naca_profile.gcentre << "\n";
+    fos << QString("%1").arg("Wetted Surface (cm^2)", -25, ' ') << ": " << this->bc->bulb_wet_surface << "\n";
+    fos << QString("%1").arg("Volume (cm^3)", -25, ' ') << ": " << this->bc->bulb_volume << "\n";
+    fos << "\n" << "\n";
+    fos << QString("%1").arg("Position", 15, ' ');
+    fos << QString("%1").arg("X", 15, ' ');
+    fos << QString("%1").arg("Height Max", 15, ' ');
+    fos << QString("%1").arg("Height Min", 15, ' ');
+    fos << QString("%1").arg("Width/2", 15, ' ');
+    fos << "\n";
+    fos << QString("%1").arg("", 15, ' ');
+    fos << QString("%1").arg("(cm)", 15, ' ');
+    fos << QString("%1").arg("(cm)", 15, ' ');
+    fos << QString("%1").arg("(cm)", 15, ' ');
+    fos << QString("%1").arg("(cm)", 15, ' ');
+    fos << "\n" << "\n";
+
+    for (int i=0; i<this->bc->num_sect+2; i++) {
+        fos << this->bc->GetSectionData(i) << "\n";
+    }
+    fos << "\n" << "\n";
+    fo.close();
+}
+
+
+void ExportDraw::ExportTextFileInchD(QString FileOut) {
+
+    double tl;
+
+    tl = pow((this->bc->target_weight*1000.0)/(this->bc->naca_profile.volume*this->bc->material_density), 1.0/3.0);
+
+    QFile fo(FileOut);
+    if (!fo.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QMessageBox::warning(NULL, tr("Error"), tr("Could not open file"), QMessageBox::Ok);
+        return;
+    }
+
+    QTextStream fos(&fo);
+
+
+    fos << QString("%1").arg("Lenght (in.)", -25, ' ') << ": " << DisplayValue(this->bc->length/2.54, this->bc->units) << "\n";
+    fos << QString("%1").arg("Center (in.)", -25, ' ') << ": " << DisplayValue(tl * this->bc->naca_profile.gcentre/2.54, this->bc->units) << "\n";
+    fos << QString("%1").arg("Wetted Surface (sq.in.)", -25, ' ') << ": " << DisplayValue(this->bc->bulb_wet_surface*0.155, this->bc->units) << "\n";
+    fos << QString("%1").arg("Volume (cu.in.)", -25, ' ') << ": " << DisplayValue(this->bc->bulb_volume*0.061, this->bc->units) << "\n";
+    fos << "\n" << "\n";
+    fos << QString("%1").arg("Position", 15, ' ');
+    fos << QString("%1").arg("X (in.)", 15, ' ');
+    fos << QString("%1").arg("Height Max (in.)", 15, ' ');
+    fos << QString("%1").arg("Height Min (in.)", 15, ' ');
+    fos << QString("%1").arg("Width/2 (in.)", 15, ' ');
+    fos <<  "\n";
+    fos << QString("%1").arg("", 15, ' ');
+    fos << QString("%1").arg("(in.)", 15, ' ');
+    fos << QString("%1").arg("(in.)", 15, ' ');
+    fos << QString("%1").arg("(in.)", 15, ' ');
+    fos << QString("%1").arg("(in.)", 15, ' ');
+    fos << "\n" << "\n";
+    for (int i=0; i<this->bc->num_sect+2; i++) {
+        fos << this->bc->GetSectionData(i) << "\n";
+    }
+
+    fo.close();
+
+}
+
+void ExportDraw::ExportTextFileInchF(QString FileOut) {
+
+    double tl;
+
+    tl = pow((this->bc->target_weight*1000.0)/(this->bc->naca_profile.volume*this->bc->material_density), 1.0/3.0);
+
+    QFile fo(FileOut);
+    if (!fo.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QMessageBox::warning(NULL, tr("Error"), tr("Could not open file"), QMessageBox::Ok);
+        return;
+    }
+
+    QTextStream fos(&fo);
+
+
+    fos << QString("%1").arg("Lenght (in.)", -25, ' ') << ": " << DisplayValue(this->bc->length/2.54, this->bc->units) << "\n";
+    fos << QString("%1").arg("Center (in.)", -25, ' ') << ": " << DisplayValue(tl * this->bc->naca_profile.gcentre/2.54, this->bc->units) << "\n";
+    fos << QString("%1").arg("Wetted Surface (sq.in.)", -25, ' ') << ": " << DisplayValue(this->bc->bulb_wet_surface*0.155, this->bc->units) << "\n";
+    fos << QString("%1").arg("Volume (cu.in.)", -25, ' ') << ": " << DisplayValue(this->bc->bulb_volume*0.061, this->bc->units) << "\n";
+    fos << "\n" << "\n";
+    fos << QString("%1").arg("Position", 15, ' ');
+    fos << QString("%1").arg("X", 15, ' ');
+    fos << QString("%1").arg("Height Max", 15, ' ');
+    fos << QString("%1").arg("Height Min", 15, ' ');
+    fos << QString("%1").arg("Width/2", 15, ' ');
+    fos <<  "\n";
+    fos << QString("%1").arg("", 15, ' ');
+    fos << QString("%1").arg("(in.)", 15, ' ');
+    fos << QString("%1").arg("(in.)", 15, ' ');
+    fos << QString("%1").arg("(in.)", 15, ' ');
+    fos << QString("%1").arg("(in.)", 15, ' ');
+    fos << "\n" << "\n";
+    for (int i=0; i<this->bc->num_sect+2; i++) {
+        fos << this->bc->GetSectionData(i) << "\n";
+    }
+
+    fo.close();
+
+}

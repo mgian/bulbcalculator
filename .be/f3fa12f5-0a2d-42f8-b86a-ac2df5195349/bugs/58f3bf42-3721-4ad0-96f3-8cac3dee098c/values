@@ -1,0 +1,21 @@
+creator: Gianluca Montecchi <gian@grys.it>
+
+
+extra_strings:
+- BLOCKS:6e0e9810-0730-4b34-975e-423e7c0a8f55
+
+
+reporter: Gianluca Montecchi <gian@grys.it>
+
+
+severity: wishlist
+
+
+status: open
+
+
+summary: Add the export to dxf format
+
+
+time: Tue, 19 Jan 2010 21:56:26 +0000
+

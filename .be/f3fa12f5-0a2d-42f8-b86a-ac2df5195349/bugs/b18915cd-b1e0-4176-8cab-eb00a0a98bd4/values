@@ -1,0 +1,21 @@
+creator: Gianluca <gian@grys.it>
+
+
+extra_strings:
+- BLOCKS:6e0e9810-0730-4b34-975e-423e7c0a8f55
+
+
+reporter: Gianluca <gian@grys.it>
+
+
+severity: minor
+
+
+status: open
+
+
+summary: Make the bulb data print more indipendent from the printer resolution
+
+
+time: Tue, 19 Oct 2010 22:05:39 +0000
+

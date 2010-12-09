@@ -1,0 +1,23 @@
+extra_strings:
+- BLOCKED-BY:0116ae8d-6ee0-4916-b3a3-4712b3f937e0
+- BLOCKED-BY:39f679d6-cf88-477a-a151-8e84506dc63b
+- BLOCKED-BY:475c0901-6c03-45b8-b5b6-6cc858dc1124
+- BLOCKED-BY:5a28ec19-17ff-46a3-b45f-dfdbf46770cd
+- BLOCKED-BY:6f8e813a-d7b4-4086-a00b-b868e1750410
+- BLOCKED-BY:78ec470b-5943-4a4e-be8c-e9e7e1a307e3
+- BLOCKED-BY:98ccb2f8-0610-4ee2-ac2f-ac6ab11dc23c
+- BLOCKED-BY:b813eea7-3fc7-40c3-8bb1-856aa13c3102
+- BLOCKED-BY:db32bb40-6701-483a-8b39-72822b0bbd50
+
+
+severity: target
+
+
+status: open
+
+
+summary: Next_Version
+
+
+time: Thu, 07 Oct 2010 21:08:13 +0000
+

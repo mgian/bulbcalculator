@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>966</width>
+    <height>584</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Bulb Calculator - </string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../BulbCalculator.qrc">
+    <normaloff>:/MainWin/aboutbulb.png</normaloff>:/MainWin/aboutbulb.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QMdiArea" name="mdiArea"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>966</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_File">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <widget class="QMenu" name="menuExport">
+     <property name="title">
+      <string>Export</string>
+     </property>
+     <addaction name="actionText_File"/>
+    </widget>
+    <widget class="QMenu" name="menuPrint">
+     <property name="title">
+      <string>Print</string>
+     </property>
+     <addaction name="actionPrintSectionFromTop"/>
+     <addaction name="actionPrintSectionFromSide"/>
+     <addaction name="actionPrintLinesPlan"/>
+     <addaction name="actionPrintData"/>
+    </widget>
+    <addaction name="action_New"/>
+    <addaction name="action_Open"/>
+    <addaction name="action_Save"/>
+    <addaction name="action_Saveas"/>
+    <addaction name="separator"/>
+    <addaction name="menuExport"/>
+    <addaction name="separator"/>
+    <addaction name="menuPrint"/>
+    <addaction name="separator"/>
+    <addaction name="action_Quit"/>
+   </widget>
+   <widget class="QMenu" name="menu_Help">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
+   <widget class="QMenu" name="menu_Insert">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="title">
+     <string>&amp;Bulb</string>
+    </property>
+    <widget class="QMenu" name="menuNACA_Foil">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="title">
+      <string>Select NACA Foil</string>
+     </property>
+     <addaction name="action00xx"/>
+     <addaction name="action63_0xx"/>
+     <addaction name="action63A0xx"/>
+     <addaction name="action64_0xx"/>
+     <addaction name="action64A0xx"/>
+     <addaction name="action65_0xx"/>
+     <addaction name="action65A0xx"/>
+     <addaction name="action66_0xx"/>
+     <addaction name="action67_0xx"/>
+    </widget>
+    <addaction name="menuNACA_Foil"/>
+    <addaction name="action_SetParameters"/>
+    <addaction name="separator"/>
+    <addaction name="actionData_Options"/>
+    <addaction name="separator"/>
+    <addaction name="actionDownload"/>
+    <addaction name="actionImport_Foil_Data"/>
+   </widget>
+   <widget class="QMenu" name="menu3D_Options">
+    <property name="title">
+     <string>3D Options</string>
+    </property>
+    <widget class="QMenu" name="menuResolution">
+     <property name="title">
+      <string>Resolution</string>
+     </property>
+     <addaction name="actionLow"/>
+     <addaction name="actionMedium"/>
+     <addaction name="actionHigh"/>
+     <addaction name="actionHighest"/>
+    </widget>
+    <addaction name="actionShow_Axis"/>
+    <addaction name="actionShow_Grid"/>
+    <addaction name="menuResolution"/>
+   </widget>
+   <widget class="QMenu" name="menuWindow">
+    <property name="title">
+     <string>Window</string>
+    </property>
+    <addaction name="actionShow_Top_view"/>
+    <addaction name="actionShow_Side_view"/>
+    <addaction name="actionShow_3D_view"/>
+    <addaction name="actionShow_Calculation"/>
+    <addaction name="actionShow_Bulb_Data"/>
+    <addaction name="separator"/>
+    <addaction name="actionCascade"/>
+    <addaction name="actionTile"/>
+   </widget>
+   <addaction name="menu_File"/>
+   <addaction name="menu_Insert"/>
+   <addaction name="menu3D_Options"/>
+   <addaction name="menuWindow"/>
+   <addaction name="menu_Help"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="action_New">
+   <property name="text">
+    <string>&amp;New Bulb design</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="action_Open">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Open Bulb design</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="action_Save">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Save</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="action_Saveas">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Save &amp;as</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+A</string>
+   </property>
+  </action>
+  <action name="action_Quit">
+   <property name="text">
+    <string>&amp;Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="action_Cascade">
+   <property name="text">
+    <string>&amp;Cascade</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
+  </action>
+  <action name="action_Tile">
+   <property name="text">
+    <string>&amp;Tile</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
+   </property>
+  </action>
+  <action name="action_3D_view">
+   <property name="text">
+    <string>&amp;3D view</string>
+   </property>
+  </action>
+  <action name="actionCalculation">
+   <property name="text">
+    <string>Calculation</string>
+   </property>
+  </action>
+  <action name="actionSide_view">
+   <property name="text">
+    <string>S&amp;ide view</string>
+   </property>
+  </action>
+  <action name="action_Top_view">
+   <property name="text">
+    <string>&amp;Top view</string>
+   </property>
+  </action>
+  <action name="action_Bulb_dimension">
+   <property name="text">
+    <string>&amp;Bulb dimension</string>
+   </property>
+  </action>
+  <action name="action_Calculation">
+   <property name="text">
+    <string>&amp;Calculation</string>
+   </property>
+  </action>
+  <action name="action00xx">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>00xx</string>
+   </property>
+  </action>
+  <action name="action_SetParameters">
+   <property name="text">
+    <string>Set Bulb Parameter</string>
+   </property>
+  </action>
+  <action name="action63_0xx">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>63-0xx</string>
+   </property>
+  </action>
+  <action name="action63A0xx">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>63A0xx</string>
+   </property>
+  </action>
+  <action name="action64_0xx">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>64-0xx</string>
+   </property>
+  </action>
+  <action name="action64A0xx">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>64A0xx</string>
+   </property>
+  </action>
+  <action name="action65_0xx">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>65-0xx</string>
+   </property>
+  </action>
+  <action name="action65A0xx">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>65A0xx</string>
+   </property>
+  </action>
+  <action name="action66_0xx">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>66-0xx</string>
+   </property>
+  </action>
+  <action name="action67_0xx">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>67-0xx</string>
+   </property>
+  </action>
+  <action name="actionDownload">
+   <property name="text">
+    <string>Download Airfoil Data</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionShow_Axis">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show &amp;Axis</string>
+   </property>
+  </action>
+  <action name="actionShow_Grid">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show &amp;Grid</string>
+   </property>
+  </action>
+  <action name="actionShow_Top_view">
+   <property name="text">
+    <string>Show Top view</string>
+   </property>
+  </action>
+  <action name="actionShow_Side_view">
+   <property name="text">
+    <string>Show Side view</string>
+   </property>
+  </action>
+  <action name="actionShow_3D_view">
+   <property name="text">
+    <string>Show 3D view</string>
+   </property>
+  </action>
+  <action name="actionShow_Calculation">
+   <property name="text">
+    <string>Show Calculation</string>
+   </property>
+  </action>
+  <action name="actionShow_Bulb_Data">
+   <property name="text">
+    <string>Show Bulb Data</string>
+   </property>
+  </action>
+  <action name="actionTile">
+   <property name="text">
+    <string>TIle</string>
+   </property>
+  </action>
+  <action name="actionCascade">
+   <property name="text">
+    <string>Cascade</string>
+   </property>
+  </action>
+  <action name="actionData_Options">
+   <property name="text">
+    <string>Data Options</string>
+   </property>
+  </action>
+  <action name="actionPrint_options">
+   <property name="text">
+    <string>Print options</string>
+   </property>
+  </action>
+  <action name="actionPrintSectionFromTop">
+   <property name="text">
+    <string>Section From Top</string>
+   </property>
+  </action>
+  <action name="actionText_File">
+   <property name="text">
+    <string>Text File</string>
+   </property>
+  </action>
+  <action name="actionImport_Foil_Data">
+   <property name="text">
+    <string>Import Foil Data</string>
+   </property>
+  </action>
+  <action name="actionPrintLinesPlan">
+   <property name="text">
+    <string>Linesplan</string>
+   </property>
+  </action>
+  <action name="actionLow">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Low</string>
+   </property>
+  </action>
+  <action name="actionMedium">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Medium</string>
+   </property>
+  </action>
+  <action name="actionHigh">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>High</string>
+   </property>
+  </action>
+  <action name="actionHighest">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Highest</string>
+   </property>
+  </action>
+  <action name="actionPrintData">
+   <property name="text">
+    <string>Data</string>
+   </property>
+  </action>
+  <action name="actionCalculation_2">
+   <property name="text">
+    <string>Calculation</string>
+   </property>
+  </action>
+  <action name="actionPrintSectionFromSide">
+   <property name="text">
+    <string>Section From Side</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="../BulbCalculator.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>action_Quit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

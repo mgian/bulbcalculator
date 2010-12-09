@@ -1,0 +1,17 @@
+creator: Gianluca Montecchi <gian@grys.it>
+
+
+reporter: Gianluca Montecchi <gian@grys.it>
+
+
+severity: minor
+
+
+status: fixed
+
+
+summary: Remove the necessity to have multiple copies of the nacca_profile structure
+
+
+time: Wed, 23 Dec 2009 18:08:27 +0000
+

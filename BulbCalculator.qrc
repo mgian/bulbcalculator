@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="MainWin">
+    <file>aboutbulb.png</file>
+  </qresource>
+</RCC>

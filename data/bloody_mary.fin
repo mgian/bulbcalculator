@@ -1,0 +1,7 @@
+[fin data]
+layer_thickness=0.05
+min_thickness=0.05
+
+samples=0,1.5567,3.1333,4.67,6.2267,7.7833,9.34
+leadingedge=-9.15,-8.55,-8.15,-7.6,-7,-6.3,-5.22
+trailingedge=9.15,8.55,8.15,7.6,7,6.3,5.22

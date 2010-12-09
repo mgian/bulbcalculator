@@ -1,0 +1,5 @@
+There is a basic implementation using a menu' with checkable
+entry. I think it is better than the dialog. Another option to explore
+can be the use of some control on the 3d view, to have an immediate feedback
+An interesting approach can be a mixed one: grid, axis and similar thing can
+be handled with a menu, resolution/view mode can be handles with some control

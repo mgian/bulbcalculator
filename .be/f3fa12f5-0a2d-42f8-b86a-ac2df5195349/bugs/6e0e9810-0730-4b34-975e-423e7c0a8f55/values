@@ -1,0 +1,17 @@
+extra_strings:
+- BLOCKED-BY:58f3bf42-3721-4ad0-96f3-8cac3dee098c
+- BLOCKED-BY:b18915cd-b1e0-4176-8cab-eb00a0a98bd4
+- BLOCKED-BY:d15b83cc-4791-4954-925b-d6c283c66195
+
+
+severity: target
+
+
+status: open
+
+
+summary: Undefined
+
+
+time: Thu, 07 Oct 2010 21:10:10 +0000
+
