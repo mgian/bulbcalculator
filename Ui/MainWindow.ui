@@ -30,7 +30,7 @@
      <x>0</x>
      <y>0</y>
      <width>966</width>
-     <height>20</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -93,12 +93,19 @@
      <addaction name="action66_0xx"/>
      <addaction name="action67_0xx"/>
     </widget>
+    <widget class="QMenu" name="menuDownload_Airfoil_Data">
+     <property name="title">
+      <string>Download Airfoil Data</string>
+     </property>
+     <addaction name="actionUIUC_foils"/>
+    </widget>
     <addaction name="menuNACA_Foil"/>
     <addaction name="action_SetParameters"/>
     <addaction name="separator"/>
     <addaction name="actionData_Options"/>
     <addaction name="separator"/>
-    <addaction name="actionDownload"/>
+    <addaction name="menuDownload_Airfoil_Data"/>
+    <addaction name="separator"/>
     <addaction name="actionImport_Foil_Data"/>
    </widget>
    <widget class="QMenu" name="menu3D_Options">
@@ -313,11 +320,6 @@
     <string>67-0xx</string>
    </property>
   </action>
-  <action name="actionDownload">
-   <property name="text">
-    <string>Download Airfoil Data</string>
-   </property>
-  </action>
   <action name="actionAbout">
    <property name="text">
     <string>About</string>
@@ -455,6 +457,11 @@
   <action name="actionPrintSectionFromSide">
    <property name="text">
     <string>Section From Side</string>
+   </property>
+  </action>
+  <action name="actionUIUC_foils">
+   <property name="text">
+    <string>UIUC foils</string>
    </property>
   </action>
  </widget>

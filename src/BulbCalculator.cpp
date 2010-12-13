@@ -3,9 +3,8 @@
 #include <QTableWidgetItem>
 #include <QResizeEvent>
 #include <QtXml>
-#include <QtWebKit>
-#include <QWebView>
 #include <QFileDialog>
+#include <QDesktopServices>
 
 #include "../include/BulbCalculator.h"
 #include "../include/nacafoil.h"
@@ -68,7 +67,7 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     connect( ui.actionData_Options, SIGNAL(triggered()), this, SLOT(SetBulbDataOptions()));
     connect( ui.actionImport_Foil_Data, SIGNAL(triggered()), this, SLOT(ImportFoilData()));
     connect( ui.actionAbout, SIGNAL(triggered()), this, SLOT(ShowAbout()));
-    connect( ui.actionDownload, SIGNAL(triggered()), this, SLOT(DownloadUIUC()));
+    connect( ui.actionUIUC_foils, SIGNAL(triggered()), this, SLOT(DownloadUIUC()));
     connect( ui.actionText_File, SIGNAL(triggered()), this, SLOT(ExportTextFile()));
     connect( ui.actionPrintSectionFromTop, SIGNAL(triggered()), this, SLOT(PrintBulbSectionFromTop()));
     connect( ui.actionPrintSectionFromSide, SIGNAL(triggered()), this, SLOT(PrintBulbSectionFromSide()));
@@ -709,9 +708,7 @@ void BulbCalculator::SaveAs() {
 
 void BulbCalculator::DownloadUIUC() {
 
-    DownloadDataDlg * DlgDwl = new DownloadDataDlg;
-    DlgDwl->show();
-
+    QDesktopServices::openUrl(QUrl("http://www.ae.illinois.edu/m-selig/ads/coord_database.html"));
 }
 
 void BulbCalculator::resizeEvent( QResizeEvent *e ) {

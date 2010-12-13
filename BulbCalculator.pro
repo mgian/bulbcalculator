@@ -3,11 +3,6 @@ HEADERS = include/BulbCalculator.h \
     include/SetBulParameter.h \
     include/BulbDataOptions.h \
     include/PrintBulb.h \
-    include/DownloadData.h \
-    include/downloadmanager.h \
-    edittableview.h \
-    include/autosaver.h \
-    include/networkaccessmanager.h \
     include/ExportDraw.h \
     include/Utils.h
 SOURCES = src/BulbCalculator.cpp \
@@ -18,25 +13,16 @@ SOURCES = src/BulbCalculator.cpp \
     src/BulbDataOptions.cpp \
     src/PrintBulb.cpp \
     src/ViewArea.cpp \
-    src/DownloadData.cpp \
-    src/downloadmanager.cpp \
-    src/edittableview.cpp \
-    src/autosaver.cpp \
-    src/networkaccessmanager.cpp \
     src/ExportDraw.cpp \
     src/Utils.cpp
 FORMS = Ui/MainWindow.ui \
     Ui/SetBulbParameterDialog.ui \
     Ui/BulbDataOptions.ui \
-    Ui/BulbPrintOptions.ui \
-    Ui/DownloadData.ui \
-    Ui/downloaditem.ui \
-    Ui/downloads.ui
+    Ui/BulbPrintOptions.ui
 CONFIG += debug
 CONFIG += release
 QT *= opengl \
     xml \
-    webkit \
     network
 TRANSLATIONS = i18n/BulbCalculator_it.ts
 TARGET = bin/BulbCalculator
