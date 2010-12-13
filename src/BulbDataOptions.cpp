@@ -25,7 +25,7 @@ void BulbDataOptions::SetDrawSlice() {
 */
 }
 
-void BulbDataOptions::SetBulbValue(double tl, double tw, double vl, double ws, int ns, int sc, int un, int ds, float st) {
+void BulbDataOptions::SetBulbValue(double tl, double tw, double vl, double ws, int ns, int sc, int un, float st) {
 
 
     this->LE_Len->setText(QString::number(tl,'.',4));

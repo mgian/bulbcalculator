@@ -11,7 +11,7 @@ class BulbDataOptions : public QDialog, private Ui::DBulbDataOptions
 
     public:
         BulbDataOptions();
-        void SetBulbValue(double tl, double tw, double vl, double ws, int ns, int sc, int un, int ds, float st);
+        void SetBulbValue(double tl, double tw, double vl, double ws, int ns, int sc, int un, float st);
         int GetUnit();
         int GetNumSec();
         int GetSectDist();

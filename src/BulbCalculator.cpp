@@ -552,7 +552,7 @@ void BulbCalculator::SetBulbDataOptions() {
 
     DlgBulbDataOpt->SetBulbValue(tl, this->target_weight, this->bulb_volume,
                                 this->bulb_wet_surface, this->num_sect, this->sect_dist, this->units,
-                                this->slice, this->slice_thickness);
+                                this->slice_thickness);
 
 
     ret = DlgBulbDataOpt->exec();

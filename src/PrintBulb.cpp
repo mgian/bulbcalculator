@@ -73,7 +73,7 @@ void PrintDraw::PrintPreview(QPrinter *pr) {
 
 void PrintDraw::DrawBulbData(QPrinter *prn) {
 
-    float wr, hr;
+    float wr;
     float w, h, offset;
 
     int x, y;
@@ -525,7 +525,7 @@ void PrintDraw::DrawBulbProfile(QPainter *painter) {
         aPen.setColor(Qt::black);
         aPen.setStyle(Qt::SolidLine);
         painter->setPen(aPen);
-        painter->drawEllipse(QPoint(x_pos+OriginX, t), width, diam/2);
+        painter->drawEllipse(QPointF(x_pos+OriginX, t), width, diam/2);
         aPen.setColor(Qt::gray);
         aPen.setStyle(Qt::DashLine);
         painter->setPen(aPen);
@@ -642,7 +642,7 @@ void PrintDraw::DrawBulbTop(QPainter *painter) {
         aPen.setStyle(Qt::SolidLine);
         painter->setPen(aPen);
 
-        painter->drawEllipse(QPoint(x_pos+OriginX, t), diam/2, width);
+        painter->drawEllipse(QPointF(x_pos+OriginX, t), diam/2, width);
         aPen.setColor(Qt::gray);
         aPen.setStyle(Qt::DashLine);
         painter->setPen(aPen);
@@ -740,7 +740,7 @@ long PrintDraw::DrawBulbView(QPainter *p, int w, int h) {
         pen.setColor(Qt::black);
         pen.setStyle(Qt::SolidLine);
         p->setPen(pen);
-        p->drawEllipse(QPoint(SectOriginX+ecc, OriginY), diam/2, width);
+        p->drawEllipse(QPointF(SectOriginX+ecc, OriginY), diam/2, width);
 
         pen.setColor(Qt::gray);
         pen.setStyle(Qt::DashLine);
