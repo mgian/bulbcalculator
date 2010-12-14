@@ -11,7 +11,7 @@
 #include <QGroupBox>
 #include <QLabel>
 
-#define VERSION     "1.9.0"
+#define VERSION     "1.9.1"
 
 #define UNIT_MM      0
 #define UNIT_INCH    1
