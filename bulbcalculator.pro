@@ -5,6 +5,7 @@ HEADERS = include/BulbCalculator.h \
     include/PrintBulb.h \
     include/ExportDraw.h \
     include/Utils.h
+
 SOURCES = src/BulbCalculator.cpp \
     src/main.cpp \
     src/View_3D.cpp \
@@ -15,12 +16,16 @@ SOURCES = src/BulbCalculator.cpp \
     src/ViewArea.cpp \
     src/ExportDraw.cpp \
     src/Utils.cpp
+
 FORMS = Ui/MainWindow.ui \
     Ui/SetBulbParameterDialog.ui \
     Ui/BulbDataOptions.ui \
     Ui/BulbPrintOptions.ui
+
 CONFIG += debug
+
 CONFIG += release
+
 QT *= opengl \
     xml \
     network
@@ -37,14 +42,19 @@ unix:LIBS *= -lQGLViewer
 # INCLUDEPATH *= C:/Programmi/libQGLViewer
 # LIBS *= -LC:/WINDOWS/system32 -lQGLViewer2
 # }
+
 # install
+
 target.path = /usr/bin/
+
 sources.files = $$SOURCES \
     $$HEADERS \
     $$RESOURCES \
     $$FORMS \
     *.pro
+
 sources.path = .
-INSTALLS += target \
-    sources
+
+INSTALLS = target
+
 RESOURCES += BulbCalculator.qrc
