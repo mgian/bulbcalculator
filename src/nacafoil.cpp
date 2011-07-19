@@ -474,10 +474,9 @@ bool profile::import_foil(string filename, int format)
 	foil_name = linebuf;
 
 	if(format==0) {
-		if(!import_uiuc_foil(ifs)) return false;
-	}
-	else {
-		if(!import_nasg_foil(ifs)) return false;
+            if(!import_uiuc_foil(ifs)) return false;
+        } else {
+            if(!import_nasg_foil(ifs)) return false;
 	}
 
 	if(xu.empty()||yu.empty()||xl.empty()||yl.empty()) return false;

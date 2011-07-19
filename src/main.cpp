@@ -30,7 +30,6 @@ int main(int argc, char *argv[]) {
     //QMainWindow* mainWindow = new QMainWindow;
 
     // Instantiate and layout the viewer
-
     BulbCalculator mw;
     mw.show();
 

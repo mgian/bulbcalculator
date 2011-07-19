@@ -218,7 +218,7 @@ void BulbCalculator::CreateSideWin() {
 
 void BulbCalculator::Create3dWin() {
 
-    this->widget3d = new QWidget;
+    this->widget3d = new QWidget();
 
     view3d = new Vista3D(this->widget3d);
     view3d->resize(this->widget3d->width(), this->widget3d->height());
@@ -1292,6 +1292,7 @@ void BulbCalculator::ImportFoilData() {
     if (fd->exec() == QDialog::Accepted ) {
         fileNameS = fd->selectedFiles();
     }
+
     if (fileNameS.isEmpty() == true) {
         return;
     }
@@ -1303,24 +1304,27 @@ void BulbCalculator::ImportFoilData() {
             fileName.append(ext);
         }
     }
+
     if(tmp_foil.import_foil(fileName.toStdString().c_str(), 0)) {
-            naca_profile = tmp_foil;
-            view3d->SetBc(this);
-            view3d->SetProfile();
-            BulbCalculator::DrawView();
-            this->GV_SideView->UpdateView();
-            this->GV_TopView->UpdateView();
-            BulbCalculator::SetUnchecked();
-            return;
+        naca_profile = tmp_foil;
+        view3d->SetBc(this);
+        view3d->SetProfile();
+        BulbCalculator::DrawView();
+        this->GV_SideView->UpdateView();
+        this->GV_TopView->UpdateView();
+        BulbCalculator::SetUnchecked();
+        return;
     }
+
     if(tmp_foil.import_foil(fileName.toStdString().c_str(), 1)) {
-            naca_profile = tmp_foil;
-            BulbCalculator::DrawView();
-            this->GV_SideView->UpdateView();
-            this->GV_TopView->UpdateView();
-            view3d->SetProfile();
-            BulbCalculator::SetUnchecked();
-            return;
+        naca_profile = tmp_foil;
+        view3d->SetBc(this);
+        view3d->SetProfile();
+        BulbCalculator::DrawView();
+        this->GV_SideView->UpdateView();
+        this->GV_TopView->UpdateView();
+        BulbCalculator::SetUnchecked();
+        return;
     }
 
 }
