@@ -467,6 +467,7 @@ bool profile::import_foil(string filename, int format)
 	foil_name = "";
 
 	char linebuf[512];
+
 	ifstream ifs(filename.c_str());
 	if(!ifs) return false;
 	ifs.getline(linebuf, sizeof linebuf);

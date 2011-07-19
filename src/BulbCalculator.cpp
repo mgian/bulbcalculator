@@ -1300,7 +1300,7 @@ void BulbCalculator::ImportFoilData() {
 
     if (fileName != "") {
         QString ext = ".dat";
-        if (!fileName.endsWith(ext)) {
+        if (!fileName.endsWith(ext.toLower()) && !fileName.endsWith(ext.toUpper()) ) {
             fileName.append(ext);
         }
     }
