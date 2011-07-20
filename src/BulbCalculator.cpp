@@ -168,7 +168,7 @@ void BulbCalculator::ShowAbout() {
     msg.append(VERSION);
     msg.append("</h2>");
     msg.append("Copyright 2000, 2001 by Marko Majic (Some Rights Reserved)<br>");
-    msg.append("Copyright 2010 by Gianluca Montecchi (Some Rights Reserved)<p>");
+    msg.append("Copyright 2010, 2011 by Gianluca Montecchi (Some Rights Reserved)<p>");
     msg.append("Contact: gian@grys.it");
     msg.append("</center>");
     QMessageBox::about(this, "About BulbCalculator", msg);

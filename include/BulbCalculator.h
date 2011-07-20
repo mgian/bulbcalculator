@@ -30,7 +30,7 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #include <QGroupBox>
 #include <QLabel>
 
-#define VERSION     "1.9.4"
+#define VERSION     "2.0.0"
 
 #define UNIT_MM      0
 #define UNIT_INCH    1
