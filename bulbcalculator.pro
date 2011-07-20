@@ -24,7 +24,7 @@ FORMS = Ui/MainWindow.ui \
 
 CONFIG += debug
 
-#CONFIG += release
+CONFIG += release
 
 QT *= opengl \
     xml \

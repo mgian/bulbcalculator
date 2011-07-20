@@ -642,7 +642,13 @@ void BulbCalculator::NewBulb() {
                 break;
         }
     }
+    BulbCalculator::SetDefaultValue();
     BulbCalculator::SetBulbParameter();
+    BulbCalculator::Set00xx();
+    this->GV_SideView->UpdateView();
+    this->GV_TopView->UpdateView();
+    BulbCalculator::DrawView();
+
     this->Modified = 1;
 }
 
