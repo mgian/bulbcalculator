@@ -291,23 +291,13 @@ GLuint Vista3D::makeObject() {
     w = long(tl);
     zMin = 0;
     zMax = w;
-    double point_x[w];
-    double point_wyu[w];
-    double point_wyl[w];
-    double point_hyu[w];
-    double point_hyl[w];
 
     mult = this->bc->naca_profile.num_step/(double)w;
 
     glBegin(GL_POINTS);
     glColor3f(1.0,1.0,1.0);
     for(int i=0; i<=w; i++) {
-        point_x[i] = i;
         profile_data& pd(this->bc->naca_profile[(unsigned)((double)i*mult)]);
-        point_wyu[i] = pd.width * w;
-        point_wyl[i] = -pd.width * w;
-        point_hyu[i] = pd.height_u * w;
-        point_hyl[i] = pd.height_l * w;
         Vista3D::drawEllipse((i-w/2)/10.0, (pd.width*2)/10.0, (pd.height_u)/10.0,(pd.height_l)/10.0);
     }
     glEnd();

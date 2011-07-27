@@ -431,8 +431,6 @@ bool get_number_pair(istream& is, double& x, double& y)
         QString sx, sy;
         char t1[16];
         char t2[16];
-
-
         int ret;
 
 	for(;;) {

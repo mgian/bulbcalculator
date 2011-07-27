@@ -160,7 +160,7 @@ void PrintDraw::DrawBulbData(QPrinter *prn) {
 
     offset = 6000;
 
-    double mu, ml, my, mx;
+    double mu, ml, mx;
     mx = this->bc->naca_profile.max_width * wr;
     mu = this->bc->naca_profile.max_height_u * wr;
     ml = this->bc->naca_profile.max_height_l * wr;
@@ -168,7 +168,7 @@ void PrintDraw::DrawBulbData(QPrinter *prn) {
     if (ml < 0) {
         ml *= -1;
     }
-    my = mu+ml;
+//    my = mu+ml;
     double fal = (ml*mx*3.14)/2.0;
     double fau = (mu*mx*3.14)/2.0;
     double fa = fal+fau;
@@ -228,16 +228,13 @@ void PrintDraw::DrawBulbData(QPrinter *prn) {
 
 void PrintDraw::CheckBulbDimension(QPainter *painter) {
 
-    float wr, hr;
-    float w, h;
+    float wr;
+    float w;
 
     wr = pow((this->bc->target_weight*1000.0)/(this->bc->naca_profile.volume*this->bc->material_density), 1.0/3.0);
     wr *= 1000;
 
     w = painter->window().width();
-    h = painter->window().height();
-
-    hr = (this->bc->naca_profile.max_height_l + this->bc->naca_profile.max_height_u) * 1000;
 
     if (wr > w) {
         QMessageBox::warning(NULL, tr("BulbCalculator"),
@@ -303,8 +300,6 @@ void PrintDraw::DrawBulbLinesPlan(QPainter *painter) {
 
     // Draw the profiles
     double s_point_x[wri];
-    double s_point_wyu[wri];
-    double s_point_wyl[wri];
     double s_point_hyu[wri];
     double s_point_hyl[wri];
 
@@ -313,8 +308,6 @@ void PrintDraw::DrawBulbLinesPlan(QPainter *painter) {
     for(int i=0;i < wri; i++) {
         s_point_x[i] = i;
         profile_data& pd(this->bc->naca_profile[(unsigned)((double)i*mult)]);
-        s_point_wyu[i] = pd.width * wr;
-        s_point_wyl[i] = -pd.width * wr;
         s_point_hyu[i] = pd.height_u * wr;
         s_point_hyl[i] = pd.height_l * wr;
     }
@@ -482,8 +475,6 @@ void PrintDraw::DrawBulbProfile(QPainter *painter) {
 
     // Draw the profiles
     double point_x[wri];
-    double point_wyu[wri];
-    double point_wyl[wri];
     double point_hyu[wri];
     double point_hyl[wri];
 
@@ -492,8 +483,6 @@ void PrintDraw::DrawBulbProfile(QPainter *painter) {
     for(int i=0;i < wri; i++) {
         point_x[i] = i;
         profile_data& pd(this->bc->naca_profile[(unsigned)((double)i*mult)]);    
-        point_wyu[i] = pd.width * wr;
-        point_wyl[i] = -pd.width * wr;
         point_hyu[i] = pd.height_u * wr;
         point_hyl[i] = pd.height_l * wr;
     }
@@ -599,8 +588,6 @@ void PrintDraw::DrawBulbTop(QPainter *painter) {
     double point_x[wri];
     double point_wyu[wri];
     double point_wyl[wri];
-    double point_hyu[wri];
-    double point_hyl[wri];
 
     mult = this->bc->naca_profile.num_step/(double)wr;
 
@@ -609,8 +596,6 @@ void PrintDraw::DrawBulbTop(QPainter *painter) {
         profile_data& pd(this->bc->naca_profile[(unsigned)((double)i*mult)]);
         point_wyu[i] = pd.width * wr;
         point_wyl[i] = -pd.width * wr;
-        point_hyu[i] = pd.height_u * wr;
-        point_hyl[i] = pd.height_l * wr;
     }
 
     for(int i=1; i < wri; i++) {
@@ -674,13 +659,12 @@ void PrintDraw::DrawBulbTop(QPainter *painter) {
 
 long PrintDraw::DrawBulbView(QPainter *p, int w, int h) {
 
-    long wr,hr;
+    long wr;
     double OriginY, OriginX, SectOriginX;
     double mult;
     QPen pen;
 
     wr = (w-100)/2;
-    hr = h;
 
     OriginY = this->bc->naca_profile.max_width*wr + 500;
     OriginX = 0;

@@ -86,8 +86,6 @@ void ViewArea::DrawBulbTop() {
     double point_x[w];
     double point_wyu[w];
     double point_wyl[w];
-    double point_hyu[w];
-    double point_hyl[w];
 
     mult = this->bc->naca_profile.num_step/(double)w;
 
@@ -96,8 +94,6 @@ void ViewArea::DrawBulbTop() {
         profile_data& pd(this->bc->naca_profile[(unsigned)((double)i*mult)]);
         point_wyu[i] = pd.width * w;
         point_wyl[i] = -pd.width * w;
-        point_hyu[i] = pd.height_u * w;
-        point_hyl[i] = pd.height_l * w;
     }
 
     for(int i=1; i < w; i++) {
@@ -124,8 +120,6 @@ void ViewArea::DrawBulbSide() {
 
 
     double point_x[w];
-    double point_wyu[w];
-    double point_wyl[w];
     double point_hyu[w];
     double point_hyl[w];
 
@@ -134,8 +128,6 @@ void ViewArea::DrawBulbSide() {
     for(int i=0;i < w; i++) {
         point_x[i] = i;
         profile_data& pd(this->bc->naca_profile[(unsigned)((double)i*mult)]);
-        point_wyu[i] = pd.width * w;
-        point_wyl[i] = -pd.width * w;
         point_hyu[i] = pd.height_u * w;
         point_hyl[i] = pd.height_l * w;
     }

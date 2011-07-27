@@ -560,12 +560,12 @@ void BulbCalculator::PrintBulbData() {
 
 void BulbCalculator::SetBulbDataOptions() {
 
-    int ret, x, y;
+    int ret;
     double tl;
 
     BulbDataOptions *DlgBulbDataOpt = new BulbDataOptions;
-    x = this->ui.centralwidget->width();
-    y = this->ui.centralwidget->height();
+//    x = this->ui.centralwidget->width();
+//    y = this->ui.centralwidget->height();
     tl = pow((target_weight*1000.0)/(naca_profile.volume*material_density), 1.0/3.0);
 
     DlgBulbDataOpt->SetBulbValue(tl, this->target_weight, this->bulb_volume,
@@ -745,8 +745,8 @@ void BulbCalculator::resizeEvent( QResizeEvent *e ) {
 void BulbCalculator::UpdateResults() {
 
     double tl;
-    int i,r, hs, he, cur_h;
-    double hl, vol, mx, my;
+    int i, hs, cur_h;
+    double hl, vol, mx;
 
     QTableWidgetItem *it;
 
@@ -760,10 +760,9 @@ void BulbCalculator::UpdateResults() {
     this->bulb_volume = naca_profile.volume*(double)pow(tl,3);
     this->bulb_wet_surface = naca_profile.wetted_surface*(double)pow(tl,2);
     tl = floor(tl*1000.0+.5)/1000.0;
-    r = 0;
+
     hl = this->naca_profile.HLRatio * 100;
     hs = (int)hl - 3;
-    he = (int)hl + 3;
     it = new QTableWidgetItem;
     it->setText("");
 
@@ -978,7 +977,6 @@ void BulbCalculator::UpdateResults() {
         if (ml < 0) {
             ml *= -1;
         }
-        my = mu+ml;
         double fal = (ml*mx*3.14)/2.0;
         double fau = (mu*mx*3.14)/2.0;
         double fa = fal+fau;
