@@ -1,5 +1,5 @@
 
-VER = 1.9.2
+VER = V_2.0.0
 
 release:
 	git archive --format=tar --prefix=bulbcalculator-$(VER)/ master | gzip > ../bulbcalculator-$(VER).tar.gz
