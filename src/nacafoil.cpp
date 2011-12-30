@@ -453,6 +453,7 @@ bool get_number_pair(istream& is, double& x, double& y)
 
         x = sx.toDouble();
         y = sy.toDouble();
+
 	return true;
 }
 

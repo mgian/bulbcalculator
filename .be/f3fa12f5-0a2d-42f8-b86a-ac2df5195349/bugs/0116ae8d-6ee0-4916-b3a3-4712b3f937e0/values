@@ -11,7 +11,7 @@ reporter: Gianluca <gian@grys.it>
 severity: minor
 
 
-status: open
+status: closed
 
 
 summary: Not all the profiles file are imported correctly
