@@ -52,6 +52,7 @@ void BulbDataOptions::SetBulbValue(double tl, double tw, double vl, double ws, i
     this->LE_Vol->setText(QString::number(vl,'.',4));
     this->LE_WetSurf->setText(QString::number(ws,'.',4));
     this->DSP_SliceThickness->setValue(st);
+    this->unit = un;
 
     this->SP_NumOfSec->setValue(ns);
 
@@ -93,6 +94,10 @@ float BulbDataOptions::GetSliceThickness() {
 }
 
 void BulbDataOptions::SetMM() {
+
+    if (this->unit == UNIT_MM) {
+        return;
+    }
 
     this->unit = UNIT_MM;
 
