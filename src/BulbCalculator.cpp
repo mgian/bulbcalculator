@@ -1016,6 +1016,7 @@ void BulbCalculator::SetBulbParameter() {
     if (ret == QDialog::Accepted) {
         naca_profile.HLRatio = DlgParam->GetHLR();
         naca_profile.WHRatio = DlgParam->GetWHR();
+
         this->target_weight = DlgParam->GetTargetWeight();
         this->material_density = DlgParam->GetMaterialDensity();
         delete DlgParam;

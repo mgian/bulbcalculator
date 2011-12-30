@@ -46,24 +46,26 @@ float SetBulbParam::GetMaterialDensity(void) {
 
 }
 
-float SetBulbParam::GetHLR(void) {
-
-    return(SP_HLR->value()/100.0);
+double SetBulbParam::GetHLR(void) {
+    double t;
+    t = SP_HLR->value()/100.0;
+    return(t);
 
 }
 
-float SetBulbParam::GetWHR(void) {
+double SetBulbParam::GetWHR(void) {
 
     return(this->SP_WHR->value()/100.0);
 
 }
 
-void SetBulbParam::SetCurrentValue(float tw, float md, float hrl, float whr) {
+void SetBulbParam::SetCurrentValue(float tw, float md, double hrl, double whr) {
 
     this->DSP_TW->setValue(tw);
     this->DSP_MD->setValue(md);
-    this->SP_HLR->setValue(hrl*100.0);
-    this->SP_WHR->setValue(whr*100.0);
+
+    this->SP_HLR->setValue(ceil(hrl*100));
+    this->SP_WHR->setValue(ceil(whr*100));
 
 }
 

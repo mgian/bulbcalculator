@@ -32,9 +32,9 @@ class SetBulbParam : public QDialog, private Ui::D_BulbParam
         void SetDefaultValue(void);
         float GetTargetWeight(void);
         float GetMaterialDensity(void);
-        float GetHLR(void);
-        float GetWHR(void);
-        void SetCurrentValue(float tw, float md, float hrl, float whr);
+        double GetHLR(void);
+        double GetWHR(void);
+        void SetCurrentValue(float tw, float md, double hrl, double whr);
 
     private slots:
         void ResetValues();
