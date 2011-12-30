@@ -117,6 +117,10 @@ void BulbDataOptions::SetMM() {
 
 void BulbDataOptions::SetInchF() {
 
+    if (this->unit == UNIT_INCH_F) {
+        return;
+    }
+
 
     if (this->unit == UNIT_MM) {
         this->label->setText(QString("Lenght (in):"));
@@ -132,10 +136,16 @@ void BulbDataOptions::SetInchF() {
         this->LE_WetSurf->setText(QString::number(this->LE_WetSurf->text().toFloat() * 0.155,'.',4));
     }
     this->unit = UNIT_INCH_F;
+
 }
 
 
 void BulbDataOptions::SetInchD() {
+
+    if (this->unit == UNIT_INCH) {
+        return;
+    }
+
 
     if (this->unit == UNIT_MM) {
         this->label->setText(QString("Lenght (in):"));
