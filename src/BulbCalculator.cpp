@@ -242,7 +242,6 @@ void BulbCalculator::CreateCalcWin() {
 
     QStringList hcols;
     hcols << "Unit" << "-3%" << "-2%" << "-1%" << "0" << "+1%" << "+2%" << "+3%";
-    qDebug() << hcols;
     this->TW_Bulb->setHorizontalHeaderLabels(hcols);
 
     QStringList hrows;
@@ -863,11 +862,17 @@ void BulbCalculator::UpdateResults() {
         // Height
         cur_h = hs+i-1;
         it = new QTableWidgetItem;
+        if(i == 4) {
+            it->setBackgroundColor(QColor("#00ff00"));
+        }
         it->setText(QString::number(cur_h).append(" %"));
         this->TW_Bulb->setItem(0,i,it);
 
         // Material Density
         it = new QTableWidgetItem;
+        if(i == 4) {
+            it->setBackgroundColor(QColor("#00ff00"));
+        }
         switch(this->units) {
             case UNIT_MM:
                 it->setText(QString::number(this->material_density,'.',2));
@@ -881,6 +886,9 @@ void BulbCalculator::UpdateResults() {
 
         // Lenght
         it = new QTableWidgetItem;
+        if(i == 4) {
+            it->setBackgroundColor(QColor("#00ff00"));
+        }
         this->naca_profile.HLRatio = cur_h / 100.0;
         this->naca_profile.calc();
         tl = pow((target_weight*1000.0)/(naca_profile.volume*material_density), 1.0/3.0);
@@ -898,6 +906,9 @@ void BulbCalculator::UpdateResults() {
 
         // Center
         it = new QTableWidgetItem;
+        if(i == 4) {
+            it->setBackgroundColor(QColor("#00ff00"));
+        }
         double gc = tl * this->naca_profile.gcentre;
         switch(this->units) {
             case UNIT_MM:
@@ -912,6 +923,10 @@ void BulbCalculator::UpdateResults() {
 
         // Center/Lenght
         it = new QTableWidgetItem;
+        if(i == 4) {
+            it->setBackgroundColor(QColor("#00ff00"));
+        }
+
         it->setText(QString::number(this->naca_profile.gcentre*100,'.',2).append(("%")));
         this->TW_Bulb->setItem(4,i,it);
 
@@ -919,6 +934,9 @@ void BulbCalculator::UpdateResults() {
 
         // Projected Weight
         it = new QTableWidgetItem;
+        if(i == 4) {
+            it->setBackgroundColor(QColor("#00ff00"));
+        }
         double vol_e = vol * (double)this->material_density;
 
         switch(this->units) {
@@ -935,6 +953,9 @@ void BulbCalculator::UpdateResults() {
 
         // Volume
         it = new QTableWidgetItem;
+        if(i == 4) {
+            it->setBackgroundColor(QColor("#00ff00"));
+        }
         switch(this->units) {
             case UNIT_MM:
                 it->setText(QString::number(vol,'.',2));
@@ -949,6 +970,9 @@ void BulbCalculator::UpdateResults() {
 
         // Wetted surface
         it = new QTableWidgetItem;
+        if(i == 4) {
+            it->setBackgroundColor(QColor("#00ff00"));
+        }
         double ws_e = naca_profile.wetted_surface* (double)pow(tl, 2);
         switch(this->units) {
             case UNIT_MM:
@@ -963,6 +987,9 @@ void BulbCalculator::UpdateResults() {
 
         // Max Diameter
         it = new QTableWidgetItem;
+        if(i == 4) {
+            it->setBackgroundColor(QColor("#00ff00"));
+        }
         // X axis
         mx = this->naca_profile.max_width * tl;
         switch(this->units) {
@@ -978,6 +1005,9 @@ void BulbCalculator::UpdateResults() {
 
         // Frontal area
         it = new QTableWidgetItem;
+        if(i == 4) {
+            it->setBackgroundColor(QColor("#00ff00"));
+        }
         // Y axis
         double mu, ml;
         mu = this->naca_profile.max_height_u * tl;
