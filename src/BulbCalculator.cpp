@@ -244,9 +244,13 @@ void BulbCalculator::CreateCalcWin() {
     hrows << "Lenght / Height" << "Material density" << "Lenght" << "Center" << "Center / Lenght" << "Projected Weight";
     hrows << "Volume" << "Wetted Surface" << "Max Diameter" << "Frontal Area";
     this->TW_Bulb->setVerticalHeaderLabels(hrows);
+    QStringList hcols;
+    hcols << "-3%" << "-2%" << "-1%" << "0" << "+1%" << "+2%" << "+3%";
+    this->TW_Bulb->setHorizontalHeaderLabels(hcols);
     this->TW_Bulb->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    this->TW_Bulb->setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Minimum);
-    this->TW_Bulb->horizontalHeader()->setVisible(false);
+    this->TW_Bulb->setSizePolicy(QSizePolicy::Preferred,QSizePolicy::Preferred);
+    this->TW_Bulb->setAlternatingRowColors(true);
+    this->TW_Bulb->setSelectionBehavior(QAbstractItemView::SelectRows);
     BulbCalculation->setWindowTitle(tr("Bulb Calculation"));
     QVBoxLayout *l1 = new QVBoxLayout;
     this->wdCalc = new QWidget;
@@ -255,8 +259,9 @@ void BulbCalculator::CreateCalcWin() {
     this->BulbName->setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Fixed);
     l1->addWidget(this->TW_Bulb);
     this->wdCalc->setLayout(l1);
-    BulbCalculation->setWidget(this->wdCalc);
+    BulbCalculation->setWidget(this->wdCalc);    
     ui.mdiArea->addSubWindow(this->BulbCalculation);
+
 
 }
 
@@ -266,8 +271,12 @@ void BulbCalculator::CreateDataWin() {
     // Bulb data window
     this->BulbData = new QMdiSubWindow;
     this->TW_SubBulbDataGen = new QTableWidget(5,2);
+    this->TW_SubBulbDataGen->setAlternatingRowColors(true);
+    this->TW_SubBulbDataGen->setSelectionBehavior(QAbstractItemView::SelectRows);
     this->TW_SubBulbDataGen->horizontalHeader()->setVisible(false);
     this->TW_SubBulbDataSec = new QTableWidget(0,5);
+    this->TW_SubBulbDataSec->setAlternatingRowColors(true);
+    this->TW_SubBulbDataSec->setSelectionBehavior(QAbstractItemView::SelectRows);
     this->gb1 = new QGroupBox(tr("General data"));
     this->gb2 = new QGroupBox(tr("Sections data"));
     this->TW_SubBulbDataGen->setEditTriggers(QAbstractItemView::NoEditTriggers);
