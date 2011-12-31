@@ -240,17 +240,21 @@ void BulbCalculator::CreateCalcWin() {
     this->BulbCalculation = new QMdiSubWindow;
     this->TW_Bulb = new QTableWidget(10,8);
 
+    QStringList hcols;
+    hcols << "Unit" << "-3%" << "-2%" << "-1%" << "0" << "+1%" << "+2%" << "+3%";
+    qDebug() << hcols;
+    this->TW_Bulb->setHorizontalHeaderLabels(hcols);
+
     QStringList hrows;
     hrows << "Lenght / Height" << "Material density" << "Lenght" << "Center" << "Center / Lenght" << "Projected Weight";
     hrows << "Volume" << "Wetted Surface" << "Max Diameter" << "Frontal Area";
     this->TW_Bulb->setVerticalHeaderLabels(hrows);
-    QStringList hcols;
-    hcols << "-3%" << "-2%" << "-1%" << "0" << "+1%" << "+2%" << "+3%";
-    this->TW_Bulb->setHorizontalHeaderLabels(hcols);
+
     this->TW_Bulb->setEditTriggers(QAbstractItemView::NoEditTriggers);
     this->TW_Bulb->setSizePolicy(QSizePolicy::Preferred,QSizePolicy::Preferred);
     this->TW_Bulb->setAlternatingRowColors(true);
     this->TW_Bulb->setSelectionBehavior(QAbstractItemView::SelectRows);
+
     BulbCalculation->setWindowTitle(tr("Bulb Calculation"));
     QVBoxLayout *l1 = new QVBoxLayout;
     this->wdCalc = new QWidget;
@@ -772,10 +776,6 @@ void BulbCalculator::UpdateResults() {
 
     hl = this->naca_profile.HLRatio * 100;
     hs = (int)hl - 3;
-    it = new QTableWidgetItem;
-    it->setText("");
-
-    this->TW_Bulb->setHorizontalHeaderItem(0,it);
 
     QString tmpBulbName = "";
     QString tmpVal = "";
