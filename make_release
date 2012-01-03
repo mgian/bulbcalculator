@@ -1,5 +1,11 @@
+#!/bin/sh
 
-VER = V_2.0.0
 
-release:
-	git archive --format=tar --prefix=bulbcalculator-$(VER)/ master | gzip > ../bulbcalculator-$(VER).tar.gz
+VER="2.1.1"
+
+echo "Creating tar.gz file"
+git archive --format=tar --prefix=bulbcalculator-$VER/ master | gzip > ../bulbcalculator-src-$VER.tar.gz
+
+echo "Creating tar.xz file"
+git archive --format=tar --prefix=bulbcalculator-$VER/ master | xz > ../bulbcalculator-src-$VER.tar
+xz ../bulbcalculator-src-$VER.tar
