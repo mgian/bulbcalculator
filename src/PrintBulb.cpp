@@ -25,14 +25,19 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 
 PrintDraw::PrintDraw(BulbCalculator *bc, int pt) {
 
-    QPrinter printer(QPrinter::HighResolution);
-    printer.setOrientation(QPrinter::Landscape);
-    QPrintPreviewDialog preview(&printer);
-    connect(&preview, SIGNAL(paintRequested(QPrinter*)), SLOT(PrintPreview(QPrinter*)));
-    this->bc = bc;
-    this->PrintType = pt;
-    preview.exec();
+    QPrinter printer;
 
+    QPrintDialog printDialog(&printer);
+    if (printDialog.exec() == QDialog::Accepted) {
+        printer.setResolution(QPrinter::HighResolution);
+        QPrintPreviewDialog preview(&printer);
+        connect(&preview, SIGNAL(paintRequested(QPrinter*)), SLOT(PrintPreview(QPrinter*)));
+        this->bc = bc;
+        this->PrintType = pt;
+        preview.exec();
+    } else {
+        return;
+    }
 
 }
 
@@ -50,30 +55,29 @@ void PrintDraw::PrintPreview(QPrinter *pr) {
     QPainter aPainter;
 
 
-    float aLogicalWidth = 21000;
-    float aLogicalHeight = 29700;
+    float aLogicalWidth = pr->widthMM() * 100;
+    float aLogicalHeight = pr->heightMM() * 100;
     float aPhysicalWidth = pr->width();
     float aPhysicalHeight = pr->height();
-
-
 
     if (this->PrintType == P_DATA) {
         this->DrawBulbData(pr);
     } else {
-        pr->setPageSize(pr->A4);
         pr->setPageMargins(0.0,0.0,0.0,0.0, pr->Millimeter);
         aPainter.begin(pr);
         o = pr->orientation();
         if (o == QPrinter::Landscape) {
             aPainter.setWindow(0, 0, aLogicalHeight, aLogicalWidth);
+            aPainter.setViewport(0, 0, aPhysicalHeight,aPhysicalWidth);
+
         }
         if (o == QPrinter::Portrait) {
             aPainter.setWindow(0, 0, aLogicalWidth, aLogicalHeight);
+            aPainter.setViewport(0, 0, aPhysicalWidth, aPhysicalHeight);
+
         }
 
-        aPainter.setViewport(0, 0, aPhysicalWidth, aPhysicalHeight);
-
-        this->CheckBulbDimension(&aPainter);
+        this->CheckBulbDimension(&aPainter, pr->orientation());
         switch(this->PrintType) {
             case P_SECTIONS_TOP:
                 this->DrawBulbSection(&aPainter, P_SECTIONS_TOP);
@@ -82,7 +86,7 @@ void PrintDraw::PrintPreview(QPrinter *pr) {
                 this->DrawBulbSection(&aPainter, P_SECTIONS_SIDE);
                 break;
             case P_LINESPLAN:
-                this->DrawBulbLinesPlan(&aPainter);
+                this->DrawBulbLinesPlan(&aPainter, pr->orientation());
                 break;
         }
         aPainter.end();
@@ -226,7 +230,7 @@ void PrintDraw::DrawBulbData(QPrinter *prn) {
 
 }
 
-void PrintDraw::CheckBulbDimension(QPainter *painter) {
+void PrintDraw::CheckBulbDimension(QPainter *painter, int ori) {
 
     float wr;
     float w;
@@ -234,7 +238,12 @@ void PrintDraw::CheckBulbDimension(QPainter *painter) {
     wr = pow((this->bc->target_weight*1000.0)/(this->bc->naca_profile.volume*this->bc->material_density), 1.0/3.0);
     wr *= 1000;
 
-    w = painter->window().width();
+    if (ori == QPrinter::Landscape) {
+        w = painter->window().height();
+    }
+    if (ori == QPrinter::Portrait) {
+        w = painter->window().width();
+    }
 
     if (wr > w) {
         QMessageBox::warning(NULL, tr("BulbCalculator"),
@@ -259,7 +268,7 @@ void PrintDraw::DrawBulbSection(QPainter *painter, int MainView) {
 
 }
 
-void PrintDraw::DrawBulbLinesPlan(QPainter *painter) {
+void PrintDraw::DrawBulbLinesPlan(QPainter *painter, int ori) {
 
     double OriginY;
     double OriginX;
@@ -275,8 +284,14 @@ void PrintDraw::DrawBulbLinesPlan(QPainter *painter) {
     wr *= 1000;
     wri = (int)wr;
 
-    x = painter->window().width();
-    y = painter->window().height();
+    if (ori == QPrinter::Landscape) {
+        y = painter->window().width();
+        x = painter->window().height();
+    }
+    if (ori == QPrinter::Portrait) {
+        x = painter->window().width();
+        y = painter->window().height();
+    }
 
     OriginX = (x - wr) / 2.0;
     OriginY = (y*25)/100;
@@ -347,14 +362,22 @@ void PrintDraw::DrawBulbLinesPlan(QPainter *painter) {
     }
 
 
+    qDebug() << "top" << y;
 
     // TOP VIEW
     wr = pow((this->bc->target_weight*1000.0)/(this->bc->naca_profile.volume*this->bc->material_density), 1.0/3.0);
-
     wr *= 1000;
     wri = (int)wr;
-    x = painter->window().width();
-    y = painter->window().height();
+
+    if (ori == QPrinter::Landscape) {
+        y = painter->window().width();
+        x = painter->window().height();
+    }
+    if (ori == QPrinter::Portrait) {
+        x = painter->window().width();
+        y = painter->window().height();
+    }
+
 
     OriginX = (x - wr) / 2.0;
     OriginY = (y*75)/100;

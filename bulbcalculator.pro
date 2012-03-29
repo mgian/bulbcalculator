@@ -22,7 +22,7 @@ FORMS = Ui/MainWindow.ui \
     Ui/BulbDataOptions.ui \
     Ui/BulbPrintOptions.ui
 
-CONFIG += debug
+CONFIG += debug release
 
 #CONFIG += release
 

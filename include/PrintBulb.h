@@ -46,9 +46,9 @@ class PrintDraw: public QTextDocument {
         BulbCalculator *bc;
         void DrawBulbProfile(QPainter *painter);
         void DrawBulbSection(QPainter *painter, int MainView);
-        void DrawBulbLinesPlan(QPainter *painter);
+        void DrawBulbLinesPlan(QPainter *painter, int ori);
         void DrawBulbTop(QPainter *painter);
-        void CheckBulbDimension(QPainter *painter);
+        void CheckBulbDimension(QPainter *painter, int ori);
         long DrawBulbView(QPainter *p, int w, int h);
         int PrintType;
 
