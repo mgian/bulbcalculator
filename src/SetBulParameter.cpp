@@ -61,11 +61,15 @@ double SetBulbParam::GetWHR(void) {
 
 void SetBulbParam::SetCurrentValue(float tw, float md, double hrl, double whr) {
 
+    int i_whr, i_hrl;
+
+
     this->DSP_TW->setValue(tw);
     this->DSP_MD->setValue(md);
-
-    this->SP_HLR->setValue(ceil(hrl*100));
-    this->SP_WHR->setValue(ceil(whr*100));
+    i_whr = whr*100;
+    i_hrl = hrl*100;
+    this->SP_HLR->setValue(i_hrl);
+    this->SP_WHR->setValue(i_whr);
 
 }
 

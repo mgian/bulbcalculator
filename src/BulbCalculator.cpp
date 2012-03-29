@@ -774,7 +774,7 @@ void BulbCalculator::UpdateResults() {
     tl = floor(tl*1000.0+.5)/1000.0;
 
     hl = this->naca_profile.HLRatio * 100;
-    hs = (int)hl - 3;
+    hs = (int)hl - 2;
 
     QString tmpBulbName = "";
     QString tmpVal = "";
@@ -1048,7 +1048,8 @@ void BulbCalculator::SetBulbParameter() {
     int ret;
 
     SetBulbParam *DlgParam = new SetBulbParam;
-    
+    qDebug() << naca_profile.HLRatio << naca_profile.WHRatio;
+
     DlgParam->SetCurrentValue(this->target_weight, this->material_density,
                               naca_profile.HLRatio, naca_profile.WHRatio);
     ret = DlgParam->exec();
