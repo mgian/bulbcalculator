@@ -357,8 +357,6 @@ void PrintDraw::DrawBulbLinesPlanTop(QPainter *painter, int ori) {
         }
     }
 
-
-
 }
 
 
