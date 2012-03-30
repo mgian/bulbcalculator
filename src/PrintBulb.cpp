@@ -46,14 +46,12 @@ void PrintDraw::SetBc(BulbCalculator *bcp) {
 
     this->bc = bcp;
 
-
 }
 
 void PrintDraw::PrintPreview(QPrinter *pr) {
 
     int o;
     QPainter aPainter;
-
 
     float aLogicalWidth = pr->widthMM() * 100;
     float aLogicalHeight = pr->heightMM() * 100;
@@ -80,10 +78,10 @@ void PrintDraw::PrintPreview(QPrinter *pr) {
         this->CheckBulbDimension(&aPainter, pr->orientation());
         switch(this->PrintType) {
             case P_SECTIONS_TOP:
-                this->DrawBulbSection(&aPainter, P_SECTIONS_TOP);
+                this->DrawBulbSection(&aPainter, P_SECTIONS_TOP, pr->orientation());
                 break;
             case P_SECTIONS_SIDE:
-                this->DrawBulbSection(&aPainter, P_SECTIONS_SIDE);
+                this->DrawBulbSection(&aPainter, P_SECTIONS_SIDE, pr->orientation());
                 break;
             case P_LINESPLAN:
                 this->DrawBulbLinesPlan(&aPainter, pr->orientation());
@@ -255,14 +253,14 @@ void PrintDraw::CheckBulbDimension(QPainter *painter, int ori) {
 }
 
 
-void PrintDraw::DrawBulbSection(QPainter *painter, int MainView) {
+void PrintDraw::DrawBulbSection(QPainter *painter, int MainView, int ori) {
 
     switch(MainView) {
         case  P_SECTIONS_TOP:
-            this->DrawBulbTop(painter);
+            this->DrawBulbTop(painter, ori);
             break;
         case  P_SECTIONS_SIDE:
-            this->DrawBulbProfile(painter);
+            this->DrawBulbProfile(painter, ori);
             break;
     }
 
@@ -457,7 +455,7 @@ void PrintDraw::DrawBulbLinesPlan(QPainter *painter, int ori) {
 
 }
 
-void PrintDraw::DrawBulbProfile(QPainter *painter) {
+void PrintDraw::DrawBulbProfile(QPainter *painter, int ori) {
 
     double OriginY;
     double OriginX;
@@ -471,9 +469,14 @@ void PrintDraw::DrawBulbProfile(QPainter *painter) {
 
     wr *= 1000;
     wri = (int)wr;
-
-    x = painter->window().width();
-    y = painter->window().height();
+    if (ori == QPrinter::Landscape) {
+        y = painter->window().width();
+        x = painter->window().height();
+    }
+    if (ori == QPrinter::Portrait) {
+        x = painter->window().width();
+        y = painter->window().height();
+    }
 
     OriginX = (x - wr) / 2.0;
     OriginY = this->bc->naca_profile.max_height_u * wr + (y*5)/100;
@@ -567,7 +570,7 @@ void PrintDraw::DrawBulbProfile(QPainter *painter) {
 
 }
 
-void PrintDraw::DrawBulbTop(QPainter *painter) {
+void PrintDraw::DrawBulbTop(QPainter *painter, int ori) {
 
     double OriginY;
     double OriginX;
@@ -583,8 +586,14 @@ void PrintDraw::DrawBulbTop(QPainter *painter) {
 
     wr *= 1000;
     wri = (int)wr;
-    x = painter->window().width();
-    y = painter->window().height();
+    if (ori == QPrinter::Landscape) {
+        y = painter->window().width();
+        x = painter->window().height();
+    }
+    if (ori == QPrinter::Portrait) {
+        x = painter->window().width();
+        y = painter->window().height();
+    }
 
     OriginX = (x - wr) / 2.0;
     OriginY = this->bc->naca_profile.max_width * wr + (y*5)/100;

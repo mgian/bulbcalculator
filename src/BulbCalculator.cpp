@@ -766,7 +766,6 @@ void BulbCalculator::UpdateResults() {
 
     data_profile.calc(this->naca_profile.WHRatio, naca_profile.volume);
 
-
     tl = pow((target_weight*1000.0)/(naca_profile.volume*material_density), 1.0/3.0);
     this->length = tl;
     this->bulb_volume = naca_profile.volume*(double)pow(tl,3);
@@ -774,13 +773,14 @@ void BulbCalculator::UpdateResults() {
     tl = floor(tl*1000.0+.5)/1000.0;
 
     hl = this->naca_profile.HLRatio * 100;
-    hs = (int)hl - 2;
+
+    hs = ceil(this->naca_profile.HLRatio * 100) - 3;
 
     QString tmpBulbName = "";
     QString tmpVal = "";
 
     tmpBulbName.append(this->naca_profile.foil_name.c_str());
-    tmpVal.sprintf("%02d",(int)hl);
+    tmpVal.sprintf("%02d",hs+3);
 
     tmpBulbName.replace("XX",tmpVal);
     this->BulbName->setText(QString("Bulb Name: ") + tmpBulbName);
@@ -850,7 +850,7 @@ void BulbCalculator::UpdateResults() {
     this->TW_Bulb->setItem(8,0,it);
 
     it = new QTableWidgetItem;
- if (this->units == UNIT_MM) {
+    if (this->units == UNIT_MM) {
         it->setText("cm^2");
     } else {
         it->setText("sq.in.");
@@ -1048,7 +1048,6 @@ void BulbCalculator::SetBulbParameter() {
     int ret;
 
     SetBulbParam *DlgParam = new SetBulbParam;
-    qDebug() << naca_profile.HLRatio << naca_profile.WHRatio;
 
     DlgParam->SetCurrentValue(this->target_weight, this->material_density,
                               naca_profile.HLRatio, naca_profile.WHRatio);
