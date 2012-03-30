@@ -97,7 +97,8 @@ class BulbCalculator : public QMainWindow
         void NewBulb();
         void PrintBulbSectionFromTop();
         void PrintBulbSectionFromSide();
-        void PrintBulbLinesPlan();
+        void PrintBulbLinesPlanFromTop();
+        void PrintBulbLinesPlanFromSide();
         void PrintBulbData();
         void SetBulbDataOptions();
         void ShowTopWindow();

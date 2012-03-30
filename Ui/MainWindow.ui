@@ -30,7 +30,7 @@
      <x>0</x>
      <y>0</y>
      <width>966</width>
-     <height>23</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -47,9 +47,22 @@
      <property name="title">
       <string>Print</string>
      </property>
-     <addaction name="actionPrintSectionFromTop"/>
-     <addaction name="actionPrintSectionFromSide"/>
-     <addaction name="actionPrintLinesPlan"/>
+     <widget class="QMenu" name="menuSections">
+      <property name="title">
+       <string>Sections...</string>
+      </property>
+      <addaction name="actionPrintSectionFromTop"/>
+      <addaction name="actionPrintSectionFromSide"/>
+     </widget>
+     <widget class="QMenu" name="menuLinesplan">
+      <property name="title">
+       <string>Linesplan...</string>
+      </property>
+      <addaction name="actionPrintLinesPlanFromTop"/>
+      <addaction name="actionPrintLinesPlanFromSide"/>
+     </widget>
+     <addaction name="menuSections"/>
+     <addaction name="menuLinesplan"/>
      <addaction name="actionPrintData"/>
     </widget>
     <addaction name="action_New"/>
@@ -394,7 +407,7 @@
   </action>
   <action name="actionPrintSectionFromTop">
    <property name="text">
-    <string>Section From Top</string>
+    <string>From Top</string>
    </property>
   </action>
   <action name="actionText_File">
@@ -407,9 +420,15 @@
     <string>Import Foil Data</string>
    </property>
   </action>
-  <action name="actionPrintLinesPlan">
+  <action name="actionPrintLinesPlanFromTop">
    <property name="text">
-    <string>Linesplan</string>
+    <string>From Top</string>
+   </property>
+   <property name="iconText">
+    <string>From Top</string>
+   </property>
+   <property name="toolTip">
+    <string>From Top</string>
    </property>
   </action>
   <action name="actionLow">
@@ -456,12 +475,17 @@
   </action>
   <action name="actionPrintSectionFromSide">
    <property name="text">
-    <string>Section From Side</string>
+    <string>From Side</string>
    </property>
   </action>
   <action name="actionUIUC_foils">
    <property name="text">
     <string>UIUC foils</string>
+   </property>
+  </action>
+  <action name="actionPrintLinesPlanFromSide">
+   <property name="text">
+    <string>From Side</string>
    </property>
   </action>
  </widget>

@@ -25,19 +25,11 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 
 PrintDraw::PrintDraw(BulbCalculator *bc, int pt) {
 
-    QPrinter printer;
-
-    QPrintDialog printDialog(&printer);
-    if (printDialog.exec() == QDialog::Accepted) {
-        printer.setResolution(QPrinter::HighResolution);
-        QPrintPreviewDialog preview(&printer);
-        connect(&preview, SIGNAL(paintRequested(QPrinter*)), SLOT(PrintPreview(QPrinter*)));
-        this->bc = bc;
-        this->PrintType = pt;
-        preview.exec();
-    } else {
-        return;
-    }
+    QPrintPreviewDialog preview;
+    connect(&preview, SIGNAL(paintRequested(QPrinter*)), SLOT(PrintPreview(QPrinter*)));
+    this->bc = bc;
+    this->PrintType = pt;
+    preview.exec();
 
 }
 
@@ -83,8 +75,11 @@ void PrintDraw::PrintPreview(QPrinter *pr) {
             case P_SECTIONS_SIDE:
                 this->DrawBulbSection(&aPainter, P_SECTIONS_SIDE, pr->orientation());
                 break;
-            case P_LINESPLAN:
-                this->DrawBulbLinesPlan(&aPainter, pr->orientation());
+            case P_LINESPLAN_TOP:
+                this->DrawBulbLinesPlanTop(&aPainter, pr->orientation());
+                break;
+            case P_LINESPLAN_SIDE:
+                this->DrawBulbLinesPlanSide(&aPainter, pr->orientation());
                 break;
         }
         aPainter.end();
@@ -235,7 +230,7 @@ void PrintDraw::CheckBulbDimension(QPainter *painter, int ori) {
 
     wr = pow((this->bc->target_weight*1000.0)/(this->bc->naca_profile.volume*this->bc->material_density), 1.0/3.0);
     wr *= 1000;
-
+    w = 0;
     if (ori == QPrinter::Landscape) {
         w = painter->window().height();
     }
@@ -266,7 +261,109 @@ void PrintDraw::DrawBulbSection(QPainter *painter, int MainView, int ori) {
 
 }
 
-void PrintDraw::DrawBulbLinesPlan(QPainter *painter, int ori) {
+void PrintDraw::DrawBulbLinesPlanTop(QPainter *painter, int ori) {
+
+    double OriginY;
+    double OriginX;
+    long YAxis;
+    double mult;
+    float x, y, wr;
+    long wri;
+    int AxisStart, AxisEnd;
+    QPen aPen;
+
+    // TOP VIEW
+    wr = pow((this->bc->target_weight*1000.0)/(this->bc->naca_profile.volume*this->bc->material_density), 1.0/3.0);
+    wr *= 1000;
+    wri = (int)wr;
+    x = y = 0;
+    if (ori == QPrinter::Landscape) {
+        y = painter->window().width();
+        x = painter->window().height();
+    }
+    if (ori == QPrinter::Portrait) {
+        x = painter->window().width();
+        y = painter->window().height();
+    }
+
+
+    OriginX = (x - wr) / 2.0;
+    OriginY = (y*25)/100;
+
+    AxisStart = OriginY - this->bc->naca_profile.max_width * wr - (y*2)/100;
+    AxisEnd = OriginY + this->bc->naca_profile.max_width * wr + (y*2)/100;
+
+    // Draw Axis
+
+    aPen.setColor(Qt::black);
+    aPen.setWidth(0);
+    aPen.setStyle(Qt::SolidLine);
+    painter->setPen(aPen);
+    YAxis = wr * this->bc->naca_profile.gcentre;
+    aPen.setColor(Qt::red);
+    painter->setPen(aPen);
+    painter->drawLine(QPoint(YAxis+OriginX,AxisStart), QPoint(YAxis+OriginX,AxisEnd));
+    painter->drawLine(QPoint(0,OriginY), QPoint(x,OriginY));
+    painter->drawEllipse(QPoint(YAxis+OriginX, OriginY), 500, 500);
+    aPen.setColor(Qt::black);
+    painter->setPen(aPen);
+
+    // Draw the top
+    double t_point_x[wri];
+    double t_point_wyu[wri];
+    double t_point_wyl[wri];
+
+    mult = this->bc->naca_profile.num_step/(double)wr;
+
+    for(int i=0;i < wri; i++) {
+        t_point_x[i] = i;
+        profile_data& pd(this->bc->naca_profile[(unsigned)((double)i*mult)]);
+        t_point_wyu[i] = pd.width * wr;
+        t_point_wyl[i] = -pd.width * wr;
+    }
+
+    for(int i=1; i < wri; i++) {
+        painter->drawLine(t_point_x[i-1]+OriginX,OriginY-t_point_wyu[i-1],
+                             t_point_x[i]+OriginX,OriginY-t_point_wyu[i]);
+    }
+
+    for(int i=1; i < wri; i++) {
+        painter->drawLine(t_point_x[i-1]+OriginX,OriginY-t_point_wyl[i-1],
+                             t_point_x[i]+OriginX,OriginY-t_point_wyl[i]);
+    }
+
+    for (unsigned cross_sect=0;;cross_sect++) {
+        vector<double> x_data(wri, 0.0);
+        vector<double> yu_data(wri, 0.0);
+        vector<double> yl_data(wri, 0.0);
+        float xy = (this->bc->slice_thickness*cross_sect)/(wr/1000);
+        for (int i=0; i<wri; i++) {
+            x_data[i] = ((double)i)/((double)wri-1) * wr;
+            unsigned prof_data_ndx = (unsigned)floor(mult*x_data[i]+0.5);
+            profile_data& pd1(this->bc->naca_profile[prof_data_ndx]);
+            yu_data[i] = ellipse_get_x(pd1.width, pd1.height_u, xy) * wr;
+            yl_data[i] = -yu_data[i];
+
+        }
+
+        for(int i=1; i < wri; i++) {
+            if (yu_data[i] > 0) {
+                painter->drawLine(x_data[i-1]+OriginX,OriginY-yu_data[i-1], x_data[i]+OriginX,OriginY-yu_data[i]);
+                painter->drawLine(x_data[i-1]+OriginX,OriginY-yl_data[i-1], x_data[i]+OriginX,OriginY-yl_data[i]);
+            }
+        }
+        if ( (xy > this->bc->naca_profile.max_height_l) && (xy > this->bc->naca_profile.max_height_u) ) {
+            break;
+        }
+    }
+
+
+
+}
+
+
+void PrintDraw::DrawBulbLinesPlanSide(QPainter *painter, int ori) {
+
 
     double OriginY;
     double OriginX;
@@ -281,7 +378,7 @@ void PrintDraw::DrawBulbLinesPlan(QPainter *painter, int ori) {
     wr = pow((this->bc->target_weight*1000.0)/(this->bc->naca_profile.volume*this->bc->material_density), 1.0/3.0);
     wr *= 1000;
     wri = (int)wr;
-
+    x = y = 0;
     if (ori == QPrinter::Landscape) {
         y = painter->window().width();
         x = painter->window().height();
@@ -359,100 +456,6 @@ void PrintDraw::DrawBulbLinesPlan(QPainter *painter, int ori) {
         }
     }
 
-
-    qDebug() << "top" << y;
-
-    // TOP VIEW
-    wr = pow((this->bc->target_weight*1000.0)/(this->bc->naca_profile.volume*this->bc->material_density), 1.0/3.0);
-    wr *= 1000;
-    wri = (int)wr;
-
-    if (ori == QPrinter::Landscape) {
-        y = painter->window().width();
-        x = painter->window().height();
-    }
-    if (ori == QPrinter::Portrait) {
-        x = painter->window().width();
-        y = painter->window().height();
-    }
-
-
-    OriginX = (x - wr) / 2.0;
-    OriginY = (y*75)/100;
-
-    AxisStart = OriginY - this->bc->naca_profile.max_width * wr - (y*2)/100;
-    AxisEnd = OriginY + this->bc->naca_profile.max_width * wr + (y*2)/100;
-
-    // Draw Axis
-
-    aPen.setColor(Qt::black);
-    aPen.setWidth(0);
-    aPen.setStyle(Qt::SolidLine);
-    painter->setPen(aPen);
-    YAxis = wr * this->bc->naca_profile.gcentre;
-    aPen.setColor(Qt::red);
-    painter->setPen(aPen);
-    painter->drawLine(QPoint(YAxis+OriginX,AxisStart), QPoint(YAxis+OriginX,AxisEnd));
-    painter->drawLine(QPoint(0,OriginY), QPoint(x,OriginY));
-    painter->drawEllipse(QPoint(YAxis+OriginX, OriginY), 500, 500);
-    aPen.setColor(Qt::black);
-    painter->setPen(aPen);
-
-    // Draw the top
-    double t_point_x[wri];
-    double t_point_wyu[wri];
-    double t_point_wyl[wri];
-    //double t_point_hyu[wri];
-    //double t_point_hyl[wri];
-
-    mult = this->bc->naca_profile.num_step/(double)wr;
-
-    for(int i=0;i < wri; i++) {
-        t_point_x[i] = i;
-        profile_data& pd(this->bc->naca_profile[(unsigned)((double)i*mult)]);
-        t_point_wyu[i] = pd.width * wr;
-        t_point_wyl[i] = -pd.width * wr;
-        //t_point_hyu[i] = pd.height_u * wr;
-        //t_point_hyl[i] = pd.height_l * wr;
-    }
-
-    for(int i=1; i < wri; i++) {
-        painter->drawLine(t_point_x[i-1]+OriginX,OriginY-t_point_wyu[i-1],
-                             t_point_x[i]+OriginX,OriginY-t_point_wyu[i]);
-    }
-
-    for(int i=1; i < wri; i++) {
-        painter->drawLine(t_point_x[i-1]+OriginX,OriginY-t_point_wyl[i-1],
-                             t_point_x[i]+OriginX,OriginY-t_point_wyl[i]);
-    }
-
-    for (unsigned cross_sect=0;;cross_sect++) {
-        vector<double> x_data(wri, 0.0);
-        vector<double> yu_data(wri, 0.0);
-        vector<double> yl_data(wri, 0.0);
-        float xy = (this->bc->slice_thickness*cross_sect)/(wr/1000);
-        for (int i=0; i<wri; i++) {
-            x_data[i] = ((double)i)/((double)wri-1) * wr;
-            unsigned prof_data_ndx = (unsigned)floor(mult*x_data[i]+0.5);
-            profile_data& pd1(this->bc->naca_profile[prof_data_ndx]);
-            yu_data[i] = ellipse_get_x(pd1.width, pd1.height_u, xy) * wr;
-            yl_data[i] = -yu_data[i];
-
-        }
-
-        for(int i=1; i < wri; i++) {
-            if (yu_data[i] > 0) {
-                painter->drawLine(x_data[i-1]+OriginX,OriginY-yu_data[i-1], x_data[i]+OriginX,OriginY-yu_data[i]);
-                painter->drawLine(x_data[i-1]+OriginX,OriginY-yl_data[i-1], x_data[i]+OriginX,OriginY-yl_data[i]);
-            }
-        }
-        if ( (xy > this->bc->naca_profile.max_height_l) && (xy > this->bc->naca_profile.max_height_u) ) {
-            break;
-        }
-    }
-
-
-
 }
 
 void PrintDraw::DrawBulbProfile(QPainter *painter, int ori) {
@@ -466,7 +469,7 @@ void PrintDraw::DrawBulbProfile(QPainter *painter, int ori) {
     int AxisStart, AxisEnd, t, space, offset;
 
     wr = pow((this->bc->target_weight*1000.0)/(this->bc->naca_profile.volume*this->bc->material_density), 1.0/3.0);
-
+    x = y = 0;
     wr *= 1000;
     wri = (int)wr;
     if (ori == QPrinter::Landscape) {
@@ -583,7 +586,7 @@ void PrintDraw::DrawBulbTop(QPainter *painter, int ori) {
     int t;
 
     wr = pow((this->bc->target_weight*1000.0)/(this->bc->naca_profile.volume*this->bc->material_density), 1.0/3.0);
-
+    x = y = 0;
     wr *= 1000;
     wri = (int)wr;
     if (ori == QPrinter::Landscape) {

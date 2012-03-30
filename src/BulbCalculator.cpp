@@ -89,7 +89,8 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     connect( ui.actionText_File, SIGNAL(triggered()), this, SLOT(ExportTextFile()));
     connect( ui.actionPrintSectionFromTop, SIGNAL(triggered()), this, SLOT(PrintBulbSectionFromTop()));
     connect( ui.actionPrintSectionFromSide, SIGNAL(triggered()), this, SLOT(PrintBulbSectionFromSide()));
-    connect( ui.actionPrintLinesPlan, SIGNAL(triggered()), this, SLOT(PrintBulbLinesPlan()));
+    connect( ui.actionPrintLinesPlanFromTop, SIGNAL(triggered()), this, SLOT(PrintBulbLinesPlanFromTop()));
+    connect( ui.actionPrintLinesPlanFromSide, SIGNAL(triggered()), this, SLOT(PrintBulbLinesPlanFromSide()));
     connect( ui.actionPrintData, SIGNAL(triggered()), this, SLOT(PrintBulbData()));
 
     connect( ui.actionLow, SIGNAL(triggered()), this, SLOT(Set3DResolutionLow()));
@@ -557,12 +558,19 @@ void BulbCalculator::PrintBulbSectionFromSide() {
 
 }
 
-void BulbCalculator::PrintBulbLinesPlan() {
+void BulbCalculator::PrintBulbLinesPlanFromTop() {
 
-    PrintDraw(this, P_LINESPLAN);
-
+    PrintDraw(this, P_LINESPLAN_TOP);
 
 }
+
+void BulbCalculator::PrintBulbLinesPlanFromSide() {
+
+    PrintDraw(this, P_LINESPLAN_SIDE);
+
+}
+
+
 
 void BulbCalculator::PrintBulbData() {
 

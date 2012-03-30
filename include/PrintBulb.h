@@ -28,8 +28,9 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 
 #define P_SECTIONS_TOP      1
 #define P_SECTIONS_SIDE     2
-#define P_LINESPLAN         3
-#define P_DATA              4
+#define P_LINESPLAN_TOP     3
+#define P_LINESPLAN_SIDE    4
+#define P_DATA              5
 
 class PrintDraw: public QTextDocument {
     Q_OBJECT
@@ -46,7 +47,8 @@ class PrintDraw: public QTextDocument {
         BulbCalculator *bc;
         void DrawBulbProfile(QPainter *painter, int ori);
         void DrawBulbSection(QPainter *painter, int MainView, int ori);
-        void DrawBulbLinesPlan(QPainter *painter, int ori);
+        void DrawBulbLinesPlanTop(QPainter *painter, int ori);
+        void DrawBulbLinesPlanSide(QPainter *painter, int ori);
         void DrawBulbTop(QPainter *painter, int ori);
         void CheckBulbDimension(QPainter *painter, int ori);
         long DrawBulbView(QPainter *p, int w, int h);
