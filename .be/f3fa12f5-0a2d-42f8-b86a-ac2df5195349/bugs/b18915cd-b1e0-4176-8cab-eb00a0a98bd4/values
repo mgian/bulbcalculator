@@ -11,7 +11,7 @@ reporter: Gianluca <gian@grys.it>
 severity: minor
 
 
-status: open
+status: fixed
 
 
 summary: Make the bulb data print more indipendent from the printer resolution
