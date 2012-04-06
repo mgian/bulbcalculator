@@ -309,12 +309,12 @@ void PrintDraw::DrawBulbLinesPlanTop(QPainter *painter, int ori) {
     painter->setPen(aPen);
 
     // Draw the top
-    double t_point_x[wri];
-    double t_point_wyu[wri];
-    double t_point_wyl[wri];
+    //double t_point_x[wri];
+    //double t_point_wyu[wri];
+    //double t_point_wyl[wri];
 
     mult = this->bc->naca_profile.num_step/(double)wr;
-
+/*
     for(int i=0;i < wri; i++) {
         t_point_x[i] = i;
         profile_data& pd(this->bc->naca_profile[(unsigned)((double)i*mult)]);
@@ -331,7 +331,7 @@ void PrintDraw::DrawBulbLinesPlanTop(QPainter *painter, int ori) {
         painter->drawLine(t_point_x[i-1]+OriginX,OriginY-t_point_wyl[i-1],
                              t_point_x[i]+OriginX,OriginY-t_point_wyl[i]);
     }
-
+*/
     for (unsigned cross_sect=0;;cross_sect++) {
         vector<double> x_data(wri, 0.0);
         vector<double> yu_data(wri, 0.0);
@@ -407,12 +407,12 @@ void PrintDraw::DrawBulbLinesPlanSide(QPainter *painter, int ori) {
     painter->setPen(aPen);
 
     // Draw the profiles
-    double s_point_x[wri];
-    double s_point_hyu[wri];
-    double s_point_hyl[wri];
+    //double s_point_x[wri];
+    //double s_point_hyu[wri];
+    //double s_point_hyl[wri];
 
     mult = this->bc->naca_profile.num_step/(double)wr;
-
+/*
     for(int i=0;i < wri; i++) {
         s_point_x[i] = i;
         profile_data& pd(this->bc->naca_profile[(unsigned)((double)i*mult)]);
@@ -429,7 +429,7 @@ void PrintDraw::DrawBulbLinesPlanSide(QPainter *painter, int ori) {
         painter->drawLine(s_point_x[i-1]+OriginX,OriginY-s_point_hyl[i-1],
                              s_point_x[i]+OriginX,OriginY-s_point_hyl[i]);
     }
-
+*/
     for (unsigned cross_sect=0;;cross_sect++) {
         vector<double> x_data(wri, 0.0);
         vector<double> yu_data(wri, 0.0);
@@ -442,16 +442,18 @@ void PrintDraw::DrawBulbLinesPlanSide(QPainter *painter, int ori) {
             yu_data[i] = ellipse_get_x(pd1.height_u, pd1.width, xy) * wr;
             yl_data[i] = ellipse_get_x(pd1.height_l, pd1.width, xy) * wr;
         }
-
-        for(int i=1; i < wri; i++) {
+        int i;
+        for(i=1; i < wri; i++) {
             if (yu_data[i] > 0) {
                 painter->drawLine(x_data[i-1]+OriginX,OriginY-yu_data[i-1], x_data[i]+OriginX,OriginY-yu_data[i]);
                 painter->drawLine(x_data[i-1]+OriginX,OriginY-yl_data[i-1], x_data[i]+OriginX,OriginY-yl_data[i]);
             }
         }
+
         if (xy > this->bc->naca_profile.max_width) {
             break;
         }
+
     }
 
 }
