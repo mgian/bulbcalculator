@@ -77,6 +77,9 @@ class BulbCalculator : public QMainWindow
         vector<double> sect_pos;
         double length;
 
+// Printer options
+        int page_orientation;
+        int page_size;
 
     public slots:
         void Show3DAxis();
@@ -99,6 +102,7 @@ class BulbCalculator : public QMainWindow
         void PrintBulbSectionFromSide();
         void PrintBulbLinesPlanFromTop();
         void PrintBulbLinesPlanFromSide();
+        void PageSetup();
         void PrintBulbData();
         void SetBulbDataOptions();
         void ShowTopWindow();
@@ -151,12 +155,15 @@ class BulbCalculator : public QMainWindow
         void SetUnchecked();
         void ClearBulb();
         void FillBulbDataValue();
+        void WriteSettings();
+        void ReadSettings();
+
 
 
 
     protected:
         virtual void resizeEvent( QResizeEvent *event );
-
+        virtual void closeEvent(QCloseEvent *event);
 };
 
 #endif

@@ -37,7 +37,12 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
 
 
+
     ui.setupUi(this);
+
+    ReadSettings();
+
+    this->setCentralWidget(ui.mdiArea);
 
     this->Modified = 0;
     this->num_sect = 6;
@@ -92,7 +97,7 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     connect( ui.actionPrintLinesPlanFromTop, SIGNAL(triggered()), this, SLOT(PrintBulbLinesPlanFromTop()));
     connect( ui.actionPrintLinesPlanFromSide, SIGNAL(triggered()), this, SLOT(PrintBulbLinesPlanFromSide()));
     connect( ui.actionPrintData, SIGNAL(triggered()), this, SLOT(PrintBulbData()));
-
+    connect( ui.actionPage_Setup, SIGNAL(triggered()), this, SLOT(PageSetup()));
     connect( ui.actionLow, SIGNAL(triggered()), this, SLOT(Set3DResolutionLow()));
     connect( ui.actionMedium, SIGNAL(triggered()), this, SLOT(Set3DResolutionMedium()));
     connect( ui.actionHigh, SIGNAL(triggered()), this, SLOT(Set3DResolutionHigh()));
@@ -117,6 +122,14 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
 
 }
 
+void BulbCalculator::PageSetup() {
+
+    QPageSetupDialog *qps;
+    qps = new QPageSetupDialog();
+    qps->exec();
+    qDebug() << qps->printer();
+
+}
 
 void BulbCalculator::ExportTextFile() {
 
@@ -263,7 +276,7 @@ void BulbCalculator::CreateCalcWin() {
     this->BulbName->setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Fixed);
     l1->addWidget(this->TW_Bulb);
     this->wdCalc->setLayout(l1);
-    BulbCalculation->setWidget(this->wdCalc);    
+    BulbCalculation->setWidget(this->wdCalc);
     ui.mdiArea->addSubWindow(this->BulbCalculation);
 
 
@@ -758,9 +771,13 @@ void BulbCalculator::DownloadUIUC() {
 void BulbCalculator::resizeEvent( QResizeEvent *e ) {
 
 
-
 }
 
+void BulbCalculator::closeEvent(QCloseEvent *event) {
+
+    WriteSettings();
+
+}
 
 void BulbCalculator::UpdateResults() {
 
@@ -1400,3 +1417,27 @@ void BulbCalculator::SetImp() {
     this->units = UNIT_INCH;
 
 }
+
+void BulbCalculator::WriteSettings() {
+
+    QSettings settings("BulbCalculator", "Config");
+
+     settings.beginGroup("MainWindow");
+     settings.setValue("size", size());
+     settings.setValue("pos", pos());
+     settings.endGroup();
+
+}
+
+void BulbCalculator::ReadSettings() {
+
+    QSettings settings("BulbCalculator", "Config");
+
+    settings.beginGroup("MainWindow");
+    resize(settings.value("size", QSize(400, 400)).toSize());
+    move(settings.value("pos", QPoint(200, 200)).toPoint());
+    settings.endGroup();
+
+}
+
+
