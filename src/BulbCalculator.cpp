@@ -61,8 +61,6 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     BulbCalculator::Create3dWin();
     view3d->SetBc(this);
 
-    //ui.mdiArea->tileSubWindows();
-
     connect( ui.action_Quit, SIGNAL( triggered() ), this, SLOT(close()) );
     connect( ui.action_SetParameters, SIGNAL (triggered() ), this, SLOT(SetBulbParameter()));
     connect( ui.action00xx, SIGNAL (triggered() ), this, SLOT(Set00xx()));
@@ -119,6 +117,19 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
 
     ui.actionLow->setChecked(true);
     ui.action00xx->setChecked(true);
+
+}
+
+void BulbCalculator::SetTiled() {
+
+    foreach(QMdiSubWindow* window , ui.mdiArea->subWindowList()) {
+        qDebug() << window->accessibleName() << window->size();
+    }
+    ui.mdiArea->tileSubWindows();
+    foreach(QMdiSubWindow* window , ui.mdiArea->subWindowList()) {
+        qDebug() << window->accessibleName() << window->size();
+    }
+    qDebug() << ui.mdiArea->size();
 
 }
 
@@ -224,7 +235,6 @@ void BulbCalculator::CreateSideWin() {
     this->ViewSideWin = new QMdiSubWindow;
     ViewSideWin->setWidget(this->GV_SideView);
     ViewSideWin->setWindowTitle(tr("Side View"));
-
     ui.mdiArea->addSubWindow(this->ViewSideWin);
 
 
@@ -236,7 +246,6 @@ void BulbCalculator::Create3dWin() {
 
     view3d = new Vista3D(this->widget3d);
     view3d->resize(this->widget3d->width(), this->widget3d->height());
-
     // Bulb 3d view window
     this->View3DWin = new QMdiSubWindow;
 
@@ -298,8 +307,10 @@ void BulbCalculator::CreateDataWin() {
     this->gb2 = new QGroupBox(tr("Sections data"));
     this->TW_SubBulbDataGen->setEditTriggers(QAbstractItemView::NoEditTriggers);
     this->TW_SubBulbDataSec->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
     QVBoxLayout *layout = new QVBoxLayout;
     QVBoxLayout *l1 = new QVBoxLayout;
+    l1->setSizeConstraint(QLayout::SetFixedSize);
     QVBoxLayout *l2 = new QVBoxLayout;
 
     this->wdData = new QWidget;
@@ -307,6 +318,12 @@ void BulbCalculator::CreateDataWin() {
     this->gb2->setLayout(l2);
     l1->addWidget(this->TW_SubBulbDataGen);
     l2->addWidget(this->TW_SubBulbDataSec);
+
+    // workaround to solve the incorrect tiling of the window
+    // FIXME: of course this is not the correct solution
+    int w = this->TW_SubBulbDataGen->width();
+    int h = 120;
+    this->TW_SubBulbDataGen->setMaximumSize(w,h);
 
     layout->addWidget(gb1);
     layout->addWidget(gb2);
@@ -769,7 +786,6 @@ void BulbCalculator::DownloadUIUC() {
 }
 
 void BulbCalculator::resizeEvent( QResizeEvent *e ) {
-
 
 }
 
@@ -1422,10 +1438,10 @@ void BulbCalculator::WriteSettings() {
 
     QSettings settings("BulbCalculator", "Config");
 
-     settings.beginGroup("MainWindow");
-     settings.setValue("size", size());
-     settings.setValue("pos", pos());
-     settings.endGroup();
+    settings.beginGroup("MainWindow");
+    settings.setValue("size", size());
+    settings.setValue("pos", pos());
+    settings.endGroup();
 
 }
 
@@ -1437,6 +1453,7 @@ void BulbCalculator::ReadSettings() {
     resize(settings.value("size", QSize(400, 400)).toSize());
     move(settings.value("pos", QPoint(200, 200)).toPoint());
     settings.endGroup();
+
 
 }
 

@@ -118,7 +118,7 @@ class BulbCalculator : public QMainWindow
         void Set3DResolutionMedium();
         void Set3DResolutionHigh();
         void Set3DResolutionHighest();
-
+        void SetTiled();
 
     private:
         QMdiSubWindow *BulbCalculation;
