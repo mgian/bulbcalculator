@@ -1,5 +1,10 @@
 <RCC>
-  <qresource prefix="MainWin">
-    <file>aboutbulb.png</file>
-  </qresource>
+    <qresource prefix="/MainWin">
+        <file>images/aboutbulb.png</file>
+        <file>images/new.png</file>
+        <file>images/open.png</file>
+        <file>images/save_all.png</file>
+        <file>images/default.png</file>
+        <file>images/printer.png</file>
+    </qresource>
 </RCC>

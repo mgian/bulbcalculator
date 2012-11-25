@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="../BulbCalculator.qrc">
-    <normaloff>:/MainWin/aboutbulb.png</normaloff>:/MainWin/aboutbulb.png</iconset>
+    <normaloff>:/MainWin/images/aboutbulb.png</normaloff>:/MainWin/images/aboutbulb.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -178,6 +178,10 @@
    </property>
   </widget>
   <action name="action_New">
+   <property name="icon">
+    <iconset resource="../BulbCalculator.qrc">
+     <normaloff>:/MainWin/images/new.png</normaloff>:/MainWin/images/new.png</iconset>
+   </property>
    <property name="text">
     <string>&amp;New Bulb design</string>
    </property>
@@ -188,6 +192,10 @@
   <action name="action_Open">
    <property name="enabled">
     <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../BulbCalculator.qrc">
+     <normaloff>:/MainWin/images/open.png</normaloff>:/MainWin/images/open.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Open Bulb design</string>
@@ -200,6 +208,10 @@
    <property name="enabled">
     <bool>false</bool>
    </property>
+   <property name="icon">
+    <iconset resource="../BulbCalculator.qrc">
+     <normaloff>:/MainWin/images/save_all.png</normaloff>:/MainWin/images/save_all.png</iconset>
+   </property>
    <property name="text">
     <string>&amp;Save</string>
    </property>
@@ -210,6 +222,10 @@
   <action name="action_Saveas">
    <property name="enabled">
     <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../BulbCalculator.qrc">
+     <normaloff>:/MainWin/images/save_all.png</normaloff>:/MainWin/images/save_all.png</iconset>
    </property>
    <property name="text">
     <string>Save &amp;as</string>

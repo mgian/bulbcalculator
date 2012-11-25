@@ -20,7 +20,8 @@ SOURCES = src/BulbCalculator.cpp \
 FORMS = Ui/MainWindow.ui \
     Ui/SetBulbParameterDialog.ui \
     Ui/BulbDataOptions.ui \
-    Ui/BulbPrintOptions.ui
+    Ui/BulbPrintOptions.ui \
+    Ui/Preferences.ui
 
 #CONFIG += debug release
 
