@@ -23,9 +23,9 @@ FORMS = Ui/MainWindow.ui \
     Ui/BulbPrintOptions.ui \
     Ui/Preferences.ui
 
-#CONFIG += debug release
+CONFIG += debug release
 
-CONFIG += debug
+#CONFIG += debug
 
 QT *= opengl \
     xml \
