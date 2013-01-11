@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="../BulbCalculator.qrc">
-    <normaloff>:/MainWin/images/aboutbulb.png</normaloff>:/MainWin/images/aboutbulb.png</iconset>
+    <normaloff>:/MainWin/share/images/aboutbulb.png</normaloff>:/MainWin/share/images/aboutbulb.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -59,6 +59,10 @@
     <widget class="QMenu" name="menuPrint">
      <property name="title">
       <string>Print</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../BulbCalculator.qrc">
+       <normaloff>:/MainWin/share/images/printer.png</normaloff>:/MainWin/share/images/printer.png</iconset>
      </property>
      <widget class="QMenu" name="menuSections">
       <property name="title">
@@ -180,7 +184,7 @@
   <action name="action_New">
    <property name="icon">
     <iconset resource="../BulbCalculator.qrc">
-     <normaloff>:/MainWin/images/new.png</normaloff>:/MainWin/images/new.png</iconset>
+     <normaloff>:/MainWin/share/images/new.png</normaloff>:/MainWin/share/images/new.png</iconset>
    </property>
    <property name="text">
     <string>&amp;New Bulb design</string>
@@ -195,7 +199,7 @@
    </property>
    <property name="icon">
     <iconset resource="../BulbCalculator.qrc">
-     <normaloff>:/MainWin/images/open.png</normaloff>:/MainWin/images/open.png</iconset>
+     <normaloff>:/MainWin/share/images/open.png</normaloff>:/MainWin/share/images/open.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Open Bulb design</string>
@@ -210,7 +214,7 @@
    </property>
    <property name="icon">
     <iconset resource="../BulbCalculator.qrc">
-     <normaloff>:/MainWin/images/save_all.png</normaloff>:/MainWin/images/save_all.png</iconset>
+     <normaloff>:/MainWin/share/images/save_all.png</normaloff>:/MainWin/share/images/save_all.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Save</string>
@@ -224,7 +228,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../BulbCalculator.qrc">
+    <iconset>
      <normaloff>:/MainWin/images/save_all.png</normaloff>:/MainWin/images/save_all.png</iconset>
    </property>
    <property name="text">
@@ -411,6 +415,10 @@
    </property>
   </action>
   <action name="actionShow_Calculation">
+   <property name="icon">
+    <iconset resource="../BulbCalculator.qrc">
+     <normaloff>:/MainWin/share/images/kcalc.png</normaloff>:/MainWin/share/images/kcalc.png</iconset>
+   </property>
    <property name="text">
     <string>Show Calculation</string>
    </property>

@@ -622,7 +622,6 @@ void BulbCalculator::SetBulbDataOptions() {
                                 this->bulb_wet_surface, this->num_sect, this->sect_dist, this->units,
                                 this->slice_thickness);
 
-
     ret = DlgBulbDataOpt->exec();
     if(ret == QDialog::Accepted) {
         this->sect_dist = DlgBulbDataOpt->GetSectDist();
