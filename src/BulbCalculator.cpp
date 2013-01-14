@@ -261,6 +261,7 @@ void BulbCalculator::CreateCalcWin() {
 
 
     this->BulbCalculation = new QMdiSubWindow;
+    this->BulbCalculation->setWindowIcon(QIcon(QString("share/images/kcalc.png")));
     this->TW_Bulb = new QTableWidget(10,8);
 
     QStringList hcols;
