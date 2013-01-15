@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Bulb Data</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../BulbCalculator.qrc">
+    <normaloff>:/MainWin/share/images/data.png</normaloff>:/MainWin/share/images/data.png</iconset>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout_6">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -355,7 +359,9 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../BulbCalculator.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>

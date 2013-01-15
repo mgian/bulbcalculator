@@ -1,8 +1,31 @@
 <RCC>
   <qresource prefix="/MainWin">
-    <file>share/images/clean.png</file>
+    <file>share/images/check.png</file>
+    <file>share/images/edit_add.png</file>
+    <file>share/images/edit_remove.png</file>
+    <file>share/images/window_list.png</file>
+    <file>share/images/widget.png</file>
     <file>share/images/exit.png</file>
-    <file>share/images/kcalc.png</file>
+    <file>share/images/web.png</file>
+    <file>share/images/2d.png</file>
+    <file>share/images/3d.png</file>
+    <file>share/images/aboutbulb.png</file>
+    <file>share/images/apply.png</file>
+    <file>share/images/calc.png</file>
+    <file>share/images/cancel.png</file>
+    <file>share/images/card_2.png</file>
+    <file>share/images/close.png</file>
+    <file>share/images/data.png</file>
+    <file>share/images/default.png</file>
+    <file>share/images/exit.png</file>
+    <file>share/images/filesave.png</file>
+    <file>share/images/filesaveas.png</file>
+    <file>share/images/new.png</file>
+    <file>share/images/open.png</file>
+    <file>share/images/print_menu.png</file>
+    <file>share/images/printer.png</file>
+    <file>share/images/save_all.png</file>
+    <file>share/images/settings.png</file>
     <file>share/images/web.png</file>
     <file>share/images/aboutbulb.png</file>
     <file>share/images/default.png</file>

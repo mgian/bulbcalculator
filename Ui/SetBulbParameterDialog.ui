@@ -16,6 +16,10 @@
   <property name="windowTitle">
    <string>Set Bulb Parameters</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../BulbCalculator.qrc">
+    <normaloff>:/MainWin/share/images/settings.png</normaloff>:/MainWin/share/images/settings.png</iconset>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QGridLayout" name="gridLayout">
@@ -172,7 +176,9 @@
   <tabstop>SP_WHR</tabstop>
   <tabstop>buttonBox</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="../BulbCalculator.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>

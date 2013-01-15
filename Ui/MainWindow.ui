@@ -62,7 +62,7 @@
      </property>
      <property name="icon">
       <iconset resource="../BulbCalculator.qrc">
-       <normaloff>:/MainWin/share/images/printer.png</normaloff>:/MainWin/share/images/printer.png</iconset>
+       <normaloff>:/MainWin/share/images/print_menu.png</normaloff>:/MainWin/share/images/print_menu.png</iconset>
      </property>
      <widget class="QMenu" name="menuSections">
       <property name="title">
@@ -170,9 +170,19 @@
     <addaction name="actionCascade"/>
     <addaction name="actionTile"/>
    </widget>
+   <widget class="QMenu" name="menuTools">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="title">
+     <string>Tools</string>
+    </property>
+    <addaction name="action_Preferences"/>
+   </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Insert"/>
    <addaction name="menu3D_Options"/>
+   <addaction name="menuTools"/>
    <addaction name="menuWindow"/>
    <addaction name="menu_Help"/>
   </widget>
@@ -239,6 +249,10 @@
    </property>
   </action>
   <action name="action_Quit">
+   <property name="icon">
+    <iconset resource="../BulbCalculator.qrc">
+     <normaloff>:/MainWin/share/images/exit.png</normaloff>:/MainWin/share/images/exit.png</iconset>
+   </property>
    <property name="text">
     <string>&amp;Quit</string>
    </property>
@@ -400,16 +414,28 @@
    </property>
   </action>
   <action name="actionShow_Top_view">
+   <property name="icon">
+    <iconset resource="../BulbCalculator.qrc">
+     <normaloff>:/MainWin/share/images/2d.png</normaloff>:/MainWin/share/images/2d.png</iconset>
+   </property>
    <property name="text">
     <string>Show Top view</string>
    </property>
   </action>
   <action name="actionShow_Side_view">
+   <property name="icon">
+    <iconset resource="../BulbCalculator.qrc">
+     <normaloff>:/MainWin/share/images/2d.png</normaloff>:/MainWin/share/images/2d.png</iconset>
+   </property>
    <property name="text">
     <string>Show Side view</string>
    </property>
   </action>
   <action name="actionShow_3D_view">
+   <property name="icon">
+    <iconset resource="../BulbCalculator.qrc">
+     <normaloff>:/MainWin/share/images/3d.png</normaloff>:/MainWin/share/images/3d.png</iconset>
+   </property>
    <property name="text">
     <string>Show 3D view</string>
    </property>
@@ -417,13 +443,17 @@
   <action name="actionShow_Calculation">
    <property name="icon">
     <iconset resource="../BulbCalculator.qrc">
-     <normaloff>:/MainWin/share/images/kcalc.png</normaloff>:/MainWin/share/images/kcalc.png</iconset>
+     <normaloff>:/MainWin/share/images/calc.png</normaloff>:/MainWin/share/images/calc.png</iconset>
    </property>
    <property name="text">
     <string>Show Calculation</string>
    </property>
   </action>
   <action name="actionShow_Bulb_Data">
+   <property name="icon">
+    <iconset resource="../BulbCalculator.qrc">
+     <normaloff>:/MainWin/share/images/data.png</normaloff>:/MainWin/share/images/data.png</iconset>
+   </property>
    <property name="text">
     <string>Show Bulb Data</string>
    </property>
@@ -449,6 +479,10 @@
    </property>
   </action>
   <action name="actionPrintSectionFromTop">
+   <property name="icon">
+    <iconset resource="../BulbCalculator.qrc">
+     <normaloff>:/MainWin/share/images/printer.png</normaloff>:/MainWin/share/images/printer.png</iconset>
+   </property>
    <property name="text">
     <string>From Top</string>
    </property>
@@ -464,6 +498,10 @@
    </property>
   </action>
   <action name="actionPrintLinesPlanFromTop">
+   <property name="icon">
+    <iconset resource="../BulbCalculator.qrc">
+     <normaloff>:/MainWin/share/images/printer.png</normaloff>:/MainWin/share/images/printer.png</iconset>
+   </property>
    <property name="text">
     <string>From Top</string>
    </property>
@@ -517,6 +555,10 @@
    </property>
   </action>
   <action name="actionPrintSectionFromSide">
+   <property name="icon">
+    <iconset resource="../BulbCalculator.qrc">
+     <normaloff>:/MainWin/share/images/printer.png</normaloff>:/MainWin/share/images/printer.png</iconset>
+   </property>
    <property name="text">
     <string>From Side</string>
    </property>
@@ -527,13 +569,42 @@
    </property>
   </action>
   <action name="actionPrintLinesPlanFromSide">
+   <property name="icon">
+    <iconset resource="../BulbCalculator.qrc">
+     <normaloff>:/MainWin/share/images/printer.png</normaloff>:/MainWin/share/images/printer.png</iconset>
+   </property>
    <property name="text">
     <string>From Side</string>
    </property>
   </action>
   <action name="actionPage_Setup">
+   <property name="icon">
+    <iconset resource="../BulbCalculator.qrc">
+     <normaloff>:/MainWin/share/images/settings.png</normaloff>:/MainWin/share/images/settings.png</iconset>
+   </property>
    <property name="text">
     <string>Page Setup</string>
+   </property>
+  </action>
+  <action name="action_Options">
+   <property name="icon">
+    <iconset resource="../BulbCalculator.qrc">
+     <normaloff>:/MainWin/share/images/settings.png</normaloff>:/MainWin/share/images/settings.png</iconset>
+   </property>
+   <property name="text">
+    <string>Options</string>
+   </property>
+  </action>
+  <action name="action_Preferences">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../BulbCalculator.qrc">
+     <normaloff>:/MainWin/share/images/settings.png</normaloff>:/MainWin/share/images/settings.png</iconset>
+   </property>
+   <property name="text">
+    <string>Preferences</string>
    </property>
   </action>
  </widget>
