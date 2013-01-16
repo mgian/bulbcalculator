@@ -32,11 +32,10 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #include "../include/Utils.h"
 #include "../include/BulbDataOptions.h"
 #include "../include/PrintBulb.h"
+#include "../include/Preferences.h"
 
 
 BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
-
-
 
     ui.setupUi(this);
 
@@ -100,6 +99,7 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     connect( ui.actionMedium, SIGNAL(triggered()), this, SLOT(Set3DResolutionMedium()));
     connect( ui.actionHigh, SIGNAL(triggered()), this, SLOT(Set3DResolutionHigh()));
     connect( ui.actionHighest, SIGNAL(triggered()), this, SLOT(Set3DResolutionHighest()));
+    connect( ui.action_Preferences, SIGNAL(triggered()), this, SLOT(ShowPrefWindow()));
 
     this->BulbMenu->addAction(ui.action00xx);
     this->BulbMenu->addAction(ui.action63A0xx);
@@ -138,7 +138,6 @@ void BulbCalculator::PageSetup() {
     QPageSetupDialog *qps;
     qps = new QPageSetupDialog();
     qps->exec();
-    qDebug() << qps->printer();
 
 }
 
@@ -214,6 +213,7 @@ void BulbCalculator::CreateTopWin() {
 
     // Bulb top view window
     this->ViewTopWin = new QMdiSubWindow;
+    this->ViewTopWin->setWindowIcon(QIcon(QString("share/images/2d.png")));
     ViewTopWin->setWidget(this->GV_TopView);
     ViewTopWin->setWindowTitle(tr("Top View"));
     ui.mdiArea->addSubWindow(this->ViewTopWin);
@@ -233,6 +233,7 @@ void BulbCalculator::CreateSideWin() {
 
     // Bulb side view window
     this->ViewSideWin = new QMdiSubWindow;
+    this->ViewSideWin->setWindowIcon(QIcon(QString("share/images/2d.png")));
     ViewSideWin->setWidget(this->GV_SideView);
     ViewSideWin->setWindowTitle(tr("Side View"));
     ui.mdiArea->addSubWindow(this->ViewSideWin);
@@ -250,6 +251,7 @@ void BulbCalculator::Create3dWin() {
     this->View3DWin = new QMdiSubWindow;
 
     View3DWin->setWidget(this->view3d);
+    this->View3DWin->setWindowIcon(QIcon(QString("share/images/3d.png")));
     View3DWin->setWindowTitle(tr("3d View"));
     ui.mdiArea->addSubWindow(this->View3DWin);
 
@@ -259,9 +261,8 @@ void BulbCalculator::CreateCalcWin() {
 
     // Bulb Calculation window
 
-
     this->BulbCalculation = new QMdiSubWindow;
-    this->BulbCalculation->setWindowIcon(QIcon(QString("share/images/kcalc.png")));
+    this->BulbCalculation->setWindowIcon(QIcon(QString("share/images/calc.png")));
     this->TW_Bulb = new QTableWidget(10,8);
 
     QStringList hcols;
@@ -297,6 +298,7 @@ void BulbCalculator::CreateDataWin() {
 
     // Bulb data window
     this->BulbData = new QMdiSubWindow;
+    this->BulbData->setWindowIcon(QIcon(QString("share/images/data.png")));
     this->TW_SubBulbDataGen = new QTableWidget(5,2);
     this->TW_SubBulbDataGen->setAlternatingRowColors(true);
     this->TW_SubBulbDataGen->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -608,6 +610,17 @@ void BulbCalculator::PrintBulbData() {
     PrintDraw(this, P_DATA);
 
 }
+
+
+void BulbCalculator::ShowPrefWindow() {
+
+    int ret;
+
+    BcPreference *DlgPrefWin = new BcPreference;
+    ret = DlgPrefWin->exec();
+
+}
+
 
 void BulbCalculator::SetBulbDataOptions() {
 
@@ -1436,9 +1449,9 @@ void BulbCalculator::SetImp() {
 
 void BulbCalculator::WriteSettings() {
 
-    QSettings settings("BulbCalculator", "Config");
+    QSettings settings("GRYS","BulbCalculator");
 
-    settings.beginGroup("MainWindow");
+    settings.beginGroup("Window");
     settings.setValue("size", size());
     settings.setValue("pos", pos());
     settings.endGroup();
@@ -1447,9 +1460,10 @@ void BulbCalculator::WriteSettings() {
 
 void BulbCalculator::ReadSettings() {
 
-    QSettings settings("BulbCalculator", "Config");
 
-    settings.beginGroup("MainWindow");
+    QSettings settings("GRYS","BulbCalculator");
+
+    settings.beginGroup("Window");
     resize(settings.value("size", QSize(400, 400)).toSize());
     move(settings.value("pos", QPoint(200, 200)).toPoint());
     settings.endGroup();
