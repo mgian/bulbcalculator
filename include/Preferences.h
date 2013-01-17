@@ -29,13 +29,14 @@ class BcPreference: public QDialog, private Ui::D_Preferences
     Q_OBJECT
 
     public:
-        BcPreference();
+        BcPreference(BulbCalculator *bcp);
 
     private slots:
         void ApplyChange();
         void UpdateListSel();
 
     private:
+        BulbCalculator *bc;
         void UpdInterfacePref();
         void UpdBulbPref();
         void UpdPrinterPref();

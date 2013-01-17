@@ -22,7 +22,7 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #include "../include/Preferences.h"
 #include "../include/BulbCalculator.h"
 
-BcPreference::BcPreference() {
+BcPreference::BcPreference(BulbCalculator *bcp) {
 
     setupUi(this);
     this->setWindowIcon(QIcon(QString("share/images/settings.png")));
@@ -64,6 +64,8 @@ void BcPreference::ApplyChange() {
 }
 
 void BcPreference::UpdInterfacePref() {
+
+    this->bc->BcPrefs->BcViewMode = 1;
 
 }
 

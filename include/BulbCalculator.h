@@ -44,6 +44,7 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 
 class Vista3D;
 class ViewArea;
+class BulbCalcPref;
 
 class BulbCalculator : public QMainWindow
 {
@@ -59,6 +60,7 @@ class BulbCalculator : public QMainWindow
         QString GetSectionData(int SectNum);
         QString GetSectionValue(int SectNum, int val);
         QActionGroup *Resolution3D;
+        BulbCalcPref *BcPrefs;
 
 // Bulb Values
         profile naca_profile;
@@ -263,4 +265,16 @@ class ViewArea : public QGraphicsView {
         void DrawBulbSide();
 
 };
+#endif
+
+#ifndef BULB_CALC_PREF
+#define BULB_CALC_PREF
+
+class BulbCalcPref {
+
+    public:
+        int BcViewMode;
+
+};
+
 #endif

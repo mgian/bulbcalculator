@@ -42,6 +42,7 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     ReadSettings();
 
     this->setCentralWidget(ui.mdiArea);
+    ui.mdiArea->setViewMode((QMdiArea::ViewMode)this->BcPrefs->BcViewMode);
 
     this->Modified = 0;
     this->num_sect = 6;
@@ -616,7 +617,7 @@ void BulbCalculator::ShowPrefWindow() {
 
     int ret;
 
-    BcPreference *DlgPrefWin = new BcPreference;
+    BcPreference *DlgPrefWin = new BcPreference(this);
     ret = DlgPrefWin->exec();
 
 }
@@ -1456,6 +1457,9 @@ void BulbCalculator::WriteSettings() {
     settings.setValue("pos", pos());
     settings.endGroup();
 
+    settings.beginGroup("Gui");
+    settings.setValue("ViewMode", ui.mdiArea->viewMode());
+    settings.endGroup();
 }
 
 void BulbCalculator::ReadSettings() {
@@ -1468,6 +1472,10 @@ void BulbCalculator::ReadSettings() {
     move(settings.value("pos", QPoint(200, 200)).toPoint());
     settings.endGroup();
 
+    settings.beginGroup("Gui");
+    this->BcPrefs->BcViewMode = settings.value("Gui").toInt();
+//    settings.setValue("ViewMode", ui.mdiArea->ViewMode);
+    settings.endGroup();
 
 }
 

@@ -25,8 +25,7 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 BulbDataOptions::BulbDataOptions() {
 
     setupUi(this);
-//    QPushButton* pOkButton = this->buttonBox->button(QDialogButtonBox::Ok);
-//    pOkButton->setIcon(QIcon("share/images/clean.png"));
+
     connect(RB_Even, SIGNAL(clicked()),this, SLOT(SetEven()));
     connect(RB_Cosine, SIGNAL(clicked()),this, SLOT(SetCosine()));
     connect(RB_Metric, SIGNAL(clicked()), this, SLOT(SetMM()));
