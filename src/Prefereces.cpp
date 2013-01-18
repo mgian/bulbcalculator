@@ -30,7 +30,20 @@ BcPreference::BcPreference() {
     connect(this->TWI_Settings, SIGNAL(currentChanged(int)), this, SLOT(UpdateListSel(int)));
     connect(this->RB_MdiWin, SIGNAL(clicked()), this, SLOT(EnableApply()));
     connect(this->RB_TabWin, SIGNAL(clicked()), this, SLOT(EnableApply()));
+
+    connect(this->DSP_DefTW, SIGNAL(valueChanged(double)), this, SLOT(EnableApply()));
+    connect(this->DSP_DefMD, SIGNAL(valueChanged(double)), this, SLOT(EnableApply()));
+    connect(this->SP_DefHLR, SIGNAL(valueChanged(int)), this, SLOT(EnableApply()));
+    connect(this->SP_DefWHR, SIGNAL(valueChanged(int)), this, SLOT(EnableApply()));
+    connect(this->CB_DrawSlice, SIGNAL(toggled(bool)), this, SLOT(EnableApply()));
+    connect(this->DSP_DefSliceThickness, SIGNAL(valueChanged(double)), this, SLOT(EnableApply()));
+    connect(this->CB_DefRefPoints, SIGNAL(toggled(bool)), this, SLOT(EnableApply()));
+    connect(this->SP_DefRefPointNum, SIGNAL(valueChanged(int)), this, SLOT(EnableApply()));
+    connect(this->SP_DefNumOfSec, SIGNAL(valueChanged(int)), this, SLOT(EnableApply()));
+    connect(this->RB_DefEven, SIGNAL(toggled(bool)), this, SLOT(EnableApply()));
+    connect(this->RB_DefCosine, SIGNAL(toggled(bool)), this, SLOT(EnableApply()));
     connect(this->CB_TabPosition, SIGNAL(currentIndexChanged(int)), this, SLOT(EnableApply()));
+
     this->lw_category->setCurrentRow(0);
     this->buttonBox->button(QDialogButtonBox::Apply)->setEnabled(false);
     this->ReadCurrentPref();
@@ -77,7 +90,20 @@ void BcPreference::ReadCurrentPref() {
             this->RB_DefImp_F->setChecked(true);
             break;
     }
+    settings.endGroup();
 
+    settings.beginGroup("BulbDefault");
+    this->DSP_DefTW->setValue(settings.value("TargetWeight").toDouble());
+    this->DSP_DefMD->setValue(settings.value("MatDensity").toDouble());
+    if (settings.value("DrawSlice").toInt() == YES) {
+        this->CB_DrawSlice->setChecked(true);
+    } else {
+        this->CB_DrawSlice->setChecked(false);
+    }
+
+    this->DSP_DefSliceThickness->setValue(settings.value("SliceThickness").toDouble());
+    this->SP_DefHLR->setValue(settings.value("HLRatio").toInt());
+    this->SP_DefWHR->setValue(settings.value("WHRatio").toInt());
     settings.endGroup();
 
 }
@@ -160,13 +186,32 @@ void BcPreference::UpdInterfacePref() {
     } else if (this->RB_DefImp_F->isChecked() == true) {
         settings.setValue("Unit", UNIT_INCH_F);
     }
-
     settings.endGroup();
+
+
 
 
 }
 
 void BcPreference::UpdBulbPref() {
+
+    QSettings settings("GRYS","BulbCalculator");
+
+    settings.beginGroup("BulbDefault");
+
+    settings.setValue("TargetWeight", this->DSP_DefTW->value());
+    settings.setValue("MatDensity", this->DSP_DefMD->value());
+    if (this->CB_DrawSlice->isChecked() == true) {
+        settings.setValue("DrawSlice", YES);
+    } else {
+        settings.setValue("DrawSlice", NO);
+    }
+    settings.setValue("SliceThickness", this->DSP_DefSliceThickness->value());
+    settings.setValue("HLRatio", this->SP_DefHLR->value());
+    settings.setValue("WHRatio", this->SP_DefWHR->value());
+
+
+    settings.endGroup();
 
 }
 

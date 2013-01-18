@@ -45,7 +45,7 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     ui.mdiArea->setViewMode((QMdiArea::ViewMode)this->BcPrefs->Gui_BcViewMode);
     ui.mdiArea->setTabPosition((QTabWidget::TabPosition)this->BcPrefs->Gui_TabPos);
 
-    this->Modified = 0;
+    this->BcStatus->St_Modified = NO;
     this->num_sect = 6;
     this->sect_dist = DIST_EVEN;
 
@@ -689,7 +689,7 @@ void BulbCalculator::UpdateCalculations() {
 
 void BulbCalculator::NewBulb() {
 
-    if (this->Modified == 1) {
+    if (this->BcStatus->St_Modified == YES) {
         QMessageBox msgBox;
         msgBox.setText("The design has been modified.");
         msgBox.setInformativeText("Do you want to save your changes?");
@@ -716,7 +716,7 @@ void BulbCalculator::NewBulb() {
     this->GV_TopView->UpdateView();
     BulbCalculator::UpdateCalculations();
 
-    this->Modified = 1;
+    this->BcStatus->St_Modified = YES;
 
 }
 
@@ -783,7 +783,7 @@ void BulbCalculator::Save() {
 
     file.write(xml.toStdString().c_str());
     file.close();
-    this->Modified = 0;
+    this->BcStatus->St_Modified = NO;
 }
 
 void BulbCalculator::SaveAs() {
@@ -1121,7 +1121,7 @@ void BulbCalculator::SetBulbParameter() {
         BulbCalculator::UpdateCalculations();
         this->GV_SideView->UpdateView();
         this->GV_TopView->UpdateView();
-        this->Modified = 1;
+        this->BcStatus->St_Modified = YES;
     }
 
     view3d->SetProfile();
@@ -1270,7 +1270,7 @@ void BulbCalculator::Open() {
     QDomElement root, params;
     QDomNode value;
     int err = 0;
-    if (this->Modified == 1) {
+    if (this->BcStatus->St_Modified == YES) {
         QMessageBox msgBox;
         msgBox.setText("The design has been modified.");
         msgBox.setInformativeText("Do you want to save your changes?");
