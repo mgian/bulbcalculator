@@ -131,7 +131,7 @@ void PrintDraw::DrawBulbData(QPrinter *prn) {
     p.drawText(x,y+1500, QString("Wetted surface"));
 
 
-    if (this->bc->units == UNIT_MM) {
+    if (this->bc->BcPrefs->Gui_Unit == UNIT_MM) {
         p.drawText(x+offset,y+250, QString(": ")+QString::number(this->bc->length)+QString(" cm"));
         p.drawText(x+offset,y+500, QString(": ")+QString::number(this->bc->material_density)+QString(" gr/cm³"));
         p.drawText(x+offset,y+750, QString(": ")+QString::number(this->bc->target_weight)+QString(" Kg"));
@@ -139,12 +139,12 @@ void PrintDraw::DrawBulbData(QPrinter *prn) {
         p.drawText(x+offset,y+1250, QString(": ")+QString::number(this->bc->bulb_volume)+QString(" cm³"));
         p.drawText(x+offset,y+1500, QString(": ")+QString::number(this->bc->bulb_wet_surface)+QString(" cm²"));
     } else {
-        p.drawText(x+offset,y+250, QString(": ")+DisplayValue(this->bc->length/2.54,this->bc->units)+QString(" in"));
-        p.drawText(x+offset,y+500, QString(": ")+DisplayValue(this->bc->length/2.54,this->bc->units)+QString(" in"));
-        p.drawText(x+offset,y+750, QString(": ")+DisplayValue(this->bc->target_weight*1000*0.035,this->bc->units)+QString(" oz"));
-        p.drawText(x+offset,y+1000, QString(": ")+DisplayValue((this->bc->naca_profile.gcentre*wr)/2.54,this->bc->units)+QString(" in"));
-        p.drawText(x+offset,y+1250, QString(": ")+DisplayValue(this->bc->bulb_volume*0.061,this->bc->units)+QString(" cu.in"));
-        p.drawText(x+offset,y+1500, QString(": ")+DisplayValue(this->bc->bulb_wet_surface*0.155,this->bc->units)+QString(" sq.in"));
+        p.drawText(x+offset,y+250, QString(": ")+DisplayValue(this->bc->length/2.54,this->bc->BcPrefs->Gui_Unit)+QString(" in"));
+        p.drawText(x+offset,y+500, QString(": ")+DisplayValue(this->bc->length/2.54,this->bc->BcPrefs->Gui_Unit)+QString(" in"));
+        p.drawText(x+offset,y+750, QString(": ")+DisplayValue(this->bc->target_weight*1000*0.035,this->bc->BcPrefs->Gui_Unit)+QString(" oz"));
+        p.drawText(x+offset,y+1000, QString(": ")+DisplayValue((this->bc->naca_profile.gcentre*wr)/2.54,this->bc->BcPrefs->Gui_Unit)+QString(" in"));
+        p.drawText(x+offset,y+1250, QString(": ")+DisplayValue(this->bc->bulb_volume*0.061,this->bc->BcPrefs->Gui_Unit)+QString(" cu.in"));
+        p.drawText(x+offset,y+1500, QString(": ")+DisplayValue(this->bc->bulb_wet_surface*0.155,this->bc->BcPrefs->Gui_Unit)+QString(" sq.in"));
     }
 
     offset = 4000;
@@ -170,7 +170,7 @@ void PrintDraw::DrawBulbData(QPrinter *prn) {
     double fau = (mu*mx*3.14)/2.0;
     double fa = fal+fau;
 
-    if (this->bc->units == UNIT_MM) {
+    if (this->bc->BcPrefs->Gui_Unit == UNIT_MM) {
         p.drawText(x+offset,y+250, QString(": ")+QString::number(this->bc->naca_profile.HLRatio*100)+QString(" %"));
         p.drawText(x+offset,y+500, QString(": ")+QString::number(this->bc->naca_profile.WHRatio*100)+QString(" %"));
         p.drawText(x+offset,y+750, QString(": ")+QString::number(this->bc->naca_profile.gcentre*wr)+QString(" cm"));
@@ -178,12 +178,12 @@ void PrintDraw::DrawBulbData(QPrinter *prn) {
         p.drawText(x+offset,y+1250, QString(": ")+QString::number(mx*2)+QString(" cm"));
         p.drawText(x+offset,y+1500, QString(": ")+QString::number(fa)+QString(" cm²"));
     } else {
-        p.drawText(x+offset,y+250, QString(": ")+DisplayValue(this->bc->naca_profile.HLRatio*100,this->bc->units)+QString(" %"));
-        p.drawText(x+offset,y+500, QString(": ")+DisplayValue(this->bc->naca_profile.WHRatio*100,this->bc->units)+QString(" %"));
-        p.drawText(x+offset,y+750, QString(": ")+DisplayValue(this->bc->naca_profile.gcentre*wr/2.54,this->bc->units)+QString(" in"));
-        p.drawText(x+offset,y+1000, QString(": ")+DisplayValue((this->bc->naca_profile.gcentre*100),this->bc->units)+QString(" %"));
-        p.drawText(x+offset,y+1250, QString(": ")+DisplayValue(mx*2/2.54,this->bc->units)+QString(" in"));
-        p.drawText(x+offset,y+1500, QString(": ")+DisplayValue(fa*0.155,this->bc->units)+QString(" sq.in"));
+        p.drawText(x+offset,y+250, QString(": ")+DisplayValue(this->bc->naca_profile.HLRatio*100,this->bc->BcPrefs->Gui_Unit)+QString(" %"));
+        p.drawText(x+offset,y+500, QString(": ")+DisplayValue(this->bc->naca_profile.WHRatio*100,this->bc->BcPrefs->Gui_Unit)+QString(" %"));
+        p.drawText(x+offset,y+750, QString(": ")+DisplayValue(this->bc->naca_profile.gcentre*wr/2.54,this->bc->BcPrefs->Gui_Unit)+QString(" in"));
+        p.drawText(x+offset,y+1000, QString(": ")+DisplayValue((this->bc->naca_profile.gcentre*100),this->bc->BcPrefs->Gui_Unit)+QString(" %"));
+        p.drawText(x+offset,y+1250, QString(": ")+DisplayValue(mx*2/2.54,this->bc->BcPrefs->Gui_Unit)+QString(" in"));
+        p.drawText(x+offset,y+1500, QString(": ")+DisplayValue(fa*0.155,this->bc->BcPrefs->Gui_Unit)+QString(" sq.in"));
     }
 
     p.setFont(TextFontBold);

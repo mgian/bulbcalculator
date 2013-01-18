@@ -45,7 +45,7 @@ void ExportDraw::ExportTextFile(QString fileName) {
         fileName.append(ext);
     }
 
-    switch (this->bc->units) {
+    switch (this->bc->BcPrefs->Gui_Unit) {
         case UNIT_MM:
             this->ExportTextFileMM(fileName);
             break;
@@ -120,10 +120,10 @@ void ExportDraw::ExportTextFileInchD(QString FileOut) {
     QTextStream fos(&fo);
 
 
-    fos << QString("%1").arg("Lenght (in.)", -25, ' ') << ": " << DisplayValue(this->bc->length/2.54, this->bc->units) << "\n";
-    fos << QString("%1").arg("Center (in.)", -25, ' ') << ": " << DisplayValue(tl * this->bc->naca_profile.gcentre/2.54, this->bc->units) << "\n";
-    fos << QString("%1").arg("Wetted Surface (sq.in.)", -25, ' ') << ": " << DisplayValue(this->bc->bulb_wet_surface*0.155, this->bc->units) << "\n";
-    fos << QString("%1").arg("Volume (cu.in.)", -25, ' ') << ": " << DisplayValue(this->bc->bulb_volume*0.061, this->bc->units) << "\n";
+    fos << QString("%1").arg("Lenght (in.)", -25, ' ') << ": " << DisplayValue(this->bc->length/2.54, this->bc->BcPrefs->Gui_Unit) << "\n";
+    fos << QString("%1").arg("Center (in.)", -25, ' ') << ": " << DisplayValue(tl * this->bc->naca_profile.gcentre/2.54, this->bc->BcPrefs->Gui_Unit) << "\n";
+    fos << QString("%1").arg("Wetted Surface (sq.in.)", -25, ' ') << ": " << DisplayValue(this->bc->bulb_wet_surface*0.155, this->bc->BcPrefs->Gui_Unit) << "\n";
+    fos << QString("%1").arg("Volume (cu.in.)", -25, ' ') << ": " << DisplayValue(this->bc->bulb_volume*0.061, this->bc->BcPrefs->Gui_Unit) << "\n";
     fos << "\n" << "\n";
     fos << QString("%1").arg("Position", 15, ' ');
     fos << QString("%1").arg("X (in.)", 15, ' ');
@@ -160,10 +160,10 @@ void ExportDraw::ExportTextFileInchF(QString FileOut) {
     QTextStream fos(&fo);
 
 
-    fos << QString("%1").arg("Lenght (in.)", -25, ' ') << ": " << DisplayValue(this->bc->length/2.54, this->bc->units) << "\n";
-    fos << QString("%1").arg("Center (in.)", -25, ' ') << ": " << DisplayValue(tl * this->bc->naca_profile.gcentre/2.54, this->bc->units) << "\n";
-    fos << QString("%1").arg("Wetted Surface (sq.in.)", -25, ' ') << ": " << DisplayValue(this->bc->bulb_wet_surface*0.155, this->bc->units) << "\n";
-    fos << QString("%1").arg("Volume (cu.in.)", -25, ' ') << ": " << DisplayValue(this->bc->bulb_volume*0.061, this->bc->units) << "\n";
+    fos << QString("%1").arg("Lenght (in.)", -25, ' ') << ": " << DisplayValue(this->bc->length/2.54, this->bc->BcPrefs->Gui_Unit) << "\n";
+    fos << QString("%1").arg("Center (in.)", -25, ' ') << ": " << DisplayValue(tl * this->bc->naca_profile.gcentre/2.54, this->bc->BcPrefs->Gui_Unit) << "\n";
+    fos << QString("%1").arg("Wetted Surface (sq.in.)", -25, ' ') << ": " << DisplayValue(this->bc->bulb_wet_surface*0.155, this->bc->BcPrefs->Gui_Unit) << "\n";
+    fos << QString("%1").arg("Volume (cu.in.)", -25, ' ') << ": " << DisplayValue(this->bc->bulb_volume*0.061, this->bc->BcPrefs->Gui_Unit) << "\n";
     fos << "\n" << "\n";
     fos << QString("%1").arg("Position", 15, ' ');
     fos << QString("%1").arg("X", 15, ' ');

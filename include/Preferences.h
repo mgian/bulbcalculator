@@ -24,23 +24,28 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "../include/BulbCalculator.h"
 
+
 class BcPreference: public QDialog, private Ui::D_Preferences
 {
     Q_OBJECT
 
     public:
-        BcPreference(BulbCalculator *bcp);
+        BcPreference();
 
     private slots:
         void ApplyChange();
-        void UpdateListSel();
+        void UpdateListSel(int idx);
+        void EnableApply();
 
     private:
-        BulbCalculator *bc;
         void UpdInterfacePref();
         void UpdBulbPref();
         void UpdPrinterPref();
         void UpdRepoPref();
+        void ReadCurrentPref();
+
+        int ModPref;
+        int CurIndex;
 
 };
 

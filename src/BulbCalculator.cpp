@@ -39,15 +39,16 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
 
     ui.setupUi(this);
 
-    ReadSettings();
+    ReadPreferences();
 
     this->setCentralWidget(ui.mdiArea);
-    ui.mdiArea->setViewMode((QMdiArea::ViewMode)this->BcPrefs->BcViewMode);
+    ui.mdiArea->setViewMode((QMdiArea::ViewMode)this->BcPrefs->Gui_BcViewMode);
+    ui.mdiArea->setTabPosition((QTabWidget::TabPosition)this->BcPrefs->Gui_TabPos);
 
     this->Modified = 0;
     this->num_sect = 6;
     this->sect_dist = DIST_EVEN;
-    this->units = UNIT_MM;
+
 
     this->BulbMenu = new QActionGroup(this);
     this->Resolution3D = new QActionGroup(this);
@@ -55,7 +56,7 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     BulbCalculator::SetDefaultValue();
     BulbCalculator::CreateCalcWin();
     BulbCalculator::CreateDataWin();
-    BulbCalculator::DrawView();
+    BulbCalculator::UpdateCalculations();
     BulbCalculator::CreateTopWin();
     BulbCalculator::CreateSideWin();
     BulbCalculator::Create3dWin();
@@ -130,7 +131,6 @@ void BulbCalculator::SetTiled() {
     foreach(QMdiSubWindow* window , ui.mdiArea->subWindowList()) {
         qDebug() << window->accessibleName() << window->size();
     }
-    qDebug() << ui.mdiArea->size();
 
 }
 
@@ -375,7 +375,7 @@ void BulbCalculator::UpdateCalcs() {
     }
 
     it = new QTableWidgetItem;
-    if (this->units == UNIT_MM) {
+    if (this->BcPrefs->Gui_Unit == UNIT_MM) {
         it->setText("cm");
     } else {
         it->setText("in.");
@@ -383,7 +383,7 @@ void BulbCalculator::UpdateCalcs() {
     this->TW_SubBulbDataGen->setItem(0,0,it);
 
     it = new QTableWidgetItem;
-    if (this->units == UNIT_MM) {
+    if (this->BcPrefs->Gui_Unit == UNIT_MM) {
         it->setText("gr.");
     } else {
         it->setText("oz.");
@@ -391,7 +391,7 @@ void BulbCalculator::UpdateCalcs() {
     this->TW_SubBulbDataGen->setItem(1,0,it);
 
     it = new QTableWidgetItem;
-    if (this->units == UNIT_MM) {
+    if (this->BcPrefs->Gui_Unit == UNIT_MM) {
         it->setText("cm");
     } else {
         it->setText("in.");
@@ -399,7 +399,7 @@ void BulbCalculator::UpdateCalcs() {
     this->TW_SubBulbDataGen->setItem(2,0,it);
 
     it = new QTableWidgetItem;
-    if (this->units == UNIT_MM) {
+    if (this->BcPrefs->Gui_Unit == UNIT_MM) {
         it->setText("cm^3");
     } else {
         it->setText("cu.in.");
@@ -407,7 +407,7 @@ void BulbCalculator::UpdateCalcs() {
     this->TW_SubBulbDataGen->setItem(3,0,it);
 
     it = new QTableWidgetItem;
-    if (this->units == UNIT_MM) {
+    if (this->BcPrefs->Gui_Unit == UNIT_MM) {
         it->setText("cm^2");
     } else {
         it->setText("sq.in.");
@@ -416,26 +416,26 @@ void BulbCalculator::UpdateCalcs() {
 
     // Lenght
     QTableWidgetItem *itG = new QTableWidgetItem;
-    switch(this->units) {
+    switch(this->BcPrefs->Gui_Unit) {
         case UNIT_MM:
             itG->setText(QString::number(this->length,'.',2));
             break;
         case UNIT_INCH_F:
         case UNIT_INCH:
-            itG->setText(DisplayValue(this->length/2.54,this->units));
+            itG->setText(DisplayValue(this->length/2.54,this->BcPrefs->Gui_Unit));
             break;
     }
     this->TW_SubBulbDataGen->setItem(0,1,itG);
 
     // target weight
     QTableWidgetItem *itG1 = new QTableWidgetItem;
-    switch(this->units) {
+    switch(this->BcPrefs->Gui_Unit) {
         case UNIT_MM:
             itG1->setText(QString::number(this->target_weight*1000,'.',2));
             break;
         case UNIT_INCH_F:
         case UNIT_INCH:
-            itG1->setText(DisplayValue(this->target_weight*1000*0.035, this->units));
+            itG1->setText(DisplayValue(this->target_weight*1000*0.035, this->BcPrefs->Gui_Unit));
             break;
     }
     this->TW_SubBulbDataGen->setItem(1,1,itG1);
@@ -444,13 +444,13 @@ void BulbCalculator::UpdateCalcs() {
     QTableWidgetItem *itG2 = new QTableWidgetItem;
     tl = pow((target_weight*1000.0)/(naca_profile.volume*material_density), 1.0/3.0);
     double gc = tl * this->naca_profile.gcentre;
-    switch(this->units) {
+    switch(this->BcPrefs->Gui_Unit) {
         case UNIT_MM:
             itG2->setText(QString::number(gc,'.',2));
             break;
         case UNIT_INCH_F:
         case UNIT_INCH:
-            itG2->setText(DisplayValue(gc/2.54,this->units));
+            itG2->setText(DisplayValue(gc/2.54,this->BcPrefs->Gui_Unit));
             break;
     }
     this->TW_SubBulbDataGen->setItem(2,1,itG2);
@@ -458,13 +458,13 @@ void BulbCalculator::UpdateCalcs() {
     // Volume
     QTableWidgetItem *itG3 = new QTableWidgetItem;
     double vol = this->bulb_volume;
-    switch(this->units) {
+    switch(this->BcPrefs->Gui_Unit) {
         case UNIT_MM:
             itG3->setText(QString::number(vol,'.',2));
             break;
         case UNIT_INCH_F:
         case UNIT_INCH:
-            itG3->setText(DisplayValue(vol*0.061, this->units));
+            itG3->setText(DisplayValue(vol*0.061, this->BcPrefs->Gui_Unit));
             break;
     }
     this->TW_SubBulbDataGen->setItem(3,1,itG3);
@@ -472,13 +472,13 @@ void BulbCalculator::UpdateCalcs() {
     // Wetted surface
     QTableWidgetItem *itG4 = new QTableWidgetItem;
     double ws_e = naca_profile.wetted_surface* (double)pow(tl, 2);
-    switch(this->units) {
+    switch(this->BcPrefs->Gui_Unit) {
         case UNIT_MM:
             itG4->setText(QString::number(ws_e,'.',2));
             break;
         case UNIT_INCH_F:
         case UNIT_INCH:
-            itG4->setText(DisplayValue(ws_e*0.155, this->units));
+            itG4->setText(DisplayValue(ws_e*0.155, this->BcPrefs->Gui_Unit));
             break;
     }
     this->TW_SubBulbDataGen->setItem(4,1,itG4);
@@ -507,7 +507,7 @@ void BulbCalculator::UpdateCalcs() {
         QTableWidgetItem *hMin = new QTableWidgetItem();
         QTableWidgetItem *Width = new QTableWidgetItem();
 
-        switch (this->units) {
+        switch (this->BcPrefs->Gui_Unit) {
             case UNIT_MM:
                 xPos->setText(QString::number(x_pos,'.',2));
                 hMax->setText(QString::number(height_max,'.',2));
@@ -516,10 +516,10 @@ void BulbCalculator::UpdateCalcs() {
                 break;
             case UNIT_INCH:
             case UNIT_INCH_F:
-                xPos->setText(DisplayValue(x_pos/2.54, this->units));
-                hMax->setText(DisplayValue(height_max/2.54, this->units));
-                hMin->setText(DisplayValue(height_min/2.54, this->units));
-                Width->setText(DisplayValue(width/2.54, this->units));
+                xPos->setText(DisplayValue(x_pos/2.54, this->BcPrefs->Gui_Unit));
+                hMax->setText(DisplayValue(height_max/2.54, this->BcPrefs->Gui_Unit));
+                hMin->setText(DisplayValue(height_min/2.54, this->BcPrefs->Gui_Unit));
+                Width->setText(DisplayValue(width/2.54, this->BcPrefs->Gui_Unit));
                 break;
         }
         this->TW_SubBulbDataSec->setItem(count,1,xPos);
@@ -617,8 +617,12 @@ void BulbCalculator::ShowPrefWindow() {
 
     int ret;
 
-    BcPreference *DlgPrefWin = new BcPreference(this);
+    BcPreference *DlgPrefWin = new BcPreference();
     ret = DlgPrefWin->exec();
+    if (ret == DlgPrefWin->Accepted) {
+        this->ReadGuiPreferences();
+        this->UpdateCalcs();
+    }
 
 }
 
@@ -634,19 +638,19 @@ void BulbCalculator::SetBulbDataOptions() {
     tl = pow((target_weight*1000.0)/(naca_profile.volume*material_density), 1.0/3.0);
 
     DlgBulbDataOpt->SetBulbValue(tl, this->target_weight, this->bulb_volume,
-                                this->bulb_wet_surface, this->num_sect, this->sect_dist, this->units,
+                                this->bulb_wet_surface, this->num_sect, this->sect_dist, this->BcPrefs->Gui_Unit,
                                 this->slice_thickness);
 
     ret = DlgBulbDataOpt->exec();
     if(ret == QDialog::Accepted) {
         this->sect_dist = DlgBulbDataOpt->GetSectDist();
-        this->units = DlgBulbDataOpt->GetUnit() ;
+        this->BcPrefs->Gui_Unit = DlgBulbDataOpt->GetUnit() ;
         this->num_sect = DlgBulbDataOpt->GetNumSec();
         this->slice = DlgBulbDataOpt->GetSlice();
         this->slice_thickness = DlgBulbDataOpt->GetSliceThickness();
     }
 
-    BulbCalculator::DrawView();
+    BulbCalculator::UpdateCalculations();
     this->GV_SideView->UpdateView();
     this->GV_TopView->UpdateView();
 
@@ -676,11 +680,10 @@ void BulbCalculator::ShowGrid() {
 
 }
 
-void BulbCalculator::DrawView() {
+void BulbCalculator::UpdateCalculations() {
 
     BulbCalculator::UpdateResults();
     BulbCalculator::UpdateCalcs();
-
 
 }
 
@@ -711,9 +714,10 @@ void BulbCalculator::NewBulb() {
     BulbCalculator::Set00xx();
     this->GV_SideView->UpdateView();
     this->GV_TopView->UpdateView();
-    BulbCalculator::DrawView();
+    BulbCalculator::UpdateCalculations();
 
     this->Modified = 1;
+
 }
 
 void BulbCalculator::Save() {
@@ -805,7 +809,7 @@ void BulbCalculator::resizeEvent( QResizeEvent *e ) {
 
 void BulbCalculator::closeEvent(QCloseEvent *event) {
 
-    WriteSettings();
+    WritePrefereces();
 
 }
 
@@ -845,7 +849,7 @@ void BulbCalculator::UpdateResults() {
     this->TW_Bulb->setItem(0,0,it);
 
     it = new QTableWidgetItem;
-    if (this->units == UNIT_MM) {
+    if (this->BcPrefs->Gui_Unit == UNIT_MM) {
         it->setText("gr/cm^3");
     } else {
         it->setText("lb/cu.ft.");
@@ -853,7 +857,7 @@ void BulbCalculator::UpdateResults() {
     this->TW_Bulb->setItem(1,0,it);
 
     it = new QTableWidgetItem;
-    if (this->units == UNIT_MM) {
+    if (this->BcPrefs->Gui_Unit == UNIT_MM) {
         it->setText("cm");
     } else {
         it->setText("in.");
@@ -861,7 +865,7 @@ void BulbCalculator::UpdateResults() {
     this->TW_Bulb->setItem(2,0,it);
 
     it = new QTableWidgetItem;
-    if (this->units == UNIT_MM) {
+    if (this->BcPrefs->Gui_Unit == UNIT_MM) {
         it->setText("cm");
     } else {
         it->setText("in.");
@@ -873,7 +877,7 @@ void BulbCalculator::UpdateResults() {
     this->TW_Bulb->setItem(4,0,it);
 
     it = new QTableWidgetItem;
-    if (this->units == UNIT_MM) {
+    if (this->BcPrefs->Gui_Unit == UNIT_MM) {
         it->setText("gr.");
     } else {
         it->setText("oz.");
@@ -881,7 +885,7 @@ void BulbCalculator::UpdateResults() {
     this->TW_Bulb->setItem(5,0,it);
 
     it = new QTableWidgetItem;
-    if (this->units == UNIT_MM) {
+    if (this->BcPrefs->Gui_Unit == UNIT_MM) {
         it->setText("cm^3");
     } else {
         it->setText("cu.in.");
@@ -889,7 +893,7 @@ void BulbCalculator::UpdateResults() {
     this->TW_Bulb->setItem(6,0,it);
 
     it = new QTableWidgetItem;
-     if (this->units == UNIT_MM) {
+     if (this->BcPrefs->Gui_Unit == UNIT_MM) {
         it->setText("cm^2");
     } else {
         it->setText("sq.in.");
@@ -897,7 +901,7 @@ void BulbCalculator::UpdateResults() {
     this->TW_Bulb->setItem(7,0,it);
 
     it = new QTableWidgetItem;
-     if (this->units == UNIT_MM) {
+     if (this->BcPrefs->Gui_Unit == UNIT_MM) {
         it->setText("cm");
     } else {
         it->setText("in.");
@@ -905,7 +909,7 @@ void BulbCalculator::UpdateResults() {
     this->TW_Bulb->setItem(8,0,it);
 
     it = new QTableWidgetItem;
-    if (this->units == UNIT_MM) {
+    if (this->BcPrefs->Gui_Unit == UNIT_MM) {
         it->setText("cm^2");
     } else {
         it->setText("sq.in.");
@@ -928,13 +932,13 @@ void BulbCalculator::UpdateResults() {
         if(i == 4) {
             it->setBackgroundColor(QColor("#00ff00"));
         }
-        switch(this->units) {
+        switch(this->BcPrefs->Gui_Unit) {
             case UNIT_MM:
                 it->setText(QString::number(this->material_density,'.',2));
                 break;
             case UNIT_INCH_F:
             case UNIT_INCH:
-                it->setText(DisplayValue(this->material_density*62.42, this->units));
+                it->setText(DisplayValue(this->material_density*62.42, this->BcPrefs->Gui_Unit));
                 break;
         }
         this->TW_Bulb->setItem(1,i,it);
@@ -948,13 +952,13 @@ void BulbCalculator::UpdateResults() {
         this->naca_profile.calc();
         tl = pow((target_weight*1000.0)/(naca_profile.volume*material_density), 1.0/3.0);
 
-        switch(this->units) {
+        switch(this->BcPrefs->Gui_Unit) {
             case UNIT_MM:
                 it->setText(QString::number(tl,'.',2));
                 break;
             case UNIT_INCH_F:
             case UNIT_INCH:
-                it->setText(DisplayValue(tl/2.54, this->units));
+                it->setText(DisplayValue(tl/2.54, this->BcPrefs->Gui_Unit));
                 break;
         }
         this->TW_Bulb->setItem(2,i,it);
@@ -965,13 +969,13 @@ void BulbCalculator::UpdateResults() {
             it->setBackgroundColor(QColor("#00ff00"));
         }
         double gc = tl * this->naca_profile.gcentre;
-        switch(this->units) {
+        switch(this->BcPrefs->Gui_Unit) {
             case UNIT_MM:
                 it->setText(QString::number(gc,'.',2));
                 break;
             case UNIT_INCH_F:
             case UNIT_INCH:
-                it->setText(DisplayValue(gc/2.54, this->units));
+                it->setText(DisplayValue(gc/2.54, this->BcPrefs->Gui_Unit));
                 break;
         }
         this->TW_Bulb->setItem(3,i,it);
@@ -994,13 +998,13 @@ void BulbCalculator::UpdateResults() {
         }
         double vol_e = vol * (double)this->material_density;
 
-        switch(this->units) {
+        switch(this->BcPrefs->Gui_Unit) {
             case UNIT_MM:
                 it->setText(QString::number(vol_e,'.',2));
                 break;
             case UNIT_INCH_F:
             case UNIT_INCH:
-                it->setText(DisplayValue(vol_e*0.035, this->units));
+                it->setText(DisplayValue(vol_e*0.035, this->BcPrefs->Gui_Unit));
                 break;
         }
 
@@ -1011,13 +1015,13 @@ void BulbCalculator::UpdateResults() {
         if(i == 4) {
             it->setBackgroundColor(QColor("#00ff00"));
         }
-        switch(this->units) {
+        switch(this->BcPrefs->Gui_Unit) {
             case UNIT_MM:
                 it->setText(QString::number(vol,'.',2));
                 break;
             case UNIT_INCH_F:
             case UNIT_INCH:
-                it->setText(DisplayValue(vol*0.061, this->units));
+                it->setText(DisplayValue(vol*0.061, this->BcPrefs->Gui_Unit));
                 break;
         }
         this->TW_Bulb->setItem(6,i,it);
@@ -1029,13 +1033,13 @@ void BulbCalculator::UpdateResults() {
             it->setBackgroundColor(QColor("#00ff00"));
         }
         double ws_e = naca_profile.wetted_surface* (double)pow(tl, 2);
-        switch(this->units) {
+        switch(this->BcPrefs->Gui_Unit) {
             case UNIT_MM:
                 it->setText(QString::number(ws_e,'.',2));
                 break;
             case UNIT_INCH_F:
             case UNIT_INCH:
-                it->setText(DisplayValue(ws_e*0.155, this->units));
+                it->setText(DisplayValue(ws_e*0.155, this->BcPrefs->Gui_Unit));
                 break;
         }
         this->TW_Bulb->setItem(7,i,it);
@@ -1047,13 +1051,13 @@ void BulbCalculator::UpdateResults() {
         }
         // X axis
         mx = this->naca_profile.max_width * tl;
-        switch(this->units) {
+        switch(this->BcPrefs->Gui_Unit) {
             case UNIT_MM:
                 it->setText(QString::number(mx*2,'.',2));
                 break;
             case UNIT_INCH_F:
             case UNIT_INCH:
-                it->setText(DisplayValue((mx*2)/2.54,this->units));
+                it->setText(DisplayValue((mx*2)/2.54,this->BcPrefs->Gui_Unit));
                 break;
         }
         this->TW_Bulb->setItem(8,i,it);
@@ -1075,13 +1079,13 @@ void BulbCalculator::UpdateResults() {
         double fau = (mu*mx*3.14)/2.0;
         double fa = fal+fau;
 
-        switch(this->units) {
+        switch(this->BcPrefs->Gui_Unit) {
             case UNIT_MM:
                 it->setText(QString::number(fa,'.',2));
                 break;
             case UNIT_INCH_F:
             case UNIT_INCH:
-                it->setText(DisplayValue(fa*0.155, this->units));
+                it->setText(DisplayValue(fa*0.155, this->BcPrefs->Gui_Unit));
                 break;
         }
         this->TW_Bulb->setItem(9,i,it);
@@ -1114,7 +1118,7 @@ void BulbCalculator::SetBulbParameter() {
         this->target_weight = DlgParam->GetTargetWeight();
         this->material_density = DlgParam->GetMaterialDensity();
         delete DlgParam;
-        BulbCalculator::DrawView();
+        BulbCalculator::UpdateCalculations();
         this->GV_SideView->UpdateView();
         this->GV_TopView->UpdateView();
         this->Modified = 1;
@@ -1139,7 +1143,7 @@ void BulbCalculator::Set00xx() {
     BulbCalculator::ClearBulb();
     naca_profile.foil_name.assign("00XX");
     view3d->SetProfile();
-    BulbCalculator::DrawView();
+    BulbCalculator::UpdateCalculations();
     this->GV_SideView->UpdateView();
     this->GV_TopView->UpdateView();
 
@@ -1150,7 +1154,7 @@ void BulbCalculator::Set63_0xx() {
     BulbCalculator::ClearBulb();
     naca_profile.foil_name.assign("63-0XX");
     view3d->SetProfile();
-    BulbCalculator::DrawView();
+    BulbCalculator::UpdateCalculations();
     this->GV_SideView->UpdateView();
     this->GV_TopView->UpdateView();
 
@@ -1161,7 +1165,7 @@ void BulbCalculator::Set63A0xx() {
     BulbCalculator::ClearBulb();
     naca_profile.foil_name.assign("63A0XX");
     view3d->SetProfile();
-    BulbCalculator::DrawView();
+    BulbCalculator::UpdateCalculations();
     this->GV_SideView->UpdateView();
     this->GV_TopView->UpdateView();
 
@@ -1172,7 +1176,7 @@ void BulbCalculator::Set640xx() {
     BulbCalculator::ClearBulb();
     naca_profile.foil_name.assign("640XX");
     view3d->SetProfile();
-    BulbCalculator::DrawView();
+    BulbCalculator::UpdateCalculations();
     this->GV_SideView->UpdateView();
     this->GV_TopView->UpdateView();
 
@@ -1183,7 +1187,7 @@ void BulbCalculator::Set64A0xx() {
     BulbCalculator::ClearBulb();
     naca_profile.foil_name.assign("64A0XX");
     view3d->SetProfile();
-    BulbCalculator::DrawView();
+    BulbCalculator::UpdateCalculations();
     this->GV_SideView->UpdateView();
     this->GV_TopView->UpdateView();
 }
@@ -1194,7 +1198,7 @@ void BulbCalculator::Set650xx() {
     BulbCalculator::ClearBulb();
     naca_profile.foil_name.assign("650XX");
     view3d->SetProfile();
-    BulbCalculator::DrawView();
+    BulbCalculator::UpdateCalculations();
     this->GV_SideView->UpdateView();
     this->GV_TopView->UpdateView();
 }
@@ -1204,7 +1208,7 @@ void BulbCalculator::Set65A0xx() {
     BulbCalculator::ClearBulb();
     naca_profile.foil_name.assign("65A0XX");
     view3d->SetProfile();
-    BulbCalculator::DrawView();
+    BulbCalculator::UpdateCalculations();
     this->GV_SideView->UpdateView();
     this->GV_TopView->UpdateView();
 
@@ -1215,7 +1219,7 @@ void BulbCalculator::Set660xx() {
     BulbCalculator::ClearBulb();
     naca_profile.foil_name.assign("660XX");
     view3d->SetProfile();
-    BulbCalculator::DrawView();
+    BulbCalculator::UpdateCalculations();
     this->GV_SideView->UpdateView();
     this->GV_TopView->UpdateView();
 
@@ -1226,7 +1230,7 @@ void BulbCalculator::Set670xx() {
     BulbCalculator::ClearBulb();
     naca_profile.foil_name.assign("670XX");
     view3d->SetProfile();
-    BulbCalculator::DrawView();
+    BulbCalculator::UpdateCalculations();
     this->GV_SideView->UpdateView();
     this->GV_TopView->UpdateView();
 }
@@ -1350,7 +1354,7 @@ void BulbCalculator::Open() {
                                 tr("Not a valid file"),
                                 QMessageBox::Ok );
     } else {
-        BulbCalculator::DrawView();
+        BulbCalculator::UpdateCalculations();
         this->GV_SideView->UpdateView();
         this->GV_TopView->UpdateView();
     }
@@ -1369,12 +1373,6 @@ void BulbCalculator::SetDefaultValue() {
 
 }
 
-
-void BulbCalculator::SetMetric() {
-
-    this->units = UNIT_MM;
-
-}
 
 void BulbCalculator::ImportFoilData() {
 
@@ -1408,7 +1406,7 @@ void BulbCalculator::ImportFoilData() {
         naca_profile = tmp_foil;
         view3d->SetBc(this);
         view3d->SetProfile();
-        BulbCalculator::DrawView();
+        BulbCalculator::UpdateCalculations();
         this->GV_SideView->UpdateView();
         this->GV_TopView->UpdateView();
         BulbCalculator::SetUnchecked();
@@ -1419,7 +1417,7 @@ void BulbCalculator::ImportFoilData() {
         naca_profile = tmp_foil;
         view3d->SetBc(this);
         view3d->SetProfile();
-        BulbCalculator::DrawView();
+        BulbCalculator::UpdateCalculations();
         this->GV_SideView->UpdateView();
         this->GV_TopView->UpdateView();
         BulbCalculator::SetUnchecked();
@@ -1444,11 +1442,17 @@ void BulbCalculator::SetUnchecked() {
 
 void BulbCalculator::SetImp() {
 
-    this->units = UNIT_INCH;
+    this->BcPrefs->Gui_Unit = UNIT_INCH;
 
 }
 
-void BulbCalculator::WriteSettings() {
+void BulbCalculator::SetMetric() {
+
+    this->BcPrefs->Gui_Unit = UNIT_MM;
+
+}
+
+void BulbCalculator::WritePrefereces() {
 
     QSettings settings("GRYS","BulbCalculator");
 
@@ -1457,12 +1461,9 @@ void BulbCalculator::WriteSettings() {
     settings.setValue("pos", pos());
     settings.endGroup();
 
-    settings.beginGroup("Gui");
-    settings.setValue("ViewMode", ui.mdiArea->viewMode());
-    settings.endGroup();
 }
 
-void BulbCalculator::ReadSettings() {
+void BulbCalculator::ReadPreferences() {
 
 
     QSettings settings("GRYS","BulbCalculator");
@@ -1472,11 +1473,22 @@ void BulbCalculator::ReadSettings() {
     move(settings.value("pos", QPoint(200, 200)).toPoint());
     settings.endGroup();
 
-    settings.beginGroup("Gui");
-    this->BcPrefs->BcViewMode = settings.value("Gui").toInt();
-//    settings.setValue("ViewMode", ui.mdiArea->ViewMode);
-    settings.endGroup();
+    this->ReadGuiPreferences();
 
 }
 
 
+void BulbCalculator::ReadGuiPreferences() {
+
+    QSettings settings("GRYS","BulbCalculator");
+
+    settings.beginGroup("Gui");
+    this->BcPrefs->Gui_BcViewMode = settings.value("ViewMode").toInt();
+    this->BcPrefs->Gui_TabPos = settings.value("TabPos").toInt();
+    this->BcPrefs->Gui_Unit = settings.value("Unit").toInt();
+    settings.endGroup();
+
+    ui.mdiArea->setViewMode((QMdiArea::ViewMode)this->BcPrefs->Gui_BcViewMode);
+    ui.mdiArea->setTabPosition((QTabWidget::TabPosition)this->BcPrefs->Gui_TabPos);
+
+}

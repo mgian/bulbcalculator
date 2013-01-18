@@ -157,6 +157,19 @@
             <bool>false</bool>
            </property>
            <layout class="QGridLayout" name="gridLayout">
+            <item row="2" column="1">
+             <widget class="QRadioButton" name="RB_TabWin">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Tabbed Windows</string>
+              </property>
+             </widget>
+            </item>
             <item row="0" column="0">
              <widget class="QLabel" name="label_3">
               <property name="sizePolicy">
@@ -170,20 +183,7 @@
               </property>
              </widget>
             </item>
-            <item row="0" column="1">
-             <widget class="QRadioButton" name="RB_TabWin">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>Tabbed Windows</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="2">
+            <item row="2" column="3">
              <widget class="QLabel" name="label_2">
               <property name="enabled">
                <bool>false</bool>
@@ -202,7 +202,23 @@
               </property>
              </widget>
             </item>
-            <item row="0" column="3">
+            <item row="0" column="1">
+             <widget class="QRadioButton" name="RB_MdiWin">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>MDI Windows</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="4">
              <widget class="QComboBox" name="CB_TabPosition">
               <property name="enabled">
                <bool>false</bool>
@@ -235,22 +251,6 @@
               </item>
              </widget>
             </item>
-            <item row="1" column="1">
-             <widget class="QRadioButton" name="RB_MdiWin">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>MDI Windows</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
            </layout>
           </widget>
          </item>
@@ -267,7 +267,7 @@
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
-             <widget class="QRadioButton" name="RB_DefMetric_2">
+             <widget class="QRadioButton" name="RB_DefMetric">
               <property name="text">
                <string>&amp;Metric</string>
               </property>
@@ -280,14 +280,14 @@
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="RB_DefImp_D_2">
+             <widget class="QRadioButton" name="RB_DefImp_D">
               <property name="text">
                <string>Impe&amp;rial (decimals)</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="RB_DefImp_F_2">
+             <widget class="QRadioButton" name="RB_DefImp_F">
               <property name="text">
                <string>&amp;Imperial (fractions)</string>
               </property>
@@ -1152,7 +1152,7 @@
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel|QDialogButtonBox::Ok|QDialogButtonBox::RestoreDefaults</set>
+      <set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
      <property name="centerButtons">
       <bool>false</bool>
@@ -1210,6 +1210,22 @@
     <hint type="destinationlabel">
      <x>196</x>
      <y>31</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>RB_TabWin</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>CB_TabPosition</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>332</x>
+     <y>98</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>452</x>
+     <y>101</y>
     </hint>
    </hints>
   </connection>

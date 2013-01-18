@@ -42,6 +42,10 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #define SIDE_VIEW   0
 #define TOP_VIEW    1
 
+#define NO      0
+#define YES     1
+
+
 class Vista3D;
 class ViewArea;
 class BulbCalcPref;
@@ -52,7 +56,7 @@ class BulbCalculator : public QMainWindow
     
     public:
         BulbCalculator(QMainWindow *form=0);
-        void DrawView();
+        void UpdateCalculations();
         void UpdateResults();
         void UpdateCalcs();
         void SetImp();
@@ -73,7 +77,7 @@ class BulbCalculator : public QMainWindow
 // Bulb Options
         int num_sect;
         int sect_dist;  // 0 = Even, 1 = Cosine
-        int units;       // 0 = Metric, 1 = imperial
+        //int units;       // 0 = Metric, 1 = imperial
         int slice;
         float slice_thickness;
         vector<double> sect_pos;
@@ -158,8 +162,11 @@ class BulbCalculator : public QMainWindow
         void SetUnchecked();
         void ClearBulb();
         void FillBulbDataValue();
-        void WriteSettings();
-        void ReadSettings();
+        void WritePrefereces();
+
+        // Preferences functions
+        void ReadPreferences();
+        void ReadGuiPreferences();
 
 
 
@@ -273,7 +280,9 @@ class ViewArea : public QGraphicsView {
 class BulbCalcPref {
 
     public:
-        int BcViewMode;
+        int Gui_BcViewMode;
+        int Gui_TabPos;
+        int Gui_Unit;
 
 };
 
