@@ -37,12 +37,16 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 
 BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
 
-    ui.setupUi(this);
 
+    ui.setupUi(this);
+    this->BcPrefs = new BulbCalcPref;
+    this->BcStatus = new BulbCalcStatus;
     ReadPreferences();
 
     this->setCentralWidget(ui.mdiArea);
+
     ui.mdiArea->setViewMode((QMdiArea::ViewMode)this->BcPrefs->Gui_BcViewMode);
+
     ui.mdiArea->setTabPosition((QTabWidget::TabPosition)this->BcPrefs->Gui_TabPos);
 
     this->BcStatus->St_Modified = NO;
@@ -53,6 +57,7 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     this->BulbMenu = new QActionGroup(this);
     this->Resolution3D = new QActionGroup(this);
     this->setWindowTitle(QString("Bulb Calculator - Version ").append(VERSION));
+
     BulbCalculator::SetDefaultValue();
     BulbCalculator::CreateCalcWin();
     BulbCalculator::CreateDataWin();
@@ -1468,10 +1473,17 @@ void BulbCalculator::ReadPreferences() {
 
     QSettings settings("GRYS","BulbCalculator");
 
-    settings.beginGroup("Window");
-    resize(settings.value("size", QSize(400, 400)).toSize());
-    move(settings.value("pos", QPoint(200, 200)).toPoint());
-    settings.endGroup();
+    if (settings.childGroups().contains("Windowb",Qt::CaseInsensitive)){
+        settings.beginGroup("Window");
+        resize(settings.value("size", QSize(400, 400)).toSize());
+        move(settings.value("pos", QPoint(200, 200)).toPoint());
+        settings.endGroup();
+    } else {
+        settings.beginGroup("Window");
+        settings.setValue("size", QSize(400, 400));
+        settings.setValue("pos", QSize(200,200));
+        settings.endGroup();
+    }
 
     this->ReadGuiPreferences();
 
@@ -1480,15 +1492,24 @@ void BulbCalculator::ReadPreferences() {
 
 void BulbCalculator::ReadGuiPreferences() {
 
+
     QSettings settings("GRYS","BulbCalculator");
+    if (settings.childGroups().contains("Gui",Qt::CaseInsensitive)){
+        settings.beginGroup("Gui");
+        this->BcPrefs->Gui_BcViewMode = settings.value("ViewMode").toInt();
+        this->BcPrefs->Gui_TabPos = settings.value("TabPos").toInt();
+        this->BcPrefs->Gui_Unit = settings.value("Unit").toInt();
+        settings.endGroup();
+        ui.mdiArea->setViewMode((QMdiArea::ViewMode)this->BcPrefs->Gui_BcViewMode);
+        ui.mdiArea->setTabPosition((QTabWidget::TabPosition)this->BcPrefs->Gui_TabPos);
+    } else {
+        settings.beginGroup("Gui");
+        settings.setValue("ViewMode", 0);
+        settings.setValue("Unit", UNIT_MM);
+        settings.endGroup();
+        ui.mdiArea->setViewMode(QMdiArea::SubWindowView);
+        ui.mdiArea->setTabPosition(QTabWidget::North);
+    }
 
-    settings.beginGroup("Gui");
-    this->BcPrefs->Gui_BcViewMode = settings.value("ViewMode").toInt();
-    this->BcPrefs->Gui_TabPos = settings.value("TabPos").toInt();
-    this->BcPrefs->Gui_Unit = settings.value("Unit").toInt();
-    settings.endGroup();
-
-    ui.mdiArea->setViewMode((QMdiArea::ViewMode)this->BcPrefs->Gui_BcViewMode);
-    ui.mdiArea->setTabPosition((QTabWidget::TabPosition)this->BcPrefs->Gui_TabPos);
 
 }

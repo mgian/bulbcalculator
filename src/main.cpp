@@ -19,6 +19,7 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QApplication>
 #include <QBoxLayout>
+#include <QtGui>
 
 #include "include/BulbCalculator.h"
 
@@ -32,6 +33,5 @@ int main(int argc, char *argv[]) {
     // Instantiate and layout the viewer
     BulbCalculator mw;
     mw.show();
-
     return app.exec();
 }
