@@ -65,6 +65,7 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     BulbCalculator::CreateTopWin();
     BulbCalculator::CreateSideWin();
     BulbCalculator::Create3dWin();
+    BulbCalculator::Create2dWin();
     view3d->SetBc(this);
 
     connect( ui.action_Quit, SIGNAL( triggered() ), this, SLOT(close()) );
@@ -198,12 +199,33 @@ void BulbCalculator::ShowAbout() {
     msg.append(VERSION);
     msg.append("</h2>");
     msg.append("Copyright 2000, 2001 by Marko Majic (Some Rights Reserved)<br>");
-    msg.append("Copyright 2010, 2011 by Gianluca Montecchi (Some Rights Reserved)<p>");
+    msg.append("Copyright 2010, 2013 by Gianluca Montecchi (Some Rights Reserved)<p>");
     msg.append("Contact: gian@grys.it");
     msg.append("</center>");
     QMessageBox::about(this, "About BulbCalculator", msg);
 
 }
+
+void BulbCalculator::Create2dWin() {
+
+    int w,h;
+    sc2d = new QGraphicsScene();
+    this->GV_2DView = new ViewArea(sc2d, this, PLAN_VIEW);
+
+    w = this->GV_2DView->width();
+    h = this->GV_2DView->height();
+    sc2d->setSceneRect(0,0,w-10,h-10);
+    this->GV_2DView->setScene(sc2d);
+
+    // Bulb 2D view window
+    this->View2DWin = new QMdiSubWindow;
+    this->View2DWin->setWindowIcon(QIcon(QString("share/images/2d.png")));
+    View2DWin->setWidget(this->GV_2DView);
+    View2DWin->setWindowTitle(tr("2d View"));
+    ui.mdiArea->addSubWindow(this->View2DWin);
+
+}
+
 
 void BulbCalculator::CreateTopWin() {
 

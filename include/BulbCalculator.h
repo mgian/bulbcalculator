@@ -41,6 +41,7 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 
 #define SIDE_VIEW   0
 #define TOP_VIEW    1
+#define PLAN_VIEW   2
 
 #define NO      0
 #define YES     1
@@ -139,16 +140,20 @@ class BulbCalculator : public QMainWindow
         QGroupBox *gb1;
         QGroupBox *gb2;
         QMdiSubWindow *View3DWin;
+        QMdiSubWindow *View2DWin;
         QMdiSubWindow *ViewTopWin;
         QMdiSubWindow *ViewSideWin;
         ViewArea *GV_TopView;
         ViewArea *GV_SideView;
+        ViewArea *GV_2DView;
         QWidget *widget3d;
         QWidget *wdCalc;
         QWidget *wdData;
         Vista3D *view3d;
         QGraphicsScene *scSide;
         QGraphicsScene *scTop;
+        QGraphicsScene *sc2d;
+
         Ui::MainWindow ui;
         QString FileName;
         int Modified;
@@ -159,6 +164,7 @@ class BulbCalculator : public QMainWindow
         void CreateTopWin();
         void CreateSideWin();
         void Create3dWin();
+        void Create2dWin();
         void CreateCalcWin();
         void CreateDataWin();
         void SetUnchecked();
@@ -272,6 +278,7 @@ class ViewArea : public QGraphicsView {
         int view;
         void DrawBulbTop();
         void DrawBulbSide();
+        void DrawBulb2d();
 
 };
 #endif

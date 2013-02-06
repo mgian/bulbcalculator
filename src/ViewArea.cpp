@@ -28,8 +28,10 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 
 
 ViewArea::ViewArea(QGraphicsScene *scene, BulbCalculator *bcp,  int type, QWidget *parent): QGraphicsView(scene, parent) {
+
     this->bc = bcp;
     this->view = type;
+
 }
 
 void ViewArea::resizeEvent( QResizeEvent * event ) {
@@ -108,6 +110,11 @@ void ViewArea::DrawBulbTop() {
 
 }
 
+void ViewArea::DrawBulb2d() {
+
+
+}
+
 void ViewArea::DrawBulbSide() {
 
     long w,h;
@@ -152,5 +159,9 @@ void ViewArea::DrawBulb() {
         case SIDE_VIEW:
             ViewArea::DrawBulbSide();
             break;
+        case PLAN_VIEW:
+            ViewArea::DrawBulb2d();
+            break;
         }
+
 }
