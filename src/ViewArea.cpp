@@ -40,30 +40,46 @@ void ViewArea::resizeEvent( QResizeEvent * event ) {
         scene()->setSceneRect(QRect(QPoint(0, 0), event->size()));
     }
     QGraphicsView::resizeEvent(event);
-    this->DrawAxis();
-    this->DrawBulb();
+    this->UpdateView();
 
 }
 
 void ViewArea::UpdateView() {
 
-    ViewArea::DrawAxis();
+    long h,w, lh;
+    long y1, y2;
+
+
+    w = (int)this->scene()->width();
+    h = (int)this->scene()->height();
+
+    y1 = (h/4) * 2;
+    y2 = (h/2) + y1*2;
+    lh = w*0.75;
+
+    this->scene()->clear();
+    this->scene()->addLine(10,h/2.0,w-10,h/2.0,QPen(Qt::black));
+    this->scene()->addLine(lh,h+10,lh,h/h-10,QPen(Qt::black));
+    //this->scene()->addLine(OriginY,10,OriginY,hr-10,QPen(Qt::red));
+
+    ViewArea::DrawAxis(lh,y1);
+    //ViewArea::DrawAxis(lh,y2);
+    //ViewArea::DrawAxis(w/2,h/2);
     ViewArea::DrawBulb();
 
 }
 
 
-void ViewArea::DrawAxis(void) {
+void ViewArea::DrawAxis(long wr, long hr) {
 
-    long wr, hr;
     QString prof;
     float OriginY;
 
 
-    wr = (int)this->scene()->width();
-    hr = (int)this->scene()->height();
+//    wr = (int)this->scene()->width();
+//    hr = (int)this->scene()->height();
+    qDebug() << hr;
     OriginY = wr * this->bc->naca_profile.gcentre ;
-    this->scene()->clear();
     this->scene()->addLine(10,hr/2.0,wr-10,hr/2.0,QPen(Qt::red));
     this->scene()->addLine(OriginY,10,OriginY,hr-10,QPen(Qt::red));
     prof.append((char *)"Profile: ");
@@ -111,6 +127,13 @@ void ViewArea::DrawBulbTop() {
 }
 
 void ViewArea::DrawBulb2d() {
+
+    long h,w, mh, mw, lh;
+
+
+    w = (int)this->scene()->width()-30;
+    h = (int)this->scene()->height();
+
 
 
 }

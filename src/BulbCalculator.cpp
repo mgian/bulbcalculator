@@ -62,8 +62,8 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     BulbCalculator::CreateCalcWin();
     BulbCalculator::CreateDataWin();
     BulbCalculator::UpdateCalculations();
-    BulbCalculator::CreateTopWin();
-    BulbCalculator::CreateSideWin();
+//    BulbCalculator::CreateTopWin();
+//    BulbCalculator::CreateSideWin();
     BulbCalculator::Create3dWin();
     BulbCalculator::Create2dWin();
     view3d->SetBc(this);
@@ -579,6 +579,12 @@ void BulbCalculator::ShowSideWindow() {
 
 }
 
+void BulbCalculator::Show2dWindow() {
+
+    this->View2DWin->show();
+    this->GV_2DView->show();
+
+}
 
 void BulbCalculator::Show3dWindow() {
     

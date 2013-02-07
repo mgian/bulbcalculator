@@ -116,6 +116,7 @@ class BulbCalculator : public QMainWindow
         void SetBulbDataOptions();
         void ShowTopWindow();
         void ShowSideWindow();
+        void Show2dWindow();
         void Show3dWindow();
         void ShowCalcWindow();
         void ShowDataWindow();
@@ -274,7 +275,7 @@ class ViewArea : public QGraphicsView {
 
     private:
         BulbCalculator *bc;
-        void DrawAxis(void);
+        void DrawAxis(long wr, long hr);
         int view;
         void DrawBulbTop();
         void DrawBulbSide();
