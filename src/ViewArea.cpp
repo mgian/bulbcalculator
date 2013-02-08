@@ -46,7 +46,7 @@ void ViewArea::resizeEvent( QResizeEvent * event ) {
 
 void ViewArea::UpdateView() {
 
-    long h,w, lh, hy;
+    long h,w, hl, hy;
     long TopAxis_y, SideAxis_y ;
 
     w = (int)this->scene()->width();
@@ -55,36 +55,81 @@ void ViewArea::UpdateView() {
     TopAxis_y = (h/4) * 2;
     SideAxis_y = TopAxis_y + h/2;
     hy = h/2;
-    lh = w*0.75;
+    hl = w*0.75;
 
     this->scene()->clear();
     this->scene()->addLine(10,h/2.0,w-10,h/2.0,QPen(Qt::black));
-    this->scene()->addLine(lh,h+10,lh,h/h-10,QPen(Qt::black));
+    this->scene()->addLine(hl,h+10,hl,h/h-10,QPen(Qt::black));
 
-    ViewArea::DrawAxis(lh,hy,TopAxis_y);
-    ViewArea::DrawAxis(lh,hy,SideAxis_y);
+    ViewArea::DrawAxisTopSide(hl,hy,TopAxis_y);
+    ViewArea::DrawAxisTopSide(hl,hy,SideAxis_y);
+    ViewArea::DrawAxisFront(hl+((w-hl)/2),hy,TopAxis_y, w-hl);
+    ViewArea::DrawText(w,h);
     ViewArea::DrawBulb();
 
 }
 
+void ViewArea::DrawText(long w, long h) {
 
-void ViewArea::DrawAxis(long wr, long hr, long origin) {
+    QString prof;
+    QPainterPath path;
+    QFont font("Monospace");
+    font.setFamily(font.defaultFamily());
+    font.setBold(false);
+    font.setStyleHint(QFont::TypeWriter);
+    font.setStyleStrategy(QFont::NoAntialias);
+    font.setPixelSize(14);
+
+    prof.clear();
+    prof.append((char *)"Profile: ");
+    prof.append((char *)this->bc->naca_profile.foil_name.c_str());
+    prof.append((char *)" - Top view");
+    path.addText(15, 15, font,  prof);
+
+    prof.clear();
+    prof.append((char *)"Profile: ");
+    prof.append((char *)this->bc->naca_profile.foil_name.c_str());
+    prof.append((char *)" - Side view");
+    path.addText(15, h/2+15, font,  prof);
+
+    prof.clear();
+    prof.append((char *)"Profile: ");
+    prof.append((char *)this->bc->naca_profile.foil_name.c_str());
+    prof.append((char *)" - Front view");
+    path.addText(w*0.75+15, 15, font,  prof);
+
+    this->scene()->addPath(path, QPen(QBrush(Qt::black), 0.4), QBrush(Qt::black));
+
+}
+
+void ViewArea::DrawAxisFront(long wr, long hr, long origin, long wl) {
 
     QString prof;
     float OriginY;
-    long y, y2;
+    long y;
 
     y = origin-hr/2.0;
 
 
-    qDebug() << hr << origin << origin-hr/2.0;
+    OriginY = wr * this->bc->naca_profile.gcentre ;
+    this->scene()->addLine(wr-wl/2+10,y,wr+wl/2-10,y,QPen(Qt::red));
+    this->scene()->addLine(wr,y-(hr/2-10),wr,y+(hr/2-10),QPen(Qt::red));
+
+    this->scene()->addEllipse(wr-10,y-10, 20,20, QPen(Qt::red));
+
+}
+
+void ViewArea::DrawAxisTopSide(long wr, long hr, long origin) {
+
+    QString prof;
+    float OriginY;
+    long y;
+
+    y = origin-hr/2.0;
+
     OriginY = wr * this->bc->naca_profile.gcentre ;
     this->scene()->addLine(10,y,wr-10,y,QPen(Qt::red));
     this->scene()->addLine(OriginY,y-(hr/2-10),OriginY,y+(hr/2-10),QPen(Qt::red));
-    prof.append((char *)"Profile: ");
-    prof.append((char *)this->bc->naca_profile.foil_name.c_str());
-    this->scene()->addText(prof);
-
     this->scene()->addEllipse((OriginY-10),y-10, 20,20, QPen(Qt::red));
 
 

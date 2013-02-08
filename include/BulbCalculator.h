@@ -275,11 +275,13 @@ class ViewArea : public QGraphicsView {
 
     private:
         BulbCalculator *bc;
-        void DrawAxis(long wr, long hr, long origin);
-        int view;
+        void DrawAxisTopSide(long wr, long hr, long origin);
+        void DrawAxisFront(long wr, long hr, long origin, long wl);
         void DrawBulbTop();
         void DrawBulbSide();
         void DrawBulb2d();
+        void DrawText(long w, long h);
+        int view;
 
 };
 #endif
