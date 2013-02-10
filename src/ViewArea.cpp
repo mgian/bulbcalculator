@@ -65,7 +65,9 @@ void ViewArea::UpdateView() {
     ViewArea::DrawAxisTopSide(hl,hy,SideAxis_y);
     ViewArea::DrawAxisFront(hl+((w-hl)/2),hy,TopAxis_y, w-hl);
     ViewArea::DrawText(w,h);
-    ViewArea::DrawBulb();
+    ViewArea::DrawBulbTop(hl, TopAxis_y);
+    ViewArea::DrawBulbSide(hl, SideAxis_y);
+    ViewArea::DrawBulbFront(hl+((w-hl)/2), (w-hl)/2, TopAxis_y);
 
 }
 
@@ -104,14 +106,13 @@ void ViewArea::DrawText(long w, long h) {
 
 void ViewArea::DrawAxisFront(long wr, long hr, long origin, long wl) {
 
-    QString prof;
-    float OriginY;
+    //float OriginY;
     long y;
 
     y = origin-hr/2.0;
 
 
-    OriginY = wr * this->bc->naca_profile.gcentre ;
+    //OriginY = wr * this->bc->naca_profile.gcentre ;
     this->scene()->addLine(wr-wl/2+10,y,wr+wl/2-10,y,QPen(Qt::red));
     this->scene()->addLine(wr,y-(hr/2-10),wr,y+(hr/2-10),QPen(Qt::red));
 
@@ -121,7 +122,6 @@ void ViewArea::DrawAxisFront(long wr, long hr, long origin, long wl) {
 
 void ViewArea::DrawAxisTopSide(long wr, long hr, long origin) {
 
-    QString prof;
     float OriginY;
     long y;
 
@@ -135,15 +135,15 @@ void ViewArea::DrawAxisTopSide(long wr, long hr, long origin) {
 
 }
 
-void ViewArea::DrawBulbTop() {
+void ViewArea::DrawBulbTop(long hl, long Origin_Top) {
 
-    long w,h;
+    long w;
+    //long h;
     double OriginY;
     double mult;
+    w = hl - 30;
 
-    w = (int)this->scene()->width() - 30;
-    h = (int)this->scene()->height();
-    OriginY = h/2.0;
+    OriginY = Origin_Top / 2.0;
 
     double point_x[w];
     double point_wyu[w];
@@ -167,31 +167,16 @@ void ViewArea::DrawBulbTop() {
                              15 + point_x[i],OriginY-point_wyl[i],QPen(Qt::black));
     }
 
-
 }
 
-void ViewArea::DrawBulb2d() {
+void ViewArea::DrawBulbSide(long hl, long Origin_Side) {
 
-    long h,w, mh, mw, lh;
-
-
-    w = (int)this->scene()->width()-30;
-    h = (int)this->scene()->height();
-
-
-
-}
-
-void ViewArea::DrawBulbSide() {
-
-    long w,h;
+    long w;
     double OriginY;
     double mult;
 
-    w = (int)this->scene()->width() - 30;
-    h = (int)this->scene()->height();
-    OriginY = h/2.0;
-
+    w = hl - 30;
+    OriginY = Origin_Side/2 + (Origin_Side/4);
 
     double point_x[w];
     double point_hyu[w];
@@ -217,18 +202,38 @@ void ViewArea::DrawBulbSide() {
 
 }
 
-void ViewArea::DrawBulb() {
+void ViewArea::DrawBulbFront(long Origin_X, long hl, long Origin_Top) {
 
-    switch(this->view) {
-        case TOP_VIEW:
-            ViewArea::DrawBulbTop();
-            break;
-        case SIDE_VIEW:
-            ViewArea::DrawBulbSide();
-            break;
-        case PLAN_VIEW:
-            ViewArea::DrawBulb2d();
-            break;
-        }
+    long w;
+    //long h;
+    double OriginY;
+    double OriginX;
+    double mult;
+    w = hl - 30;
+
+    OriginY = Origin_Top / 2.0;
+    OriginX = Origin_X + 30;
+    this->scene()->addLine(Origin_X,OriginY, Origin_X + 50 ,OriginY +50,QPen(Qt::black) );
+    double point_x[w];
+    double point_wyu[w];
+    double point_wyl[w];
+
+    mult = this->bc->naca_profile.num_step/(double)w;
+
+    for(int i=0;i < w; i++) {
+        point_x[i] = i;
+        profile_data& pd(this->bc->naca_profile[(unsigned)((double)i*mult)]);
+        point_wyu[i] = pd.width * w;
+        point_wyl[i] = -pd.width * w;
+    }
+
+    for(int i=1; i < w; i++) {
+        this->scene()->addLine(15 + point_x[i-1],OriginY-point_wyu[i-1],
+                             15 + point_x[i],OriginY-point_wyu[i],QPen(Qt::black));
+    }
+    for(int i=1; i < w; i++) {
+        this->scene()->addLine(15 + point_x[i-1],OriginY-point_wyl[i-1],
+                             15 + point_x[i],OriginY-point_wyl[i],QPen(Qt::black));
+    }
 
 }

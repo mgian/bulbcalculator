@@ -142,10 +142,6 @@ class BulbCalculator : public QMainWindow
         QGroupBox *gb2;
         QMdiSubWindow *View3DWin;
         QMdiSubWindow *View2DWin;
-        QMdiSubWindow *ViewTopWin;
-        QMdiSubWindow *ViewSideWin;
-        ViewArea *GV_TopView;
-        ViewArea *GV_SideView;
         ViewArea *GV_2DView;
         QWidget *widget3d;
         QWidget *wdCalc;
@@ -162,8 +158,6 @@ class BulbCalculator : public QMainWindow
         int cosine;
 
         void SetDefaultValue();
-        void CreateTopWin();
-        void CreateSideWin();
         void Create3dWin();
         void Create2dWin();
         void CreateCalcWin();
@@ -265,7 +259,6 @@ class ViewArea : public QGraphicsView {
     Q_OBJECT
     public:
         ViewArea(QGraphicsScene *scene,  BulbCalculator *bcp, int type, QWidget *parent = 0);
-        void DrawBulb();
         void UpdateView();
         profile naca_profile;
         profile_data data_profile;
@@ -277,9 +270,9 @@ class ViewArea : public QGraphicsView {
         BulbCalculator *bc;
         void DrawAxisTopSide(long wr, long hr, long origin);
         void DrawAxisFront(long wr, long hr, long origin, long wl);
-        void DrawBulbTop();
-        void DrawBulbSide();
-        void DrawBulb2d();
+        void DrawBulbTop(long hl, long Origin_Top);
+        void DrawBulbSide(long hl, long Origin_Side);
+        void DrawBulbFront(long Origin_X, long hl, long Origin_Top);
         void DrawText(long w, long h);
         int view;
 

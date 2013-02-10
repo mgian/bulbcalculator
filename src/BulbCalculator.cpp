@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2011  Gianluca Montecchi <gian@grys.it>
+Copyright (C) 2011-2013  Gianluca Montecchi <gian@grys.it>
 
 This file is part of BulbCalculator.
 
@@ -62,8 +62,6 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     BulbCalculator::CreateCalcWin();
     BulbCalculator::CreateDataWin();
     BulbCalculator::UpdateCalculations();
-//    BulbCalculator::CreateTopWin();
-//    BulbCalculator::CreateSideWin();
     BulbCalculator::Create3dWin();
     BulbCalculator::Create2dWin();
     view3d->SetBc(this);
@@ -227,47 +225,6 @@ void BulbCalculator::Create2dWin() {
 }
 
 
-void BulbCalculator::CreateTopWin() {
-
-
-    int w,h;
-    scTop = new QGraphicsScene();
-    this->GV_TopView = new ViewArea(scTop, this, TOP_VIEW);
-
-    w = this->GV_TopView->width();
-    h = this->GV_TopView->height();
-    scTop->setSceneRect(0,0,w-10,h-10);
-    this->GV_TopView->setScene(scTop);
-
-    // Bulb top view window
-    this->ViewTopWin = new QMdiSubWindow;
-    this->ViewTopWin->setWindowIcon(QIcon(QString("share/images/2d.png")));
-    ViewTopWin->setWidget(this->GV_TopView);
-    ViewTopWin->setWindowTitle(tr("Top View"));
-    ui.mdiArea->addSubWindow(this->ViewTopWin);
-
-}
-
-void BulbCalculator::CreateSideWin() {
-
-    int w,h;
-    scSide = new QGraphicsScene();
-    this->GV_SideView = new ViewArea(scSide, this, SIDE_VIEW);
-
-    w = this->GV_SideView->width();
-    h = this->GV_SideView->height();
-    scSide->setSceneRect(0,0,w-10,h-10);
-    this->GV_SideView->setScene(scSide);
-
-    // Bulb side view window
-    this->ViewSideWin = new QMdiSubWindow;
-    this->ViewSideWin->setWindowIcon(QIcon(QString("share/images/2d.png")));
-    ViewSideWin->setWidget(this->GV_SideView);
-    ViewSideWin->setWindowTitle(tr("Side View"));
-    ui.mdiArea->addSubWindow(this->ViewSideWin);
-
-
-}
 
 void BulbCalculator::Create3dWin() {
 
@@ -566,17 +523,17 @@ void BulbCalculator::UpdateCalcs() {
 }
 
 void BulbCalculator::ShowTopWindow() {
-
+/*
     this->ViewTopWin->show();
     this->GV_TopView->show();
-
+*/
 }
 
 void BulbCalculator::ShowSideWindow() {
-
+/*
     this->ViewSideWin->show();
     this->GV_SideView->show();
-
+*/
 }
 
 void BulbCalculator::Show2dWindow() {
@@ -684,8 +641,7 @@ void BulbCalculator::SetBulbDataOptions() {
     }
 
     BulbCalculator::UpdateCalculations();
-    this->GV_SideView->UpdateView();
-    this->GV_TopView->UpdateView();
+    this->GV_2DView->UpdateView();
 
 }
 
@@ -745,8 +701,7 @@ void BulbCalculator::NewBulb() {
     BulbCalculator::SetDefaultValue();
     BulbCalculator::SetBulbParameter();
     BulbCalculator::Set00xx();
-    this->GV_SideView->UpdateView();
-    this->GV_TopView->UpdateView();
+    this->GV_2DView->UpdateView();
     BulbCalculator::UpdateCalculations();
 
     this->BcStatus->St_Modified = YES;
@@ -1152,8 +1107,7 @@ void BulbCalculator::SetBulbParameter() {
         this->material_density = DlgParam->GetMaterialDensity();
         delete DlgParam;
         BulbCalculator::UpdateCalculations();
-        this->GV_SideView->UpdateView();
-        this->GV_TopView->UpdateView();
+        this->GV_2DView->UpdateView();
         this->BcStatus->St_Modified = YES;
     }
 
@@ -1177,8 +1131,7 @@ void BulbCalculator::Set00xx() {
     naca_profile.foil_name.assign("00XX");
     view3d->SetProfile();
     BulbCalculator::UpdateCalculations();
-    this->GV_SideView->UpdateView();
-    this->GV_TopView->UpdateView();
+    this->GV_2DView->UpdateView();
 
 }
 
@@ -1188,9 +1141,7 @@ void BulbCalculator::Set63_0xx() {
     naca_profile.foil_name.assign("63-0XX");
     view3d->SetProfile();
     BulbCalculator::UpdateCalculations();
-    this->GV_SideView->UpdateView();
-    this->GV_TopView->UpdateView();
-
+    this->GV_2DView->UpdateView();
 }
 
 void BulbCalculator::Set63A0xx() {
@@ -1199,8 +1150,7 @@ void BulbCalculator::Set63A0xx() {
     naca_profile.foil_name.assign("63A0XX");
     view3d->SetProfile();
     BulbCalculator::UpdateCalculations();
-    this->GV_SideView->UpdateView();
-    this->GV_TopView->UpdateView();
+    this->GV_2DView->UpdateView();
 
 }
 
@@ -1210,8 +1160,7 @@ void BulbCalculator::Set640xx() {
     naca_profile.foil_name.assign("640XX");
     view3d->SetProfile();
     BulbCalculator::UpdateCalculations();
-    this->GV_SideView->UpdateView();
-    this->GV_TopView->UpdateView();
+    this->GV_2DView->UpdateView();
 
 }
 
@@ -1221,8 +1170,8 @@ void BulbCalculator::Set64A0xx() {
     naca_profile.foil_name.assign("64A0XX");
     view3d->SetProfile();
     BulbCalculator::UpdateCalculations();
-    this->GV_SideView->UpdateView();
-    this->GV_TopView->UpdateView();
+    this->GV_2DView->UpdateView();
+
 }
 
 
@@ -1232,8 +1181,8 @@ void BulbCalculator::Set650xx() {
     naca_profile.foil_name.assign("650XX");
     view3d->SetProfile();
     BulbCalculator::UpdateCalculations();
-    this->GV_SideView->UpdateView();
-    this->GV_TopView->UpdateView();
+    this->GV_2DView->UpdateView();
+
 }
 
 void BulbCalculator::Set65A0xx() {
@@ -1242,8 +1191,7 @@ void BulbCalculator::Set65A0xx() {
     naca_profile.foil_name.assign("65A0XX");
     view3d->SetProfile();
     BulbCalculator::UpdateCalculations();
-    this->GV_SideView->UpdateView();
-    this->GV_TopView->UpdateView();
+    this->GV_2DView->UpdateView();
 
 }
 
@@ -1253,8 +1201,7 @@ void BulbCalculator::Set660xx() {
     naca_profile.foil_name.assign("660XX");
     view3d->SetProfile();
     BulbCalculator::UpdateCalculations();
-    this->GV_SideView->UpdateView();
-    this->GV_TopView->UpdateView();
+    this->GV_2DView->UpdateView();
 
 }
 
@@ -1264,14 +1211,14 @@ void BulbCalculator::Set670xx() {
     naca_profile.foil_name.assign("670XX");
     view3d->SetProfile();
     BulbCalculator::UpdateCalculations();
-    this->GV_SideView->UpdateView();
-    this->GV_TopView->UpdateView();
+    this->GV_2DView->UpdateView();
+
 }
 
 
 void BulbCalculator::Set3DResolutionLow() {
 
-   ui.actionLow->setChecked(true);
+    ui.actionLow->setChecked(true);
     view3d->Set3DResolution(0);
 
 }
@@ -1388,8 +1335,7 @@ void BulbCalculator::Open() {
                                 QMessageBox::Ok );
     } else {
         BulbCalculator::UpdateCalculations();
-        this->GV_SideView->UpdateView();
-        this->GV_TopView->UpdateView();
+        this->GV_2DView->UpdateView();
     }
 
 }
@@ -1440,8 +1386,7 @@ void BulbCalculator::ImportFoilData() {
         view3d->SetBc(this);
         view3d->SetProfile();
         BulbCalculator::UpdateCalculations();
-        this->GV_SideView->UpdateView();
-        this->GV_TopView->UpdateView();
+        this->GV_2DView->UpdateView();
         BulbCalculator::SetUnchecked();
         return;
     }
@@ -1451,8 +1396,7 @@ void BulbCalculator::ImportFoilData() {
         view3d->SetBc(this);
         view3d->SetProfile();
         BulbCalculator::UpdateCalculations();
-        this->GV_SideView->UpdateView();
-        this->GV_TopView->UpdateView();
+        this->GV_2DView->UpdateView();
         BulbCalculator::SetUnchecked();
         return;
     }
