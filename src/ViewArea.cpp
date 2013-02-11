@@ -106,16 +106,12 @@ void ViewArea::DrawText(long w, long h) {
 
 void ViewArea::DrawAxisFront(long wr, long hr, long origin, long wl) {
 
-    //float OriginY;
     long y;
 
     y = origin-hr/2.0;
 
-
-    //OriginY = wr * this->bc->naca_profile.gcentre ;
     this->scene()->addLine(wr-wl/2+10,y,wr+wl/2-10,y,QPen(Qt::red));
     this->scene()->addLine(wr,y-(hr/2-10),wr,y+(hr/2-10),QPen(Qt::red));
-
     this->scene()->addEllipse(wr-10,y-10, 20,20, QPen(Qt::red));
 
 }
@@ -145,6 +141,7 @@ void ViewArea::DrawBulbTop(long hl, long Origin_Top) {
 
 
     OriginY = Origin_Top/2 + (Origin_Top/4);
+
     double point_x[w];
     double point_wyu[w];
     double point_wyl[w];
@@ -209,12 +206,12 @@ void ViewArea::DrawBulbFront(long Origin_X, long hl, long Origin_Top) {
     double xa, ya;
     double mult;
     int p = 0;
-    w = hl - 30;
+
+    w = (int)this->scene()->width()*0.75;
 
     OriginY = Origin_Top / 2.0;
     OriginX = Origin_X + 30;
 
-    this->scene()->addLine(Origin_X,OriginY, Origin_X + 50 ,OriginY +50,QPen(Qt::black) );
     xa = 0;
     ya = 0;
 
@@ -232,14 +229,13 @@ void ViewArea::DrawBulbFront(long Origin_X, long hl, long Origin_Top) {
         point_hyu[i] = pd.height_u * w;
         point_hyl[i] = pd.height_l * w;
         if (xa < point_wyu[i]) {
-            xa = point_wyu[i];
+            xa = point_wyu[i]*2;
             p = i;
         }
     }
 
     ya = point_hyu[p] - point_hyl[p];
-    qDebug() << point_wyu[p] << point_wyu[p]*2.0 << xa << xa*2;
-    this->scene()->addEllipse(Origin_X,OriginY , xa, ya, QPen(Qt::black));
-    this->scene()->addEllipse(Origin_X,OriginY , xa*2, ya*2, QPen(Qt::black));
+    this->scene()->addEllipse(Origin_X-(xa/2),OriginY-(ya/2) , xa, ya, QPen(Qt::black));
+
 
 }
