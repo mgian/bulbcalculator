@@ -203,39 +203,25 @@ void ViewArea::DrawBulbFront(long Origin_X, long hl, long Origin_Top) {
     long w;
     double OriginY;
     double OriginX;
-    double xa, ya;
-    double mult;
-    int p = 0;
+    double xa, yu, yl;
 
-    w = (int)this->scene()->width()*0.75;
+    w = (int)this->scene()->width()*0.75 - 30;
 
     OriginY = Origin_Top / 2.0;
-    OriginX = Origin_X + 30;
+    OriginX = Origin_X ;
 
-    xa = 0;
-    ya = 0;
+    xa = this->bc->naca_profile.max_width * w;
+    yu = this->bc->naca_profile.max_height_u * w;
+    yl = this->bc->naca_profile.max_height_l * w;
 
-    double point_x[w];
-    double point_wyu[w];
-    double point_hyu[w];
-    double point_hyl[w];
+    QGraphicsEllipseItem* itemU = new QGraphicsEllipseItem(OriginX-xa,OriginY-yu, xa*2, yu*2);
+    itemU->setStartAngle(0);
+    itemU->setSpanAngle(180*16);
+    this->scene()->addItem(itemU);
 
-    mult = this->bc->naca_profile.num_step/(double)w;
-
-    for(int i=0;i < w; i++) {
-        point_x[i] = i;
-        profile_data& pd(this->bc->naca_profile[(unsigned)((double)i*mult)]);
-        point_wyu[i] = pd.width * w;
-        point_hyu[i] = pd.height_u * w;
-        point_hyl[i] = pd.height_l * w;
-        if (xa < point_wyu[i]) {
-            xa = point_wyu[i]*2;
-            p = i;
-        }
-    }
-
-    ya = point_hyu[p] - point_hyl[p];
-    this->scene()->addEllipse(Origin_X-(xa/2),OriginY-(ya/2) , xa, ya, QPen(Qt::black));
-
+    QGraphicsEllipseItem* itemL = new QGraphicsEllipseItem(OriginX-xa,OriginY-yl, xa*2, yl*2);
+    itemL->setStartAngle(180*16);
+    itemL->setSpanAngle(180*16);
+    this->scene()->addItem(itemL);
 
 }
