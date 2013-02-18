@@ -1096,8 +1096,8 @@ void BulbCalculator::SetBulbParameter() {
 
     SetBulbParam *DlgParam = new SetBulbParam;
 
-    DlgParam->SetCurrentValue(this->target_weight, this->material_density,
-                              naca_profile.HLRatio, naca_profile.WHRatio);
+    DlgParam->SetCurrentValue(this->BcPrefs->Bulb_Tw, this->BcPrefs->Bulb_Md,
+                              this->BcPrefs->Bulb_Hrl, this->BcPrefs->Bulb_Whr);
     ret = DlgParam->exec();
     if (ret == QDialog::Accepted) {
         naca_profile.HLRatio = DlgParam->GetHLR();
@@ -1343,12 +1343,12 @@ void BulbCalculator::Open() {
 
 void BulbCalculator::SetDefaultValue() {
 
-    this->target_weight = 2.4;
-    this->material_density = 11.34;
-    naca_profile.HLRatio = 0.15;
-    naca_profile.WHRatio = 1;
-    this->slice = 0;
-    this->slice_thickness = 0.2;
+    this->target_weight = this->BcPrefs->Bulb_Tw;
+    this->material_density = this->BcPrefs->Bulb_Md;
+    naca_profile.HLRatio = this->BcPrefs->Bulb_Hrl/100.0;
+    naca_profile.WHRatio = this->BcPrefs->Bulb_Whr/100.0;
+    this->slice = this->BcPrefs->Bulb_Ds;
+    this->slice_thickness = this->BcPrefs->Bulb_St;
 
 }
 
@@ -1458,7 +1458,7 @@ void BulbCalculator::ReadPreferences() {
     }
 
     this->ReadGuiPreferences();
-
+    this->ReadBulbPreferences();
 }
 
 
@@ -1483,5 +1483,29 @@ void BulbCalculator::ReadGuiPreferences() {
         ui.mdiArea->setTabPosition(QTabWidget::North);
     }
 
+}
+
+void BulbCalculator::ReadBulbPreferences() {
+
+    QSettings settings("GRYS","BulbCalculator");
+    if (settings.childGroups().contains("BulbDefault",Qt::CaseInsensitive)){
+        settings.beginGroup("BulbDefault");
+        this->BcPrefs->Bulb_Tw = settings.value("TargetWeight").toDouble();
+        this->BcPrefs->Bulb_Md = settings.value("MatDensity").toDouble();
+        this->BcPrefs->Bulb_Ds = settings.value("DrawSlice").toInt();
+        this->BcPrefs->Bulb_St = settings.value("SliceThickness").toDouble();
+        this->BcPrefs->Bulb_Hrl = settings.value("HLRatio").toInt();
+        this->BcPrefs->Bulb_Whr = settings.value("WHRatio").toInt();
+        settings.endGroup();
+    } else {
+        settings.beginGroup("BulbDefault");
+        settings.setValue("TargetWeight", 2.4);
+        settings.setValue("MatDensity", 11.34);
+        settings.setValue("DrawSlice", YES);
+        settings.setValue("SliceThickness", 0.2);
+        settings.setValue("HLRatio", 15);
+        settings.setValue("WHRatio", 100);
+        settings.endGroup();
+    }
 
 }

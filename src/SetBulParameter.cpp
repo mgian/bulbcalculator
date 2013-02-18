@@ -61,23 +61,28 @@ double SetBulbParam::GetWHR(void) {
 
 void SetBulbParam::SetCurrentValue(float tw, float md, double hrl, double whr) {
 
-    int i_whr, i_hrl;
-
-
     this->DSP_TW->setValue(tw);
     this->DSP_MD->setValue(md);
-    i_whr = whr*100;
-    i_hrl = hrl*100;
-    this->SP_HLR->setValue(i_hrl);
-    this->SP_WHR->setValue(i_whr);
+    this->SP_HLR->setValue(hrl);
+    this->SP_WHR->setValue(whr);
 
 }
 
 void SetBulbParam::SetDefaultValue(void) {
 
-    this->DSP_TW->setValue(2.4);
-    this->DSP_MD->setValue(11.34);
-    this->SP_HLR->setValue(15);
-    this->SP_WHR->setValue(100);
+    QSettings settings("GRYS","BulbCalculator");
+    if (settings.childGroups().contains("BulbDefault",Qt::CaseInsensitive)){
+        settings.beginGroup("BulbDefault");
+        this->DSP_TW->setValue(settings.value("TargetWeight").toDouble());
+        this->DSP_MD->setValue(settings.value("MatDensity").toDouble());
+        this->SP_HLR->setValue(settings.value("HLRatio").toInt());
+        this->SP_WHR->setValue(settings.value("WHRatio").toInt());
+        settings.endGroup();
+    } else {
+        this->DSP_TW->setValue(2.4);
+        this->DSP_MD->setValue(11.34);
+        this->SP_HLR->setValue(15);
+        this->SP_WHR->setValue(100);
+    }
 
 }

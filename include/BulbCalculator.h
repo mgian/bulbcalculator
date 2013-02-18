@@ -170,6 +170,7 @@ class BulbCalculator : public QMainWindow
         // Preferences functions
         void ReadPreferences();
         void ReadGuiPreferences();
+        void ReadBulbPreferences();
 
 
 
@@ -285,9 +286,18 @@ class ViewArea : public QGraphicsView {
 class BulbCalcPref {
 
     public:
+        /* Gui Preferences */
         int Gui_BcViewMode;
         int Gui_TabPos;
         int Gui_Unit;
+
+        /* Bulb Preferences */
+        float Bulb_Tw;
+        float Bulb_Md;
+        int Bulb_Ds;
+        double Bulb_St;
+        int Bulb_Hrl;
+        int Bulb_Whr;
 
 };
 
