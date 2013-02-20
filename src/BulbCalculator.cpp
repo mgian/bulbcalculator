@@ -59,7 +59,7 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     this->setWindowTitle(QString("Bulb Calculator - Version ").append(VERSION));
 
     BulbCalculator::SetDefaultValue();
-    BulbCalculator::CreateCalcWin();
+    //BulbCalculator::CreateCalcWin();
     BulbCalculator::CreateDataWin();
     BulbCalculator::UpdateCalculations();
     BulbCalculator::Create3dWin();
@@ -246,35 +246,21 @@ void BulbCalculator::CreateCalcWin() {
 
     // Bulb Calculation window
 
+    /*
     this->BulbCalculation = new QMdiSubWindow;
     this->BulbCalculation->setWindowIcon(QIcon(QString("share/images/calc.png")));
-    this->TW_Bulb = new QTableWidget(10,8);
-
-    QStringList hcols;
-    hcols << "Unit" << "-3%" << "-2%" << "-1%" << "0" << "+1%" << "+2%" << "+3%";
-    this->TW_Bulb->setHorizontalHeaderLabels(hcols);
-
-    QStringList hrows;
-    hrows << "Lenght / Height" << "Material density" << "Lenght" << "Center" << "Center / Lenght" << "Projected Weight";
-    hrows << "Volume" << "Wetted Surface" << "Max Diameter" << "Frontal Area";
-    this->TW_Bulb->setVerticalHeaderLabels(hrows);
-
-    this->TW_Bulb->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    this->TW_Bulb->setSizePolicy(QSizePolicy::Preferred,QSizePolicy::Preferred);
-    this->TW_Bulb->setAlternatingRowColors(true);
-    this->TW_Bulb->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     BulbCalculation->setWindowTitle(tr("Bulb Calculation"));
     QVBoxLayout *l1 = new QVBoxLayout;
     this->wdCalc = new QWidget;
     this->BulbName = new QLabel();
     l1->addWidget(this->BulbName);
-    this->BulbName->setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Fixed);
+
     l1->addWidget(this->TW_Bulb);
     this->wdCalc->setLayout(l1);
     BulbCalculation->setWidget(this->wdCalc);
     ui.mdiArea->addSubWindow(this->BulbCalculation);
-
+*/
 
 }
 
@@ -296,7 +282,26 @@ void BulbCalculator::CreateDataWin() {
     this->TW_SubBulbDataGen->setEditTriggers(QAbstractItemView::NoEditTriggers);
     this->TW_SubBulbDataSec->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    QVBoxLayout *layout = new QVBoxLayout;
+    this->TW_Bulb = new QTableWidget(10,8);
+    QStringList hcols;
+    hcols << "Unit" << "-3%" << "-2%" << "-1%" << "0" << "+1%" << "+2%" << "+3%";
+    this->TW_Bulb->setHorizontalHeaderLabels(hcols);
+
+    QStringList hrows;
+    hrows << "Lenght / Height" << "Material density" << "Lenght" << "Center" << "Center / Lenght" << "Projected Weight";
+    hrows << "Volume" << "Wetted Surface" << "Max Diameter" << "Frontal Area";
+    this->TW_Bulb->setVerticalHeaderLabels(hrows);
+
+    this->TW_Bulb->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    this->TW_Bulb->setSizePolicy(QSizePolicy::Preferred,QSizePolicy::Preferred);
+    this->TW_Bulb->setAlternatingRowColors(true);
+    this->TW_Bulb->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+    this->BulbName = new QLabel();
+    this->BulbName->setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Fixed);
+
+    QVBoxLayout *MainLayout = new QVBoxLayout;
+    QHBoxLayout *Row1Layout = new QHBoxLayout;
     QVBoxLayout *l1 = new QVBoxLayout;
     l1->setSizeConstraint(QLayout::SetFixedSize);
     QVBoxLayout *l2 = new QVBoxLayout;
@@ -313,9 +318,12 @@ void BulbCalculator::CreateDataWin() {
     int h = 120;
     this->TW_SubBulbDataGen->setMaximumSize(w,h);
 
-    layout->addWidget(gb1);
-    layout->addWidget(gb2);
-    this->wdData->setLayout(layout);
+    Row1Layout->addWidget(gb1,0,Qt::AlignTop);
+    Row1Layout->addWidget(gb2);
+    MainLayout->addWidget(this->BulbName);
+    MainLayout->addLayout(Row1Layout,1);
+    MainLayout->addWidget(this->TW_Bulb,1);
+    this->wdData->setLayout(MainLayout);
     BulbData->setWidget(wdData);
     BulbData->setWindowTitle(tr("Bulb Data"));
     ui.mdiArea->addSubWindow(this->BulbData);
