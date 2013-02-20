@@ -160,7 +160,6 @@ class BulbCalculator : public QMainWindow
         void SetDefaultValue();
         void Create3dWin();
         void Create2dWin();
-        void CreateCalcWin();
         void CreateDataWin();
         void SetUnchecked();
         void ClearBulb();

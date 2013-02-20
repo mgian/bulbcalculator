@@ -59,7 +59,6 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     this->setWindowTitle(QString("Bulb Calculator - Version ").append(VERSION));
 
     BulbCalculator::SetDefaultValue();
-    //BulbCalculator::CreateCalcWin();
     BulbCalculator::CreateDataWin();
     BulbCalculator::UpdateCalculations();
     BulbCalculator::Create3dWin();
@@ -242,28 +241,6 @@ void BulbCalculator::Create3dWin() {
 
 }
 
-void BulbCalculator::CreateCalcWin() {
-
-    // Bulb Calculation window
-
-    /*
-    this->BulbCalculation = new QMdiSubWindow;
-    this->BulbCalculation->setWindowIcon(QIcon(QString("share/images/calc.png")));
-
-    BulbCalculation->setWindowTitle(tr("Bulb Calculation"));
-    QVBoxLayout *l1 = new QVBoxLayout;
-    this->wdCalc = new QWidget;
-    this->BulbName = new QLabel();
-    l1->addWidget(this->BulbName);
-
-    l1->addWidget(this->TW_Bulb);
-    this->wdCalc->setLayout(l1);
-    BulbCalculation->setWidget(this->wdCalc);
-    ui.mdiArea->addSubWindow(this->BulbCalculation);
-*/
-
-}
-
 void BulbCalculator::CreateDataWin() {
 
 
@@ -299,7 +276,7 @@ void BulbCalculator::CreateDataWin() {
 
     this->BulbName = new QLabel();
     this->BulbName->setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Fixed);
-
+    this->BulbName->setFont(QFont("Monospace", 12, QFont::Bold));
     QVBoxLayout *MainLayout = new QVBoxLayout;
     QHBoxLayout *Row1Layout = new QHBoxLayout;
     QVBoxLayout *l1 = new QVBoxLayout;
@@ -318,9 +295,16 @@ void BulbCalculator::CreateDataWin() {
     int h = 120;
     this->TW_SubBulbDataGen->setMaximumSize(w,h);
 
+    QFrame *line = new QFrame();
+    line->setObjectName(QString::fromUtf8("line"));
+    line->setFrameShape(QFrame::HLine);
+    line->setFrameShadow(QFrame::Sunken);
+
+
     Row1Layout->addWidget(gb1,0,Qt::AlignTop);
     Row1Layout->addWidget(gb2);
     MainLayout->addWidget(this->BulbName);
+    MainLayout->addWidget(line);
     MainLayout->addLayout(Row1Layout,1);
     MainLayout->addWidget(this->TW_Bulb,1);
     this->wdData->setLayout(MainLayout);
