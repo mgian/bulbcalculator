@@ -29,6 +29,7 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #include <QGLViewer/qglviewer.h>
 #include <QGroupBox>
 #include <QLabel>
+#include <QComboBox>
 
 #define VERSION     "2.0.x"
 
@@ -114,22 +115,16 @@ class BulbCalculator : public QMainWindow
         void PageSetup();
         void PrintBulbData();
         void SetBulbDataOptions();
-        void ShowTopWindow();
-        void ShowSideWindow();
         void Show2dWindow();
         void Show3dWindow();
-        void ShowCalcWindow();
         void ShowDataWindow();
         void ImportFoilData();
         void ShowAbout();
         void DownloadUIUC();
         void ExportTextFile();
-        void Set3DResolutionLow();
-        void Set3DResolutionMedium();
-        void Set3DResolutionHigh();
-        void Set3DResolutionHighest();
         void SetTiled();
         void ShowPrefWindow();
+        void Change3DResolution(int CurRes);
 
     private:
         QMdiSubWindow *BulbCalculation;
@@ -150,7 +145,9 @@ class BulbCalculator : public QMainWindow
         QGraphicsScene *scSide;
         QGraphicsScene *scTop;
         QGraphicsScene *sc2d;
-
+        QToolBar *tb;
+        QComboBox *res3d;
+        QComboBox *profs;
         Ui::MainWindow ui;
         QString FileName;
         int Modified;
@@ -272,7 +269,7 @@ class ViewArea : public QGraphicsView {
         void DrawAxisFront(long wr, long hr, long origin, long wl);
         void DrawBulbTop(long hl, long Origin_Top);
         void DrawBulbSide(long hl, long Origin_Side);
-        void DrawBulbFront(long Origin_X, long hl, long Origin_Top);
+        void DrawBulbFront(long Origin_X, long Origin_Top);
         void DrawText(long w, long h);
         int view;
 

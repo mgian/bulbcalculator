@@ -144,18 +144,8 @@
     <property name="title">
      <string>3D Options</string>
     </property>
-    <widget class="QMenu" name="menuResolution">
-     <property name="title">
-      <string>Resolution</string>
-     </property>
-     <addaction name="actionLow"/>
-     <addaction name="actionMedium"/>
-     <addaction name="actionHigh"/>
-     <addaction name="actionHighest"/>
-    </widget>
     <addaction name="actionShow_Axis"/>
     <addaction name="actionShow_Grid"/>
-    <addaction name="menuResolution"/>
    </widget>
    <widget class="QMenu" name="menuWindow">
     <property name="title">
@@ -164,7 +154,6 @@
     <addaction name="actionShow_Top_view"/>
     <addaction name="actionShow_Side_view"/>
     <addaction name="actionShow_3D_view"/>
-    <addaction name="actionShow_Calculation"/>
     <addaction name="actionShow_Bulb_Data"/>
     <addaction name="separator"/>
     <addaction name="actionCascade"/>
@@ -190,6 +179,17 @@
    <property name="enabled">
     <bool>true</bool>
    </property>
+  </widget>
+  <widget class="QToolBar" name="tb">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
   </widget>
   <action name="action_New">
    <property name="icon">

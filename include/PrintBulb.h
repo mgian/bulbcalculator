@@ -51,7 +51,7 @@ class PrintDraw: public QTextDocument {
         void DrawBulbLinesPlanSide(QPainter *painter, int ori);
         void DrawBulbTop(QPainter *painter, int ori);
         void CheckBulbDimension(QPainter *painter, int ori);
-        long DrawBulbView(QPainter *p, int w, int h);
+        long DrawBulbView(QPainter *p, int w);
         int PrintType;
 
     private slots:

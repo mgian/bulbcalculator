@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>673</width>
-    <height>284</height>
+    <width>685</width>
+    <height>278</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -98,11 +98,11 @@
        </item>
        <item>
         <property name="text">
-         <string>Printer</string>
+         <string>Local bulbs</string>
         </property>
         <property name="icon">
          <iconset resource="../BulbCalculator.qrc">
-          <normaloff>:/MainWin/share/images/printer.png</normaloff>:/MainWin/share/images/printer.png</iconset>
+          <normaloff>:/MainWin/share/images/open.png</normaloff>:/MainWin/share/images/open.png</iconset>
         </property>
        </item>
        <item>
@@ -694,204 +694,100 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="tab_printer">
+       <widget class="QWidget" name="tab_bulbs">
         <attribute name="icon">
          <iconset resource="../BulbCalculator.qrc">
-          <normaloff>:/MainWin/share/images/printer.png</normaloff>:/MainWin/share/images/printer.png</iconset>
+          <normaloff>:/MainWin/share/images/open.png</normaloff>:/MainWin/share/images/open.png</iconset>
         </attribute>
         <attribute name="title">
-         <string>Printer</string>
+         <string>Local Bulbs</string>
         </attribute>
-        <layout class="QGridLayout" name="gridLayout_11">
-         <item row="0" column="0" colspan="2">
-          <widget class="QGroupBox" name="groupBox_10">
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="QLabel" name="label_18">
            <property name="font">
             <font>
              <weight>50</weight>
              <bold>false</bold>
             </font>
            </property>
-           <property name="title">
-            <string>Printer</string>
+           <property name="text">
+            <string>Remote repositories</string>
            </property>
-           <layout class="QVBoxLayout" name="verticalLayout_2">
-            <item>
-             <widget class="QListWidget" name="LW_DefPrinter">
-              <property name="editTriggers">
-               <set>QAbstractItemView::NoEditTriggers</set>
-              </property>
-              <property name="viewMode">
-               <enum>QListView::IconMode</enum>
-              </property>
-             </widget>
-            </item>
-           </layout>
           </widget>
          </item>
-         <item row="0" column="2">
-          <layout class="QVBoxLayout" name="verticalLayout_3">
-           <item>
-            <widget class="QGroupBox" name="groupBox_4">
-             <property name="font">
-              <font>
-               <weight>50</weight>
-               <bold>false</bold>
-              </font>
-             </property>
-             <property name="title">
-              <string>Paper</string>
-             </property>
-             <layout class="QGridLayout" name="gridLayout_8">
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_13">
-                <property name="text">
-                 <string>Size</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QComboBox" name="CB_DefPaperSize"/>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="label_14">
-                <property name="text">
-                 <string>Orientation</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <widget class="QComboBox" name="CB_DefPaperOrientation"/>
-              </item>
-             </layout>
-            </widget>
-           </item>
-           <item>
-            <spacer name="verticalSpacer_3">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </item>
-         <item row="1" column="0">
-          <widget class="QGroupBox" name="groupBox_9">
-           <property name="font">
-            <font>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="title">
-            <string>Offsets</string>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_10">
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_15">
-              <property name="text">
-               <string>Printing X Offset (cm)</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QSpinBox" name="SB_PrintOffset">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_16">
-              <property name="text">
-               <string>Offset</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QSpinBox" name="SB_Offset">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item row="1" column="1" colspan="2">
+         <item>
           <layout class="QHBoxLayout" name="horizontalLayout_5">
            <item>
-            <widget class="QGroupBox" name="groupBox_7">
-             <property name="font">
-              <font>
-               <weight>50</weight>
-               <bold>false</bold>
-              </font>
+            <widget class="QListWidget" name="L_DirList">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
-             <property name="title">
-              <string>Print Positioning</string>
-             </property>
-             <layout class="QGridLayout" name="gridLayout_9">
-              <item row="0" column="0">
-               <widget class="QRadioButton" name="RB_Left">
-                <property name="text">
-                 <string>Left</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QRadioButton" name="RB_Center">
-                <property name="text">
-                 <string>Center</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <widget class="QRadioButton" name="R_Offset">
-                <property name="text">
-                 <string>Use Offset</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QRadioButton" name="RB_Right">
-                <property name="text">
-                 <string>Right</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
             </widget>
            </item>
            <item>
-            <spacer name="horizontalSpacer_3">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
+            <widget class="QListView" name="L_BulbList">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>1</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
+            </widget>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_6">
+             <item>
+              <widget class="QPushButton" name="B_AddDirectory">
+               <property name="font">
+                <font>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Add</string>
+               </property>
+               <property name="icon">
+                <iconset resource="../BulbCalculator.qrc">
+                 <normaloff>:/MainWin/share/images/edit_add.png</normaloff>:/MainWin/share/images/edit_add.png</iconset>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="B_DeleteDirectory">
+               <property name="font">
+                <font>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Delete</string>
+               </property>
+               <property name="icon">
+                <iconset resource="../BulbCalculator.qrc">
+                 <normaloff>:/MainWin/share/images/edit_remove.png</normaloff>:/MainWin/share/images/edit_remove.png</iconset>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="verticalSpacer_7">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
            </item>
           </layout>
          </item>
@@ -1048,6 +944,22 @@
    </hints>
   </connection>
   <connection>
+   <sender>CB_DefRefPoints</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>SP_DefRefPointNum</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>262</x>
+     <y>209</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>335</x>
+     <y>208</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
    <sender>lw_category</sender>
    <signal>currentRowChanged(int)</signal>
    <receiver>TWI_Settings</receiver>
@@ -1076,22 +988,6 @@
     <hint type="destinationlabel">
      <x>452</x>
      <y>101</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>CB_DefRefPoints</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>SP_DefRefPointNum</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>262</x>
-     <y>209</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>335</x>
-     <y>208</y>
     </hint>
    </hints>
   </connection>

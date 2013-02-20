@@ -112,7 +112,7 @@ void PrintDraw::DrawBulbData(QPrinter *prn) {
 
     QPainter p;
     p.begin(prn);
-    y =  this->DrawBulbView(&p, w, h);
+    y =  this->DrawBulbView(&p, w);
 
     p.setFont(TextFont);
 
@@ -692,7 +692,7 @@ void PrintDraw::DrawBulbTop(QPainter *painter, int ori) {
 }
 
 
-long PrintDraw::DrawBulbView(QPainter *p, int w, int h) {
+long PrintDraw::DrawBulbView(QPainter *p, int w) {
 
     long wr;
     double OriginY, OriginX, SectOriginX;

@@ -67,7 +67,7 @@ void ViewArea::UpdateView() {
     ViewArea::DrawText(w,h);
     ViewArea::DrawBulbTop(hl, TopAxis_y);
     ViewArea::DrawBulbSide(hl, SideAxis_y);
-    ViewArea::DrawBulbFront(hl+((w-hl)/2), (w-hl)/2, SideAxis_y);
+    ViewArea::DrawBulbFront(hl+((w-hl)/2), SideAxis_y);
 
 }
 
@@ -198,7 +198,7 @@ void ViewArea::DrawBulbSide(long hl, long Origin_Side) {
 
 }
 
-void ViewArea::DrawBulbFront(long Origin_X, long hl, long Origin_Top) {
+void ViewArea::DrawBulbFront(long Origin_X, long Origin_Top) {
 
     long w;
     double OriginY;

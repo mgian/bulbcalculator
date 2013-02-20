@@ -24,6 +24,7 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtXml>
 #include <QFileDialog>
 #include <QDesktopServices>
+#include <QComboBox>
 
 #include "../include/BulbCalculator.h"
 #include "../include/nacafoil.h"
@@ -39,6 +40,7 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
 
 
     ui.setupUi(this);
+
     this->BcPrefs = new BulbCalcPref;
     this->BcStatus = new BulbCalcStatus;
     ReadPreferences();
@@ -82,10 +84,7 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     connect( ui.actionShow_Axis, SIGNAL (toggled(bool)), this, SLOT(Show3DAxis()));
     connect( ui.actionShow_Grid, SIGNAL (toggled(bool)), this, SLOT(ShowGrid()));
     connect( ui.action_Open, SIGNAL(triggered()), this, SLOT(Open()));
-    connect( ui.actionShow_Top_view, SIGNAL(triggered()), this, SLOT(ShowTopWindow()));
-    connect( ui.actionShow_Side_view, SIGNAL(triggered()), this, SLOT(ShowSideWindow()));
     connect( ui.actionShow_3D_view, SIGNAL(triggered()), this, SLOT(Show3dWindow()));
-    connect( ui.actionShow_Calculation, SIGNAL(triggered()), this, SLOT(ShowCalcWindow()));
     connect( ui.actionShow_Bulb_Data, SIGNAL(triggered()), this, SLOT(ShowDataWindow()));
     connect( ui.actionCascade, SIGNAL(triggered()), ui.mdiArea, SLOT(cascadeSubWindows()));
     connect( ui.actionTile, SIGNAL(triggered()), ui.mdiArea, SLOT(tileSubWindows()));
@@ -100,10 +99,6 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     connect( ui.actionPrintLinesPlanFromSide, SIGNAL(triggered()), this, SLOT(PrintBulbLinesPlanFromSide()));
     connect( ui.actionPrintData, SIGNAL(triggered()), this, SLOT(PrintBulbData()));
     connect( ui.actionPage_Setup, SIGNAL(triggered()), this, SLOT(PageSetup()));
-    connect( ui.actionLow, SIGNAL(triggered()), this, SLOT(Set3DResolutionLow()));
-    connect( ui.actionMedium, SIGNAL(triggered()), this, SLOT(Set3DResolutionMedium()));
-    connect( ui.actionHigh, SIGNAL(triggered()), this, SLOT(Set3DResolutionHigh()));
-    connect( ui.actionHighest, SIGNAL(triggered()), this, SLOT(Set3DResolutionHighest()));
     connect( ui.action_Preferences, SIGNAL(triggered()), this, SLOT(ShowPrefWindow()));
 
     this->BulbMenu->addAction(ui.action00xx);
@@ -115,13 +110,31 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     this->BulbMenu->addAction(ui.action65_0xx);
     this->BulbMenu->addAction(ui.action66_0xx);
     this->BulbMenu->addAction(ui.action67_0xx);
-    this->Resolution3D->addAction(ui.actionLow);
-    this->Resolution3D->addAction(ui.actionMedium);
-    this->Resolution3D->addAction(ui.actionHigh);
-    this->Resolution3D->addAction(ui.actionHighest);
+
+    this->res3d = new QComboBox;
+    this->profs = new QComboBox;
+    QStringList res;
+    res << "Low" << "Medium" << "High" << "Highest";
+    this->res3d->addItems(res);
+    QLabel *res3dl = new QLabel(tr("3D resolution"));
+    QLabel *profsl = new QLabel(tr("Profile"));
+    this->ui.tb->addWidget(profsl);
+    this->ui.tb->addWidget(profs);
+    this->ui.tb->addSeparator();
+    this->ui.tb->addWidget(res3dl);
+    this->ui.tb->addWidget(res3d);
+
+    connect(this->res3d, SIGNAL(currentIndexChanged(int)), this, SLOT(Change3DResolution(int)));
 
     ui.actionLow->setChecked(true);
     ui.action00xx->setChecked(true);
+
+}
+
+void BulbCalculator::Change3DResolution(int CurRes) {
+
+    view3d->Set3DResolution(CurRes);
+    view3d->update();
 
 }
 
@@ -514,20 +527,6 @@ void BulbCalculator::UpdateCalcs() {
 
 }
 
-void BulbCalculator::ShowTopWindow() {
-/*
-    this->ViewTopWin->show();
-    this->GV_TopView->show();
-*/
-}
-
-void BulbCalculator::ShowSideWindow() {
-/*
-    this->ViewSideWin->show();
-    this->GV_SideView->show();
-*/
-}
-
 void BulbCalculator::Show2dWindow() {
 
     this->View2DWin->show();
@@ -542,16 +541,8 @@ void BulbCalculator::Show3dWindow() {
 
 }
 
-void BulbCalculator::ShowCalcWindow() {
 
-    this->BulbCalculation->show();
-    this->TW_Bulb->show();
-
-    this->wdCalc->show();
-    
-}
-
-void BulbCalculator::ShowDataWindow(){
+void BulbCalculator::ShowDataWindow() {
     
     this->BulbData->show();
     this->gb1->show();
@@ -559,6 +550,7 @@ void BulbCalculator::ShowDataWindow(){
     this->TW_SubBulbDataSec->show();
     this->TW_SubBulbDataGen->show();
     this->wdData->show();
+
 }
 
 
@@ -1207,35 +1199,6 @@ void BulbCalculator::Set670xx() {
 
 }
 
-
-void BulbCalculator::Set3DResolutionLow() {
-
-    ui.actionLow->setChecked(true);
-    view3d->Set3DResolution(0);
-
-}
-
-void BulbCalculator::Set3DResolutionMedium() {
-
-    ui.actionMedium->setChecked(true);
-    view3d->Set3DResolution(1);
-
-}
-
-void BulbCalculator::Set3DResolutionHigh() {
-
-    ui.actionHigh->setChecked(true);
-    view3d->Set3DResolution(2);
-
-}
-
-void BulbCalculator::Set3DResolutionHighest() {
-
-    ui.actionHighest->setChecked(true);
-    view3d->Set3DResolution(3);
-
-
-}
 
 void BulbCalculator::Open() {
 
