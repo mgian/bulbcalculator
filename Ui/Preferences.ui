@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>685</width>
-    <height>278</height>
+    <height>284</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -94,15 +94,6 @@
         <property name="icon">
          <iconset resource="../BulbCalculator.qrc">
           <normaloff>:/MainWin/share/images/data.png</normaloff>:/MainWin/share/images/data.png</iconset>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Local bulbs</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../BulbCalculator.qrc">
-          <normaloff>:/MainWin/share/images/open.png</normaloff>:/MainWin/share/images/open.png</iconset>
         </property>
        </item>
        <item>
@@ -694,105 +685,6 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="tab_bulbs">
-        <attribute name="icon">
-         <iconset resource="../BulbCalculator.qrc">
-          <normaloff>:/MainWin/share/images/open.png</normaloff>:/MainWin/share/images/open.png</iconset>
-        </attribute>
-        <attribute name="title">
-         <string>Local Bulbs</string>
-        </attribute>
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <item>
-          <widget class="QLabel" name="label_18">
-           <property name="font">
-            <font>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>Remote repositories</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_5">
-           <item>
-            <widget class="QListWidget" name="L_DirList">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QListView" name="L_BulbList">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-               <horstretch>1</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <layout class="QVBoxLayout" name="verticalLayout_6">
-             <item>
-              <widget class="QPushButton" name="B_AddDirectory">
-               <property name="font">
-                <font>
-                 <weight>50</weight>
-                 <bold>false</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>Add</string>
-               </property>
-               <property name="icon">
-                <iconset resource="../BulbCalculator.qrc">
-                 <normaloff>:/MainWin/share/images/edit_add.png</normaloff>:/MainWin/share/images/edit_add.png</iconset>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="B_DeleteDirectory">
-               <property name="font">
-                <font>
-                 <weight>50</weight>
-                 <bold>false</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>Delete</string>
-               </property>
-               <property name="icon">
-                <iconset resource="../BulbCalculator.qrc">
-                 <normaloff>:/MainWin/share/images/edit_remove.png</normaloff>:/MainWin/share/images/edit_remove.png</iconset>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="verticalSpacer_7">
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>20</width>
-                 <height>40</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-            </layout>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </widget>
        <widget class="QWidget" name="tab_datarep">
         <attribute name="icon">
          <iconset resource="../BulbCalculator.qrc">
@@ -802,12 +694,12 @@
          <string>Data Repositories</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_12">
-         <item row="0" column="0">
+         <item row="2" column="0">
           <widget class="QLabel" name="label_17">
            <property name="font">
             <font>
-             <weight>50</weight>
-             <bold>false</bold>
+             <weight>75</weight>
+             <bold>true</bold>
             </font>
            </property>
            <property name="text">
@@ -815,10 +707,17 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="0">
-          <widget class="QListWidget" name="listWidget"/>
+         <item row="3" column="0">
+          <widget class="QListWidget" name="LW_RemoteRepo">
+           <property name="font">
+            <font>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+          </widget>
          </item>
-         <item row="1" column="1">
+         <item row="3" column="1">
           <layout class="QVBoxLayout" name="verticalLayout_5">
            <item>
             <widget class="QPushButton" name="B_DefAddRepo">
@@ -834,6 +733,9 @@
              <property name="icon">
               <iconset resource="../BulbCalculator.qrc">
                <normaloff>:/MainWin/share/images/edit_add.png</normaloff>:/MainWin/share/images/edit_add.png</iconset>
+             </property>
+             <property name="autoDefault">
+              <bool>false</bool>
              </property>
             </widget>
            </item>
@@ -852,6 +754,9 @@
               <iconset resource="../BulbCalculator.qrc">
                <normaloff>:/MainWin/share/images/edit_remove.png</normaloff>:/MainWin/share/images/edit_remove.png</iconset>
              </property>
+             <property name="autoDefault">
+              <bool>false</bool>
+             </property>
             </widget>
            </item>
            <item>
@@ -869,6 +774,9 @@
               <iconset resource="../BulbCalculator.qrc">
                <normaloff>:/MainWin/share/images/check.png</normaloff>:/MainWin/share/images/check.png</iconset>
              </property>
+             <property name="autoDefault">
+              <bool>false</bool>
+             </property>
             </widget>
            </item>
            <item>
@@ -885,6 +793,49 @@
             </spacer>
            </item>
           </layout>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_7">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Local repositories</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLineEdit" name="LE_LocalRepo">
+           <property name="font">
+            <font>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QPushButton" name="B_LocRepoSelect">
+           <property name="font">
+            <font>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Select</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../BulbCalculator.qrc">
+             <normaloff>:/MainWin/share/images/open.png</normaloff>:/MainWin/share/images/open.png</iconset>
+           </property>
+           <property name="autoDefault">
+            <bool>false</bool>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>
@@ -912,50 +863,18 @@
  </resources>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
-   <receiver>D_Preferences</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>266</x>
-     <y>269</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>157</x>
-     <y>253</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>D_Preferences</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>334</x>
-     <y>269</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>286</x>
-     <y>253</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>CB_DefRefPoints</sender>
    <signal>toggled(bool)</signal>
    <receiver>SP_DefRefPointNum</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>262</x>
-     <y>209</y>
+     <x>276</x>
+     <y>82</y>
     </hint>
     <hint type="destinationlabel">
-     <x>335</x>
-     <y>208</y>
+     <x>276</x>
+     <y>82</y>
     </hint>
    </hints>
   </connection>
@@ -988,6 +907,22 @@
     <hint type="destinationlabel">
      <x>452</x>
      <y>101</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>D_Preferences</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>466</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>320</x>
+     <y>279</y>
     </hint>
    </hints>
   </connection>

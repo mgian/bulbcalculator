@@ -26,7 +26,10 @@ BcPreference::BcPreference() {
 
     setupUi(this);
     this->setWindowIcon(QIcon(QString("share/images/settings.png")));
+
     connect(this->buttonBox->button(QDialogButtonBox::Apply),SIGNAL(clicked()),this, SLOT(ApplyChange()));
+    connect(this->buttonBox->button(QDialogButtonBox::Ok),SIGNAL(clicked()),this, SLOT(SaveChanges()));
+
     connect(this->TWI_Settings, SIGNAL(currentChanged(int)), this, SLOT(UpdateListSel(int)));
     connect(this->RB_MdiWin, SIGNAL(clicked()), this, SLOT(EnableApply()));
     connect(this->RB_TabWin, SIGNAL(clicked()), this, SLOT(EnableApply()));
@@ -43,12 +46,37 @@ BcPreference::BcPreference() {
     connect(this->RB_DefEven, SIGNAL(toggled(bool)), this, SLOT(EnableApply()));
     connect(this->RB_DefCosine, SIGNAL(toggled(bool)), this, SLOT(EnableApply()));
     connect(this->CB_TabPosition, SIGNAL(currentIndexChanged(int)), this, SLOT(EnableApply()));
+    connect(this->B_LocRepoSelect, SIGNAL(clicked()), this, SLOT(SelectLocalRepo()));
+    connect(this->LE_LocalRepo, SIGNAL(textChanged(QString)), SLOT(EnableApply()));
+
 
     this->lw_category->setCurrentRow(0);
-    this->buttonBox->button(QDialogButtonBox::Apply)->setEnabled(false);
     this->ReadCurrentPref();
+    this->buttonBox->button(QDialogButtonBox::Apply)->setEnabled(false);
     this->ModPref = NO;
     this->CurIndex = 0;
+
+}
+
+
+void BcPreference::SaveChanges() {
+
+    if (this->ModPref == YES) {
+        QMessageBox msgBox;
+        msgBox.setText(tr("Some preferences where modified"));
+        msgBox.setInformativeText(tr("Do you want to save your changes?"));
+        msgBox.setStandardButtons(QMessageBox::Yes| QMessageBox::No);
+        msgBox.setDefaultButton(QMessageBox::Yes);
+        msgBox.setWindowIcon(QIcon(QString("share/images/aboutbulb.png")));
+        int ret = msgBox.exec();
+        if (ret == QMessageBox::Yes) {
+            this->UpdInterfacePref();
+            this->UpdBulbPref();
+            this->UpdRepoPref();
+        }
+    }
+    this->ModPref = NO;
+    this->accept();
 
 }
 
@@ -56,6 +84,21 @@ void BcPreference::EnableApply() {
 
     this->ModPref = YES;
     this->buttonBox->button(QDialogButtonBox::Apply)->setEnabled(true);
+
+}
+
+void BcPreference::SelectLocalRepo() {
+
+    QString dir = QFileDialog::getExistingDirectory(this, tr("Select loacal repository"),
+                                                    this->LE_LocalRepo->text(),
+                                                    QFileDialog::ShowDirsOnly
+                                                    | QFileDialog::DontResolveSymlinks);
+
+
+    if (dir.isNull() == false) {
+        this->LE_LocalRepo->setText(dir);
+        this->EnableApply();
+    }
 
 }
 
@@ -106,36 +149,15 @@ void BcPreference::ReadCurrentPref() {
     this->SP_DefWHR->setValue(settings.value("WHRatio").toInt());
     settings.endGroup();
 
+    settings.beginGroup("Repositories");
+    this->LE_LocalRepo->setText(settings.value("LocalRepo").toString());
+
+    settings.endGroup();
+
 }
 
 
 void BcPreference::UpdateListSel(int idx) {
-
-    if (this->ModPref == YES) {
-        QMessageBox msgBox;
-        msgBox.setText(tr("Some preferences where modified"));
-        msgBox.setInformativeText(tr("Do you want to save your changes?"));
-        msgBox.setStandardButtons(QMessageBox::Yes| QMessageBox::No);
-        msgBox.setDefaultButton(QMessageBox::Yes);
-        msgBox.setWindowIcon(QIcon(QString("share/images/aboutbulb.png")));
-        int ret = msgBox.exec();
-        if (ret == QMessageBox::Yes) {
-            switch (idx) {
-                case 0:
-                    this->UpdInterfacePref();
-                    break;
-                case 1:
-                    this->UpdBulbPref();
-                    break;
-                case 2:
-                    this->UpdPrinterPref();
-                    break;
-                case 3:
-                    this->UpdRepoPref();
-                    break;
-            }
-        }
-    }
 
     this->CurIndex = idx;
     this->lw_category->setCurrentRow(this->TWI_Settings->currentIndex());
@@ -150,7 +172,6 @@ void BcPreference::ApplyChange() {
 
     curIdx = this->TWI_Settings->currentIndex();
 
-
     switch(curIdx) {
         case 0:
             this->UpdInterfacePref();
@@ -159,12 +180,10 @@ void BcPreference::ApplyChange() {
             this->UpdBulbPref();
             break;
         case 2:
-            this->UpdPrinterPref();
-            break;
-        case 3:
             this->UpdRepoPref();
             break;
     }
+    this->ModPref = NO;
     this->buttonBox->button(QDialogButtonBox::Apply)->setEnabled(false);
 }
 
@@ -215,10 +234,12 @@ void BcPreference::UpdBulbPref() {
 
 }
 
-void BcPreference::UpdPrinterPref(){
-
-}
-
 void BcPreference::UpdRepoPref() {
+
+    QSettings settings("GRYS","BulbCalculator");
+
+    settings.beginGroup("Repositories");
+    settings.setValue("LocalRepo", this->LE_LocalRepo->text());
+    settings.endGroup();
 
 }

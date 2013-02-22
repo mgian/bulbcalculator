@@ -36,11 +36,12 @@ class BcPreference: public QDialog, private Ui::D_Preferences
         void ApplyChange();
         void UpdateListSel(int idx);
         void EnableApply();
+        void SelectLocalRepo();
+        void SaveChanges();
 
     private:
         void UpdInterfacePref();
         void UpdBulbPref();
-        void UpdPrinterPref();
         void UpdRepoPref();
         void ReadCurrentPref();
 
