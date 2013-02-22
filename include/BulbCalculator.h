@@ -167,9 +167,7 @@ class BulbCalculator : public QMainWindow
         void ReadPreferences();
         void ReadGuiPreferences();
         void ReadBulbPreferences();
-
-
-
+        void ReadRepoPreferences();
 
     protected:
         virtual void resizeEvent( QResizeEvent *event );
@@ -294,6 +292,10 @@ class BulbCalcPref {
         double Bulb_St;
         int Bulb_Hrl;
         int Bulb_Whr;
+
+        /* Repo Preferences */
+        QString LocalRepo;
+        QStringList RemoteRepo;
 
 };
 

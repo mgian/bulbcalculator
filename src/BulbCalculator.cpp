@@ -1414,6 +1414,7 @@ void BulbCalculator::ReadPreferences() {
 
     this->ReadGuiPreferences();
     this->ReadBulbPreferences();
+    this->ReadRepoPreferences();
 }
 
 
@@ -1462,5 +1463,33 @@ void BulbCalculator::ReadBulbPreferences() {
         settings.setValue("WHRatio", 100);
         settings.endGroup();
     }
+
+}
+
+void BulbCalculator::ReadRepoPreferences() {
+
+    QSettings settings("GRYS","BulbCalculator");
+    if (settings.childGroups().contains("Repositories"), Qt::CaseInsensitive) {
+        settings.beginGroup("Repositories");
+        this->BcPrefs->LocalRepo = settings.value("LocalRepo").toString();
+        settings.endGroup();
+        int size = settings.beginReadArray("RemoteRepo");
+        for (int i = 0; i < size; ++i) {
+            settings.setArrayIndex(i);
+            this->BcPrefs->RemoteRepo.append(settings.value("Repo").toString());
+        }
+        settings.endArray();
+    } else {
+        qDebug() << "Here";
+        settings.beginGroup("Repositories");
+        settings.setValue("LocalRepo", "./data");
+        settings.endGroup();
+        settings.beginWriteArray("RemoteRepo");
+        settings.setArrayIndex(0);
+        settings.setValue("Repo", "http://www.ae.illinois.edu/m-selig/ads/coord_database.html");
+
+        settings.endArray();
+    }
+
 
 }

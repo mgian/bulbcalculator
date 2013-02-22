@@ -151,8 +151,15 @@ void BcPreference::ReadCurrentPref() {
 
     settings.beginGroup("Repositories");
     this->LE_LocalRepo->setText(settings.value("LocalRepo").toString());
-
     settings.endGroup();
+
+    int size = settings.beginReadArray("RemoteRepo");
+    for (int i = 0; i < size; ++i) {
+        settings.setArrayIndex(i);
+        this->LW_RemoteRepo->addItem(settings.value("Repo").toString());
+    }
+    settings.endArray();
+
 
 }
 
@@ -241,5 +248,11 @@ void BcPreference::UpdRepoPref() {
     settings.beginGroup("Repositories");
     settings.setValue("LocalRepo", this->LE_LocalRepo->text());
     settings.endGroup();
+    settings.beginWriteArray("RemoteRepo");
+    for (int i = 0; i < this->LW_RemoteRepo->count(); ++i) {
+         settings.setArrayIndex(i);
+         settings.setValue("Repo", this->LW_RemoteRepo->item(i)->text());
+     }
+    settings.endArray();
 
 }
