@@ -1080,8 +1080,11 @@ void BulbCalculator::SetBulbParameter() {
 
     SetBulbParam *DlgParam = new SetBulbParam;
 
-    DlgParam->SetCurrentValue(this->BcPrefs->Bulb_Tw, this->BcPrefs->Bulb_Md,
-                              this->BcPrefs->Bulb_Hrl, this->BcPrefs->Bulb_Whr);
+    qDebug() << naca_profile.HLRatio << this->BcPrefs->Bulb_Hrl;
+
+    DlgParam->SetCurrentValue(this->target_weight, this->material_density,
+                              naca_profile.HLRatio*100, naca_profile.WHRatio*100);
+
     ret = DlgParam->exec();
     if (ret == QDialog::Accepted) {
         naca_profile.HLRatio = DlgParam->GetHLR();
