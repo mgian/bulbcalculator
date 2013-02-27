@@ -124,10 +124,26 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     this->ui.tb->addWidget(res3dl);
     this->ui.tb->addWidget(res3d);
 
+    QDir bdir(this->BcPrefs->LocalRepo);
+    bdir.setFilter(QDir::Files);
+    bdir.setSorting(QDir::Name);
+    QStringList _BulbList = bdir.entryList();
+    QStringList BulbList;
+
+    for (int i = 0; i < _BulbList.size(); i++) {
+        QFileInfo fI = _BulbList.at(i);
+        BulbList.append(fI.baseName());
+    }
+    this->profs->addItems(BulbList);
+
     connect(this->res3d, SIGNAL(currentIndexChanged(int)), this, SLOT(Change3DResolution(int)));
+    connect(this->profs, SIGNAL(currentIndexChanged(QString)), this, SLOT(SetFoilProfile(QString)));
+
 
     ui.actionLow->setChecked(true);
     ui.action00xx->setChecked(true);
+
+
 
 }
 
@@ -1080,8 +1096,6 @@ void BulbCalculator::SetBulbParameter() {
 
     SetBulbParam *DlgParam = new SetBulbParam;
 
-    qDebug() << naca_profile.HLRatio << this->BcPrefs->Bulb_Hrl;
-
     DlgParam->SetCurrentValue(this->target_weight, this->material_density,
                               naca_profile.HLRatio*100, naca_profile.WHRatio*100);
 
@@ -1310,6 +1324,34 @@ void BulbCalculator::SetDefaultValue() {
 
 }
 
+void BulbCalculator::SetFoilProfile(QString ProfName) {
+
+    profile tmp_foil = naca_profile;
+
+    QString fileName = QString("%1/%2.dat").arg(this->BcPrefs->LocalRepo, ProfName);
+
+    if(tmp_foil.import_foil(fileName.toStdString().c_str(), 0)) {
+        naca_profile = tmp_foil;
+        view3d->SetBc(this);
+        view3d->SetProfile();
+        BulbCalculator::UpdateCalculations();
+        this->GV_2DView->UpdateView();
+        BulbCalculator::SetUnchecked();
+        return;
+    }
+
+    if(tmp_foil.import_foil(fileName.toStdString().c_str(), 1)) {
+        naca_profile = tmp_foil;
+        view3d->SetBc(this);
+        view3d->SetProfile();
+        BulbCalculator::UpdateCalculations();
+        this->GV_2DView->UpdateView();
+        BulbCalculator::SetUnchecked();
+        return;
+    }
+
+
+}
 
 void BulbCalculator::ImportFoilData() {
 
@@ -1472,7 +1514,8 @@ void BulbCalculator::ReadBulbPreferences() {
 void BulbCalculator::ReadRepoPreferences() {
 
     QSettings settings("GRYS","BulbCalculator");
-    if (settings.childGroups().contains("Repositories"), Qt::CaseInsensitive) {
+
+    if (settings.childGroups().contains("Repositories", Qt::CaseInsensitive)) {
         settings.beginGroup("Repositories");
         this->BcPrefs->LocalRepo = settings.value("LocalRepo").toString();
         settings.endGroup();
@@ -1483,14 +1526,12 @@ void BulbCalculator::ReadRepoPreferences() {
         }
         settings.endArray();
     } else {
-        qDebug() << "Here";
         settings.beginGroup("Repositories");
         settings.setValue("LocalRepo", "./data");
         settings.endGroup();
         settings.beginWriteArray("RemoteRepo");
         settings.setArrayIndex(0);
         settings.setValue("Repo", "http://www.ae.illinois.edu/m-selig/ads/coord_database.html");
-
         settings.endArray();
     }
 

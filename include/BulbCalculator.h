@@ -119,6 +119,7 @@ class BulbCalculator : public QMainWindow
         void Show3dWindow();
         void ShowDataWindow();
         void ImportFoilData();
+        void SetFoilProfile(QString ProfName);
         void ShowAbout();
         void DownloadUIUC();
         void ExportTextFile();
