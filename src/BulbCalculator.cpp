@@ -727,6 +727,11 @@ void BulbCalculator::Save() {
     QDomText vname = doc.createTextNode(this->naca_profile.foil_name.c_str());
     name.appendChild(vname);
 
+    QDomElement fname = doc.createElement("fname");
+    param.appendChild(fname);
+    QDomText fvname = doc.createTextNode(this->profs->currentText());
+    fname.appendChild(fvname);
+
     QDomElement whr = doc.createElement("whr");
     param.appendChild(whr);
     QDomText vwhr = doc.createTextNode(QString("%1").arg(this->naca_profile.WHRatio*100));
@@ -1211,6 +1216,7 @@ void BulbCalculator::Open() {
 
     QDomElement root, params;
     QDomNode value;
+    QString fname;
     int err = 0;
     if (this->BcStatus->St_Modified == YES) {
         QMessageBox msgBox;
@@ -1270,21 +1276,32 @@ void BulbCalculator::Open() {
         err = 1;
     }
     this->naca_profile.foil_name.assign(value.toElement().text().toAscii());
+
+    value = params.namedItem("fname");
+    if (value.isNull()) {
+        err = 1;
+    }
+    fname = value.toElement().text().toAscii();
+
+
     value = params.namedItem("whr");
     if (value.isNull()) {
         err = 1;
     }
     this->naca_profile.WHRatio = value.toElement().text().toFloat() / 100.0;
+
     value = params.namedItem("hlr");
     if (value.isNull()) {
         err = 1;
     }
     this->naca_profile.HLRatio = value.toElement().text().toFloat() / 100.0;
+
     value = params.namedItem("target_weight");
     if (value.isNull()) {
         err = 1;
     }
     this->target_weight = value.toElement().text().toFloat() / 1000.0;
+
     value = params.namedItem("material_density");
     if (value.isNull()) {
         err = 1;
@@ -1296,8 +1313,10 @@ void BulbCalculator::Open() {
                                 tr("Not a valid file"),
                                 QMessageBox::Ok );
     } else {
-        BulbCalculator::UpdateCalculations();
-        this->GV_2DView->UpdateView();
+        int idx = this->profs->findText(fname,Qt::MatchFixedString);
+        this->profs->setCurrentIndex(idx);
+//        BulbCalculator::UpdateCalculations();
+//        this->GV_2DView->UpdateView();
     }
 
 }
@@ -1353,9 +1372,7 @@ void BulbCalculator::SetFoilProfile(QString ProfName) {
         return;
     }
 
-
     QString fileName = QString("%1/%2.dat").arg(this->BcPrefs->LocalRepo, ProfName);
-
     resImp = tmp_foil.import_foil(fileName.toStdString().c_str(), 0);
     if (resImp == false) {
         resImp = tmp_foil.import_foil(fileName.toStdString().c_str(), 1);
