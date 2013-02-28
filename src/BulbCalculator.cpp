@@ -263,7 +263,7 @@ void BulbCalculator::CreateDataWin() {
     this->TW_SubBulbDataGen->setAlternatingRowColors(true);
     this->TW_SubBulbDataGen->setSelectionBehavior(QAbstractItemView::SelectRows);
     this->TW_SubBulbDataGen->horizontalHeader()->setVisible(false);
-    this->TW_SubBulbDataSec = new QTableWidget(0,5);
+    this->TW_SubBulbDataSec = new QTableWidget(0,6);
     this->TW_SubBulbDataSec->setAlternatingRowColors(true);
     this->TW_SubBulbDataSec->setSelectionBehavior(QAbstractItemView::SelectRows);
     this->gb1 = new QGroupBox(tr("General data"));
@@ -338,6 +338,7 @@ void BulbCalculator::UpdateCalcs() {
     h.append(QString(tr("X")));
     h.append(QString(tr("Height Max")));
     h.append(QString(tr("Height Min")));
+    h.append(QString(tr("Half Width")));
     h.append(QString(tr("Width")));
 
     QStringList v;
@@ -493,27 +494,32 @@ void BulbCalculator::UpdateCalcs() {
         QTableWidgetItem *xPos = new QTableWidgetItem();
         QTableWidgetItem *hMax = new QTableWidgetItem();
         QTableWidgetItem *hMin = new QTableWidgetItem();
-        QTableWidgetItem *Width = new QTableWidgetItem();
+        QTableWidgetItem *halfWidth = new QTableWidgetItem();
+        QTableWidgetItem *diam = new QTableWidgetItem();
+
 
         switch (this->BcPrefs->Gui_Unit) {
             case UNIT_MM:
                 xPos->setText(QString::number(x_pos,'.',2));
                 hMax->setText(QString::number(height_max,'.',2));
                 hMin->setText(QString::number(height_min,'.',2));
-                Width->setText(QString::number(width,'.',2));
+                halfWidth->setText(QString::number(width,'.',2));
+                diam->setText(QString::number(width*2,'.',2));
                 break;
             case UNIT_INCH:
             case UNIT_INCH_F:
                 xPos->setText(DisplayValue(x_pos/2.54, this->BcPrefs->Gui_Unit));
                 hMax->setText(DisplayValue(height_max/2.54, this->BcPrefs->Gui_Unit));
                 hMin->setText(DisplayValue(height_min/2.54, this->BcPrefs->Gui_Unit));
-                Width->setText(DisplayValue(width/2.54, this->BcPrefs->Gui_Unit));
+                halfWidth->setText(DisplayValue(width/2.54, this->BcPrefs->Gui_Unit));
+                diam->setText(DisplayValue(width*2/2.54, this->BcPrefs->Gui_Unit));
                 break;
         }
         this->TW_SubBulbDataSec->setItem(count,1,xPos);
         this->TW_SubBulbDataSec->setItem(count,2,hMax);
         this->TW_SubBulbDataSec->setItem(count,3,hMin);
-        this->TW_SubBulbDataSec->setItem(count,4,Width);
+        this->TW_SubBulbDataSec->setItem(count,4,halfWidth);
+        this->TW_SubBulbDataSec->setItem(count,5,diam);
         count++;
     }
     this->TW_SubBulbDataSec->resizeRowsToContents();
