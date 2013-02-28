@@ -108,30 +108,12 @@
     <property name="title">
      <string>&amp;Bulb</string>
     </property>
-    <widget class="QMenu" name="menuNACA_Foil">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="title">
-      <string>Select NACA Foil</string>
-     </property>
-     <addaction name="action00xx"/>
-     <addaction name="action63_0xx"/>
-     <addaction name="action63A0xx"/>
-     <addaction name="action64_0xx"/>
-     <addaction name="action64A0xx"/>
-     <addaction name="action65_0xx"/>
-     <addaction name="action65A0xx"/>
-     <addaction name="action66_0xx"/>
-     <addaction name="action67_0xx"/>
-    </widget>
     <widget class="QMenu" name="menuDownload_Airfoil_Data">
      <property name="title">
       <string>Download Airfoil Data</string>
      </property>
      <addaction name="actionUIUC_foils"/>
     </widget>
-    <addaction name="menuNACA_Foil"/>
     <addaction name="action_SetParameters"/>
     <addaction name="separator"/>
     <addaction name="actionData_Options"/>
@@ -306,84 +288,9 @@
     <string>&amp;Calculation</string>
    </property>
   </action>
-  <action name="action00xx">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>false</bool>
-   </property>
-   <property name="text">
-    <string>00xx</string>
-   </property>
-  </action>
   <action name="action_SetParameters">
    <property name="text">
     <string>Set Bulb Parameter</string>
-   </property>
-  </action>
-  <action name="action63_0xx">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>63-0xx</string>
-   </property>
-  </action>
-  <action name="action63A0xx">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>63A0xx</string>
-   </property>
-  </action>
-  <action name="action64_0xx">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>64-0xx</string>
-   </property>
-  </action>
-  <action name="action64A0xx">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>64A0xx</string>
-   </property>
-  </action>
-  <action name="action65_0xx">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>65-0xx</string>
-   </property>
-  </action>
-  <action name="action65A0xx">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>65A0xx</string>
-   </property>
-  </action>
-  <action name="action66_0xx">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>66-0xx</string>
-   </property>
-  </action>
-  <action name="action67_0xx">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>67-0xx</string>
    </property>
   </action>
   <action name="actionAbout">
@@ -460,7 +367,7 @@
   </action>
   <action name="actionTile">
    <property name="text">
-    <string>TIle</string>
+    <string>Tile</string>
    </property>
   </action>
   <action name="actionCascade">

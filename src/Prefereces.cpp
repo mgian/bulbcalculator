@@ -200,9 +200,9 @@ void BcPreference::UpdInterfacePref() {
 
     settings.beginGroup("Gui");
     if (this->RB_MdiWin->isChecked() == true) {
-        settings.setValue("ViewMode", 0);
+        settings.setValue("ViewMode", MDI);
     } else if (this->RB_TabWin->isChecked() == true) {
-        settings.setValue("ViewMode", 1);
+        settings.setValue("ViewMode", TABBED);
     }
     settings.setValue("TabPos",CB_TabPosition->currentIndex());
     if (this->RB_DefMetric->isChecked() == true) {

@@ -48,10 +48,15 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     this->setCentralWidget(ui.mdiArea);
 
     ui.mdiArea->setViewMode((QMdiArea::ViewMode)this->BcPrefs->Gui_BcViewMode);
+    if (this->BcPrefs->Gui_BcViewMode == TABBED) {
+        ui.actionTile->setEnabled(false);
+        ui.actionCascade->setEnabled(false);
+    }
 
     ui.mdiArea->setTabPosition((QTabWidget::TabPosition)this->BcPrefs->Gui_TabPos);
 
     this->BcStatus->St_Modified = NO;
+    this->BcStatus->St_CanSave = YES;
     this->num_sect = 6;
     this->sect_dist = DIST_EVEN;
 
@@ -69,15 +74,6 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
 
     connect( ui.action_Quit, SIGNAL( triggered() ), this, SLOT(close()) );
     connect( ui.action_SetParameters, SIGNAL (triggered() ), this, SLOT(SetBulbParameter()));
-    connect( ui.action00xx, SIGNAL (triggered() ), this, SLOT(Set00xx()));
-    connect( ui.action63_0xx, SIGNAL (triggered()), this, SLOT(Set63_0xx()));
-    connect( ui.action63A0xx, SIGNAL (triggered()), this, SLOT(Set63A0xx()));
-    connect( ui.action64_0xx, SIGNAL(triggered()), this, SLOT(Set640xx()));
-    connect( ui.action64A0xx, SIGNAL (triggered()), this, SLOT(Set64A0xx()));
-    connect( ui.action65_0xx, SIGNAL (triggered()), this, SLOT(Set650xx()));
-    connect( ui.action65A0xx, SIGNAL (triggered()), this, SLOT(Set65A0xx()));
-    connect( ui.action66_0xx, SIGNAL (triggered()), this, SLOT(Set660xx()));
-    connect( ui.action67_0xx, SIGNAL (triggered()), this, SLOT(Set670xx()));
     connect( ui.action_Save, SIGNAL (triggered()), this, SLOT(Save()));
     connect( ui.action_Saveas, SIGNAL (triggered()), this, SLOT(SaveAs()));
     connect( ui.action_New, SIGNAL (triggered()), this,SLOT(NewBulb()));
@@ -100,16 +96,6 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     connect( ui.actionPrintData, SIGNAL(triggered()), this, SLOT(PrintBulbData()));
     connect( ui.actionPage_Setup, SIGNAL(triggered()), this, SLOT(PageSetup()));
     connect( ui.action_Preferences, SIGNAL(triggered()), this, SLOT(ShowPrefWindow()));
-
-    this->BulbMenu->addAction(ui.action00xx);
-    this->BulbMenu->addAction(ui.action63A0xx);
-    this->BulbMenu->addAction(ui.action63_0xx);
-    this->BulbMenu->addAction(ui.action64A0xx);
-    this->BulbMenu->addAction(ui.action64_0xx);
-    this->BulbMenu->addAction(ui.action65A0xx);
-    this->BulbMenu->addAction(ui.action65_0xx);
-    this->BulbMenu->addAction(ui.action66_0xx);
-    this->BulbMenu->addAction(ui.action67_0xx);
 
     this->res3d = new QComboBox;
     this->profs = new QComboBox;
@@ -134,17 +120,23 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
         QFileInfo fI = _BulbList.at(i);
         BulbList.append(fI.baseName());
     }
+    BulbList.append("00xx");
+    BulbList.append("63A0xx");
+    BulbList.append("63-0xx");
+    BulbList.append("64A0xx");
+    BulbList.append("64-0xx");
+    BulbList.append("65A0xx");
+    BulbList.append("65-0xx");
+    BulbList.append("66-0xx");
+    BulbList.append("67-0xx");
+    BulbList.sort();
 
     this->profs->addItems(BulbList);
 
     connect(this->res3d, SIGNAL(currentIndexChanged(int)), this, SLOT(Change3DResolution(int)));
     connect(this->profs, SIGNAL(currentIndexChanged(QString)), this, SLOT(SetFoilProfile(QString)));
 
-
     ui.actionLow->setChecked(true);
-    ui.action00xx->setChecked(true);
-
-
 
 }
 
@@ -155,17 +147,6 @@ void BulbCalculator::Change3DResolution(int CurRes) {
 
 }
 
-void BulbCalculator::SetTiled() {
-
-    foreach(QMdiSubWindow* window , ui.mdiArea->subWindowList()) {
-        qDebug() << window->accessibleName() << window->size();
-    }
-    ui.mdiArea->tileSubWindows();
-    foreach(QMdiSubWindow* window , ui.mdiArea->subWindowList()) {
-        qDebug() << window->accessibleName() << window->size();
-    }
-
-}
 
 void BulbCalculator::PageSetup() {
 
@@ -174,6 +155,7 @@ void BulbCalculator::PageSetup() {
     qps->exec();
 
 }
+
 
 void BulbCalculator::ExportTextFile() {
 
@@ -612,6 +594,13 @@ void BulbCalculator::ShowPrefWindow() {
     ret = DlgPrefWin->exec();
     if (ret == DlgPrefWin->Accepted) {
         this->ReadGuiPreferences();
+        if (this->BcPrefs->Gui_BcViewMode == MDI) {
+            ui.actionTile->setEnabled(true);
+            ui.actionCascade->setEnabled(true);
+        } else if (this->BcPrefs->Gui_BcViewMode == TABBED) {
+            ui.actionTile->setEnabled(false);
+            ui.actionCascade->setEnabled(false);
+        }
         this->UpdateCalcs();
     }
 
@@ -1332,6 +1321,39 @@ void BulbCalculator::SetFoilProfile(QString ProfName) {
     if (this->profs->currentIndex() == -1) {
         return;
     }
+
+    // Set the built-in bulb profile.
+    // it is a terrible hack to get rid of in the long term
+    if (this->profs->currentText() == "00xx") {
+        this->Set00xx();
+        return;
+    } else if (this->profs->currentText() == "63A0xx") {
+        this->Set63A0xx();
+        return;
+    } else if (this->profs->currentText() == "63-0xx") {
+        this->Set63_0xx();
+        return;
+    } else if (this->profs->currentText() == "64A0xx") {
+        this->Set64A0xx();
+        return;
+    } else if (this->profs->currentText() == "64-0xx") {
+        this->Set640xx();
+        return;
+    } else if (this->profs->currentText() == "65A0xx") {
+        this->Set65A0xx();
+        return;
+    } else if (this->profs->currentText() == "65-0xx") {
+        this->Set650xx();
+        return;
+    } else if (this->profs->currentText() == "66-0xx") {
+        this->Set660xx();
+        return;
+    } else if (this->profs->currentText() == "67-0xx") {
+        this->Set670xx();
+        return;
+    }
+
+
     QString fileName = QString("%1/%2.dat").arg(this->BcPrefs->LocalRepo, ProfName);
 
     resImp = tmp_foil.import_foil(fileName.toStdString().c_str(), 0);
@@ -1344,7 +1366,6 @@ void BulbCalculator::SetFoilProfile(QString ProfName) {
         view3d->SetProfile();
         BulbCalculator::UpdateCalculations();
         this->GV_2DView->UpdateView();
-        BulbCalculator::SetUnchecked();
     } else {
         QMessageBox msgBox;
         msgBox.setText("Import foil data");
@@ -1386,13 +1407,14 @@ void BulbCalculator::ImportFoilData() {
     }
 
     QMessageBox msgBox;
-    msgBox.setText("Import foil data");
-    msgBox.setInformativeText("Do yuo want to add the foil to the local repository ?");
+    QString msg = "Do yuo want to import the foil to the local repository ?<p><b>If not, the project cannot be saved</b>";
+    msgBox.setInformativeText(msg);
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     msgBox.setDefaultButton(QMessageBox::Yes);
     int ret = msgBox.exec();
 
     if (ret ==  QMessageBox::Yes) {
+        // Add the bulb to the local repo
         QString bn = QFileInfo(fileName).fileName();
         QString fp = QFileInfo(fileName).baseName();
         bool result = QFile::copy(fileName, this->BcPrefs->LocalRepo + QDir::separator() + bn);
@@ -1416,19 +1438,20 @@ void BulbCalculator::ImportFoilData() {
             msgBox.exec();
             return;
         }
-
     } else if (ret == QMessageBox::No) {
+        // Don't add the bulb to the local repo,
+        // but the project cannot be saved
         resImp = tmp_foil.import_foil(fileName.toStdString().c_str(), 0);
         if (resImp == false) {
             resImp = tmp_foil.import_foil(fileName.toStdString().c_str(), 1);
         }
         if (resImp == true) {
+            this->BcStatus->St_CanSave = NO;
             naca_profile = tmp_foil;
             view3d->SetBc(this);
             view3d->SetProfile();
             BulbCalculator::UpdateCalculations();
             this->GV_2DView->UpdateView();
-            BulbCalculator::SetUnchecked();
             this->profs->setCurrentIndex(-1);
         } else {
             QMessageBox msgBox;
@@ -1442,19 +1465,6 @@ void BulbCalculator::ImportFoilData() {
     }
 }
 
-void BulbCalculator::SetUnchecked() {
-
-    ui.action00xx->setChecked(false);
-    ui.action63A0xx->setChecked(false);
-    ui.action63_0xx->setChecked(false);
-    ui.action64A0xx->setChecked(false);
-    ui.action64_0xx->setChecked(false);
-    ui.action65A0xx->setChecked(false);
-    ui.action65_0xx->setChecked(false);
-    ui.action66_0xx->setChecked(false);
-    ui.action67_0xx->setChecked(false);
-
-}
 
 void BulbCalculator::SetImp() {
 

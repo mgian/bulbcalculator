@@ -47,6 +47,8 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #define NO      0
 #define YES     1
 
+#define MDI     0
+#define TABBED  1
 
 class Vista3D;
 class ViewArea;
@@ -123,7 +125,6 @@ class BulbCalculator : public QMainWindow
         void ShowAbout();
         void DownloadUIUC();
         void ExportTextFile();
-        void SetTiled();
         void ShowPrefWindow();
         void Change3DResolution(int CurRes);
 
@@ -159,7 +160,6 @@ class BulbCalculator : public QMainWindow
         void Create3dWin();
         void Create2dWin();
         void CreateDataWin();
-        void SetUnchecked();
         void ClearBulb();
         void FillBulbDataValue();
         void WritePrefereces();
@@ -304,6 +304,7 @@ class BulbCalcStatus {
 
     public:
         int St_Modified;
+        int St_CanSave;
 
 };
 
