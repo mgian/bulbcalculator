@@ -95,7 +95,6 @@ void PrintDraw::DrawBulbData(QPrinter *prn) {
     int x, y;
     wr = pow((this->bc->target_weight*1000.0)/(this->bc->naca_profile.volume*this->bc->material_density), 1.0/3.0);
     //wr *= 1000;
-    qDebug()<< wr;
     QFont TextFont("Helvetica", 12);
     QFont TextFontBold("Helvetica", 12, QFont::Bold);
 

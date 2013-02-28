@@ -1,8 +1,0 @@
-[fin data]
-layer_thickness=0.079375,0.079375,0.079375
-;;min_thickness=0.15
-version=1
-samples=0,4,8,12,16,20,24,28,32
-leadingedge=0,3|15,3
-trailingedge=0,4|7,8|15,3
-

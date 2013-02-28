@@ -99,3 +99,4 @@ QString DisplayInchesFractional(double inch) {
 
     return result;
 }
+

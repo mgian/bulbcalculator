@@ -246,7 +246,6 @@ void BcPreference::UpdRepoPref() {
     QSettings settings("GRYS","BulbCalculator");
 
     settings.beginGroup("Repositories");
-    qDebug() << this->LE_LocalRepo->text();
     settings.setValue("LocalRepo", this->LE_LocalRepo->text());
     settings.endGroup();
     settings.beginWriteArray("RemoteRepo");

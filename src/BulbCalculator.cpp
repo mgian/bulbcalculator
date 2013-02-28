@@ -134,6 +134,7 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
         QFileInfo fI = _BulbList.at(i);
         BulbList.append(fI.baseName());
     }
+
     this->profs->addItems(BulbList);
 
     connect(this->res3d, SIGNAL(currentIndexChanged(int)), this, SLOT(Change3DResolution(int)));
@@ -1327,36 +1328,39 @@ void BulbCalculator::SetDefaultValue() {
 void BulbCalculator::SetFoilProfile(QString ProfName) {
 
     profile tmp_foil = naca_profile;
-
+    int resImp;
+    if (this->profs->currentIndex() == -1) {
+        return;
+    }
     QString fileName = QString("%1/%2.dat").arg(this->BcPrefs->LocalRepo, ProfName);
 
-    if(tmp_foil.import_foil(fileName.toStdString().c_str(), 0)) {
+    resImp = tmp_foil.import_foil(fileName.toStdString().c_str(), 0);
+    if (resImp == false) {
+        resImp = tmp_foil.import_foil(fileName.toStdString().c_str(), 1);
+    }
+    if (resImp == true) {
         naca_profile = tmp_foil;
         view3d->SetBc(this);
         view3d->SetProfile();
         BulbCalculator::UpdateCalculations();
         this->GV_2DView->UpdateView();
         BulbCalculator::SetUnchecked();
+    } else {
+        QMessageBox msgBox;
+        msgBox.setText("Import foil data");
+        msgBox.setInformativeText("The profile cannot be imported");
+        msgBox.setStandardButtons(QMessageBox::Ok );
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        msgBox.exec();
         return;
     }
-
-    if(tmp_foil.import_foil(fileName.toStdString().c_str(), 1)) {
-        naca_profile = tmp_foil;
-        view3d->SetBc(this);
-        view3d->SetProfile();
-        BulbCalculator::UpdateCalculations();
-        this->GV_2DView->UpdateView();
-        BulbCalculator::SetUnchecked();
-        return;
-    }
-
 
 }
 
 void BulbCalculator::ImportFoilData() {
 
     profile tmp_foil = naca_profile;
-
+    int resImp;
     QStringList fileNameS;
     QString fileName;
     QFileDialog *fd = new QFileDialog(this);
@@ -1381,26 +1385,61 @@ void BulbCalculator::ImportFoilData() {
         }
     }
 
-    if(tmp_foil.import_foil(fileName.toStdString().c_str(), 0)) {
-        naca_profile = tmp_foil;
-        view3d->SetBc(this);
-        view3d->SetProfile();
-        BulbCalculator::UpdateCalculations();
-        this->GV_2DView->UpdateView();
-        BulbCalculator::SetUnchecked();
-        return;
-    }
+    QMessageBox msgBox;
+    msgBox.setText("Import foil data");
+    msgBox.setInformativeText("Do yuo want to add the foil to the local repository ?");
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::Yes);
+    int ret = msgBox.exec();
 
-    if(tmp_foil.import_foil(fileName.toStdString().c_str(), 1)) {
-        naca_profile = tmp_foil;
-        view3d->SetBc(this);
-        view3d->SetProfile();
-        BulbCalculator::UpdateCalculations();
-        this->GV_2DView->UpdateView();
-        BulbCalculator::SetUnchecked();
-        return;
-    }
+    if (ret ==  QMessageBox::Yes) {
+        QString bn = QFileInfo(fileName).fileName();
+        QString fp = QFileInfo(fileName).baseName();
+        bool result = QFile::copy(fileName, this->BcPrefs->LocalRepo + QDir::separator() + bn);
+        if (result == true) {
+            QStringList cp;
+            for (int i=0; i < this->profs->count(); i++) {
+                cp.append(this->profs->itemText(i));
+            }
+            cp.append(fp);
+            cp.sort();
+            this->profs->clear();
+            this->profs->addItems(cp);
+            int idx = this->profs->findText(fp);
+            this->profs->setCurrentIndex(idx);
+        } else {
+            QMessageBox msgBox;
+            msgBox.setText("Import foil data");
+            msgBox.setInformativeText("Cannot copy the file to the local reporitory");
+            msgBox.setStandardButtons(QMessageBox::Ok );
+            msgBox.setDefaultButton(QMessageBox::Ok);
+            msgBox.exec();
+            return;
+        }
 
+    } else if (ret == QMessageBox::No) {
+        resImp = tmp_foil.import_foil(fileName.toStdString().c_str(), 0);
+        if (resImp == false) {
+            resImp = tmp_foil.import_foil(fileName.toStdString().c_str(), 1);
+        }
+        if (resImp == true) {
+            naca_profile = tmp_foil;
+            view3d->SetBc(this);
+            view3d->SetProfile();
+            BulbCalculator::UpdateCalculations();
+            this->GV_2DView->UpdateView();
+            BulbCalculator::SetUnchecked();
+            this->profs->setCurrentIndex(-1);
+        } else {
+            QMessageBox msgBox;
+            msgBox.setText("Import foil data");
+            msgBox.setInformativeText("The profile cannot be imported");
+            msgBox.setStandardButtons(QMessageBox::Ok );
+            msgBox.setDefaultButton(QMessageBox::Ok);
+            msgBox.exec();
+            return;
+        }
+    }
 }
 
 void BulbCalculator::SetUnchecked() {
