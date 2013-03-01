@@ -706,6 +706,16 @@ void BulbCalculator::NewBulb() {
 
 void BulbCalculator::Save() {
 
+    if (this->BcStatus->St_CanSave == NO) {
+        QMessageBox msgBox;
+        msgBox.setText(tr("The project cannot be saved."));
+        msgBox.setInformativeText(tr("The foil definition was not imported in the local repository."));
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        msgBox.exec();
+        return;
+    }
+
     if (this->FileName == "") {
         QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
                         "",
