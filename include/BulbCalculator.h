@@ -50,6 +50,8 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #define MDI     0
 #define TABBED  1
 
+#define MAXRECENTFILE   5
+
 class Vista3D;
 class ViewArea;
 class BulbCalcPref;
@@ -127,6 +129,7 @@ class BulbCalculator : public QMainWindow
         void ExportTextFile();
         void ShowPrefWindow();
         void Change3DResolution(int CurRes);
+        void OpenRecentFile();
 
     private:
         QMdiSubWindow *BulbCalculation;
@@ -151,7 +154,6 @@ class BulbCalculator : public QMainWindow
         QComboBox *res3d;
         QComboBox *profs;
         Ui::MainWindow ui;
-        QString FileName;
         int Modified;
         QActionGroup *BulbMenu;
         int cosine;
@@ -169,6 +171,12 @@ class BulbCalculator : public QMainWindow
         void ReadGuiPreferences();
         void ReadBulbPreferences();
         void ReadRepoPreferences();
+        void UpdateRecentFileActions();
+        QString StrippedName(const QString &ProjectFile);
+        QAction *RecentProjects[MAXRECENTFILE];
+        QAction *separatorAct;
+        void SetCurrentFile(const QString &ProjectName);
+        void LoadFile();
 
     protected:
         virtual void resizeEvent( QResizeEvent *event );
@@ -305,6 +313,7 @@ class BulbCalcStatus {
     public:
         int St_Modified;
         int St_CanSave;
+        QString CurFile;
 
 };
 

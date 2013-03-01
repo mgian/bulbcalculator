@@ -83,21 +83,21 @@ void ViewArea::DrawText(long w, long h) {
     font.setPixelSize(14);
 
     prof.clear();
-    prof.append((char *)"Profile: ");
-    prof.append((char *)this->bc->naca_profile.foil_name.c_str());
-    prof.append((char *)" - Side view");
+    prof.append(tr("Profile: "));
+    prof.append(this->bc->naca_profile.foil_name.c_str());
+    prof.append(tr(" - Side view"));
     path.addText(15, 15, font,  prof);
 
     prof.clear();
-    prof.append((char *)"Profile: ");
-    prof.append((char *)this->bc->naca_profile.foil_name.c_str());
-    prof.append((char *)" - Top view");
+    prof.append(tr("Profile: "));
+    prof.append(this->bc->naca_profile.foil_name.c_str());
+    prof.append(tr(" - Top view"));
     path.addText(15, h/2+15, font,  prof);
 
     prof.clear();
-    prof.append((char *)"Profile: ");
-    prof.append((char *)this->bc->naca_profile.foil_name.c_str());
-    prof.append((char *)" - Front view");
+    prof.append(tr("Profile: "));
+    prof.append(this->bc->naca_profile.foil_name.c_str());
+    prof.append(tr(" - Front view"));
     path.addText(w*0.75+15, 15, font,  prof);
 
     this->scene()->addPath(path, QPen(QBrush(Qt::black), 0.4), QBrush(Qt::black));
@@ -134,7 +134,6 @@ void ViewArea::DrawAxisTopSide(long wr, long hr, long origin) {
 void ViewArea::DrawBulbTop(long hl, long Origin_Top) {
 
     long w;
-    //long h;
     double OriginY;
     double mult;
     w = hl - 30;

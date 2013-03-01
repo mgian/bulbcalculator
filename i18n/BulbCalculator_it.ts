@@ -27,6 +27,21 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/BulbCalculator.cpp" line="103"/>
+        <source>Medium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbCalculator.cpp" line="103"/>
+        <source>High</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbCalculator.cpp" line="103"/>
+        <source>Highest</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/BulbCalculator.cpp" line="105"/>
         <source>3D resolution</source>
         <translation type="unfinished"></translation>
@@ -48,15 +63,40 @@
     </message>
     <message>
         <location filename="../src/BulbCalculator.cpp" line="172"/>
-        <location filename="../src/BulbCalculator.cpp" line="777"/>
-        <location filename="../src/BulbCalculator.cpp" line="1276"/>
-        <location filename="../src/BulbCalculator.cpp" line="1328"/>
+        <location filename="../src/BulbCalculator.cpp" line="771"/>
+        <location filename="../src/BulbCalculator.cpp" line="1270"/>
+        <location filename="../src/BulbCalculator.cpp" line="1322"/>
         <source>BulbCalculator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/BulbCalculator.cpp" line="173"/>
         <source>No filename given, aborting operation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbCalculator.cpp" line="207"/>
+        <source>Version: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbCalculator.cpp" line="210"/>
+        <source>Copyright 2000, 2001 by Marko Majic (Some Rights Reserved)&lt;br&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbCalculator.cpp" line="211"/>
+        <source>Copyright 2010, 2013 by Gianluca Montecchi (Some Rights Reserved)&lt;p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbCalculator.cpp" line="212"/>
+        <source>Contact: gian@grys.it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbCalculator.cpp" line="214"/>
+        <source>About BulbCalculator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -80,106 +120,247 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="324"/>
+        <location filename="../src/BulbCalculator.cpp" line="276"/>
+        <source>Unit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbCalculator.cpp" line="280"/>
+        <source>Lenght / Height</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbCalculator.cpp" line="280"/>
+        <source>Material density</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbCalculator.cpp" line="281"/>
+        <source>Center / Lenght</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbCalculator.cpp" line="281"/>
+        <source>Projected Weight</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbCalculator.cpp" line="282"/>
+        <source>Wetted Surface</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbCalculator.cpp" line="282"/>
+        <source>Max Diameter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbCalculator.cpp" line="282"/>
+        <source>Frontal Area</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbCalculator.cpp" line="325"/>
         <source>Bulb Data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="337"/>
+        <location filename="../src/BulbCalculator.cpp" line="338"/>
         <source>Position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="338"/>
+        <location filename="../src/BulbCalculator.cpp" line="339"/>
         <source>X</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="339"/>
+        <location filename="../src/BulbCalculator.cpp" line="340"/>
         <source>Height Max</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="340"/>
+        <location filename="../src/BulbCalculator.cpp" line="341"/>
         <source>Height Min</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="341"/>
+        <location filename="../src/BulbCalculator.cpp" line="342"/>
         <source>Half Width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="342"/>
+        <location filename="../src/BulbCalculator.cpp" line="343"/>
         <source>Width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="345"/>
+        <location filename="../src/BulbCalculator.cpp" line="1396"/>
+        <location filename="../src/BulbCalculator.cpp" line="1459"/>
+        <location filename="../src/BulbCalculator.cpp" line="1483"/>
+        <source>Import foil data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbCalculator.cpp" line="1397"/>
+        <location filename="../src/BulbCalculator.cpp" line="1484"/>
+        <source>The profile cannot be imported</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbCalculator.cpp" line="1435"/>
+        <source>Do yuo want to import the foil to the local repository ?&lt;p&gt;&lt;b&gt;If not, the project cannot be saved&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbCalculator.cpp" line="1460"/>
+        <source>Cannot copy the file to the local reporitory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbCalculator.cpp" line="280"/>
+        <location filename="../src/BulbCalculator.cpp" line="346"/>
         <source>Lenght</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="346"/>
+        <location filename="../src/BulbCalculator.cpp" line="347"/>
         <source>Projected weight</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="347"/>
+        <location filename="../src/BulbCalculator.cpp" line="280"/>
+        <location filename="../src/BulbCalculator.cpp" line="348"/>
         <source>Center</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="348"/>
+        <location filename="../src/BulbCalculator.cpp" line="282"/>
+        <location filename="../src/BulbCalculator.cpp" line="349"/>
         <source>Volume</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="349"/>
+        <location filename="../src/BulbCalculator.cpp" line="350"/>
         <source>Wetted surface</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="711"/>
+        <location filename="../src/BulbCalculator.cpp" line="673"/>
+        <location filename="../src/BulbCalculator.cpp" line="1233"/>
+        <source>The design has been modified.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbCalculator.cpp" line="674"/>
+        <location filename="../src/BulbCalculator.cpp" line="1234"/>
+        <source>Do you want to save your changes?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbCalculator.cpp" line="705"/>
         <source>The project cannot be saved.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="712"/>
+        <location filename="../src/BulbCalculator.cpp" line="706"/>
         <source>The foil definition was not imported in the local repository.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="720"/>
-        <location filename="../src/BulbCalculator.cpp" line="790"/>
+        <location filename="../src/BulbCalculator.cpp" line="714"/>
+        <location filename="../src/BulbCalculator.cpp" line="784"/>
         <source>Save File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="722"/>
-        <location filename="../src/BulbCalculator.cpp" line="792"/>
-        <location filename="../src/BulbCalculator.cpp" line="1260"/>
+        <location filename="../src/BulbCalculator.cpp" line="716"/>
+        <location filename="../src/BulbCalculator.cpp" line="786"/>
+        <location filename="../src/BulbCalculator.cpp" line="1254"/>
         <source>Bulb (*.blb)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="778"/>
+        <location filename="../src/BulbCalculator.cpp" line="772"/>
         <source>Cannot open target file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="1258"/>
+        <location filename="../src/BulbCalculator.cpp" line="838"/>
+        <source>Bulb Name: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbCalculator.cpp" line="1252"/>
         <source>Open File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="1277"/>
+        <location filename="../src/BulbCalculator.cpp" line="1271"/>
         <source>Cannot open file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="1329"/>
+        <location filename="../src/BulbCalculator.cpp" line="1323"/>
         <source>Not a valid file</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>BulbDataOptions</name>
+    <message>
+        <location filename="../src/BulbDataOptions.cpp" line="94"/>
+        <source>Lenght (cm):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbDataOptions.cpp" line="95"/>
+        <source>Projected Weight (Kg):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbDataOptions.cpp" line="96"/>
+        <source>Volume (cmÂ³):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbDataOptions.cpp" line="97"/>
+        <source>Wetted Surface (cmÂ²):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbDataOptions.cpp" line="98"/>
+        <source>Slice thickness (cm):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbDataOptions.cpp" line="116"/>
+        <location filename="../src/BulbDataOptions.cpp" line="141"/>
+        <source>Lenght (in):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbDataOptions.cpp" line="117"/>
+        <location filename="../src/BulbDataOptions.cpp" line="142"/>
+        <source>Projected Weight (oz):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbDataOptions.cpp" line="118"/>
+        <location filename="../src/BulbDataOptions.cpp" line="143"/>
+        <source>Volume (cu.in.):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbDataOptions.cpp" line="119"/>
+        <location filename="../src/BulbDataOptions.cpp" line="144"/>
+        <source>Wetted Surface (sq.in.):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbDataOptions.cpp" line="120"/>
+        <location filename="../src/BulbDataOptions.cpp" line="145"/>
+        <source>Slice thickness (in.):</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -599,6 +780,136 @@
         <source>Could not open file</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../src/ExportDraw.cpp" line="78"/>
+        <source>Foil Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ExportDraw.cpp" line="79"/>
+        <source>Height/Length Ratio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ExportDraw.cpp" line="80"/>
+        <source>Width/Height Ratio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ExportDraw.cpp" line="82"/>
+        <source>Lenght (cm)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ExportDraw.cpp" line="83"/>
+        <source>Center (cm)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ExportDraw.cpp" line="84"/>
+        <source>Wetted Surface (cm^2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ExportDraw.cpp" line="85"/>
+        <source>Volume (cm^3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ExportDraw.cpp" line="87"/>
+        <location filename="../src/ExportDraw.cpp" line="128"/>
+        <location filename="../src/ExportDraw.cpp" line="168"/>
+        <source>Position</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ExportDraw.cpp" line="88"/>
+        <location filename="../src/ExportDraw.cpp" line="169"/>
+        <source>X</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ExportDraw.cpp" line="89"/>
+        <location filename="../src/ExportDraw.cpp" line="170"/>
+        <source>Height Max</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ExportDraw.cpp" line="90"/>
+        <location filename="../src/ExportDraw.cpp" line="171"/>
+        <source>Height Min</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ExportDraw.cpp" line="91"/>
+        <location filename="../src/ExportDraw.cpp" line="172"/>
+        <source>Width/2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ExportDraw.cpp" line="94"/>
+        <location filename="../src/ExportDraw.cpp" line="95"/>
+        <location filename="../src/ExportDraw.cpp" line="96"/>
+        <location filename="../src/ExportDraw.cpp" line="97"/>
+        <source>(cm)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ExportDraw.cpp" line="123"/>
+        <location filename="../src/ExportDraw.cpp" line="163"/>
+        <source>Lenght (in.)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ExportDraw.cpp" line="124"/>
+        <location filename="../src/ExportDraw.cpp" line="164"/>
+        <source>Center (in.)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ExportDraw.cpp" line="125"/>
+        <location filename="../src/ExportDraw.cpp" line="165"/>
+        <source>Wetted Surface (sq.in.)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ExportDraw.cpp" line="126"/>
+        <location filename="../src/ExportDraw.cpp" line="166"/>
+        <source>Volume (cu.in.)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ExportDraw.cpp" line="129"/>
+        <source>X (in.)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ExportDraw.cpp" line="130"/>
+        <source>Height Max (in.)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ExportDraw.cpp" line="131"/>
+        <source>Height Min (in.)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ExportDraw.cpp" line="132"/>
+        <source>Width/2 (in.)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ExportDraw.cpp" line="135"/>
+        <location filename="../src/ExportDraw.cpp" line="136"/>
+        <location filename="../src/ExportDraw.cpp" line="137"/>
+        <location filename="../src/ExportDraw.cpp" line="138"/>
+        <location filename="../src/ExportDraw.cpp" line="175"/>
+        <location filename="../src/ExportDraw.cpp" line="176"/>
+        <location filename="../src/ExportDraw.cpp" line="177"/>
+        <location filename="../src/ExportDraw.cpp" line="178"/>
+        <source>(in.)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
@@ -906,6 +1217,156 @@
 <context>
     <name>PrintDraw</name>
     <message>
+        <location filename="../src/PrintBulb.cpp" line="123"/>
+        <source>Bulb data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrintBulb.cpp" line="125"/>
+        <source>Lenght</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrintBulb.cpp" line="126"/>
+        <source>Material Density</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrintBulb.cpp" line="127"/>
+        <source>Projected weight</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrintBulb.cpp" line="128"/>
+        <location filename="../src/PrintBulb.cpp" line="152"/>
+        <source>Center</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrintBulb.cpp" line="129"/>
+        <source>Volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrintBulb.cpp" line="130"/>
+        <source>Wetted surface</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrintBulb.cpp" line="134"/>
+        <location filename="../src/PrintBulb.cpp" line="137"/>
+        <location filename="../src/PrintBulb.cpp" line="175"/>
+        <location filename="../src/PrintBulb.cpp" line="177"/>
+        <source> cm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrintBulb.cpp" line="135"/>
+        <source> gr/cm³</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrintBulb.cpp" line="136"/>
+        <source> Kg</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrintBulb.cpp" line="138"/>
+        <source> cm³</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrintBulb.cpp" line="139"/>
+        <location filename="../src/PrintBulb.cpp" line="178"/>
+        <source> cm²</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrintBulb.cpp" line="141"/>
+        <location filename="../src/PrintBulb.cpp" line="142"/>
+        <location filename="../src/PrintBulb.cpp" line="144"/>
+        <location filename="../src/PrintBulb.cpp" line="182"/>
+        <location filename="../src/PrintBulb.cpp" line="184"/>
+        <source> in</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrintBulb.cpp" line="143"/>
+        <source> oz</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrintBulb.cpp" line="145"/>
+        <source> cu.in</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrintBulb.cpp" line="146"/>
+        <location filename="../src/PrintBulb.cpp" line="185"/>
+        <source> sq.in</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrintBulb.cpp" line="150"/>
+        <source>Lenght/Height</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrintBulb.cpp" line="151"/>
+        <source>Width/Height</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrintBulb.cpp" line="153"/>
+        <source>Center/Lenght</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrintBulb.cpp" line="154"/>
+        <source>Max Diam</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrintBulb.cpp" line="155"/>
+        <source>Frontal area</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrintBulb.cpp" line="189"/>
+        <source>Sections data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrintBulb.cpp" line="193"/>
+        <location filename="../src/PrintBulb.cpp" line="210"/>
+        <source>Position</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrintBulb.cpp" line="194"/>
+        <location filename="../src/PrintBulb.cpp" line="211"/>
+        <source>X Pos</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrintBulb.cpp" line="195"/>
+        <location filename="../src/PrintBulb.cpp" line="212"/>
+        <source>Height Max</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrintBulb.cpp" line="196"/>
+        <location filename="../src/PrintBulb.cpp" line="213"/>
+        <source>Height Min</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrintBulb.cpp" line="197"/>
+        <location filename="../src/PrintBulb.cpp" line="214"/>
+        <source>Width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/PrintBulb.cpp" line="241"/>
         <source>BulbCalculator</source>
         <translation type="unfinished"></translation>
@@ -913,6 +1374,31 @@
     <message>
         <location filename="../src/PrintBulb.cpp" line="242"/>
         <source>The draw is bigger than the printing area</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ViewArea</name>
+    <message>
+        <location filename="../src/ViewArea.cpp" line="86"/>
+        <location filename="../src/ViewArea.cpp" line="92"/>
+        <location filename="../src/ViewArea.cpp" line="98"/>
+        <source>Profile: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ViewArea.cpp" line="88"/>
+        <source> - Side view</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ViewArea.cpp" line="94"/>
+        <source> - Top view</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ViewArea.cpp" line="100"/>
+        <source> - Front view</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

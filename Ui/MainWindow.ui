@@ -94,6 +94,7 @@
     <addaction name="menuPrint"/>
     <addaction name="separator"/>
     <addaction name="action_Quit"/>
+    <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menu_Help">
     <property name="title">
