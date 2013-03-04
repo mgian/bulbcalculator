@@ -44,8 +44,6 @@ class BulbDataOptions : public QDialog, private Ui::DBulbDataOptions
         void SetMM();
         void SetInchF();
         void SetInchD();
-        void SetDrawSlice();
-
 
 
     private:

@@ -35,18 +35,7 @@ BulbDataOptions::BulbDataOptions() {
 
 }
 
-void BulbDataOptions::SetDrawSlice() {
-/*
-    if (this->CB_DrawSlice->isChecked() == true) {
-        this->slice = 1;
-    } else {
-        this->slice = 0;
-    }
-*/
-}
-
 void BulbDataOptions::SetBulbValue(double tl, double tw, double vl, double ws, int ns, int sc, int un, float st) {
-
 
     this->LE_Len->setText(QString::number(tl,'.',4));
     this->LE_ProWei->setText(QString::number(tw,'.',4));
@@ -102,11 +91,11 @@ void BulbDataOptions::SetMM() {
 
     this->unit = UNIT_MM;
 
-    this->label->setText(QString("Lenght (cm):"));
-    this->label_2->setText(QString("Projected Weight (Kg):"));
-    this->label_3->setText(QString("Volume (cm³):"));
-    this->label_4->setText(QString("Wetted Surface (cm²):"));
-    this->label_6->setText(QString("Slice thickness (cm):"));
+    this->label->setText(QString(tr("Lenght (cm):")));
+    this->label_2->setText(QString(tr("Projected Weight (Kg):")));
+    this->label_3->setText(QString(tr("Volume (cm³):")));
+    this->label_4->setText(QString(tr("Wetted Surface (cm²):")));
+    this->label_6->setText(QString(tr("Slice thickness (cm):")));
 
     this->DSP_SliceThickness->setValue(this->DSP_SliceThickness->value() * 2.54);
     this->LE_Len->setText(QString::number(this->LE_Len->text().toFloat() * 2.54,'.',4));
@@ -124,11 +113,11 @@ void BulbDataOptions::SetInchF() {
 
 
     if (this->unit == UNIT_MM) {
-        this->label->setText(QString("Lenght (in):"));
-        this->label_2->setText(QString("Projected Weight (oz):"));
-        this->label_3->setText(QString("Volume (cu.in.):"));
-        this->label_4->setText(QString("Wetted Surface (sq.in.):"));
-        this->label_6->setText(QString("Slice thickness (in.):"));
+        this->label->setText(QString(tr("Lenght (in):")));
+        this->label_2->setText(QString(tr("Projected Weight (oz):")));
+        this->label_3->setText(QString(tr("Volume (cu.in.):")));
+        this->label_4->setText(QString(tr("Wetted Surface (sq.in.):")));
+        this->label_6->setText(QString(tr("Slice thickness (in.):")));
 
         this->DSP_SliceThickness->setValue(this->DSP_SliceThickness->value() / 2.54);
         this->LE_Len->setText(QString::number(this->LE_Len->text().toFloat() / 2.54,'.',4));
@@ -149,11 +138,11 @@ void BulbDataOptions::SetInchD() {
 
 
     if (this->unit == UNIT_MM) {
-        this->label->setText(QString("Lenght (in):"));
-        this->label_2->setText(QString("Projected Weight (oz):"));
-        this->label_3->setText(QString("Volume (cu.in.):"));
-        this->label_4->setText(QString("Wetted Surface (sq.in.):"));
-        this->label_6->setText(QString("Slice thickness (in.):"));
+        this->label->setText(QString(tr("Lenght (in):")));
+        this->label_2->setText(QString(tr("Projected Weight (oz):")));
+        this->label_3->setText(QString(tr("Volume (cu.in.):")));
+        this->label_4->setText(QString(tr("Wetted Surface (sq.in.):")));
+        this->label_6->setText(QString(tr("Slice thickness (in.):")));
 
         this->DSP_SliceThickness->setValue(this->DSP_SliceThickness->value() / 2.54);
         this->LE_Len->setText(QString::number(this->LE_Len->text().toFloat() / 2.54,'.',4));

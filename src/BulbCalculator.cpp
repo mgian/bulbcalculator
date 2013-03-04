@@ -38,7 +38,6 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 
 BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
 
-
     ui.setupUi(this);
 
     this->BcPrefs = new BulbCalcPref;
@@ -100,7 +99,7 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     this->res3d = new QComboBox;
     this->profs = new QComboBox;
     QStringList res;
-    res << "Low" << "Medium" << "High" << "Highest";
+    res << tr("Low") << tr("Medium") << tr("High") << tr("Highest");
     this->res3d->addItems(res);
     QLabel *res3dl = new QLabel(tr("3D resolution"));
     QLabel *profsl = new QLabel(tr("Profile"));
@@ -135,6 +134,17 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
 
     connect(this->res3d, SIGNAL(currentIndexChanged(int)), this, SLOT(Change3DResolution(int)));
     connect(this->profs, SIGNAL(currentIndexChanged(QString)), this, SLOT(SetFoilProfile(QString)));
+
+
+    separatorAct = ui.menu_File->addSeparator();
+    for (int i = 0; i < MAXRECENTFILE; ++i) {
+        RecentProjects[i] = new QAction(this);
+        RecentProjects[i]->setVisible(false);
+        connect(RecentProjects[i], SIGNAL(triggered()), this, SLOT(OpenRecentFile()));
+        ui.menu_File->addAction(RecentProjects[i]);
+    }
+
+    UpdateRecentFileActions();
 
     ui.actionLow->setChecked(true);
 
@@ -204,14 +214,14 @@ void BulbCalculator::ShowAbout() {
     QString msg;
     msg.append("<center>");
     msg.append("<h2>BulbCalculator<p>");
-    msg.append("Version: ");
+    msg.append(tr("Version: "));
     msg.append(VERSION);
     msg.append("</h2>");
-    msg.append("Copyright 2000, 2001 by Marko Majic (Some Rights Reserved)<br>");
-    msg.append("Copyright 2010, 2013 by Gianluca Montecchi (Some Rights Reserved)<p>");
-    msg.append("Contact: gian@grys.it");
+    msg.append(tr("Copyright 2000, 2001 by Marko Majic (Some Rights Reserved)<br>"));
+    msg.append(tr("Copyright 2010, 2013 by Gianluca Montecchi (Some Rights Reserved)<p>"));
+    msg.append(tr("Contact: gian@grys.it"));
     msg.append("</center>");
-    QMessageBox::about(this, "About BulbCalculator", msg);
+    QMessageBox::about(this, tr("About BulbCalculator"), msg);
 
 }
 
@@ -273,12 +283,13 @@ void BulbCalculator::CreateDataWin() {
 
     this->TW_Bulb = new QTableWidget(10,8);
     QStringList hcols;
-    hcols << "Unit" << "-3%" << "-2%" << "-1%" << "0" << "+1%" << "+2%" << "+3%";
+    hcols << tr("Unit") << "-3%" << "-2%" << "-1%" << "0" << "+1%" << "+2%" << "+3%";
     this->TW_Bulb->setHorizontalHeaderLabels(hcols);
 
     QStringList hrows;
-    hrows << "Lenght / Height" << "Material density" << "Lenght" << "Center" << "Center / Lenght" << "Projected Weight";
-    hrows << "Volume" << "Wetted Surface" << "Max Diameter" << "Frontal Area";
+    hrows << tr("Lenght / Height") << tr("Material density") << tr("Lenght") << tr("Center");
+    hrows << tr("Center / Lenght") << tr("Projected Weight");
+    hrows << tr("Volume") << tr("Wetted Surface") << tr("Max Diameter") << tr("Frontal Area");
     this->TW_Bulb->setVerticalHeaderLabels(hrows);
 
     this->TW_Bulb->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -558,7 +569,6 @@ void BulbCalculator::ShowDataWindow() {
 
 }
 
-
 void BulbCalculator::PrintBulbSectionFromTop() {
 
       PrintDraw(this,P_SECTIONS_TOP);
@@ -583,14 +593,11 @@ void BulbCalculator::PrintBulbLinesPlanFromSide() {
 
 }
 
-
-
 void BulbCalculator::PrintBulbData() {
 
     PrintDraw(this, P_DATA);
 
 }
-
 
 void BulbCalculator::ShowPrefWindow() {
 
@@ -612,15 +619,12 @@ void BulbCalculator::ShowPrefWindow() {
 
 }
 
-
 void BulbCalculator::SetBulbDataOptions() {
 
     int ret;
     double tl;
 
     BulbDataOptions *DlgBulbDataOpt = new BulbDataOptions;
-//    x = this->ui.centralwidget->width();
-//    y = this->ui.centralwidget->height();
     tl = pow((target_weight*1000.0)/(naca_profile.volume*material_density), 1.0/3.0);
 
     DlgBulbDataOpt->SetBulbValue(tl, this->target_weight, this->bulb_volume,
@@ -676,8 +680,8 @@ void BulbCalculator::NewBulb() {
 
     if (this->BcStatus->St_Modified == YES) {
         QMessageBox msgBox;
-        msgBox.setText("The design has been modified.");
-        msgBox.setInformativeText("Do you want to save your changes?");
+        msgBox.setText(tr("The design has been modified."));
+        msgBox.setInformativeText(tr("Do you want to save your changes?"));
         msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
         msgBox.setDefaultButton(QMessageBox::Save);
         int ret = msgBox.exec();
@@ -706,7 +710,17 @@ void BulbCalculator::NewBulb() {
 
 void BulbCalculator::Save() {
 
-    if (this->FileName == "") {
+    if (this->BcStatus->St_CanSave == NO) {
+        QMessageBox msgBox;
+        msgBox.setText(tr("The project cannot be saved."));
+        msgBox.setInformativeText(tr("The foil definition was not imported in the local repository."));
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        msgBox.exec();
+        return;
+    }
+
+    if (this->BcStatus->CurFile == "") {
         QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
                         "",
                         tr("Bulb (*.blb)"));
@@ -716,12 +730,12 @@ void BulbCalculator::Save() {
                 fileName.append(ext);
             }
 
-            this->FileName = fileName;
+            this->BcStatus->CurFile = fileName;
         }
     }
 
     QDomDocument doc("BulbCalculatorV1");
-    QFile file(this->FileName);
+    QFile file(this->BcStatus->CurFile);
     QDomElement root = doc.createElement("BulbV1");
     doc.appendChild(root);
 
@@ -773,6 +787,7 @@ void BulbCalculator::Save() {
     file.write(xml.toStdString().c_str());
     file.close();
     this->BcStatus->St_Modified = NO;
+    SetCurrentFile(this->BcStatus->CurFile);
 }
 
 void BulbCalculator::SaveAs() {
@@ -781,7 +796,7 @@ void BulbCalculator::SaveAs() {
                         "",
                         tr("Bulb (*.blb)"));
     if (fileName != "") {
-        this->FileName = fileName;
+        this->BcStatus->CurFile = fileName;
         BulbCalculator::Save();
     }
 
@@ -831,7 +846,7 @@ void BulbCalculator::UpdateResults() {
     tmpVal.sprintf("%02d",hs+3);
 
     tmpBulbName.replace("XX",tmpVal);
-    this->BulbName->setText(QString("Bulb Name: ") + tmpBulbName);
+    this->BulbName->setText(QString(tr("Bulb Name: ")) + tmpBulbName);
 
     it = new QTableWidgetItem;
     it->setText("[%]");
@@ -1220,14 +1235,10 @@ void BulbCalculator::Set670xx() {
 
 void BulbCalculator::Open() {
 
-    QDomElement root, params;
-    QDomNode value;
-    QString fname;
-    int err = 0;
     if (this->BcStatus->St_Modified == YES) {
         QMessageBox msgBox;
-        msgBox.setText("The design has been modified.");
-        msgBox.setInformativeText("Do you want to save your changes?");
+        msgBox.setText(tr("The design has been modified."));
+        msgBox.setInformativeText(tr("Do you want to save your changes?"));
         msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
         msgBox.setDefaultButton(QMessageBox::Save);
         int ret = msgBox.exec();
@@ -1253,14 +1264,22 @@ void BulbCalculator::Open() {
         if (!fileName.endsWith(ext)) {
             fileName.append(ext);
         }
-
-        this->FileName = fileName;
+        this->BcStatus->CurFile = fileName;
+        LoadFile();
     } else {
         return;
     }
+}
+
+void BulbCalculator::LoadFile() {
+
+    QDomElement root, params;
+    QDomNode value;
+    QString fname;
+    int err = 0;
 
     QDomDocument doc("BulbCalculatorV1");
-    QFile file(this->FileName);
+    QFile file(this->BcStatus->CurFile);
 
     if (!file.open(QIODevice::ReadOnly)) {
         QMessageBox::warning(this, tr("BulbCalculator"),
@@ -1321,8 +1340,7 @@ void BulbCalculator::Open() {
     } else {
         int idx = this->profs->findText(fname,Qt::MatchFixedString);
         this->profs->setCurrentIndex(idx);
-//        BulbCalculator::UpdateCalculations();
-//        this->GV_2DView->UpdateView();
+        SetCurrentFile(this->BcStatus->CurFile);
     }
 
 }
@@ -1391,8 +1409,8 @@ void BulbCalculator::SetFoilProfile(QString ProfName) {
         this->GV_2DView->UpdateView();
     } else {
         QMessageBox msgBox;
-        msgBox.setText("Import foil data");
-        msgBox.setInformativeText("The profile cannot be imported");
+        msgBox.setText(tr("Import foil data"));
+        msgBox.setInformativeText(tr("The profile cannot be imported"));
         msgBox.setStandardButtons(QMessageBox::Ok );
         msgBox.setDefaultButton(QMessageBox::Ok);
         msgBox.exec();
@@ -1430,7 +1448,7 @@ void BulbCalculator::ImportFoilData() {
     }
 
     QMessageBox msgBox;
-    QString msg = "Do yuo want to import the foil to the local repository ?<p><b>If not, the project cannot be saved</b>";
+    QString msg = tr("Do yuo want to import the foil to the local repository ?<p><b>If not, the project cannot be saved</b>");
     msgBox.setInformativeText(msg);
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     msgBox.setDefaultButton(QMessageBox::Yes);
@@ -1454,8 +1472,8 @@ void BulbCalculator::ImportFoilData() {
             this->profs->setCurrentIndex(idx);
         } else {
             QMessageBox msgBox;
-            msgBox.setText("Import foil data");
-            msgBox.setInformativeText("Cannot copy the file to the local reporitory");
+            msgBox.setText(tr("Import foil data"));
+            msgBox.setInformativeText(tr("Cannot copy the file to the local reporitory"));
             msgBox.setStandardButtons(QMessageBox::Ok );
             msgBox.setDefaultButton(QMessageBox::Ok);
             msgBox.exec();
@@ -1478,8 +1496,8 @@ void BulbCalculator::ImportFoilData() {
             this->profs->setCurrentIndex(-1);
         } else {
             QMessageBox msgBox;
-            msgBox.setText("Import foil data");
-            msgBox.setInformativeText("The profile cannot be imported");
+            msgBox.setText(tr("Import foil data"));
+            msgBox.setInformativeText(tr("The profile cannot be imported"));
             msgBox.setStandardButtons(QMessageBox::Ok );
             msgBox.setDefaultButton(QMessageBox::Ok);
             msgBox.exec();
@@ -1607,5 +1625,59 @@ void BulbCalculator::ReadRepoPreferences() {
         settings.endArray();
     }
 
+}
+
+void BulbCalculator::SetCurrentFile(const QString &ProjectName) {
+
+    this->BcStatus->CurFile = ProjectName;
+
+    QSettings settings("GRYS","BulbCalculator");;
+    QStringList files = settings.value("RecentProject").toStringList();
+    files.removeAll(ProjectName);
+    files.prepend(ProjectName);
+    while (files.size() > MAXRECENTFILE) {
+        files.removeLast();
+    }
+
+    settings.setValue("RecentProject", files);
+
+    UpdateRecentFileActions();
+
+}
+
+void BulbCalculator::UpdateRecentFileActions() {
+
+    QSettings settings("GRYS","BulbCalculator");;
+    QStringList files = settings.value("RecentProject").toStringList();
+
+    int numRecentFiles = qMin(files.size(), MAXRECENTFILE);
+
+    for (int i = 0; i < numRecentFiles; ++i) {
+        QString text = tr("&%1 %2").arg(i + 1).arg(StrippedName(files[i]));
+        RecentProjects[i]->setText(text);
+        RecentProjects[i]->setData(files[i]);
+        RecentProjects[i]->setVisible(true);
+    }
+    for (int j = numRecentFiles; j < MAXRECENTFILE; ++j) {
+        RecentProjects[j]->setVisible(false);
+    }
+    separatorAct->setVisible(numRecentFiles > 0);
+
+}
+
+QString BulbCalculator::StrippedName(const QString &ProjectFile)  {
+
+    return QFileInfo(ProjectFile).fileName();
+
+}
+
+void BulbCalculator::OpenRecentFile() {
+
+    QAction *action = qobject_cast<QAction *>(sender());
+    if (action) {
+        this->BcStatus->CurFile = action->data().toString();
+        LoadFile();
+        //LoadFile(action->data().toString());
+    }
 
 }

@@ -120,39 +120,39 @@ void PrintDraw::DrawBulbData(QPrinter *prn) {
 
     offset = 2000;
     p.setFont(TextFontBold);
-    p.drawText(x, y, QString("Bulb data"));
+    p.drawText(x, y, QString(tr("Bulb data")));
     p.setFont(TextFont);
-    p.drawText(x,y+250, QString("Lenght"));
-    p.drawText(x,y+500, QString("Material Density"));
-    p.drawText(x,y+750, QString("Projected weight"));
-    p.drawText(x,y+1000, QString("Center"));
-    p.drawText(x,y+1250, QString("Volume"));
-    p.drawText(x,y+1500, QString("Wetted surface"));
+    p.drawText(x,y+250, QString(tr("Lenght")));
+    p.drawText(x,y+500, QString(tr("Material Density")));
+    p.drawText(x,y+750, QString(tr("Projected weight")));
+    p.drawText(x,y+1000, QString(tr("Center")));
+    p.drawText(x,y+1250, QString(tr("Volume")));
+    p.drawText(x,y+1500, QString(tr("Wetted surface")));
 
 
     if (this->bc->BcPrefs->Gui_Unit == UNIT_MM) {
-        p.drawText(x+offset,y+250, QString(": ")+QString::number(this->bc->length)+QString(" cm"));
-        p.drawText(x+offset,y+500, QString(": ")+QString::number(this->bc->material_density)+QString(" gr/cm³"));
-        p.drawText(x+offset,y+750, QString(": ")+QString::number(this->bc->target_weight)+QString(" Kg"));
-        p.drawText(x+offset,y+1000, QString(": ")+QString::number(this->bc->naca_profile.gcentre*wr)+QString(" cm"));
-        p.drawText(x+offset,y+1250, QString(": ")+QString::number(this->bc->bulb_volume)+QString(" cm³"));
-        p.drawText(x+offset,y+1500, QString(": ")+QString::number(this->bc->bulb_wet_surface)+QString(" cm²"));
+        p.drawText(x+offset,y+250, QString(": ")+QString::number(this->bc->length)+QString(tr(" cm")));
+        p.drawText(x+offset,y+500, QString(": ")+QString::number(this->bc->material_density)+QString(tr(" gr/cm³")));
+        p.drawText(x+offset,y+750, QString(": ")+QString::number(this->bc->target_weight)+QString(tr(" Kg")));
+        p.drawText(x+offset,y+1000, QString(": ")+QString::number(this->bc->naca_profile.gcentre*wr)+QString(tr(" cm")));
+        p.drawText(x+offset,y+1250, QString(": ")+QString::number(this->bc->bulb_volume)+QString(tr(" cm³")));
+        p.drawText(x+offset,y+1500, QString(": ")+QString::number(this->bc->bulb_wet_surface)+QString(tr(" cm²")));
     } else {
-        p.drawText(x+offset,y+250, QString(": ")+DisplayValue(this->bc->length/2.54,this->bc->BcPrefs->Gui_Unit)+QString(" in"));
-        p.drawText(x+offset,y+500, QString(": ")+DisplayValue(this->bc->length/2.54,this->bc->BcPrefs->Gui_Unit)+QString(" in"));
-        p.drawText(x+offset,y+750, QString(": ")+DisplayValue(this->bc->target_weight*1000*0.035,this->bc->BcPrefs->Gui_Unit)+QString(" oz"));
-        p.drawText(x+offset,y+1000, QString(": ")+DisplayValue((this->bc->naca_profile.gcentre*wr)/2.54,this->bc->BcPrefs->Gui_Unit)+QString(" in"));
-        p.drawText(x+offset,y+1250, QString(": ")+DisplayValue(this->bc->bulb_volume*0.061,this->bc->BcPrefs->Gui_Unit)+QString(" cu.in"));
-        p.drawText(x+offset,y+1500, QString(": ")+DisplayValue(this->bc->bulb_wet_surface*0.155,this->bc->BcPrefs->Gui_Unit)+QString(" sq.in"));
+        p.drawText(x+offset,y+250, QString(": ")+DisplayValue(this->bc->length/2.54,this->bc->BcPrefs->Gui_Unit)+QString(tr(" in")));
+        p.drawText(x+offset,y+500, QString(": ")+DisplayValue(this->bc->length/2.54,this->bc->BcPrefs->Gui_Unit)+QString(tr(" in")));
+        p.drawText(x+offset,y+750, QString(": ")+DisplayValue(this->bc->target_weight*1000*0.035,this->bc->BcPrefs->Gui_Unit)+QString(tr(" oz")));
+        p.drawText(x+offset,y+1000, QString(": ")+DisplayValue((this->bc->naca_profile.gcentre*wr)/2.54,this->bc->BcPrefs->Gui_Unit)+QString(tr(" in")));
+        p.drawText(x+offset,y+1250, QString(": ")+DisplayValue(this->bc->bulb_volume*0.061,this->bc->BcPrefs->Gui_Unit)+QString(tr(" cu.in")));
+        p.drawText(x+offset,y+1500, QString(": ")+DisplayValue(this->bc->bulb_wet_surface*0.155,this->bc->BcPrefs->Gui_Unit)+QString(tr(" sq.in")));
     }
 
     offset = 4000;
-    p.drawText(x+offset, y+250, QString("Lenght/Height"));
-    p.drawText(x+offset, y+500, QString("Width/Height"));
-    p.drawText(x+offset, y+750, QString("Center"));
-    p.drawText(x+offset, y+1000, QString("Center/Lenght"));
-    p.drawText(x+offset, y+1250, QString("Max Diam"));
-    p.drawText(x+offset, y+1500, QString("Frontal area"));
+    p.drawText(x+offset, y+250, QString(tr("Lenght/Height")));
+    p.drawText(x+offset, y+500, QString(tr("Width/Height")));
+    p.drawText(x+offset, y+750, QString(tr("Center")));
+    p.drawText(x+offset, y+1000, QString(tr("Center/Lenght")));
+    p.drawText(x+offset, y+1250, QString(tr("Max Diam")));
+    p.drawText(x+offset, y+1500, QString(tr("Frontal area")));
 
     offset = 6000;
 
@@ -172,29 +172,29 @@ void PrintDraw::DrawBulbData(QPrinter *prn) {
     if (this->bc->BcPrefs->Gui_Unit == UNIT_MM) {
         p.drawText(x+offset,y+250, QString(": ")+QString::number(this->bc->naca_profile.HLRatio*100)+QString(" %"));
         p.drawText(x+offset,y+500, QString(": ")+QString::number(this->bc->naca_profile.WHRatio*100)+QString(" %"));
-        p.drawText(x+offset,y+750, QString(": ")+QString::number(this->bc->naca_profile.gcentre*wr)+QString(" cm"));
+        p.drawText(x+offset,y+750, QString(": ")+QString::number(this->bc->naca_profile.gcentre*wr)+QString(tr(" cm")));
         p.drawText(x+offset,y+1000, QString(": ")+QString::number(this->bc->naca_profile.gcentre*100)+QString(" %"));
-        p.drawText(x+offset,y+1250, QString(": ")+QString::number(mx*2)+QString(" cm"));
-        p.drawText(x+offset,y+1500, QString(": ")+QString::number(fa)+QString(" cm²"));
+        p.drawText(x+offset,y+1250, QString(": ")+QString::number(mx*2)+QString(tr(" cm")));
+        p.drawText(x+offset,y+1500, QString(": ")+QString::number(fa)+QString(tr(" cm²")));
     } else {
         p.drawText(x+offset,y+250, QString(": ")+DisplayValue(this->bc->naca_profile.HLRatio*100,this->bc->BcPrefs->Gui_Unit)+QString(" %"));
         p.drawText(x+offset,y+500, QString(": ")+DisplayValue(this->bc->naca_profile.WHRatio*100,this->bc->BcPrefs->Gui_Unit)+QString(" %"));
-        p.drawText(x+offset,y+750, QString(": ")+DisplayValue(this->bc->naca_profile.gcentre*wr/2.54,this->bc->BcPrefs->Gui_Unit)+QString(" in"));
+        p.drawText(x+offset,y+750, QString(": ")+DisplayValue(this->bc->naca_profile.gcentre*wr/2.54,this->bc->BcPrefs->Gui_Unit)+QString(tr(" in")));
         p.drawText(x+offset,y+1000, QString(": ")+DisplayValue((this->bc->naca_profile.gcentre*100),this->bc->BcPrefs->Gui_Unit)+QString(" %"));
-        p.drawText(x+offset,y+1250, QString(": ")+DisplayValue(mx*2/2.54,this->bc->BcPrefs->Gui_Unit)+QString(" in"));
-        p.drawText(x+offset,y+1500, QString(": ")+DisplayValue(fa*0.155,this->bc->BcPrefs->Gui_Unit)+QString(" sq.in"));
+        p.drawText(x+offset,y+1250, QString(": ")+DisplayValue(mx*2/2.54,this->bc->BcPrefs->Gui_Unit)+QString(tr(" in")));
+        p.drawText(x+offset,y+1500, QString(": ")+DisplayValue(fa*0.155,this->bc->BcPrefs->Gui_Unit)+QString(tr(" sq.in")));
     }
 
     p.setFont(TextFontBold);
-    p.drawText(x, y+2250, QString("Sections data"));
+    p.drawText(x, y+2250, QString(tr("Sections data")));
     p.setFont(TextFont);
     long begin = y+2500;
     long line = 0;
-    p.drawText(x, begin, QString("Position"));
-    p.drawText(x+1500, begin, QString("X Pos"));
-    p.drawText(x+3000, begin, QString("Height Max"));
-    p.drawText(x+4500, begin, QString("Height Min"));
-    p.drawText(x+6000, begin, QString("Width"));
+    p.drawText(x, begin, QString(tr("Position")));
+    p.drawText(x+1500, begin, QString(tr("X Pos")));
+    p.drawText(x+3000, begin, QString(tr("Height Max")));
+    p.drawText(x+4500, begin, QString(tr("Height Min")));
+    p.drawText(x+6000, begin, QString(tr("Width")));
     begin += 250;
     for(int c=0; c<this->bc->num_sect+2; c++) {
         p.drawText(x, begin+(line*250),QString(this->bc->GetSectionValue(c,0)));
@@ -207,11 +207,11 @@ void PrintDraw::DrawBulbData(QPrinter *prn) {
             prn->newPage();
             begin = 250;
             line = 0;
-            p.drawText(x, begin, QString("Position"));
-            p.drawText(x+1500, begin, QString("X Pos"));
-            p.drawText(x+3000, begin, QString("Height Max"));
-            p.drawText(x+4500, begin, QString("Height Min"));
-            p.drawText(x+6000, begin, QString("Width"));
+            p.drawText(x, begin, QString(tr("Position")));
+            p.drawText(x+1500, begin, QString(tr("X Pos")));
+            p.drawText(x+3000, begin, QString(tr("Height Max")));
+            p.drawText(x+4500, begin, QString(tr("Height Min")));
+            p.drawText(x+6000, begin, QString(tr("Width")));
             begin += 250;
         } else {
             line++;
@@ -307,30 +307,8 @@ void PrintDraw::DrawBulbLinesPlanTop(QPainter *painter, int ori) {
     aPen.setColor(Qt::black);
     painter->setPen(aPen);
 
-    // Draw the top
-    //double t_point_x[wri];
-    //double t_point_wyu[wri];
-    //double t_point_wyl[wri];
-
     mult = this->bc->naca_profile.num_step/(double)wr;
-/*
-    for(int i=0;i < wri; i++) {
-        t_point_x[i] = i;
-        profile_data& pd(this->bc->naca_profile[(unsigned)((double)i*mult)]);
-        t_point_wyu[i] = pd.width * wr;
-        t_point_wyl[i] = -pd.width * wr;
-    }
 
-    for(int i=1; i < wri; i++) {
-        painter->drawLine(t_point_x[i-1]+OriginX,OriginY-t_point_wyu[i-1],
-                             t_point_x[i]+OriginX,OriginY-t_point_wyu[i]);
-    }
-
-    for(int i=1; i < wri; i++) {
-        painter->drawLine(t_point_x[i-1]+OriginX,OriginY-t_point_wyl[i-1],
-                             t_point_x[i]+OriginX,OriginY-t_point_wyl[i]);
-    }
-*/
     for (unsigned cross_sect=0;;cross_sect++) {
         vector<double> x_data(wri, 0.0);
         vector<double> yu_data(wri, 0.0);
@@ -405,30 +383,8 @@ void PrintDraw::DrawBulbLinesPlanSide(QPainter *painter, int ori) {
     aPen.setColor(Qt::black);
     painter->setPen(aPen);
 
-    // Draw the profiles
-    //double s_point_x[wri];
-    //double s_point_hyu[wri];
-    //double s_point_hyl[wri];
-
     mult = this->bc->naca_profile.num_step/(double)wr;
-/*
-    for(int i=0;i < wri; i++) {
-        s_point_x[i] = i;
-        profile_data& pd(this->bc->naca_profile[(unsigned)((double)i*mult)]);
-        s_point_hyu[i] = pd.height_u * wr;
-        s_point_hyl[i] = pd.height_l * wr;
-    }
 
-    for(int i=1; i < wri; i++) {
-        painter->drawLine(s_point_x[i-1]+OriginX,OriginY-s_point_hyu[i-1],
-                             s_point_x[i]+OriginX,OriginY-s_point_hyu[i]);
-    }
-
-    for(int i=1; i < wri; i++) {
-        painter->drawLine(s_point_x[i-1]+OriginX,OriginY-s_point_hyl[i-1],
-                             s_point_x[i]+OriginX,OriginY-s_point_hyl[i]);
-    }
-*/
     for (unsigned cross_sect=0;;cross_sect++) {
         vector<double> x_data(wri, 0.0);
         vector<double> yu_data(wri, 0.0);
