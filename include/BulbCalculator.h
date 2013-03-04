@@ -31,7 +31,7 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #include <QLabel>
 #include <QComboBox>
 
-#define VERSION     "2.0.x"
+#define VERSION     "2.1.0"
 
 #define UNIT_MM      0
 #define UNIT_INCH    1
@@ -116,7 +116,7 @@ class BulbCalculator : public QMainWindow
         void PrintBulbSectionFromSide();
         void PrintBulbLinesPlanFromTop();
         void PrintBulbLinesPlanFromSide();
-        void PageSetup();
+        //void PageSetup();
         void PrintBulbData();
         void SetBulbDataOptions();
         void Show2dWindow();

@@ -93,7 +93,7 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     connect( ui.actionPrintLinesPlanFromTop, SIGNAL(triggered()), this, SLOT(PrintBulbLinesPlanFromTop()));
     connect( ui.actionPrintLinesPlanFromSide, SIGNAL(triggered()), this, SLOT(PrintBulbLinesPlanFromSide()));
     connect( ui.actionPrintData, SIGNAL(triggered()), this, SLOT(PrintBulbData()));
-    connect( ui.actionPage_Setup, SIGNAL(triggered()), this, SLOT(PageSetup()));
+    //connect( ui.actionPage_Setup, SIGNAL(triggered()), this, SLOT(PageSetup()));
     connect( ui.action_Preferences, SIGNAL(triggered()), this, SLOT(ShowPrefWindow()));
 
     this->res3d = new QComboBox;
@@ -117,7 +117,9 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
 
     for (int i = 0; i < _BulbList.size(); i++) {
         QFileInfo fI = _BulbList.at(i);
-        BulbList.append(fI.baseName());
+        if (fI.isFile() == true && fI.suffix() == ".dat") {
+            BulbList.append(fI.baseName());
+        }
     }
     BulbList.append("00xx");
     BulbList.append("63A0xx");
@@ -157,7 +159,7 @@ void BulbCalculator::Change3DResolution(int CurRes) {
 
 }
 
-
+/*
 void BulbCalculator::PageSetup() {
 
     QPageSetupDialog *qps;
@@ -165,7 +167,7 @@ void BulbCalculator::PageSetup() {
     qps->exec();
 
 }
-
+*/
 
 void BulbCalculator::ExportTextFile() {
 
@@ -1569,6 +1571,9 @@ void BulbCalculator::ReadGuiPreferences() {
         settings.beginGroup("Gui");
         settings.setValue("ViewMode", 0);
         settings.setValue("Unit", UNIT_MM);
+        this->BcPrefs->Gui_BcViewMode = MDI;
+        this->BcPrefs->Gui_TabPos = 0;
+        this->BcPrefs->Gui_Unit = UNIT_MM;
         settings.endGroup();
         ui.mdiArea->setViewMode(QMdiArea::SubWindowView);
         ui.mdiArea->setTabPosition(QTabWidget::North);
@@ -1596,6 +1601,12 @@ void BulbCalculator::ReadBulbPreferences() {
         settings.setValue("SliceThickness", 0.2);
         settings.setValue("HLRatio", 15);
         settings.setValue("WHRatio", 100);
+        this->BcPrefs->Bulb_Tw = 2.4;
+        this->BcPrefs->Bulb_Md = 11.34;
+        this->BcPrefs->Bulb_Ds = YES;
+        this->BcPrefs->Bulb_St = 0.2;
+        this->BcPrefs->Bulb_Hrl = 15;
+        this->BcPrefs->Bulb_Whr = 100;
         settings.endGroup();
     }
 
@@ -1618,6 +1629,7 @@ void BulbCalculator::ReadRepoPreferences() {
     } else {
         settings.beginGroup("Repositories");
         settings.setValue("LocalRepo", "./data");
+        this->BcPrefs->LocalRepo = "./data";
         settings.endGroup();
         settings.beginWriteArray("RemoteRepo");
         settings.setArrayIndex(0);

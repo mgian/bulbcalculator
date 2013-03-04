@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="../BulbCalculator.qrc">
-    <normaloff>:/MainWin/share/images/aboutbulb.png</normaloff>:/MainWin/share/images/aboutbulb.png</iconset>
+    <normaloff>:/MainWin/share/images/bulbcalculator.png</normaloff>:/MainWin/share/images/bulbcalculator.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -81,8 +81,6 @@
      <addaction name="menuSections"/>
      <addaction name="menuLinesplan"/>
      <addaction name="actionPrintData"/>
-     <addaction name="separator"/>
-     <addaction name="actionPage_Setup"/>
     </widget>
     <addaction name="action_New"/>
     <addaction name="action_Open"/>

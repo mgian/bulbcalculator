@@ -25,5 +25,6 @@
         <file>share/images/save_all.png</file>
         <file>share/images/settings.png</file>
         <file>share/images/web.png</file>
+        <file>share/images/bulbcalculator.png</file>
     </qresource>
 </RCC>
