@@ -116,11 +116,12 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     QStringList BulbList;
 
     for (int i = 0; i < _BulbList.size(); i++) {
-        QFileInfo fI = _BulbList.at(i);
-        if (fI.isFile() == true && fI.suffix() == ".dat") {
+        QFileInfo fI = this->BcPrefs->LocalRepo + "/"+_BulbList.at(i);
+        if (fI.isFile() == true && fI.suffix().toLower() == "dat") {
             BulbList.append(fI.baseName());
         }
     }
+
     BulbList.append("00xx");
     BulbList.append("63A0xx");
     BulbList.append("63-0xx");
@@ -149,6 +150,8 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     UpdateRecentFileActions();
 
     ui.actionLow->setChecked(true);
+
+    qDebug() << this->BcStatus->CurFile;
 
 }
 
