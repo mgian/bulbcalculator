@@ -151,8 +151,10 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
 
     ui.actionLow->setChecked(true);
 
-    qDebug() << this->BcStatus->CurFile;
-
+    if (QApplication::argc() > 1) {
+        this->SetCurrentFile(QApplication::arguments().takeAt(1));
+        this->LoadFile();
+    }
 }
 
 void BulbCalculator::Change3DResolution(int CurRes) {
@@ -161,6 +163,8 @@ void BulbCalculator::Change3DResolution(int CurRes) {
     view3d->update();
 
 }
+
+
 
 /*
 void BulbCalculator::PageSetup() {

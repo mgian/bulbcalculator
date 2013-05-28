@@ -31,9 +31,6 @@ int main(int argc, char *argv[]) {
     // Instantiate and layout the viewer
     BulbCalculator mw;
     mw.show();
-    if (argc > 1) {
-
-    }
 
     return app.exec();
 }

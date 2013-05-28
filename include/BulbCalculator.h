@@ -131,6 +131,8 @@ class BulbCalculator : public QMainWindow
         void Change3DResolution(int CurRes);
         void OpenRecentFile();
 
+        void SetCurrentFile(const QString &ProjectName);
+
     private:
         QMdiSubWindow *BulbCalculation;
         QTableWidget *TW_Bulb;
@@ -175,7 +177,7 @@ class BulbCalculator : public QMainWindow
         QString StrippedName(const QString &ProjectFile);
         QAction *RecentProjects[MAXRECENTFILE];
         QAction *separatorAct;
-        void SetCurrentFile(const QString &ProjectName);
+
         void LoadFile();
 
     protected:
