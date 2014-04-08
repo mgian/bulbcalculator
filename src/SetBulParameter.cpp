@@ -18,13 +18,15 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "../include/SetBulParameter.h"
-#include "QtGui"
+#include "QtWidgets"
+#include <QDialogButtonBox>
 
 SetBulbParam::SetBulbParam() {
 
     setupUi(this);
-    connect(buttonBox->button(QDialogButtonBox::Reset),SIGNAL(clicked()),this,
-            SLOT(ResetValues()));
+    connect(buttonBox->button(QDialogButtonBox::Reset),SIGNAL(clicked()),this, SLOT(ResetValues()));
+    //connect(buttonBox,SIGNAL(rejected()),this, SLOT(ResetValues()));
+
 
 }
 

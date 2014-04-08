@@ -31,7 +31,7 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #include <QLabel>
 #include <QComboBox>
 
-#define VERSION     "2.1.0"
+#define VERSION     "2.2.0"
 
 #define UNIT_MM      0
 #define UNIT_INCH    1

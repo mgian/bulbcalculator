@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>457</width>
-    <height>284</height>
+    <width>533</width>
+    <height>316</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,6 +32,9 @@
            <widget class="QLabel" name="label">
             <property name="text">
              <string>Lenght (cm):</string>
+            </property>
+            <property name="textFormat">
+             <enum>Qt::PlainText</enum>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -68,6 +71,9 @@
             <property name="text">
              <string>Projected Weight (kg):</string>
             </property>
+            <property name="textFormat">
+             <enum>Qt::PlainText</enum>
+            </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
             </property>
@@ -100,6 +106,9 @@
             <property name="text">
              <string>Volume (cm³):</string>
             </property>
+            <property name="textFormat">
+             <enum>Qt::PlainText</enum>
+            </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
             </property>
@@ -131,6 +140,9 @@
            <widget class="QLabel" name="label_4">
             <property name="text">
              <string>Wetted Surface (cm²):</string>
+            </property>
+            <property name="textFormat">
+             <enum>Qt::PlainText</enum>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -218,6 +230,9 @@
               <property name="text">
                <string>Numebr of sections:</string>
               </property>
+              <property name="textFormat">
+               <enum>Qt::PlainText</enum>
+              </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
               </property>
@@ -275,6 +290,9 @@
            <widget class="QLabel" name="label_6">
             <property name="text">
              <string>Slice thickness (cm)</string>
+            </property>
+            <property name="textFormat">
+             <enum>Qt::PlainText</enum>
             </property>
            </widget>
           </item>

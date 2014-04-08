@@ -18,9 +18,10 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <QString>
-#include <QtGui>
 #include <QDialog>
 #include <QFileDialog>
+#include <QtWidgets>
+#include <QMessageBox>
 
 #include "../include/ExportDraw.h"
 #include "../include/Utils.h"

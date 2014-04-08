@@ -31,7 +31,7 @@ CONFIG += debug release
 
 QT *= opengl \
     xml \
-    network
+    network widgets printsupport
 TRANSLATIONS = i18n/BulbCalculator_it.ts
 TARGET = bin/BulbCalculator
 win32:LIBS *= -lQGLViewer2

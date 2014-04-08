@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>685</width>
-    <height>284</height>
+    <height>316</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -122,7 +122,7 @@
         <enum>QTabWidget::Rounded</enum>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="tab_general">
         <attribute name="icon">
@@ -171,6 +171,9 @@
               </property>
               <property name="text">
                <string>Windows mode</string>
+              </property>
+              <property name="textFormat">
+               <enum>Qt::PlainText</enum>
               </property>
              </widget>
             </item>
@@ -370,7 +373,7 @@
                <string>Height/Lenght Ratio (%)</string>
               </property>
               <property name="textFormat">
-               <enum>Qt::LogText</enum>
+               <enum>Qt::PlainText</enum>
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -447,6 +450,9 @@
               <property name="text">
                <string>Target Weight (Kg)</string>
               </property>
+              <property name="textFormat">
+               <enum>Qt::PlainText</enum>
+              </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
               </property>
@@ -465,6 +471,9 @@
               </property>
               <property name="text">
                <string>Material Density (Kg/dm3)</string>
+              </property>
+              <property name="textFormat">
+               <enum>Qt::PlainText</enum>
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -506,6 +515,9 @@
               </property>
               <property name="text">
                <string>Width/Height Ratio (%)</string>
+              </property>
+              <property name="textFormat">
+               <enum>Qt::PlainText</enum>
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -642,6 +654,9 @@
               <property name="text">
                <string>Slice thickness (cm)</string>
               </property>
+              <property name="textFormat">
+               <enum>Qt::PlainText</enum>
+              </property>
              </widget>
             </item>
             <item row="2" column="0">
@@ -704,6 +719,9 @@
            </property>
            <property name="text">
             <string>Remote repositories</string>
+           </property>
+           <property name="textFormat">
+            <enum>Qt::PlainText</enum>
            </property>
           </widget>
          </item>
@@ -804,6 +822,9 @@
            </property>
            <property name="text">
             <string>Local repositories</string>
+           </property>
+           <property name="textFormat">
+            <enum>Qt::PlainText</enum>
            </property>
           </widget>
          </item>

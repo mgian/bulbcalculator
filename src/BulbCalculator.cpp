@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <QtGui>
+#include <QtWidgets>
 #include <QTableWidget>
 #include <QTableWidgetItem>
 #include <QResizeEvent>
@@ -25,6 +25,8 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #include <QFileDialog>
 #include <QDesktopServices>
 #include <QComboBox>
+#include <QMessageBox>
+#include <QApplication>
 
 #include "../include/BulbCalculator.h"
 #include "../include/nacafoil.h"
@@ -151,10 +153,11 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
 
     ui.actionLow->setChecked(true);
 
-    if (QApplication::argc() > 1) {
+    if (QApplication::arguments().length() > 1) {
         this->SetCurrentFile(QApplication::arguments().takeAt(1));
         this->LoadFile();
     }
+
 }
 
 void BulbCalculator::Change3DResolution(int CurRes) {
@@ -1309,13 +1312,13 @@ void BulbCalculator::LoadFile() {
     if (value.isNull()) {
         err = 1;
     }
-    this->naca_profile.foil_name.assign(value.toElement().text().toAscii());
+    this->naca_profile.foil_name.assign(value.toElement().text().toLatin1());
 
     value = params.namedItem("fname");
     if (value.isNull()) {
         err = 1;
     }
-    fname = value.toElement().text().toAscii();
+    fname = value.toElement().text().toLatin1();
 
 
     value = params.namedItem("whr");
@@ -1438,7 +1441,7 @@ void BulbCalculator::ImportFoilData() {
 
     fd->setFileMode(QFileDialog::ExistingFile);
     fd->setOption(QFileDialog::DontUseNativeDialog);
-    fd->setFilter("Data Foil (*.dat)");
+    fd->setNameFilter(QString("Data Foil (*.dat)"));
 
     if (fd->exec() == QDialog::Accepted ) {
         fileNameS = fd->selectedFiles();

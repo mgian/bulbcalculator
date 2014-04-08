@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>386</width>
-    <height>95</height>
+    <width>488</width>
+    <height>100</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,6 +28,9 @@
        <property name="text">
         <string>Target Weight (Kg)</string>
        </property>
+       <property name="textFormat">
+        <enum>Qt::PlainText</enum>
+       </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
@@ -37,6 +40,9 @@
       <widget class="QLabel" name="label_2">
        <property name="text">
         <string>Material Density (Kg/dm3)</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::PlainText</enum>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -52,7 +58,7 @@
         <string>Height/Lenght Ratio (%)</string>
        </property>
        <property name="textFormat">
-        <enum>Qt::LogText</enum>
+        <enum>Qt::PlainText</enum>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -63,6 +69,9 @@
       <widget class="QLabel" name="label_4">
        <property name="text">
         <string>Width/Height Ratio (%)</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::PlainText</enum>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -187,8 +196,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>252</x>
-     <y>100</y>
+     <x>261</x>
+     <y>90</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -203,8 +212,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>320</x>
-     <y>100</y>
+     <x>329</x>
+     <y>90</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>
