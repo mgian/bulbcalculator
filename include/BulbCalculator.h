@@ -116,7 +116,7 @@ class BulbCalculator : public QMainWindow
         void PrintBulbSectionFromSide();
         void PrintBulbLinesPlanFromTop();
         void PrintBulbLinesPlanFromSide();
-        //void PageSetup();
+        void PageSetup();
         void PrintBulbData();
         void SetBulbDataOptions();
         void Show2dWindow();
@@ -167,12 +167,14 @@ class BulbCalculator : public QMainWindow
         void ClearBulb();
         void FillBulbDataValue();
         void WritePrefereces();
+        void WritePagePreferences();
 
         // Preferences functions
         void ReadPreferences();
         void ReadGuiPreferences();
         void ReadBulbPreferences();
         void ReadRepoPreferences();
+        void ReadPrinterPreferences();
         void UpdateRecentFileActions();
         QString StrippedName(const QString &ProjectFile);
         QAction *RecentProjects[MAXRECENTFILE];
@@ -307,6 +309,10 @@ class BulbCalcPref {
         /* Repo Preferences */
         QString LocalRepo;
         QStringList RemoteRepo;
+
+        /* Page Size */
+        int PaperSize;
+        int PageOrientation;
 
 };
 

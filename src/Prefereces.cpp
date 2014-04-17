@@ -257,3 +257,4 @@ void BcPreference::UpdRepoPref() {
     settings.endArray();
 
 }
+

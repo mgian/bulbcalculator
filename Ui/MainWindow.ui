@@ -43,7 +43,7 @@
      <x>0</x>
      <y>0</y>
      <width>966</width>
-     <height>20</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -89,6 +89,7 @@
     <addaction name="separator"/>
     <addaction name="menuExport"/>
     <addaction name="separator"/>
+    <addaction name="actionPage_Setup"/>
     <addaction name="menuPrint"/>
     <addaction name="separator"/>
     <addaction name="action_Quit"/>
@@ -483,15 +484,6 @@
     <string>From Side</string>
    </property>
   </action>
-  <action name="actionPage_Setup">
-   <property name="icon">
-    <iconset resource="../BulbCalculator.qrc">
-     <normaloff>:/MainWin/share/images/settings.png</normaloff>:/MainWin/share/images/settings.png</iconset>
-   </property>
-   <property name="text">
-    <string>Page Setup</string>
-   </property>
-  </action>
   <action name="action_Options">
    <property name="icon">
     <iconset resource="../BulbCalculator.qrc">
@@ -511,6 +503,11 @@
    </property>
    <property name="text">
     <string>Preferences</string>
+   </property>
+  </action>
+  <action name="actionPage_Setup">
+   <property name="text">
+    <string>Page setup</string>
    </property>
   </action>
  </widget>

@@ -46,6 +46,9 @@ void PrintDraw::PrintPreview(QPrinter *pr) {
     int o;
     QPainter aPainter;
 
+    pr->setPageSize((QPrinter::PageSize)this->bc->BcPrefs->PaperSize);
+    pr->setOrientation((QPrinter::Orientation)this->bc->BcPrefs->PageOrientation);
+
     float aLogicalWidth = pr->widthMM() * 100;
     float aLogicalHeight = pr->heightMM() * 100;
     float aPhysicalWidth = pr->width();
@@ -60,7 +63,6 @@ void PrintDraw::PrintPreview(QPrinter *pr) {
         if (o == QPrinter::Landscape) {
             aPainter.setWindow(0, 0, aLogicalHeight, aLogicalWidth);
             aPainter.setViewport(0, 0, aPhysicalHeight,aPhysicalWidth);
-
         }
         if (o == QPrinter::Portrait) {
             aPainter.setWindow(0, 0, aLogicalWidth, aLogicalHeight);

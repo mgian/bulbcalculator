@@ -27,6 +27,10 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #include <QComboBox>
 #include <QMessageBox>
 #include <QApplication>
+#include <QSettings>
+#include <QPrintDialog>
+#include <QPrinter>
+#include <QPageSetupDialog>
 
 #include "../include/BulbCalculator.h"
 #include "../include/nacafoil.h"
@@ -95,7 +99,7 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     connect( ui.actionPrintLinesPlanFromTop, SIGNAL(triggered()), this, SLOT(PrintBulbLinesPlanFromTop()));
     connect( ui.actionPrintLinesPlanFromSide, SIGNAL(triggered()), this, SLOT(PrintBulbLinesPlanFromSide()));
     connect( ui.actionPrintData, SIGNAL(triggered()), this, SLOT(PrintBulbData()));
-    //connect( ui.actionPage_Setup, SIGNAL(triggered()), this, SLOT(PageSetup()));
+    connect( ui.actionPage_Setup, SIGNAL(triggered()), this, SLOT(PageSetup()));
     connect( ui.action_Preferences, SIGNAL(triggered()), this, SLOT(ShowPrefWindow()));
 
     this->res3d = new QComboBox;
@@ -169,15 +173,7 @@ void BulbCalculator::Change3DResolution(int CurRes) {
 
 
 
-/*
-void BulbCalculator::PageSetup() {
 
-    QPageSetupDialog *qps;
-    qps = new QPageSetupDialog();
-    qps->exec();
-
-}
-*/
 
 void BulbCalculator::ExportTextFile() {
 
@@ -610,6 +606,23 @@ void BulbCalculator::PrintBulbData() {
     PrintDraw(this, P_DATA);
 
 }
+
+void BulbCalculator::PageSetup() {
+
+    QPrinter printer;
+    printer.setPaperSize((QPrinter::PaperSize)this->BcPrefs->PaperSize);
+    printer.setOrientation((QPrinter::Orientation)this->BcPrefs->PageOrientation);
+    QPageSetupDialog QPageSetupDlg(&printer, 0);
+
+
+    if (QPageSetupDlg.exec() == QPageSetupDlg.Accepted) {
+        this->BcPrefs->PaperSize = printer.pageSize();
+        this->BcPrefs->PageOrientation = printer.orientation();
+        this->WritePagePreferences();
+    }
+
+}
+
 
 void BulbCalculator::ShowPrefWindow() {
 
@@ -1531,6 +1544,20 @@ void BulbCalculator::SetMetric() {
 
 }
 
+void BulbCalculator::WritePagePreferences() {
+
+    QSettings settings("GRYS","BulbCalculator");
+
+    settings.beginGroup("PageSize");
+
+    settings.setValue("PaperSize", this->BcPrefs->PaperSize);
+    settings.setValue("PaperOrientation",this->BcPrefs->PageOrientation);
+
+    settings.endGroup();
+
+}
+
+
 void BulbCalculator::WritePrefereces() {
 
     QSettings settings("GRYS","BulbCalculator");
@@ -1562,6 +1589,7 @@ void BulbCalculator::ReadPreferences() {
     this->ReadGuiPreferences();
     this->ReadBulbPreferences();
     this->ReadRepoPreferences();
+    this->ReadPrinterPreferences();
 }
 
 
@@ -1620,6 +1648,24 @@ void BulbCalculator::ReadBulbPreferences() {
         settings.endGroup();
     }
 
+}
+
+void BulbCalculator::ReadPrinterPreferences() {
+
+    QSettings settings("GRYS","BulbCalculator");
+    if (settings.childGroups().contains("PageSize",Qt::CaseInsensitive)){
+        settings.beginGroup("PageSize");
+        this->BcPrefs->PaperSize = settings.value("PaperSize").toInt();
+        this->BcPrefs->PageOrientation = settings.value("PaperOrientation").toInt();
+        settings.endGroup();
+    } else {
+        settings.beginGroup("PageSize");
+        settings.setValue("PaperSize", QPrinter::A4);
+        settings.setValue("PaperOrientation", QPrinter::Portrait);
+        this->BcPrefs->PaperSize = QPrinter::A4;
+        this->BcPrefs->PageOrientation = QPrinter::Portrait;
+        settings.endGroup();
+    }
 }
 
 void BulbCalculator::ReadRepoPreferences() {
