@@ -40,6 +40,7 @@ PrintDraw::PrintDraw(BulbCalculator *bc, int pt) {
     connect(preview, SIGNAL(paintRequested(QPrinter*)), SLOT(PrintPreview(QPrinter*)));
 
     preview->exec();
+
 }
 
 
@@ -53,11 +54,6 @@ void PrintDraw::PrintPreview(QPrinter *pr) {
 
     int o;
     QPainter aPainter;
-
-    qDebug() << "Called";
-
-//    pr->setPageSize((QPrinter::PageSize)this->bc->BcPrefs->PaperSize);
-//    pr->setOrientation((QPrinter::Orientation)this->bc->BcPrefs->PageOrientation);
 
     float aLogicalWidth = pr->widthMM() * 100;
     float aLogicalHeight = pr->heightMM() * 100;
