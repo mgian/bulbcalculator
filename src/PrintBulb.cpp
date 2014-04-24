@@ -20,18 +20,26 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtWidgets>
 #include <QMessageBox>
 #include <QPrintPreviewDialog>
+#include <QPrintPreviewWidget>
 
 #include "../include/PrintBulb.h"
 #include "../include/Utils.h"
 
 PrintDraw::PrintDraw(BulbCalculator *bc, int pt) {
 
-    QPrintPreviewDialog preview;
-    connect(&preview, SIGNAL(paintRequested(QPrinter*)), SLOT(PrintPreview(QPrinter*)));
     this->bc = bc;
     this->PrintType = pt;
-    preview.exec();
 
+    QPrinter printer(QPrinter::HighResolution);
+
+    printer.setPageSize((QPrinter::PageSize)this->bc->BcPrefs->PaperSize);
+    printer.setOrientation((QPrinter::Orientation)this->bc->BcPrefs->PageOrientation);
+
+    QPrintPreviewDialog *preview = new QPrintPreviewDialog(&printer);
+
+    connect(preview, SIGNAL(paintRequested(QPrinter*)), SLOT(PrintPreview(QPrinter*)));
+
+    preview->exec();
 }
 
 
@@ -46,8 +54,10 @@ void PrintDraw::PrintPreview(QPrinter *pr) {
     int o;
     QPainter aPainter;
 
-    pr->setPageSize((QPrinter::PageSize)this->bc->BcPrefs->PaperSize);
-    pr->setOrientation((QPrinter::Orientation)this->bc->BcPrefs->PageOrientation);
+    qDebug() << "Called";
+
+//    pr->setPageSize((QPrinter::PageSize)this->bc->BcPrefs->PaperSize);
+//    pr->setOrientation((QPrinter::Orientation)this->bc->BcPrefs->PageOrientation);
 
     float aLogicalWidth = pr->widthMM() * 100;
     float aLogicalHeight = pr->heightMM() * 100;
