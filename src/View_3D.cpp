@@ -86,7 +86,7 @@ QSize Vista3D::sizeHint() const {
 }
 
 
-void Vista3D::setXRotation(int angle) {
+void Vista3D::SetXRotation(int angle) {
 
     normalizeAngle(&angle);
     if (angle != xRot) {
@@ -97,7 +97,7 @@ void Vista3D::setXRotation(int angle) {
 }
 
 
-void Vista3D::setYRotation(int angle) {
+void Vista3D::SetYRotation(int angle) {
 
     normalizeAngle(&angle);
     if (angle != yRot) {
@@ -108,7 +108,7 @@ void Vista3D::setYRotation(int angle) {
 }
 
 
-void Vista3D::setZRotation(int angle) {
+void Vista3D::SetZRotation(int angle) {
 
     normalizeAngle(&angle);
     if (angle != zRot) {
@@ -170,7 +170,16 @@ void Vista3D::draw() {
 
     zMin = 0;
     zMax = w;
-    glBegin(GL_POINTS);
+    switch (this->mode_3d_view) {
+        case WIREFRAME:
+            glBegin(GL_POINTS);
+            break;
+        case SURFACE:
+            glBegin(GL_QUAD_STRIP);
+            break;
+    }
+
+
     glColor3f(1.0,1.0,1.0);
     x = 0.0;
 
@@ -184,8 +193,15 @@ void Vista3D::draw() {
         Vista3D::drawEllipse((x-2.0/2), (pd.width*2), pd.height_u, pd.height_l);
     }
     glEnd();
+    switch (this->mode_3d_view) {
+        case WIREFRAME:
+            glBegin(GL_LINES);
+            break;
+        case SURFACE:
+            glBegin(GL_QUAD_STRIP);
+            break;
+    }
 
-    glBegin(GL_LINES);
     glColor3f(1.0,1.0,0.2);
     x = 0.0;
     int in = 0;
@@ -230,19 +246,33 @@ void Vista3D::drawLine(float x, float xradius, float yradiusi_u, float yradiusi_
 
 }
 
+void Vista3D::Set3dViewMode(int mode) {
+
+    switch(mode) {
+        case WIREFRAME:
+            this->mode_3d_view = WIREFRAME;
+            break;
+        case SURFACE:
+            this->mode_3d_view = SURFACE;
+            break;
+    }
+    Vista3D::draw();
+
+}
+
 void Vista3D::Set3DResolution(int res) {
 
     switch(res) {
-        case 0:
+        case WF_LOW:
             this->res_divisor = 32;
             break;
-        case 1:
+        case WF_MEDIUM:
             this->res_divisor = 16;
             break;
-        case 2:
+        case WF_HIGH:
             this->res_divisor = 8;
             break;
-        case 3:
+        case WF_HIGHEST:
             this->res_divisor = 1;
             break;
     }

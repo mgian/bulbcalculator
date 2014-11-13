@@ -52,6 +52,18 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MAXRECENTFILE   5
 
+enum WF_RES {
+    WF_LOW,
+    WF_MEDIUM,
+    WF_HIGH,
+    WF_HIGHEST
+};
+
+enum VIEWMODE_3D {
+    WIREFRAME,
+    SURFACE
+};
+
 class Vista3D;
 class ViewArea;
 class BulbCalcPref;
@@ -130,6 +142,7 @@ class BulbCalculator : public QMainWindow
         void ShowPrefWindow();
         void Change3DResolution(int CurRes);
         void OpenRecentFile();
+        void Set3dViewMode(int mode3d);
 
         void SetCurrentFile(const QString &ProjectName);
 
@@ -155,6 +168,7 @@ class BulbCalculator : public QMainWindow
         QToolBar *tb;
         QComboBox *res3d;
         QComboBox *profs;
+        QComboBox *view3dMode;
         Ui::MainWindow ui;
         int Modified;
         QActionGroup *BulbMenu;
@@ -215,10 +229,11 @@ class Vista3D : public QGLViewer
 
 
     public slots:
-        void setXRotation(int angle);
-        void setYRotation(int angle);
-        void setZRotation(int angle);
+        void SetXRotation(int angle);
+        void SetYRotation(int angle);
+        void SetZRotation(int angle);
         void Set3DResolution(int res);
+        void Set3dViewMode(int mode);
         
 
     signals:
@@ -256,6 +271,7 @@ class Vista3D : public QGLViewer
         float material_density;
         float bulb_volume;
         float bulb_wet_surface;
+        int mode_3d_view;
 };
 
 #endif

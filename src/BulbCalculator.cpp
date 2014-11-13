@@ -107,13 +107,22 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     QStringList res;
     res << tr("Low") << tr("Medium") << tr("High") << tr("Highest");
     this->res3d->addItems(res);
+    this->view3dMode = new  QComboBox;
+    QStringList vm;
+    vm << tr("Wireframe") << tr("Surface");
+    this->view3dMode->addItems(vm);
     QLabel *res3dl = new QLabel(tr("3D resolution"));
     QLabel *profsl = new QLabel(tr("Profile"));
+    QLabel *viewmodel = new QLabel(tr("View Mode"));
     this->ui.tb->addWidget(profsl);
     this->ui.tb->addWidget(profs);
     this->ui.tb->addSeparator();
     this->ui.tb->addWidget(res3dl);
     this->ui.tb->addWidget(res3d);
+    this->ui.tb->addSeparator();
+    this->ui.tb->addWidget(viewmodel);
+    this->ui.tb->addWidget(view3dMode);
+
 
     QDir bdir(this->BcPrefs->LocalRepo);
     bdir.setFilter(QDir::Files);
@@ -143,7 +152,7 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
 
     connect(this->res3d, SIGNAL(currentIndexChanged(int)), this, SLOT(Change3DResolution(int)));
     connect(this->profs, SIGNAL(currentIndexChanged(QString)), this, SLOT(SetFoilProfile(QString)));
-
+    connect(this->view3dMode, SIGNAL(currentIndexChanged(int)), this, SLOT(Set3dViewMode(int)));
 
     separatorAct = ui.menu_File->addSeparator();
     for (int i = 0; i < MAXRECENTFILE; ++i) {
@@ -173,7 +182,12 @@ void BulbCalculator::Change3DResolution(int CurRes) {
 
 
 
+void BulbCalculator::Set3dViewMode(int mode3d) {
 
+    view3d->Set3dViewMode(mode3d);
+    view3d->update();
+
+}
 
 void BulbCalculator::ExportTextFile() {
 
@@ -1441,6 +1455,8 @@ void BulbCalculator::SetFoilProfile(QString ProfName) {
         msgBox.exec();
         return;
     }
+
+    view3d->update();
 
 }
 
