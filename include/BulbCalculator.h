@@ -248,8 +248,8 @@ class Vista3D : public QGLViewer
     private:
         GLuint makeObject();
         void normalizeAngle(int *angle);
-        void drawEllipse(float x, float xdiam, float yradius, float yradius_l);
-        void drawLine(float x, float xradius, float yradiusi_u, float yradiusi_l, float xradiuse, float yradiuse_u,  float yradiuse_l, float step);
+        void DrawEllipse(float x, float xdiam, float yradius, float yradius_l);
+        void DrawLine(float x, float xradius, float yradiusi_u, float yradiusi_l, float xradiuse, float yradiuse_u,  float yradiuse_l, float step);
         void DrawAxis();
         void DrawGrid();
         GLuint object;
