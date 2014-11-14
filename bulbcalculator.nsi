@@ -1,7 +1,7 @@
 ;BulbCalculator Installer
 
 !define PRODUCT_NAME "BulbCalculator" 
-!define PRODUCT_VERSION "2.1"
+!define PRODUCT_VERSION "2.2.0"
 !define PRODUCT_DIR_REGKEY "Software\${PRODUCT_NAME}"
 
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
