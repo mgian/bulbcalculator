@@ -62,7 +62,7 @@ Vista3D::Vista3D(QWidget *parent) : QGLViewer(parent) {
 
     this->show_axis = true;
     this->show_grid = true;
-    this->res_divisor = 32;
+    this->res_divisor = RES_LOW;
 
 }
 
@@ -193,6 +193,7 @@ void Vista3D::draw() {
         Vista3D::DrawEllipse((x-2.0/2), (pd.width*2), pd.height_u, pd.height_l);
     }
     glEnd();
+
     switch (this->mode_3d_view) {
         case WIREFRAME:
             glBegin(GL_LINES);
@@ -264,16 +265,16 @@ void Vista3D::Set3DResolution(int res) {
 
     switch(res) {
         case WF_LOW:
-            this->res_divisor = 32;
+            this->res_divisor = RES_LOW;
             break;
         case WF_MEDIUM:
-            this->res_divisor = 16;
+            this->res_divisor = RES_MED;
             break;
         case WF_HIGH:
-            this->res_divisor = 8;
+            this->res_divisor = RES_HIGH;
             break;
         case WF_HIGHEST:
-            this->res_divisor = 1;
+            this->res_divisor = RES_HIGHEST;
             break;
     }
     Vista3D::draw();
