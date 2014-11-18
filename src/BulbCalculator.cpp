@@ -109,7 +109,7 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     this->res3d->addItems(res);
     this->view3dMode = new  QComboBox;
     QStringList vm;
-    vm << tr("Wireframe") << tr("Surface");
+    vm << tr("Wireframe") << tr("Triangles") << tr("Surface");
     this->view3dMode->addItems(vm);
     QLabel *res3dl = new QLabel(tr("3D resolution"));
     QLabel *profsl = new QLabel(tr("Profile"));

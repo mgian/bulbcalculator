@@ -32,7 +32,7 @@ const float DEG2RAD = 3.14159/180;
 void Vista3D::SetShow3DAxis(bool status) {
 
     this->show_axis = status;
-    object = makeObject();
+    //object = makeObject();
     Vista3D::draw();
 
 }
@@ -47,14 +47,14 @@ void Vista3D::SetBc(BulbCalculator *bcp) {
 void Vista3D::SetShowGrid(bool status) {
 
     this->show_grid = status;
-    object = makeObject();
+    //object = makeObject();
     Vista3D::draw();
 
 }
 
 void Vista3D::SetProfile() {
 
-    object = makeObject();
+    //object = makeObject();
 
 }
 
@@ -172,7 +172,9 @@ void Vista3D::draw() {
     zMax = w;
     switch (this->mode_3d_view) {
         case WIREFRAME:
-            glBegin(GL_POINTS);
+            glBegin(GL_LINES);
+            break;
+        case TRIANGLE:
             break;
         case SURFACE:
             glBegin(GL_QUAD_STRIP);
@@ -192,11 +194,14 @@ void Vista3D::draw() {
         x = x + step;
         Vista3D::DrawEllipse((x-2.0/2), (pd.width*2), pd.height_u, pd.height_l);
     }
+
     glEnd();
 
     switch (this->mode_3d_view) {
         case WIREFRAME:
             glBegin(GL_LINES);
+            break;
+        case TRIANGLE:
             break;
         case SURFACE:
             glBegin(GL_QUAD_STRIP);
@@ -249,14 +254,7 @@ void Vista3D::DrawLine(float x, float xradius, float yradiusi_u, float yradiusi_
 
 void Vista3D::Set3dViewMode(int mode) {
 
-    switch(mode) {
-        case WIREFRAME:
-            this->mode_3d_view = WIREFRAME;
-            break;
-        case SURFACE:
-            this->mode_3d_view = SURFACE;
-            break;
-    }
+    this->mode_3d_view = mode;
     Vista3D::draw();
 
 }
@@ -332,6 +330,7 @@ GLuint Vista3D::makeObject() {
         Vista3D::DrawEllipse((i-w/2)/10.0, (pd.width*2)/10.0, (pd.height_u)/10.0,(pd.height_l)/10.0);
     }
     glEnd();
+
     glEndList();
     return list;
 

@@ -67,6 +67,7 @@ enum WF_RES {
 
 enum VIEWMODE_3D {
     WIREFRAME,
+    TRIANGLE,
     SURFACE
 };
 
