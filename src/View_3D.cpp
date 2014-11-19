@@ -197,6 +197,7 @@ void Vista3D::draw() {
 
     glEnd();
 
+
     switch (this->mode_3d_view) {
         case WIREFRAME:
             glBegin(GL_LINES);
@@ -289,7 +290,9 @@ void Vista3D::DrawEllipse(float x, float xdiam, float yradius, float yradius_l )
 
     for (i=0; i<360; i = i + this->res_divisor) {
         float degInRad = i*DEG2RAD;
+        float degInRad_1 = (i+this->res_divisor)*DEG2RAD;
         glVertex3f(x, cos(degInRad)*xdiam,(sin(degInRad)*diam)+ecc);
+        glVertex3f(x, cos(degInRad_1)*xdiam,(sin(degInRad_1)*diam)+ecc);
     }
 }
 

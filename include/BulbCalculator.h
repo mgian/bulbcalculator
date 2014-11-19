@@ -50,8 +50,8 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #define MDI     0
 #define TABBED  1
 
-#define RES_LOW         32
-#define RES_MED         16
+#define RES_LOW         36
+#define RES_MED         15
 #define RES_HIGH         8
 #define RES_HIGHEST      1
 
