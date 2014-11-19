@@ -133,11 +133,12 @@ void Vista3D::DrawGrid() {
 
 void Vista3D::DrawAxis() {
 
-    this->drawAxis(1.2);
+    this->drawAxis(1.3);
 
 }
 
-void Vista3D::draw() {
+
+void Vista3D::DrawWireframe() {
 
     long w, mult;
     double step;
@@ -147,13 +148,6 @@ void Vista3D::draw() {
     float pos[4] = {1.0, 1.0, 1.0, 0.0};
     glLightfv(GL_LIGHT0, GL_POSITION, pos);
 
-    if (show_axis == true) {
-        this->DrawAxis();
-    }
-
-    if (show_grid == true) {
-        this->DrawGrid();
-    }
 
     this->naca_profile.HLRatio = this->bc->naca_profile.HLRatio;
     this->naca_profile.WHRatio = this->bc->naca_profile.WHRatio;
@@ -168,18 +162,8 @@ void Vista3D::draw() {
 
     zMin = 0;
     zMax = w;
-    switch (this->mode_3d_view) {
-        case WIREFRAME:
-            glBegin(GL_LINES);
-            break;
-        case TRIANGLE:
-            break;
-        case SURFACE:
-            glBegin(GL_QUAD_STRIP);
-            break;
-    }
 
-
+    glBegin(GL_LINES);
     glColor3f(1.0,1.0,1.0);
     x = 0.0;
 
@@ -191,20 +175,6 @@ void Vista3D::draw() {
         profile_data& pd(this->bc->naca_profile[(unsigned)((double)i*mult)]);
         x = x + step;
         Vista3D::DrawEllipse((x-2.0/2), (pd.width*2), pd.height_u, pd.height_l);
-    }
-
-    glEnd();
-
-
-    switch (this->mode_3d_view) {
-        case WIREFRAME:
-            glBegin(GL_LINES);
-            break;
-        case TRIANGLE:
-            break;
-        case SURFACE:
-            glBegin(GL_QUAD_STRIP);
-            break;
     }
 
     glColor3f(1.0,1.0,0.2);
@@ -229,6 +199,102 @@ void Vista3D::draw() {
 
     }
     glEnd();
+
+}
+
+void Vista3D::DrawTriangle() {
+
+
+}
+
+void Vista3D::DrawSurface() {
+
+    glBegin(GL_QUAD_STRIP);
+    long w, mult;
+    double step;
+    QSize t;
+    double x;
+
+    float pos[4] = {1.0, 1.0, 1.0, 0.0};
+    glLightfv(GL_LIGHT0, GL_POSITION, pos);
+
+
+    this->naca_profile.HLRatio = this->bc->naca_profile.HLRatio;
+    this->naca_profile.WHRatio = this->bc->naca_profile.WHRatio;
+    this->naca_profile.foil_name.assign(this->bc->naca_profile.foil_name.c_str());
+    this->naca_profile.calc();
+
+    w = 2.0;
+    glColor3f(1.0,1.0,1.0);
+
+    mult = this->naca_profile.num_step/(double)100.0;
+    step = w/(mult*1.0);
+
+    zMin = 0;
+    zMax = w;
+
+    glBegin(GL_LINES);
+    glColor3f(1.0,1.0,1.0);
+    x = 0.0;
+
+    profile_data& pd2(this->bc->naca_profile[(unsigned)((double)0.02*mult)]);
+
+    Vista3D::DrawEllipse((0.02-2.0/2), (pd2.width*2), pd2.height_u, pd2.height_l);
+
+    for(int i=0; i<mult; i++) {
+        profile_data& pd(this->bc->naca_profile[(unsigned)((double)i*mult)]);
+        x = x + step;
+        Vista3D::DrawEllipse((x-2.0/2), (pd.width*2), pd.height_u, pd.height_l);
+    }
+
+    glColor3f(1.0,1.0,0.2);
+    x = 0.0;
+    int in = 0;
+    profile_data& pdl1(this->bc->naca_profile[(unsigned)((double)0.02*mult)]);
+    profile_data& pdl3(this->bc->naca_profile[(unsigned)((double)1*mult)]);
+    Vista3D::DrawLine((0.02-2.0/2), (pdl1.width*2), pdl1.height_u, pdl1.height_l, (pdl3.width*2), pdl3.height_u, pdl3.height_l,  0.02);
+    float p;
+    for(int i=0; i<mult; i++) {
+        if (i == 0) {
+            p = 0.02;
+            in = 1;
+        } else {
+            p = i;
+            in = i + 1;
+        }
+        profile_data& pdi(this->bc->naca_profile[(unsigned)((double)p*mult)]);
+        profile_data& pde(this->bc->naca_profile[(unsigned)((double)(in)*mult)]);
+        x = x + step;
+        Vista3D::DrawLine((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step);
+
+    }
+    glEnd();
+
+}
+
+void Vista3D::draw() {
+
+    if (show_axis == true) {
+        this->DrawAxis();
+    }
+
+    if (show_grid == true) {
+        this->DrawGrid();
+    }
+
+
+    switch (this->mode_3d_view) {
+        case WIREFRAME:
+            Vista3D::DrawWireframe();
+            break;
+        case TRIANGLE:
+            Vista3D::DrawTriangle();
+            break;
+        case SURFACE:
+            Vista3D::DrawSurface();
+            break;
+    }
+
 
 
 }

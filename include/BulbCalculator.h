@@ -258,6 +258,9 @@ class Vista3D : public QGLViewer
         void DrawLine(float x, float xradius, float yradiusi_u, float yradiusi_l, float xradiuse, float yradiuse_u,  float yradiuse_l, float step);
         void DrawAxis();
         void DrawGrid();
+        void DrawWireframe();
+        void DrawTriangle();
+        void DrawSurface();
         GLuint object;
         int xRot;
         int yRot;
