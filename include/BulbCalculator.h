@@ -50,7 +50,7 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #define MDI     0
 #define TABBED  1
 
-#define RES_LOW         36
+#define RES_LOW         30
 #define RES_MED         15
 #define RES_HIGH         8
 #define RES_HIGHEST      1
@@ -253,7 +253,6 @@ class Vista3D : public QGLViewer
         virtual void init();
 
     private:
-        GLuint makeObject();
         void normalizeAngle(int *angle);
         void DrawEllipse(float x, float xdiam, float yradius, float yradius_l);
         void DrawLine(float x, float xradius, float yradiusi_u, float yradiusi_l, float xradiuse, float yradiuse_u,  float yradiuse_l, float step);

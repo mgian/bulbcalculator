@@ -32,7 +32,6 @@ const float DEG2RAD = 3.14159/180;
 void Vista3D::SetShow3DAxis(bool status) {
 
     this->show_axis = status;
-    //object = makeObject();
     Vista3D::draw();
 
 }
@@ -47,14 +46,13 @@ void Vista3D::SetBc(BulbCalculator *bcp) {
 void Vista3D::SetShowGrid(bool status) {
 
     this->show_grid = status;
-    //object = makeObject();
     Vista3D::draw();
 
 }
 
 void Vista3D::SetProfile() {
 
-    //object = makeObject();
+    Vista3D::draw();
 
 }
 
@@ -295,49 +293,6 @@ void Vista3D::DrawEllipse(float x, float xdiam, float yradius, float yradius_l )
         glVertex3f(x, cos(degInRad_1)*xdiam,(sin(degInRad_1)*diam)+ecc);
     }
 }
-
-
-GLuint Vista3D::makeObject() {
-
-    GLuint list = glGenLists(1);
-    glNewList(list, GL_COMPILE);
-    //const float DEG2RAD = 3.14159/180;
-    long w, mult;
-    double tl;
-    QSize t;
-
-    if (show_axis == true) {
-        this->DrawAxis();
-    }
-
-    if (show_grid == true) {
-        this->DrawGrid();
-    }
-
-
-
-    tl = pow((this->bc->target_weight*1000.0)/(this->bc->naca_profile.volume*this->bc->material_density), 1.0/3.0);
-    tl = floor(tl*1000.0+.5)/1000.0;
-    t = this->size();
-
-    w = long(tl);
-    zMin = 0;
-    zMax = w;
-
-    mult = this->bc->naca_profile.num_step/(double)w;
-
-    glBegin(GL_POINTS);
-    glColor3f(1.0,1.0,1.0);
-    for(int i=0; i<=w; i++) {
-        profile_data& pd(this->bc->naca_profile[(unsigned)((double)i*mult)]);
-        Vista3D::DrawEllipse((i-w/2)/10.0, (pd.width*2)/10.0, (pd.height_u)/10.0,(pd.height_l)/10.0);
-    }
-    glEnd();
-
-    glEndList();
-    return list;
-
- }
 
 
 void Vista3D::normalizeAngle(int *angle) {
