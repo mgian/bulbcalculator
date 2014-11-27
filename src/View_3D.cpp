@@ -174,6 +174,9 @@ void Vista3D::DrawWireframe() {
     for(int i=0; i<mult; i++) {
         profile_data& pd(this->bc->naca_profile[(unsigned)((double)i*mult)]);
         x = x + step;
+        if (x / this->res_divisor == 0) {
+            qDebug() << x;
+        }
         Vista3D::DrawEllipse((x-2.0/2), (pd.width*2), pd.height_u, pd.height_l);
     }
 
