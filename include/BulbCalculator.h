@@ -55,6 +55,10 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #define RES_HIGH         8
 #define RES_HIGHEST      1
 
+#define L_RES_LOW         20
+#define L_RES_MED         10
+#define L_RES_HIGH         5
+#define L_RES_HIGHEST      2
 
 #define MAXRECENTFILE   5
 
@@ -273,6 +277,7 @@ class Vista3D : public QGLViewer
         bool show_axis;
         bool show_grid;
         int res_divisor;
+        int l_res_divisor;
         BulbCalculator *bc;
         profile naca_profile;
         profile_data data_profile;

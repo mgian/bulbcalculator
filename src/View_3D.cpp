@@ -61,6 +61,7 @@ Vista3D::Vista3D(QWidget *parent) : QGLViewer(parent) {
     this->show_axis = true;
     this->show_grid = true;
     this->res_divisor = RES_LOW;
+    this->l_res_divisor = L_RES_LOW;
 
 }
 
@@ -174,10 +175,9 @@ void Vista3D::DrawWireframe() {
     for(int i=0; i<mult; i++) {
         profile_data& pd(this->bc->naca_profile[(unsigned)((double)i*mult)]);
         x = x + step;
-        if (x / this->res_divisor == 0) {
-            qDebug() << x;
+        if (i%this->l_res_divisor == 0) {
+            Vista3D::DrawEllipse((x-2.0/2), (pd.width*2), pd.height_u, pd.height_l);
         }
-        Vista3D::DrawEllipse((x-2.0/2), (pd.width*2), pd.height_u, pd.height_l);
     }
 
     glColor3f(1.0,1.0,0.2);
@@ -383,15 +383,19 @@ void Vista3D::Set3DResolution(int res) {
     switch(res) {
         case WF_LOW:
             this->res_divisor = RES_LOW;
+            this->l_res_divisor = L_RES_LOW;
             break;
         case WF_MEDIUM:
             this->res_divisor = RES_MED;
+            this->l_res_divisor = L_RES_MED;
             break;
         case WF_HIGH:
             this->res_divisor = RES_HIGH;
+            this->l_res_divisor = L_RES_HIGH;
             break;
         case WF_HIGHEST:
             this->res_divisor = RES_HIGHEST;
+            this->l_res_divisor = L_RES_HIGHEST;
             break;
     }
     Vista3D::draw();
