@@ -145,6 +145,8 @@ void Vista3D::DrawWireframe() {
     double step;
     QSize t;
     double x;
+    int in = 0;
+    float p;
 
     float pos[4] = {1.0, 1.0, 1.0, 0.0};
     glLightfv(GL_LIGHT0, GL_POSITION, pos);
@@ -167,9 +169,7 @@ void Vista3D::DrawWireframe() {
     glBegin(GL_LINES);
     glColor3f(1.0,1.0,1.0);
     x = 0.0;
-
     profile_data& pd2(this->bc->naca_profile[(unsigned)((double)0.02*mult)]);
-
     Vista3D::DrawEllipse((0.02-2.0/2), (pd2.width*2), pd2.height_u, pd2.height_l);
 
     for(int i=0; i<mult; i++) {
@@ -179,14 +179,11 @@ void Vista3D::DrawWireframe() {
             Vista3D::DrawEllipse((x-2.0/2), (pd.width*2), pd.height_u, pd.height_l);
         }
     }
-
     glColor3f(1.0,1.0,0.2);
     x = 0.0;
-    int in = 0;
-    profile_data& pdl1(this->bc->naca_profile[(unsigned)((double)0.02*mult)]);
-    profile_data& pdl3(this->bc->naca_profile[(unsigned)((double)1*mult)]);
-    Vista3D::DrawLine((0.02-2.0/2), (pdl1.width*2), pdl1.height_u, pdl1.height_l, (pdl3.width*2), pdl3.height_u, pdl3.height_l,  0.02);
-    float p;
+
+
+
     for(int i=0; i<mult; i++) {
         if (i == 0) {
             p = 0.02;
@@ -201,6 +198,7 @@ void Vista3D::DrawWireframe() {
         Vista3D::DrawLine((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step);
 
     }
+
     glEnd();
 
 }
@@ -267,7 +265,7 @@ void Vista3D::DrawSurface() {
     long w, mult;
     double step;
     QSize t;
-    double x;
+    double x, x1;
 
     float pos[4] = {1.0, 1.0, 1.0, 0.0};
     glLightfv(GL_LIGHT0, GL_POSITION, pos);
@@ -293,12 +291,14 @@ void Vista3D::DrawSurface() {
 
     profile_data& pd2(this->bc->naca_profile[(unsigned)((double)0.02*mult)]);
 
-    Vista3D::DrawEllipse((0.02-2.0/2), (pd2.width*2), pd2.height_u, pd2.height_l);
+    //Vista3D::DrawEllipse((0.02-2.0/2), (pd2.width*2), pd2.height_u, pd2.height_l);
 
     for(int i=0; i<mult; i++) {
-        profile_data& pd(this->bc->naca_profile[(unsigned)((double)i*mult)]);
+        profile_data& pdi(this->bc->naca_profile[(unsigned)((double)i*mult)]);
+        profile_data& pde(this->bc->naca_profile[(unsigned)((double)i*mult)]);
         x = x + step;
-        Vista3D::DrawEllipse((x-2.0/2), (pd.width*2), pd.height_u, pd.height_l);
+        x1 = x1 + step;
+      //  Vista3D::DrawEllipse((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (x1-2.0/2), (pde.width*2), pde.height_u, pde.height_l,);
     }
 
     glColor3f(1.0,1.0,0.2);
@@ -406,17 +406,17 @@ void Vista3D::DrawEllipse(float x, float xdiam, float yradius, float yradius_l )
     float ecc;
     float diam;
     int i;
-
     diam = yradius - yradius_l;
     ecc = yradius - (diam/2.0);
-
     for (i=0; i<360; i = i + this->res_divisor) {
         float degInRad = i*DEG2RAD;
         float degInRad_1 = (i+this->res_divisor)*DEG2RAD;
         glVertex3f(x, cos(degInRad)*xdiam,(sin(degInRad)*diam)+ecc);
         glVertex3f(x, cos(degInRad_1)*xdiam,(sin(degInRad_1)*diam)+ecc);
     }
+
 }
+
 
 
 void Vista3D::normalizeAngle(int *angle) {
