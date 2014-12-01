@@ -166,8 +166,7 @@ void Vista3D::DrawWireframe() {
     zMin = 0;
     zMax = w;
 
-    glBegin(GL_LINES);
-    glColor3f(1.0,1.0,1.0);
+
     x = 0.0;
 
     profile_data& pd(this->bc->naca_profile[(unsigned)((double)0.02*mult)]);
@@ -210,8 +209,6 @@ void Vista3D::DrawTriangle() {
     double step;
     QSize t;
     double x;
-    int in = 0;
-    float p;
 
     float pos[4] = {1.0, 1.0, 1.0, 0.0};
     glLightfv(GL_LIGHT0, GL_POSITION, pos);
@@ -231,38 +228,23 @@ void Vista3D::DrawTriangle() {
     zMin = 0;
     zMax = w;
 
-    glBegin(GL_LINE_LOOP);
-    glColor3f(1.0,1.0,1.0);
-    x = 0.0;
-/*
-    profile_data& pd2(this->bc->naca_profile[(unsigned)((double)0.02*mult)]);
-    Vista3D::DrawEllipse((0.02-2.0/2), (pd2.width*2), pd2.height_u, pd2.height_l);
-
-    for(int i=0; i<mult; i++) {
-        profile_data& pd(this->bc->naca_profile[(unsigned)((double)i*mult)]);
-        x = x + step;
-        if (i%(this->l_res_divisor/2) == 0) {
-            Vista3D::DrawEllipse((x-2.0/2), (pd.width*2), pd.height_u, pd.height_l);
-        }
-    }
 
     x = 0.0;
-*/
 
     profile_data& pdi(this->bc->naca_profile[(unsigned)((double)0.02*mult)]);
     profile_data& pde(this->bc->naca_profile[(unsigned)((double)1*mult)]);
     x = x + step;
-    Vista3D::DrawTriangleStrip((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step);
+    Vista3D::DrawTrianglesFilled((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step, QColor(Qt::white));
+    Vista3D::DrawTrianglesBorder((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step, QColor(Qt::darkGray));
 
     for(int i=1; i<mult; i++) {
         profile_data& pdi(this->bc->naca_profile[(unsigned)((double)i*mult)]);
         profile_data& pde(this->bc->naca_profile[(unsigned)((double)(i+1)*mult)]);
         x = x + step;
-        Vista3D::DrawTriangleStrip((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step);
+        Vista3D::DrawTrianglesFilled((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step,  QColor(Qt::white));
+        Vista3D::DrawTrianglesBorder((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step,  QColor(Qt::darkGray));
 
     }
-
-    glEnd();
 
 
 }
@@ -344,7 +326,6 @@ void Vista3D::draw() {
         this->DrawGrid();
     }
 
-
     switch (this->mode_3d_view) {
         case WIREFRAME:
             Vista3D::DrawWireframe();
@@ -357,34 +338,71 @@ void Vista3D::draw() {
             break;
     }
 
-
-
 }
 
-void Vista3D::DrawTriangleStrip(float x, float xradius, float yradiusi_u, float yradiusi_l, float xradiuse, float yradiuse_u,  float yradiuse_l, float step) {
+void Vista3D::DrawTrianglesFilled(float x, float xradius, float yradiusi_u, float yradiusi_l, float xradiuse, float yradiuse_u,  float yradiuse_l, float step, QColor color) {
 
     float diam_i, diam_e, ecc_i, ecc_e;
-    int gr, gr1;
+    int gr;
     diam_i = yradiusi_u - yradiusi_l;
     diam_e = yradiuse_u - yradiuse_l;
     ecc_i = yradiusi_u - (diam_i/2.0);
     ecc_e = yradiuse_u - (diam_e/2.0);
 
-    gr = 0;
-    gr1 = 12;
-    glColor3f(1.0,1.0,1.0);
+    gr = 360/this->res_divisor;
+    gr = 360/gr;
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    glBegin(GL_TRIANGLES);
+    glColor3ub(color.red(), color.green(), color.blue());
     for (int i=0; i < 360;  i=i + this->res_divisor) {
         float degInRad = i*DEG2RAD;
-        float degInRad1 = (i+12)*DEG2RAD;
-        //qDebug() << x << cos(degInRad)*xradius << (sin(degInRad)*diam_i)+ecc_i;
-        //qDebug() << x+step << cos(degInRad)*xradiuse << (sin(degInRad)*diam_e)+ecc_e << "\n";
+        float degInRad1 = (i+gr)*DEG2RAD;
         glVertex3f(x, cos(degInRad)*xradius,(sin(degInRad)*diam_i)+ecc_i);
-        glVertex3f(x, cos(degInRad)*xradiuse,(sin(degInRad)*diam_e)+ecc_e);
         glVertex3f(x+step, cos(degInRad1)*xradiuse,(sin(degInRad1)*diam_e)+ecc_e);
+        glVertex3f(x+step, cos(degInRad)*xradiuse,(sin(degInRad)*diam_e)+ecc_e);
 
+        glVertex3f(x, cos(degInRad)*xradius,(sin(degInRad)*diam_i)+ecc_i);
+        glVertex3f(x+step, cos(degInRad1)*xradiuse,(sin(degInRad1)*diam_e)+ecc_e);
+        glVertex3f(x, cos(degInRad1)*xradius,(sin(degInRad1)*diam_i)+ecc_i);
     }
+    glEnd();
+
 
 }
+
+
+void Vista3D::DrawTrianglesBorder(float x, float xradius, float yradiusi_u, float yradiusi_l, float xradiuse, float yradiuse_u,  float yradiuse_l, float step, QColor color) {
+
+    float diam_i, diam_e, ecc_i, ecc_e;
+    int gr;
+    diam_i = yradiusi_u - yradiusi_l;
+    diam_e = yradiuse_u - yradiuse_l;
+    ecc_i = yradiusi_u - (diam_i/2.0);
+    ecc_e = yradiuse_u - (diam_e/2.0);
+
+    gr = 360/this->res_divisor;
+    gr = 360/gr;
+    glBegin(GL_LINE_LOOP);
+    glColor3ub(color.red(), color.green(), color.blue());
+    glLineWidth(0.5);
+    for (int i=0; i < 360;  i=i + this->res_divisor) {
+        float degInRad = i*DEG2RAD;
+        float degInRad1 = (i+gr)*DEG2RAD;
+        glVertex3f(x, cos(degInRad)*xradius,(sin(degInRad)*diam_i)+ecc_i);
+        glVertex3f(x+step, cos(degInRad1)*xradiuse,(sin(degInRad1)*diam_e)+ecc_e);
+        glVertex3f(x+step, cos(degInRad)*xradiuse,(sin(degInRad)*diam_e)+ecc_e);
+        glVertex3f(x, cos(degInRad)*xradius,(sin(degInRad)*diam_i)+ecc_i);
+
+        glVertex3f(x, cos(degInRad)*xradius,(sin(degInRad)*diam_i)+ecc_i);
+        glVertex3f(x+step, cos(degInRad1)*xradiuse,(sin(degInRad1)*diam_e)+ecc_e);
+        glVertex3f(x, cos(degInRad1)*xradius,(sin(degInRad1)*diam_i)+ecc_i);
+        glVertex3f(x, cos(degInRad)*xradius,(sin(degInRad)*diam_i)+ecc_i);
+    }
+    glEnd();
+
+
+}
+
 
 void Vista3D::DrawLine(float x, float xradius, float yradiusi_u, float yradiusi_l, float xradiuse, float yradiuse_u,  float yradiuse_l, float step) {
 
@@ -394,14 +412,16 @@ void Vista3D::DrawLine(float x, float xradius, float yradiusi_u, float yradiusi_
     diam_e = yradiuse_u - yradiuse_l;
     ecc_i = yradiusi_u - (diam_i/2.0);
     ecc_e = yradiuse_u - (diam_e/2.0);
-
+    glBegin(GL_LINES);
+    glColor3f(1.0,1.0,1.0);
     for (int i=0; i<360; i=i + this->res_divisor) {
         float degInRad = i*DEG2RAD;
         glVertex3f(x, cos(degInRad)*xradius,(sin(degInRad)*diam_i)+ecc_i);
         glVertex3f(x+step, cos(degInRad)*xradiuse,(sin(degInRad)*diam_e)+ecc_e);
     }
-
+    glEnd();
 }
+
 
 void Vista3D::Set3dViewMode(int mode) {
 
@@ -440,13 +460,15 @@ void Vista3D::DrawEllipse(float x, float xdiam, float yradius, float yradius_l )
     int i;
     diam = yradius - yradius_l;
     ecc = yradius - (diam/2.0);
+    glBegin(GL_LINES);
+    glColor3f(1.0,1.0,1.0);
     for (i=0; i<360; i = i + this->res_divisor) {
         float degInRad = i*DEG2RAD;
         float degInRad_1 = (i+this->res_divisor)*DEG2RAD;
         glVertex3f(x, cos(degInRad)*xdiam,(sin(degInRad)*diam)+ecc);
         glVertex3f(x, cos(degInRad_1)*xdiam,(sin(degInRad_1)*diam)+ecc);
     }
-
+    glEnd();
 }
 
 
