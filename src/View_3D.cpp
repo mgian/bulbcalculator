@@ -169,8 +169,9 @@ void Vista3D::DrawWireframe() {
     glBegin(GL_LINES);
     glColor3f(1.0,1.0,1.0);
     x = 0.0;
-    profile_data& pd2(this->bc->naca_profile[(unsigned)((double)0.02*mult)]);
-    Vista3D::DrawEllipse((0.02-2.0/2), (pd2.width*2), pd2.height_u, pd2.height_l);
+
+    profile_data& pd(this->bc->naca_profile[(unsigned)((double)0.02*mult)]);
+    Vista3D::DrawEllipse((0.02-2.0/2), (pd.width*2), pd.height_u, pd.height_l);
 
     for(int i=0; i<mult; i++) {
         profile_data& pd(this->bc->naca_profile[(unsigned)((double)i*mult)]);
@@ -230,9 +231,10 @@ void Vista3D::DrawTriangle() {
     zMin = 0;
     zMax = w;
 
-    glBegin(GL_LINES);
+    glBegin(GL_LINE_LOOP);
     glColor3f(1.0,1.0,1.0);
     x = 0.0;
+/*
     profile_data& pd2(this->bc->naca_profile[(unsigned)((double)0.02*mult)]);
     Vista3D::DrawEllipse((0.02-2.0/2), (pd2.width*2), pd2.height_u, pd2.height_l);
 
@@ -245,21 +247,18 @@ void Vista3D::DrawTriangle() {
     }
 
     x = 0.0;
+*/
 
+    profile_data& pdi(this->bc->naca_profile[(unsigned)((double)0.02*mult)]);
+    profile_data& pde(this->bc->naca_profile[(unsigned)((double)1*mult)]);
+    x = x + step;
+    Vista3D::DrawTriangleStrip((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step);
 
-
-    for(int i=0; i<mult; i++) {
-        if (i == 0) {
-            p = 0.02;
-            in = 1;
-        } else {
-            p = i;
-            in = i + 1;
-        }
-        profile_data& pdi(this->bc->naca_profile[(unsigned)((double)p*mult)]);
-        profile_data& pde(this->bc->naca_profile[(unsigned)((double)(in)*mult)]);
+    for(int i=1; i<mult; i++) {
+        profile_data& pdi(this->bc->naca_profile[(unsigned)((double)i*mult)]);
+        profile_data& pde(this->bc->naca_profile[(unsigned)((double)(i+1)*mult)]);
         x = x + step;
-        Vista3D::DrawLine((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step);
+        Vista3D::DrawTriangleStrip((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step);
 
     }
 
@@ -362,6 +361,30 @@ void Vista3D::draw() {
 
 }
 
+void Vista3D::DrawTriangleStrip(float x, float xradius, float yradiusi_u, float yradiusi_l, float xradiuse, float yradiuse_u,  float yradiuse_l, float step) {
+
+    float diam_i, diam_e, ecc_i, ecc_e;
+    int gr, gr1;
+    diam_i = yradiusi_u - yradiusi_l;
+    diam_e = yradiuse_u - yradiuse_l;
+    ecc_i = yradiusi_u - (diam_i/2.0);
+    ecc_e = yradiuse_u - (diam_e/2.0);
+
+    gr = 0;
+    gr1 = 12;
+    glColor3f(1.0,1.0,1.0);
+    for (int i=0; i < 360;  i=i + this->res_divisor) {
+        float degInRad = i*DEG2RAD;
+        float degInRad1 = (i+12)*DEG2RAD;
+        //qDebug() << x << cos(degInRad)*xradius << (sin(degInRad)*diam_i)+ecc_i;
+        //qDebug() << x+step << cos(degInRad)*xradiuse << (sin(degInRad)*diam_e)+ecc_e << "\n";
+        glVertex3f(x, cos(degInRad)*xradius,(sin(degInRad)*diam_i)+ecc_i);
+        glVertex3f(x, cos(degInRad)*xradiuse,(sin(degInRad)*diam_e)+ecc_e);
+        glVertex3f(x+step, cos(degInRad1)*xradiuse,(sin(degInRad1)*diam_e)+ecc_e);
+
+    }
+
+}
 
 void Vista3D::DrawLine(float x, float xradius, float yradiusi_u, float yradiusi_l, float xradiuse, float yradiuse_u,  float yradiuse_l, float step) {
 

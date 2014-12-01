@@ -260,6 +260,7 @@ class Vista3D : public QGLViewer
         void normalizeAngle(int *angle);
         void DrawEllipse(float x, float xdiam, float yradius, float yradius_l) ;
         void DrawLine(float x, float xradius, float yradiusi_u, float yradiusi_l, float xradiuse, float yradiuse_u,  float yradiuse_l, float step);
+        void DrawTriangleStrip(float x, float xradius, float yradiusi_u, float yradiusi_l, float xradiuse, float yradiuse_u,  float yradiuse_l, float step);
         void DrawAxis();
         void DrawGrid();
         void DrawWireframe();
