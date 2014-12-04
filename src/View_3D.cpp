@@ -209,10 +209,10 @@ void Vista3D::DrawTriangle() {
     double step;
     QSize t;
     double x;
+    QColor Col;
 
     float pos[4] = {1.0, 1.0, 1.0, 0.0};
     glLightfv(GL_LIGHT0, GL_POSITION, pos);
-
 
     this->naca_profile.HLRatio = this->bc->naca_profile.HLRatio;
     this->naca_profile.WHRatio = this->bc->naca_profile.WHRatio;
@@ -234,15 +234,20 @@ void Vista3D::DrawTriangle() {
     profile_data& pdi(this->bc->naca_profile[(unsigned)((double)0.02*mult)]);
     profile_data& pde(this->bc->naca_profile[(unsigned)((double)1*mult)]);
     x = x + step;
-    Vista3D::DrawTrianglesFilled((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step, QColor(Qt::white));
-    Vista3D::DrawTrianglesBorder((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step, QColor(Qt::darkGray));
+    Vista3D::DrawTrianglesFilled((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step, QColor(Qt::darkGray));
+    Vista3D::DrawTrianglesBorder((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step, QColor(Qt::black));
 
     for(int i=1; i<mult; i++) {
+        if (i%2 == 0) {
+            Col = Qt::darkGray;
+        } else {
+            Col = Qt::lightGray;
+        }
         profile_data& pdi(this->bc->naca_profile[(unsigned)((double)i*mult)]);
         profile_data& pde(this->bc->naca_profile[(unsigned)((double)(i+1)*mult)]);
         x = x + step;
-        Vista3D::DrawTrianglesFilled((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step,  QColor(Qt::white));
-        Vista3D::DrawTrianglesBorder((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step,  QColor(Qt::darkGray));
+        Vista3D::DrawTrianglesFilled((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step,  Col);
+        Vista3D::DrawTrianglesBorder((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step,  QColor(Qt::black));
 
     }
 
@@ -251,15 +256,14 @@ void Vista3D::DrawTriangle() {
 
 void Vista3D::DrawSurface() {
 
-    glBegin(GL_QUAD_STRIP);
     long w, mult;
     double step;
     QSize t;
-    double x, x1;
+    double x;
+    QColor Col;
 
     float pos[4] = {1.0, 1.0, 1.0, 0.0};
     glLightfv(GL_LIGHT0, GL_POSITION, pos);
-
 
     this->naca_profile.HLRatio = this->bc->naca_profile.HLRatio;
     this->naca_profile.WHRatio = this->bc->naca_profile.WHRatio;
@@ -275,44 +279,21 @@ void Vista3D::DrawSurface() {
     zMin = 0;
     zMax = w;
 
-    glBegin(GL_LINES);
-    glColor3f(1.0,1.0,1.0);
+
     x = 0.0;
 
-    profile_data& pd2(this->bc->naca_profile[(unsigned)((double)0.02*mult)]);
+    profile_data& pdi(this->bc->naca_profile[(unsigned)((double)0.02*mult)]);
+    profile_data& pde(this->bc->naca_profile[(unsigned)((double)1*mult)]);
+    x = x + step;
+    Vista3D::DrawTrianglesFilled((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step, QColor(Qt::darkGray));
 
-    //Vista3D::DrawEllipse((0.02-2.0/2), (pd2.width*2), pd2.height_u, pd2.height_l);
-
-    for(int i=0; i<mult; i++) {
+    for(int i=1; i<mult; i++) {
         profile_data& pdi(this->bc->naca_profile[(unsigned)((double)i*mult)]);
-        profile_data& pde(this->bc->naca_profile[(unsigned)((double)i*mult)]);
+        profile_data& pde(this->bc->naca_profile[(unsigned)((double)(i+1)*mult)]);
         x = x + step;
-        x1 = x1 + step;
-      //  Vista3D::DrawEllipse((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (x1-2.0/2), (pde.width*2), pde.height_u, pde.height_l,);
+        Vista3D::DrawTrianglesFilled((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step,  QColor(Qt::darkGray));
     }
 
-    glColor3f(1.0,1.0,0.2);
-    x = 0.0;
-    int in = 0;
-    profile_data& pdl1(this->bc->naca_profile[(unsigned)((double)0.02*mult)]);
-    profile_data& pdl3(this->bc->naca_profile[(unsigned)((double)1*mult)]);
-    Vista3D::DrawLine((0.02-2.0/2), (pdl1.width*2), pdl1.height_u, pdl1.height_l, (pdl3.width*2), pdl3.height_u, pdl3.height_l,  0.02);
-    float p;
-    for(int i=0; i<mult; i++) {
-        if (i == 0) {
-            p = 0.02;
-            in = 1;
-        } else {
-            p = i;
-            in = i + 1;
-        }
-        profile_data& pdi(this->bc->naca_profile[(unsigned)((double)p*mult)]);
-        profile_data& pde(this->bc->naca_profile[(unsigned)((double)(in)*mult)]);
-        x = x + step;
-        Vista3D::DrawLine((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step);
-
-    }
-    glEnd();
 
 }
 
@@ -348,11 +329,13 @@ void Vista3D::DrawTrianglesFilled(float x, float xradius, float yradiusi_u, floa
     diam_e = yradiuse_u - yradiuse_l;
     ecc_i = yradiusi_u - (diam_i/2.0);
     ecc_e = yradiuse_u - (diam_e/2.0);
-
     gr = 360/this->res_divisor;
     gr = 360/gr;
+
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
     glBegin(GL_TRIANGLES);
+
     glColor3ub(color.red(), color.green(), color.blue());
     for (int i=0; i < 360;  i=i + this->res_divisor) {
         float degInRad = i*DEG2RAD;
