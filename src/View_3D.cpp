@@ -285,13 +285,13 @@ void Vista3D::DrawSurface() {
     profile_data& pdi(this->bc->naca_profile[(unsigned)((double)0.02*mult)]);
     profile_data& pde(this->bc->naca_profile[(unsigned)((double)1*mult)]);
     x = x + step;
-    Vista3D::DrawTrianglesFilled((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step, QColor(Qt::darkGray));
+    Vista3D::DrawTrianglesFilled((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step, QColor(Qt::lightGray));
 
     for(int i=1; i<mult; i++) {
         profile_data& pdi(this->bc->naca_profile[(unsigned)((double)i*mult)]);
         profile_data& pde(this->bc->naca_profile[(unsigned)((double)(i+1)*mult)]);
         x = x + step;
-        Vista3D::DrawTrianglesFilled((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step,  QColor(Qt::darkGray));
+        Vista3D::DrawTrianglesFilled((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step,  QColor(Qt::lightGray));
     }
 
 

@@ -133,6 +133,7 @@ class BulbCalculator : public QMainWindow
         void Set660xx();
         void Set670xx();
         void Save();
+        void ExportSTL();
         void SaveAs();
         void NewBulb();
         void PrintBulbSectionFromTop();

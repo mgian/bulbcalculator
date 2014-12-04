@@ -43,7 +43,7 @@
      <x>0</x>
      <y>0</y>
      <width>966</width>
-     <height>19</height>
+     <height>33</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -52,13 +52,15 @@
     </property>
     <widget class="QMenu" name="menuExport">
      <property name="title">
-      <string>Export</string>
+      <string>&amp;Export</string>
      </property>
      <addaction name="actionText_File"/>
+     <addaction name="separator"/>
+     <addaction name="actionSTL_File"/>
     </widget>
     <widget class="QMenu" name="menuPrint">
      <property name="title">
-      <string>Print</string>
+      <string>P&amp;rint</string>
      </property>
      <property name="icon">
       <iconset resource="../BulbCalculator.qrc">
@@ -66,14 +68,14 @@
      </property>
      <widget class="QMenu" name="menuSections">
       <property name="title">
-       <string>Sections...</string>
+       <string>&amp;Sections...</string>
       </property>
       <addaction name="actionPrintSectionFromTop"/>
       <addaction name="actionPrintSectionFromSide"/>
      </widget>
      <widget class="QMenu" name="menuLinesplan">
       <property name="title">
-       <string>Linesplan...</string>
+       <string>&amp;Linesplan...</string>
       </property>
       <addaction name="actionPrintLinesPlanFromTop"/>
       <addaction name="actionPrintLinesPlanFromSide"/>
@@ -110,7 +112,7 @@
     </property>
     <widget class="QMenu" name="menuDownload_Airfoil_Data">
      <property name="title">
-      <string>Download Airfoil Data</string>
+      <string>D&amp;ownload Airfoil Data</string>
      </property>
      <addaction name="actionUIUC_foils"/>
     </widget>
@@ -124,14 +126,14 @@
    </widget>
    <widget class="QMenu" name="menu3D_Options">
     <property name="title">
-     <string>3D Options</string>
+     <string>&amp;3D Options</string>
     </property>
     <addaction name="actionShow_Axis"/>
     <addaction name="actionShow_Grid"/>
    </widget>
    <widget class="QMenu" name="menuWindow">
     <property name="title">
-     <string>Window</string>
+     <string>Wi&amp;ndow</string>
     </property>
     <addaction name="actionShow_Top_view"/>
     <addaction name="actionShow_Side_view"/>
@@ -290,12 +292,12 @@
   </action>
   <action name="action_SetParameters">
    <property name="text">
-    <string>Set Bulb Parameter</string>
+    <string>&amp;Set Bulb Parameter</string>
    </property>
   </action>
   <action name="actionAbout">
    <property name="text">
-    <string>About</string>
+    <string>&amp;About</string>
    </property>
   </action>
   <action name="actionShow_Axis">
@@ -326,7 +328,7 @@
      <normaloff>:/MainWin/share/images/2d.png</normaloff>:/MainWin/share/images/2d.png</iconset>
    </property>
    <property name="text">
-    <string>Show Top view</string>
+    <string>&amp;Show Top view</string>
    </property>
   </action>
   <action name="actionShow_Side_view">
@@ -335,7 +337,7 @@
      <normaloff>:/MainWin/share/images/2d.png</normaloff>:/MainWin/share/images/2d.png</iconset>
    </property>
    <property name="text">
-    <string>Show Side view</string>
+    <string>Show Side &amp;view</string>
    </property>
   </action>
   <action name="actionShow_3D_view">
@@ -344,7 +346,7 @@
      <normaloff>:/MainWin/share/images/3d.png</normaloff>:/MainWin/share/images/3d.png</iconset>
    </property>
    <property name="text">
-    <string>Show 3D view</string>
+    <string>Show &amp;3D view</string>
    </property>
   </action>
   <action name="actionShow_Calculation">
@@ -362,22 +364,22 @@
      <normaloff>:/MainWin/share/images/data.png</normaloff>:/MainWin/share/images/data.png</iconset>
    </property>
    <property name="text">
-    <string>Show Bulb Data</string>
+    <string>Show &amp;Bulb Data</string>
    </property>
   </action>
   <action name="actionTile">
    <property name="text">
-    <string>Tile</string>
+    <string>&amp;Tile</string>
    </property>
   </action>
   <action name="actionCascade">
    <property name="text">
-    <string>Cascade</string>
+    <string>&amp;Cascade</string>
    </property>
   </action>
   <action name="actionData_Options">
    <property name="text">
-    <string>Data Options</string>
+    <string>&amp;Data Options</string>
    </property>
   </action>
   <action name="actionPrint_options">
@@ -391,17 +393,17 @@
      <normaloff>:/MainWin/share/images/printer.png</normaloff>:/MainWin/share/images/printer.png</iconset>
    </property>
    <property name="text">
-    <string>From Top</string>
+    <string>&amp;From Top</string>
    </property>
   </action>
   <action name="actionText_File">
    <property name="text">
-    <string>Text File</string>
+    <string>&amp;Text File</string>
    </property>
   </action>
   <action name="actionImport_Foil_Data">
    <property name="text">
-    <string>Import Foil Data</string>
+    <string>&amp;Import Foil Data</string>
    </property>
   </action>
   <action name="actionPrintLinesPlanFromTop">
@@ -410,7 +412,7 @@
      <normaloff>:/MainWin/share/images/printer.png</normaloff>:/MainWin/share/images/printer.png</iconset>
    </property>
    <property name="text">
-    <string>From Top</string>
+    <string>&amp;From Top</string>
    </property>
    <property name="iconText">
     <string>From Top</string>
@@ -453,7 +455,7 @@
   </action>
   <action name="actionPrintData">
    <property name="text">
-    <string>Data</string>
+    <string>&amp;Data</string>
    </property>
   </action>
   <action name="actionCalculation_2">
@@ -467,12 +469,12 @@
      <normaloff>:/MainWin/share/images/printer.png</normaloff>:/MainWin/share/images/printer.png</iconset>
    </property>
    <property name="text">
-    <string>From Side</string>
+    <string>From &amp;Side</string>
    </property>
   </action>
   <action name="actionUIUC_foils">
    <property name="text">
-    <string>UIUC foils</string>
+    <string>&amp;UIUC foils</string>
    </property>
   </action>
   <action name="actionPrintLinesPlanFromSide">
@@ -481,7 +483,7 @@
      <normaloff>:/MainWin/share/images/printer.png</normaloff>:/MainWin/share/images/printer.png</iconset>
    </property>
    <property name="text">
-    <string>From Side</string>
+    <string>From &amp;Side</string>
    </property>
   </action>
   <action name="action_Options">
@@ -502,12 +504,17 @@
      <normaloff>:/MainWin/share/images/settings.png</normaloff>:/MainWin/share/images/settings.png</iconset>
    </property>
    <property name="text">
-    <string>Preferences</string>
+    <string>&amp;Preferences</string>
    </property>
   </action>
   <action name="actionPage_Setup">
    <property name="text">
-    <string>Page setup</string>
+    <string>&amp;Page setup</string>
+   </property>
+  </action>
+  <action name="actionSTL_File">
+   <property name="text">
+    <string>STL File</string>
    </property>
   </action>
  </widget>
