@@ -838,6 +838,7 @@ void BulbCalculator::ExportSTL() {
     double step;
     QSize t;
     double x;
+    QFile file;
 
     QString fileName = QFileDialog::getSaveFileName(this, tr("Export File"),
                         "",
@@ -846,7 +847,7 @@ void BulbCalculator::ExportSTL() {
         this->BcStatus->CurFile = fileName;
         BulbCalculator::Save();
     }
-    qDebug() << fileName;
+
     this->naca_profile.HLRatio = this->naca_profile.HLRatio;
     this->naca_profile.WHRatio = this->naca_profile.WHRatio;
     this->naca_profile.foil_name.assign(this->naca_profile.foil_name.c_str());
