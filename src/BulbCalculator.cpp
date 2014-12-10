@@ -36,6 +36,7 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #include "../include/nacafoil.h"
 #include "../include/SetBulParameter.h"
 #include "../include/ExportDraw.h"
+#include "../include/ExportFile.h"
 #include "../include/Utils.h"
 #include "../include/BulbDataOptions.h"
 #include "../include/PrintBulb.h"
@@ -81,7 +82,7 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     connect( ui.action_SetParameters, SIGNAL (triggered() ), this, SLOT(SetBulbParameter()));
     connect( ui.action_Save, SIGNAL (triggered()), this, SLOT(Save()));
     connect( ui.action_Saveas, SIGNAL (triggered()), this, SLOT(SaveAs()));
-    connect(ui.actionSTL_File, SIGNAL (triggered()), this, SLOT(ExportSTL()));
+    connect(ui.actionSTL_File, SIGNAL (triggered()), this, SLOT(ExportAsciiSTL()));
     connect( ui.action_New, SIGNAL (triggered()), this,SLOT(NewBulb()));
     connect( ui.actionShow_Axis, SIGNAL (toggled(bool)), this, SLOT(Show3DAxis()));
     connect( ui.actionShow_Grid, SIGNAL (toggled(bool)), this, SLOT(ShowGrid()));
@@ -205,11 +206,60 @@ void BulbCalculator::ExportTextFile() {
         QMessageBox::warning(NULL, tr("BulbCalculator"),
                                 tr("No filename given, aborting operation"),
                                 QMessageBox::Ok );
+
         return;
     }
-    ExpDraw->ExportTextFile(fileName);
+
+    QString ext = ".txt";
+    if (!fileName.endsWith(ext)) {
+        fileName.append(ext);
+    }
+
+    if (this->CheckFileExist(fileName) == YES) {
+        if (this->ConfirmOverwrite() == YES) {
+            ExpDraw->ExportTextFile(fileName);
+        }
+    } else {
+        ExpDraw->ExportTextFile(fileName);
+    }
+
 
 }
+
+
+
+void BulbCalculator::ExportAsciiSTL() {
+
+    ExportFile *ExpFile = new ExportFile();
+
+    QString fileName = QFileDialog::getSaveFileName(this,
+                        tr("Export Ascii STL File"),
+                        "",
+                        tr("Ascii STL (*.stl)"));
+
+    ExpFile->SetBc(this);
+
+    if (fileName.isEmpty()) {
+        QMessageBox::warning(NULL, tr("BulbCalculator"),
+                                tr("No filename given, aborting operation"),
+                                QMessageBox::Ok );
+        return;
+    }
+
+    if (this->CheckFileExist(fileName) == YES) {
+        if (this->ConfirmOverwrite() == YES) {
+            ExpFile->ExportAsciiSTL(fileName);
+        }
+    } else {
+        ExpFile->ExportAsciiSTL(fileName);
+    }
+
+
+
+
+}
+
+
 
 QString BulbCalculator::GetSectionData(int SectNum) {
 
@@ -748,6 +798,38 @@ void BulbCalculator::NewBulb() {
 
 }
 
+
+int BulbCalculator::ConfirmOverwrite(void) {
+
+    QMessageBox msgBox;
+    msgBox.setText(tr("The file already exist."));
+    msgBox.setInformativeText(tr("Do you want to overwrite it ?"));
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::No);
+    int ret = msgBox.exec();
+    switch (ret) {
+        case QMessageBox::No:
+            return NO;
+            break;
+        case QMessageBox::Yes:
+            return YES;
+            break;
+        default:
+            break;
+    }
+
+}
+
+int BulbCalculator::CheckFileExist(QString FileName) {
+
+    if (QFile::exists(FileName) == true) {
+        return YES;
+    }
+
+    return NO;
+
+}
+
 void BulbCalculator::Save() {
 
     if (this->BcStatus->St_CanSave == NO) {
@@ -764,12 +846,23 @@ void BulbCalculator::Save() {
         QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
                         "",
                         tr("Bulb (*.blb)"));
+        if (fileName.isEmpty()) {
+            QMessageBox::warning(NULL, tr("BulbCalculator"),
+                                    tr("No filename given, aborting operation"),
+                                    QMessageBox::Ok );
+
+            return;
+        }
         if (fileName != "") {
             QString ext = ".blb";
             if (!fileName.endsWith(ext)) {
                 fileName.append(ext);
             }
-
+            if (this->CheckFileExist(fileName) == YES) {
+                if (this->ConfirmOverwrite() == NO) {
+                    return;
+                }
+            }
             this->BcStatus->CurFile = fileName;
         }
     }
@@ -832,86 +925,7 @@ void BulbCalculator::Save() {
 
 
 
-void BulbCalculator::ExportSTL() {
 
-    long w, mult;
-    double step;
-    QSize t;
-    double x;
-    QFile file;
-
-    QString fileName = QFileDialog::getSaveFileName(this, tr("Export File"),
-                        "",
-                        tr("Ascii STL (*.stl)"));
-    if (fileName != "") {
-        this->BcStatus->CurFile = fileName;
-        BulbCalculator::Save();
-    }
-
-    this->naca_profile.HLRatio = this->naca_profile.HLRatio;
-    this->naca_profile.WHRatio = this->naca_profile.WHRatio;
-    this->naca_profile.foil_name.assign(this->naca_profile.foil_name.c_str());
-    this->naca_profile.calc();
-
-    w = 2.0;
-
-    mult = this->naca_profile.num_step/(double)100.0;
-    step = w/(mult*1.0);
-
-    x = 0.0;
-
-    profile_data& pdi(this->naca_profile[(unsigned)((double)0.02*mult)]);
-    profile_data& pde(this->naca_profile[(unsigned)((double)1*mult)]);
-    x = x + step;
-
-    for(int i=1; i<mult; i++) {
-        profile_data& pdi(this->naca_profile[(unsigned)((double)i*mult)]);
-        profile_data& pde(this->naca_profile[(unsigned)((double)(i+1)*mult)]);
-        x = x + step;
-    }
-/*
-    MeshFacetIterator clIter(_rclMesh), clEnd(_rclMesh);
-    clIter.Transform(this->_transform);
-    const MeshGeomFacet *pclFacet;
-    unsigned long i;
-
-    if (!rstrOut || rstrOut.bad() == true || _rclMesh.CountFacets() == 0)
-        return false;^M
-
-    rstrOut.precision(6);
-    rstrOut.setf(std::ios::fixed | std::ios::showpoint);
-    Base::SequencerLauncher seq("saving...", _rclMesh.CountFacets() + 1);
-
-    if (this->objectName.empty())
-        rstrOut << "solid Mesh" << std::endl;
-    else
-        rstrOut << "solid " << this->objectName << std::endl;
-
-    clIter.Begin();
-    clEnd.End();
-    while (clIter < clEnd) {
-        pclFacet = &(*clIter);
-
-        // normal^M
-        rstrOut << "  facet normal " << pclFacet->GetNormal().x << " "
-                                     << pclFacet->GetNormal().y << " "
-                                     << pclFacet->GetNormal().z << std::endl;
-        rstrOut << "    outer loop" << std::endl;
-
-        // vertices^M
-        for (i = 0; i < 3; i++) {
-            rstrOut << "      vertex "  << pclFacet->_aclPoints[i].x << " "
-                                        << pclFacet->_aclPoints[i].y << " "
-                                        << pclFacet->_aclPoints[i].z << std::endl;
-        }
-        rstrOut << "    endloop" << std::endl;
-        rstrOut << "  endfacet" << std::endl;
-
-        ++clIter;
-        seq.next(true);// allow to cancel
-    }
-*/
-}
 
 void BulbCalculator::SaveAs() {
 

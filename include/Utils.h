@@ -36,3 +36,4 @@ QString DisplayInchesDecimal(double val);
 QString DisplayInchesFractional(double inch);
 QString DisplayValue(double val, int which);
 QString DisplayMM(double val);
+int CheckFileOverwrite(QString FileName);

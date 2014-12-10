@@ -5,7 +5,8 @@ HEADERS = include/BulbCalculator.h \
     include/PrintBulb.h \
     include/ExportDraw.h \
     include/Utils.h \
-    include/Preferences.h
+    include/Preferences.h \
+    include/ExportFile.h
 
 SOURCES = src/BulbCalculator.cpp \
     src/main.cpp \
@@ -17,7 +18,8 @@ SOURCES = src/BulbCalculator.cpp \
     src/ViewArea.cpp \
     src/ExportDraw.cpp \
     src/Utils.cpp \
-    src/Prefereces.cpp
+    src/Prefereces.cpp \
+    src/ExportFile.cpp
 
 FORMS = Ui/MainWindow.ui \
     Ui/SetBulbParameterDialog.ui \

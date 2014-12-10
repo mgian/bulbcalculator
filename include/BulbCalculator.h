@@ -133,7 +133,7 @@ class BulbCalculator : public QMainWindow
         void Set660xx();
         void Set670xx();
         void Save();
-        void ExportSTL();
+        void ExportAsciiSTL();
         void SaveAs();
         void NewBulb();
         void PrintBulbSectionFromTop();
@@ -194,6 +194,8 @@ class BulbCalculator : public QMainWindow
         void FillBulbDataValue();
         void WritePrefereces();
         void WritePagePreferences();
+        int CheckFileExist(QString FileName);
+        int ConfirmOverwrite(void);
 
         // Preferences functions
         void ReadPreferences();
