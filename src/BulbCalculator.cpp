@@ -817,7 +817,7 @@ int BulbCalculator::ConfirmOverwrite(void) {
         default:
             break;
     }
-
+    return NO;
 }
 
 int BulbCalculator::CheckFileExist(QString FileName) {

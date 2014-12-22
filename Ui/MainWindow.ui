@@ -514,7 +514,7 @@
   </action>
   <action name="actionSTL_File">
    <property name="text">
-    <string>STL File</string>
+    <string>Ascii &amp;STL File</string>
    </property>
   </action>
  </widget>
