@@ -82,7 +82,7 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     connect( ui.action_SetParameters, SIGNAL (triggered() ), this, SLOT(SetBulbParameter()));
     connect( ui.action_Save, SIGNAL (triggered()), this, SLOT(Save()));
     connect( ui.action_Saveas, SIGNAL (triggered()), this, SLOT(SaveAs()));
-    connect(ui.actionSTL_File, SIGNAL (triggered()), this, SLOT(ExportAsciiSTL()));
+    connect( ui.actionSTL_File, SIGNAL (triggered()), this, SLOT(ExportAsciiSTL()));
     connect( ui.action_New, SIGNAL (triggered()), this,SLOT(NewBulb()));
     connect( ui.actionShow_Axis, SIGNAL (toggled(bool)), this, SLOT(Show3DAxis()));
     connect( ui.actionShow_Grid, SIGNAL (toggled(bool)), this, SLOT(ShowGrid()));

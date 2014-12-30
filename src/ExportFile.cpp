@@ -43,9 +43,8 @@ void ExportFile::ExportAsciiSTL(QString FileName) {
 
     long w, mult;
     double step;
-    QSize t;
     double x;
-
+    float scala;
 
     QFile fOut(FileName);
     if (!fOut.open(QIODevice::WriteOnly | QIODevice::Text)) {
@@ -55,25 +54,28 @@ void ExportFile::ExportAsciiSTL(QString FileName) {
 
     QTextStream fOutStream(&fOut);
 
-    w = 2.0;
+    w = this->bc->length*10;
 
     mult = this->bc->naca_profile.num_step/(double)100.0;
     step = w/(mult*1.0);
-
-
     fOutStream << "solid " << this->bc->naca_profile.foil_name.c_str() << "\n";
+
     x = 0.0;
 
-    profile_data& pdi(this->bc->naca_profile[(unsigned)((double)0.02*mult)]);
+    profile_data& pdi(this->bc->naca_profile[(unsigned)((double)0*mult)]);
     profile_data& pde(this->bc->naca_profile[(unsigned)((double)1*mult)]);
-    x = x + step;
-    ExportFile::Triangles((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step, &fOut, RES_MED);
+    qDebug() << x << "---" << pdi.width*w << pdi.height_u*w << pdi.height_l*w;
+    //ExportFile::Triangles((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step, &fOut, RES_MED);
+    ExportFile::Triangles(x, (pdi.width*w), (pdi.height_u/2)*w, (pdi.height_l/2)*w, (pde.width*w), (pde.height_u/2)*w, (pde.height_l/2)*w, step, &fOut, RES_MED);
 
     for(int i=1; i<mult; i++) {
         profile_data& pdi(this->bc->naca_profile[(unsigned)((double)i*mult)]);
         profile_data& pde(this->bc->naca_profile[(unsigned)((double)(i+1)*mult)]);
-        x = x + step;
-        ExportFile::Triangles((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step, &fOut, RES_MED);
+        x = x + step;       
+        qDebug() << x << "---" << pdi.width*w << pdi.height_u*w << pdi.height_l*w;
+        //ExportFile::Triangles((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step, &fOut, RES_MED);
+        ExportFile::Triangles(x, (pdi.width*w), pdi.height_u/2*w, pdi.height_l/2*w, (pde.width*w), pde.height_u/2*w, pde.height_l/2*w, step, &fOut, RES_MED);
+
     }
 
 
@@ -96,7 +98,6 @@ void ExportFile::Triangles(float x, float xradius, float yradiusi_u, float yradi
     for (int i=0; i < 360;  i=i + divisor) {
         float degInRad = i*DEG2RAD;
         float degInRad1 = (i+gr)*DEG2RAD;
-
         fOut << "facet normal 0 0 0" << "\n";
         fOut << "  outer loop" << "\n";
         fOut << "    vertex " << x << " " <<  cos(degInRad)*xradius << " " << (sin(degInRad)*diam_i)+ecc_i << "\n";
