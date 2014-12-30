@@ -30,8 +30,9 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #include <QGroupBox>
 #include <QLabel>
 #include <QComboBox>
+#include <QProgressBar>
 
-#define VERSION     "2.2.0"
+#define VERSION     "2.3.0"
 
 #define UNIT_MM      0
 #define UNIT_INCH    1
@@ -185,6 +186,8 @@ class BulbCalculator : public QMainWindow
         int Modified;
         QActionGroup *BulbMenu;
         int cosine;
+        QLabel *SB_Message;
+        QProgressBar *SB_Progress;
 
         void SetDefaultValue();
         void Create3dWin();

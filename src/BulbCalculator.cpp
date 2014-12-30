@@ -125,6 +125,19 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     this->ui.tb->addWidget(viewmodel);
     this->ui.tb->addWidget(view3dMode);
 
+    /*
+    QStatusBar *sb = this->statusBar();
+    QHBoxLayout *layout = new QHBoxLayout;
+    this->SB_Message = new QLabel("Program Ready");
+    this->SB_Progress = new QProgressBar;
+    layout->addWidget(this->SB_Message);
+    layout->addWidget(this->SB_Progress);
+    layout->setContentsMargins(0,0,0,0);
+    QWidget *container = new QWidget;
+    container->setLayout(layout);
+    sb->addWidget(container);
+    */
+
 
     QDir bdir(this->BcPrefs->LocalRepo);
     bdir.setFilter(QDir::Files);

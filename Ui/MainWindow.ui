@@ -43,7 +43,7 @@
      <x>0</x>
      <y>0</y>
      <width>966</width>
-     <height>33</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -161,6 +161,9 @@
   </widget>
   <widget class="QStatusBar" name="statusbar">
    <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="sizeGripEnabled">
     <bool>true</bool>
    </property>
   </widget>
