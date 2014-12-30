@@ -44,7 +44,7 @@ void ExportFile::ExportAsciiSTL(QString FileName) {
     long w, mult;
     double step;
     double x;
-    float scala;
+
 
     QFile fOut(FileName);
     if (!fOut.open(QIODevice::WriteOnly | QIODevice::Text)) {
@@ -62,22 +62,20 @@ void ExportFile::ExportAsciiSTL(QString FileName) {
 
     x = 0.0;
 
-    profile_data& pdi(this->bc->naca_profile[(unsigned)((double)0*mult)]);
-    profile_data& pde(this->bc->naca_profile[(unsigned)((double)1*mult)]);
-    qDebug() << x << "---" << pdi.width*w << pdi.height_u*w << pdi.height_l*w;
-    //ExportFile::Triangles((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step, &fOut, RES_MED);
+    profile_data &pdi(this->bc->naca_profile[(unsigned)((double)0*mult)]);
+    profile_data &pde(this->bc->naca_profile[(unsigned)((double)1*mult)]);
     ExportFile::Triangles(x, (pdi.width*w), (pdi.height_u/2)*w, (pdi.height_l/2)*w, (pde.width*w), (pde.height_u/2)*w, (pde.height_l/2)*w, step, &fOut, RES_MED);
 
     for(int i=1; i<mult; i++) {
-        profile_data& pdi(this->bc->naca_profile[(unsigned)((double)i*mult)]);
-        profile_data& pde(this->bc->naca_profile[(unsigned)((double)(i+1)*mult)]);
+        profile_data &pdi(this->bc->naca_profile[(unsigned)((double)i*mult)]);
+        profile_data &pde(this->bc->naca_profile[(unsigned)((double)(i+1)*mult)]);
         x = x + step;       
-        qDebug() << x << "---" << pdi.width*w << pdi.height_u*w << pdi.height_l*w;
-        //ExportFile::Triangles((x-2.0/2), (pdi.width*2), pdi.height_u, pdi.height_l, (pde.width*2), pde.height_u, pde.height_l, step, &fOut, RES_MED);
         ExportFile::Triangles(x, (pdi.width*w), pdi.height_u/2*w, pdi.height_l/2*w, (pde.width*w), pde.height_u/2*w, pde.height_l/2*w, step, &fOut, RES_MED);
-
     }
-
+    profile_data &pdif(this->bc->naca_profile[(unsigned)((double)100*mult)]);
+    profile_data &pdef(this->bc->naca_profile[(unsigned)((double)0*mult)]);
+    x = x + step;
+    ExportFile::Triangles(x, (pdif.width*w), pdif.height_u/2*w, pdif.height_l/2*w, (pdef.width*w), pdef.height_u/2*w, pdef.height_l/2*w,0, &fOut, RES_MED);
 
     fOut.close();
 }
