@@ -125,7 +125,6 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     this->ui.tb->addWidget(viewmodel);
     this->ui.tb->addWidget(view3dMode);
 
-    /*
     QStatusBar *sb = this->statusBar();
     QHBoxLayout *layout = new QHBoxLayout;
     this->SB_Message = new QLabel("Program Ready");
@@ -136,7 +135,6 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     QWidget *container = new QWidget;
     container->setLayout(layout);
     sb->addWidget(container);
-    */
 
 
     QDir bdir(this->BcPrefs->LocalRepo);
@@ -196,6 +194,24 @@ void BulbCalculator::Change3DResolution(int CurRes) {
 }
 
 
+void BulbCalculator::UpdateStatusMessage(QString msg) {
+
+    this->SB_Message->setText(msg);
+
+}
+
+void BulbCalculator::UpdateProgressRange(int min, int max) {
+
+    this->SB_Progress->setMinimum(min);
+    this->SB_Progress->setMaximum(max);
+
+}
+
+void BulbCalculator::UpdateProgressValue(int value) {
+
+    this->SB_Progress->setValue(value);
+
+}
 
 void BulbCalculator::Set3dViewMode(int mode3d) {
 

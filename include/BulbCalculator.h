@@ -92,6 +92,9 @@ class BulbCalculator : public QMainWindow
         void UpdateCalcs();
         void SetImp();
         void SetMetric();
+        void UpdateStatusMessage(QString msg);
+        void UpdateProgressRange(int min, int max);
+        void UpdateProgressValue(int value);
         QString GetSectionData(int SectNum);
         QString GetSectionValue(int SectNum, int val);
         QActionGroup *Resolution3D;
