@@ -138,6 +138,7 @@ class BulbCalculator : public QMainWindow
         void Set670xx();
         void Save();
         void ExportAsciiSTL();
+        void ExportBinarySTL();
         void SaveAs();
         void NewBulb();
         void PrintBulbSectionFromTop();
@@ -215,6 +216,7 @@ class BulbCalculator : public QMainWindow
         QAction *separatorAct;
 
         void LoadFile();
+        void ExportSTL(bool ascii);
 
     protected:
         virtual void resizeEvent( QResizeEvent *event );

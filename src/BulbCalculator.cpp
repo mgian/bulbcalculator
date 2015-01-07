@@ -83,6 +83,7 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     connect( ui.action_Save, SIGNAL (triggered()), this, SLOT(Save()));
     connect( ui.action_Saveas, SIGNAL (triggered()), this, SLOT(SaveAs()));
     connect( ui.actionSTL_File, SIGNAL (triggered()), this, SLOT(ExportAsciiSTL()));
+    connect( ui.actionBinary_STL_File, SIGNAL (triggered()), this, SLOT(ExportBinarySTL()));
     connect( ui.action_New, SIGNAL (triggered()), this,SLOT(NewBulb()));
     connect( ui.actionShow_Axis, SIGNAL (toggled(bool)), this, SLOT(Show3DAxis()));
     connect( ui.actionShow_Grid, SIGNAL (toggled(bool)), this, SLOT(ShowGrid()));
@@ -129,6 +130,7 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     QHBoxLayout *layout = new QHBoxLayout;
     this->SB_Message = new QLabel("Program Ready");
     this->SB_Progress = new QProgressBar;
+    this->SB_Message->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
     layout->addWidget(this->SB_Message);
     layout->addWidget(this->SB_Progress);
     layout->setContentsMargins(0,0,0,0);
@@ -256,15 +258,23 @@ void BulbCalculator::ExportTextFile() {
 }
 
 
-
-void BulbCalculator::ExportAsciiSTL() {
+void BulbCalculator::ExportSTL(bool ascii) {
 
     ExportFile *ExpFile = new ExportFile();
 
+    QString msg;
+
+    if (ascii == true) {
+        msg = tr("Export Ascii STL File");
+    } else {
+        msg = tr("Export Binary STL File");
+    }
+
+
     QString fileName = QFileDialog::getSaveFileName(this,
-                        tr("Export Ascii STL File"),
+                        msg,
                         "",
-                        tr("Ascii STL (*.stl)"));
+                        tr("STL File(*.stl)"));
 
     ExpFile->SetBc(this);
 
@@ -274,17 +284,25 @@ void BulbCalculator::ExportAsciiSTL() {
                                 QMessageBox::Ok );
         return;
     }
-
-    if (this->CheckFileExist(fileName) == YES) {
-        if (this->ConfirmOverwrite() == YES) {
-            ExpFile->ExportAsciiSTL(fileName);
-        }
-    } else {
+    if (ascii == true) {
         ExpFile->ExportAsciiSTL(fileName);
+    } else {
+        ExpFile->ExportBinarySTL(fileName);
     }
 
+}
 
 
+void BulbCalculator::ExportBinarySTL() {
+
+    BulbCalculator::ExportSTL(false);
+
+}
+
+
+void BulbCalculator::ExportAsciiSTL() {
+
+    BulbCalculator::ExportSTL(true);
 
 }
 

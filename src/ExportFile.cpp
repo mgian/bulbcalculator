@@ -54,6 +54,7 @@ void ExportFile::ExportAsciiSTL(QString FileName) {
 
     QTextStream fOutStream(&fOut);
 
+    this->bc->UpdateStatusMessage(QString(tr("Exporting to ASCII STL file")));
     w = this->bc->length*10;
 
     mult = this->bc->naca_profile.num_step/(double)100.0;
@@ -65,26 +66,77 @@ void ExportFile::ExportAsciiSTL(QString FileName) {
 
     profile_data &pdi(this->bc->naca_profile[(unsigned)((double)0*mult)]);
     profile_data &pde(this->bc->naca_profile[(unsigned)((double)1*mult)]);
-    ExportFile::Triangles(x, (pdi.width*w), (pdi.height_u/2)*w, (pdi.height_l/2)*w, (pde.width*w), (pde.height_u/2)*w, (pde.height_l/2)*w, step, &fOut, RES_MED);
+    ExportFile::Triangles(x, (pdi.width*w), (pdi.height_u/2)*w, (pdi.height_l/2)*w, (pde.width*w), (pde.height_u/2)*w, (pde.height_l/2)*w, step, &fOut, RES_MED, true);
 
     for(int i=1; i<mult; i++) {
         profile_data &pdi(this->bc->naca_profile[(unsigned)((double)i*mult)]);
         profile_data &pde(this->bc->naca_profile[(unsigned)((double)(i+1)*mult)]);
         x = x + step;       
-        ExportFile::Triangles(x, (pdi.width*w), pdi.height_u/2*w, pdi.height_l/2*w, (pde.width*w), pde.height_u/2*w, pde.height_l/2*w, step, &fOut, RES_MED);
+        ExportFile::Triangles(x, (pdi.width*w), pdi.height_u/2*w, pdi.height_l/2*w, (pde.width*w), pde.height_u/2*w, pde.height_l/2*w, step, &fOut, RES_MED, true);
         this->bc->UpdateProgressValue(i);
 
     }
     profile_data &pdif(this->bc->naca_profile[(unsigned)((double)100*mult)]);
     profile_data &pdef(this->bc->naca_profile[(unsigned)((double)0*mult)]);
     x = x + step;
-    ExportFile::Triangles(x, (pdif.width*w), pdif.height_u/2*w, pdif.height_l/2*w, (pdef.width*w), pdef.height_u/2*w, pdef.height_l/2*w,0, &fOut, RES_MED);
+    ExportFile::Triangles(x, (pdif.width*w), pdif.height_u/2*w, pdif.height_l/2*w, (pdef.width*w), pdef.height_u/2*w, pdef.height_l/2*w,0, &fOut, RES_MED, true);
     this->bc->UpdateProgressValue(mult);
     fOut.close();
+    this->bc->UpdateStatusMessage(QString(tr("Done")));
 
 }
 
-void ExportFile::Triangles(float x, float xradius, float yradiusi_u, float yradiusi_l, float xradiuse, float yradiuse_u,  float yradiuse_l, float step, QFile *fo, int divisor) {
+
+
+void ExportFile::ExportBinarySTL(QString FileName) {
+
+    long w, mult;
+    double step;
+    double x;
+
+
+    QFile fOut(FileName);
+    if (!fOut.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QMessageBox::warning(NULL, tr("Error"), tr("Could not open file"), QMessageBox::Ok);
+        return;
+    }
+
+    QTextStream fOutStream(&fOut);
+
+    this->bc->UpdateStatusMessage(QString(tr("Exporting to ASCII STL file")));
+    w = this->bc->length*10;
+
+    mult = this->bc->naca_profile.num_step/(double)100.0;
+    step = w/(mult*1.0);
+    fOutStream << "solid " << this->bc->naca_profile.foil_name.c_str() << "\n";
+
+    x = 0.0;
+    this->bc->UpdateProgressRange(0, mult);
+
+    profile_data &pdi(this->bc->naca_profile[(unsigned)((double)0*mult)]);
+    profile_data &pde(this->bc->naca_profile[(unsigned)((double)1*mult)]);
+    ExportFile::Triangles(x, (pdi.width*w), (pdi.height_u/2)*w, (pdi.height_l/2)*w, (pde.width*w), (pde.height_u/2)*w, (pde.height_l/2)*w, step, &fOut, RES_MED, false);
+
+    for(int i=1; i<mult; i++) {
+        profile_data &pdi(this->bc->naca_profile[(unsigned)((double)i*mult)]);
+        profile_data &pde(this->bc->naca_profile[(unsigned)((double)(i+1)*mult)]);
+        x = x + step;
+        ExportFile::Triangles(x, (pdi.width*w), pdi.height_u/2*w, pdi.height_l/2*w, (pde.width*w), pde.height_u/2*w, pde.height_l/2*w, step, &fOut, RES_MED, false);
+        this->bc->UpdateProgressValue(i);
+
+    }
+    profile_data &pdif(this->bc->naca_profile[(unsigned)((double)100*mult)]);
+    profile_data &pdef(this->bc->naca_profile[(unsigned)((double)0*mult)]);
+    x = x + step;
+    ExportFile::Triangles(x, (pdif.width*w), pdif.height_u/2*w, pdif.height_l/2*w, (pdef.width*w), pdef.height_u/2*w, pdef.height_l/2*w,0, &fOut, RES_MED, false);
+    this->bc->UpdateProgressValue(mult);
+    fOut.close();
+    this->bc->UpdateStatusMessage(QString(tr("Done")));
+
+}
+
+
+void ExportFile::Triangles(float x, float xradius, float yradiusi_u, float yradiusi_l, float xradiuse, float yradiuse_u,  float yradiuse_l, float step, QFile *fo, int divisor, bool ascii) {
 
     float diam_i, diam_e, ecc_i, ecc_e;
     int gr;
@@ -115,3 +167,4 @@ void ExportFile::Triangles(float x, float xradius, float yradiusi_u, float yradi
 
 
 }
+
