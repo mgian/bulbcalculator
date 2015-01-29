@@ -1,17 +1,16 @@
 HEADERS = include/BulbCalculator.h \
-    include/nacafoil.h \
     include/SetBulParameter.h \
     include/BulbDataOptions.h \
     include/PrintBulb.h \
     include/ExportDraw.h \
     include/Utils.h \
     include/Preferences.h \
-    include/ExportFile.h
+    include/ExportFile.h \
+    include/KeelOptions.h \
+    include/NacaFoil.h
 
 SOURCES = src/BulbCalculator.cpp \
-    src/main.cpp \
     src/View_3D.cpp \
-    src/nacafoil.cpp \
     src/SetBulParameter.cpp \
     src/BulbDataOptions.cpp \
     src/PrintBulb.cpp \
@@ -19,13 +18,17 @@ SOURCES = src/BulbCalculator.cpp \
     src/ExportDraw.cpp \
     src/Utils.cpp \
     src/Prefereces.cpp \
-    src/ExportFile.cpp
+    src/ExportFile.cpp \
+    src/KeelOptions.cpp \
+    src/NacaFoil.cpp \
+    src/Main.cpp
 
 FORMS = Ui/MainWindow.ui \
     Ui/SetBulbParameterDialog.ui \
     Ui/BulbDataOptions.ui \
     Ui/BulbPrintOptions.ui \
-    Ui/Preferences.ui
+    Ui/Preferences.ui \
+    Ui/KeelOptions.ui
 
 CONFIG += debug release
 

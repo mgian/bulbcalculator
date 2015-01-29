@@ -21,7 +21,7 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #define BULBCAL_H
 
 #include "../ui_MainWindow.h"
-#include "../include/nacafoil.h"
+#include "../include/NacaFoil.h"
 #include "QTableWidget"
 
 #include <QGLWidget>
@@ -109,6 +109,12 @@ class BulbCalculator : public QMainWindow
         float bulb_volume;
         float bulb_wet_surface;
 
+        float KeelSlotPosition;
+        float KeelSlotLenght;
+        float KeelSlotWidth;
+        float KeelScrewHolePos;
+        float KeelScrewHoleDiam;
+
 // Bulb Options
         int num_sect;
         int sect_dist;  // 0 = Even, 1 = Cosine
@@ -162,6 +168,7 @@ class BulbCalculator : public QMainWindow
         void Set3dViewMode(int mode3d);
 
         void SetCurrentFile(const QString &ProjectName);
+        void ShowKeelOptions();
 
     private:
         QMdiSubWindow *BulbCalculation;

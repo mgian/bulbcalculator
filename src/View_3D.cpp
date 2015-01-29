@@ -23,7 +23,7 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #include <math.h>
 
 #include "../include/BulbCalculator.h"
-#include "../include/nacafoil.h"
+#include "../include/NacaFoil.h"
 
 
 #define PI = 3.14159265358979323846

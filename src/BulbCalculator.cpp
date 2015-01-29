@@ -33,7 +33,7 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #include <QPageSetupDialog>
 
 #include "../include/BulbCalculator.h"
-#include "../include/nacafoil.h"
+#include "../include/NacaFoil.h"
 #include "../include/SetBulParameter.h"
 #include "../include/ExportDraw.h"
 #include "../include/ExportFile.h"
@@ -41,6 +41,7 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #include "../include/BulbDataOptions.h"
 #include "../include/PrintBulb.h"
 #include "../include/Preferences.h"
+#include "../include/KeelOptions.h"
 
 
 BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
@@ -104,6 +105,8 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     connect( ui.actionPrintData, SIGNAL(triggered()), this, SLOT(PrintBulbData()));
     connect( ui.actionPage_Setup, SIGNAL(triggered()), this, SLOT(PageSetup()));
     connect( ui.action_Preferences, SIGNAL(triggered()), this, SLOT(ShowPrefWindow()));
+    connect( ui.actionKeel_Slot_Options, SIGNAL(triggered()), this, SLOT(ShowKeelOptions()));
+
 
     this->res3d = new QComboBox;
     this->profs = new QComboBox;
@@ -187,6 +190,44 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     }
 
 }
+
+void BulbCalculator::ShowKeelOptions() {
+
+    int ret;
+
+    KeelOptions *KeelDlg = new KeelOptions;
+
+    ret = KeelDlg->exec();
+
+    if (ret == QDialog::Accepted) {
+        if (KeelDlg->GetKeelSlotState() == true) {
+            this->KeelSlotPosition = KeelDlg->GetKeelSlotPos();
+            this->KeelSlotLenght = KeelDlg->GetKeelSlotLenght();
+            this->KeelSlotWidth = KeelDlg->GetKeelSlotWidth();
+
+            if ( (this->KeelSlotPosition > 0) &&  (this->KeelSlotLenght > 0) && (this->KeelSlotWidth) ) {
+                // Update Bulb Param
+            } else {
+                // Show Error Message and exit
+            }
+        }
+
+        if (KeelDlg->GetScrewHoleState() == true) {
+            this->KeelScrewHolePos = KeelDlg->GetScrewHolePos();
+            this->KeelScrewHoleDiam = KeelDlg->GetScrewHoleDiam();
+
+            if ( (this->KeelScrewHolePos > 0) && (this->KeelScrewHoleDiam > 0) ) {
+                // Update Bulb Param
+            } else {
+                // Show Error Message and exit
+            }
+        }
+
+    }
+
+    free(KeelDlg);
+}
+
 
 void BulbCalculator::Change3DResolution(int CurRes) {
 
@@ -914,9 +955,9 @@ void BulbCalculator::Save() {
         }
     }
 
-    QDomDocument doc("BulbCalculatorV1");
+    QDomDocument doc("BulbCalculatorV2");
     QFile file(this->BcStatus->CurFile);
-    QDomElement root = doc.createElement("BulbV1");
+    QDomElement root = doc.createElement("BulbV2");
     doc.appendChild(root);
 
     QDomElement param = doc.createElement("Parameters");
@@ -954,6 +995,32 @@ void BulbCalculator::Save() {
 
     QDomElement metadata = doc.createElement("Properties");
     root.appendChild(metadata);
+
+    QDomElement kl = doc.createElement("keel_slot");
+    metadata.appendChild(kl);
+    QDomText klv = doc.createTextNode(QString("%1").arg(this->KeelSlotPosition));
+    kl.appendChild(klv);
+
+    QDomElement kll = doc.createElement("keel_slot_len");
+    metadata.appendChild(kll);
+    QDomText kllv = doc.createTextNode(QString("%1").arg(this->KeelSlotLenght));
+    kll.appendChild(kllv);
+
+    QDomElement klw = doc.createElement("keel_slot_wid");
+    metadata.appendChild(klw);
+    QDomText klwv = doc.createTextNode(QString("%1").arg(this->KeelSlotWidth));
+    klw.appendChild(klwv);
+
+    QDomElement shp = doc.createElement("screw_hole_pos");
+    metadata.appendChild(shp);
+    QDomText shpv = doc.createTextNode(QString("%1").arg(this->KeelScrewHolePos));
+    shp.appendChild(shpv);
+
+    QDomElement shd = doc.createElement("screw_hole_diam");
+    metadata.appendChild(shd);
+    QDomText shdv = doc.createTextNode(QString("%1").arg(this->KeelScrewHoleDiam));
+    shd.appendChild(shdv);
+
 
     QString xml = doc.toString();
 
@@ -1312,6 +1379,8 @@ void BulbCalculator::SetBulbParameter() {
         this->BcStatus->St_Modified = YES;
     }
 
+    free(DlgParam);
+
     view3d->SetProfile();
 
 }
@@ -1517,6 +1586,10 @@ void BulbCalculator::LoadFile() {
     }
     this->material_density = value.toElement().text().toFloat() / 100.0;
 
+    // TODO:
+    // if the file is a V2, then load all the other params, else
+    // set the new params to zero and notify the user
+
     if (err == 1) {
         QMessageBox::critical(this, tr("BulbCalculator"),
                                 tr("Not a valid file"),
@@ -1538,7 +1611,11 @@ void BulbCalculator::SetDefaultValue() {
     naca_profile.WHRatio = this->BcPrefs->Bulb_Whr/100.0;
     this->slice = this->BcPrefs->Bulb_Ds;
     this->slice_thickness = this->BcPrefs->Bulb_St;
-
+    this->KeelSlotPosition = 0.0;
+    this->KeelSlotLenght = 0.0;
+    this->KeelSlotWidth = 0.0;
+    this->KeelScrewHolePos = 0.0;
+    this->KeelScrewHoleDiam = 0.0;
 }
 
 void BulbCalculator::SetFoilProfile(QString ProfName) {

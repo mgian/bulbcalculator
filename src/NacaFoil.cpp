@@ -30,7 +30,7 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
-#include "../include/nacafoil.h"
+#include "../include/NacaFoil.h"
 
 unsigned profile::num_step = 10000;
 double profile::step = 0.0001;
