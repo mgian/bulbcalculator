@@ -996,7 +996,7 @@ void BulbCalculator::Save() {
     QDomElement metadata = doc.createElement("Properties");
     root.appendChild(metadata);
 
-    QDomElement kl = doc.createElement("keel_slot");
+    QDomElement kl = doc.createElement("keel_slot_pos");
     metadata.appendChild(kl);
     QDomText klv = doc.createTextNode(QString("%1").arg(this->KeelSlotPosition));
     kl.appendChild(klv);
@@ -1526,10 +1526,11 @@ void BulbCalculator::Open() {
 
 void BulbCalculator::LoadFile() {
 
-    QDomElement root, params;
+    QDomElement root, params, props;
     QDomNode value;
     QString fname;
     int err = 0;
+    int ver = 0;
 
     QDomDocument doc("BulbCalculatorV1");
     QFile file(this->BcStatus->CurFile);
@@ -1548,6 +1549,14 @@ void BulbCalculator::LoadFile() {
     file.close();
 
     root = doc.firstChildElement("BulbV1");
+    if (root.isNull()) {
+        root = doc.firstChildElement("BulbV2");
+        if (!root.isNull()) {
+            ver = BULBV2;
+        }
+    } else {
+        ver = BULBV1;
+    }
     params = root.firstChildElement("Parameters");
     value = params.namedItem("foil");
     if (value.isNull()) {
@@ -1586,9 +1595,59 @@ void BulbCalculator::LoadFile() {
     }
     this->material_density = value.toElement().text().toFloat() / 100.0;
 
-    // TODO:
-    // if the file is a V2, then load all the other params, else
-    // set the new params to zero and notify the user
+    if (ver == BULBV2) {
+        props = root.firstChildElement("Properties");
+        value = props.namedItem("keel_slot_pos");
+        if (props.isNull()) {
+            err = 1;
+        }
+        this->KeelSlotPosition = value.toElement().text().toFloat() / 100;
+
+        props = root.firstChildElement("Properties");
+        value = props.namedItem("keel_slot_pos");
+        if (props.isNull()) {
+            err = 1;
+        }
+        this->KeelSlotPosition = value.toElement().text().toFloat() / 100;
+
+        props = root.firstChildElement("Properties");
+        value = props.namedItem("keel_slot_len");
+        if (props.isNull()) {
+            err = 1;
+        }
+        this->KeelSlotLenght = value.toElement().text().toFloat() / 100;
+
+        props = root.firstChildElement("Properties");
+        value = props.namedItem("keel_slot_wid");
+        if (props.isNull()) {
+            err = 1;
+        }
+        this->KeelSlotWidth = value.toElement().text().toFloat() / 100;
+
+        props = root.firstChildElement("Properties");
+        value = props.namedItem("screw_hole_pos");
+        if (props.isNull()) {
+            err = 1;
+        }
+        this->KeelScrewHolePos = value.toElement().text().toFloat() / 100;
+
+
+        props = root.firstChildElement("Properties");
+        value = props.namedItem("screw_hole_diam");
+        if (props.isNull()) {
+            err = 1;
+        }
+        this->KeelScrewHoleDiam = value.toElement().text().toFloat() / 100;
+    } else {
+        this->KeelSlotPosition = 0.0;
+        this->KeelSlotPosition = 0.0;
+        this->KeelSlotLenght = 0.0;
+        this->KeelSlotWidth = 0.0;
+        this->KeelScrewHolePos = 0.0;
+        this->KeelScrewHoleDiam = 0.0;
+
+    }
+
 
     if (err == 1) {
         QMessageBox::critical(this, tr("BulbCalculator"),

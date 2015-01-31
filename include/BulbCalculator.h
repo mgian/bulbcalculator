@@ -63,6 +63,9 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MAXRECENTFILE   5
 
+#define BULBV1      1
+#define BULBV2      2
+
 enum WF_RES {
     WF_LOW,
     WF_MEDIUM,
