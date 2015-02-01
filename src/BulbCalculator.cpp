@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2011-2013  Gianluca Montecchi <gian@grys.it>
+Copyright (C) 2011-2015  Gianluca Montecchi <gian@grys.it>
 
 This file is part of BulbCalculator.
 
@@ -930,31 +930,30 @@ void BulbCalculator::Save() {
         return;
     }
 
-    if (this->BcStatus->CurFile == "") {
-        QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
-                        "",
-                        tr("Bulb (*.blb)"));
-        if (fileName.isEmpty()) {
+    if (this->BcStatus->CurFile.isEmpty()) {
+
+        QFileDialog dlg(this);
+        dlg.setNameFilter("*.blb");
+        dlg.setDefaultSuffix("blb");
+        dlg.setAcceptMode(QFileDialog::AcceptSave);
+        if (dlg.exec() == QDialog::Rejected) {
             QMessageBox::warning(NULL, tr("BulbCalculator"),
                                     tr("No filename given, aborting operation"),
                                     QMessageBox::Ok );
 
             return;
         }
-        if (fileName != "") {
-            QString ext = ".blb";
-            if (!fileName.endsWith(ext)) {
-                fileName.append(ext);
+        QString fileName = dlg.selectedFiles()[0];
+        qDebug() << "-------->"<< fileName;
+        this->BcStatus->CurFile = fileName;
+    } else {
+        if (this->CheckFileExist(this->BcStatus->CurFile) == YES) {
+            if (this->ConfirmOverwrite() == NO) {
+                return;
             }
-            if (this->CheckFileExist(fileName) == YES) {
-                if (this->ConfirmOverwrite() == NO) {
-                    return;
-                }
-            }
-            this->BcStatus->CurFile = fileName;
         }
-    }
 
+    }
     QDomDocument doc("BulbCalculatorV2");
     QFile file(this->BcStatus->CurFile);
     QDomElement root = doc.createElement("BulbV2");
@@ -1026,7 +1025,7 @@ void BulbCalculator::Save() {
 
     if (!file.open(QIODevice::WriteOnly)) {
         QMessageBox::warning(this, tr("BulbCalculator"),
-                                tr("Cannot open target file"),
+                                tr("Cannot save target file"),
                                 QMessageBox::Ok );
         return;
     }
@@ -1035,6 +1034,7 @@ void BulbCalculator::Save() {
     file.close();
     this->BcStatus->St_Modified = NO;
     SetCurrentFile(this->BcStatus->CurFile);
+
 }
 
 
@@ -1043,11 +1043,18 @@ void BulbCalculator::Save() {
 
 void BulbCalculator::SaveAs() {
 
-    QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
-                        "",
-                        tr("Bulb (*.blb)"));
-    if (fileName != "") {
-        this->BcStatus->CurFile = fileName;
+    QFileDialog dlg(this);
+    dlg.setNameFilter("*.blb");
+    dlg.setDefaultSuffix("blb");
+    dlg.setAcceptMode(QFileDialog::AcceptSave);
+    if (dlg.exec() == QDialog::Rejected) {
+        QMessageBox::warning(NULL, tr("BulbCalculator"),
+                                tr("No filename given, aborting operation"),
+                                QMessageBox::Ok );
+
+        return;
+    } else {
+        this->BcStatus->CurFile = dlg.selectedFiles()[0];
         BulbCalculator::Save();
     }
 
@@ -1675,6 +1682,7 @@ void BulbCalculator::SetDefaultValue() {
     this->KeelSlotWidth = 0.0;
     this->KeelScrewHolePos = 0.0;
     this->KeelScrewHoleDiam = 0.0;
+
 }
 
 void BulbCalculator::SetFoilProfile(QString ProfName) {
