@@ -4,14 +4,14 @@
 
 #include "../include/BulbCalculator.h"
 
-class ExportFile: public QObject {
+class ExportFile3D: public QObject {
 
     Q_OBJECT
 
     public:
-        ExportFile();
-        void ExportAsciiSTL(QString FileName);
-        void ExportBinarySTL(QString FileName);
+        ExportFile3D();
+        void ExportAsciiSTL(QString FileName, int half);
+        void ExportBinarySTL(QString FileName, int half);
         void SetBc(BulbCalculator *bcp);
 
 

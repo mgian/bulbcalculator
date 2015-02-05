@@ -66,6 +66,15 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #define BULBV1      1
 #define BULBV2      2
 
+#define STL_NONE    100
+#define STL_ASCII   101
+#define STL_BINARY  102
+
+#define OBJECT_FULL     200
+#define OBJECT_HALF_XY  201
+#define OBJECT_HALF_XZ  202
+
+
 enum WF_RES {
     WF_LOW,
     WF_MEDIUM,
@@ -146,8 +155,6 @@ class BulbCalculator : public QMainWindow
         void Set660xx();
         void Set670xx();
         void Save();
-        void ExportAsciiSTL();
-        void ExportBinarySTL();
         void SaveAs();
         void NewBulb();
         void PrintBulbSectionFromTop();
@@ -169,7 +176,7 @@ class BulbCalculator : public QMainWindow
         void Change3DResolution(int CurRes);
         void OpenRecentFile();
         void Set3dViewMode(int mode3d);
-
+        void ExportSTL(void);
         void SetCurrentFile(const QString &ProjectName);
         void ShowKeelOptions();
 
@@ -226,7 +233,7 @@ class BulbCalculator : public QMainWindow
         QAction *separatorAct;
 
         void LoadFile();
-        void ExportSTL(bool ascii);
+
 
     protected:
         virtual void resizeEvent( QResizeEvent *event );

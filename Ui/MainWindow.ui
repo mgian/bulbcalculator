@@ -55,9 +55,7 @@
       <string>&amp;Export</string>
      </property>
      <addaction name="actionText_File"/>
-     <addaction name="separator"/>
      <addaction name="actionSTL_File"/>
-     <addaction name="actionBinary_STL_File"/>
     </widget>
     <widget class="QMenu" name="menuPrint">
      <property name="title">
@@ -518,7 +516,7 @@
   </action>
   <action name="actionSTL_File">
    <property name="text">
-    <string>Ascii &amp;STL File</string>
+    <string>STL File</string>
    </property>
   </action>
   <action name="actionBinary_STL_File">
@@ -528,7 +526,7 @@
   </action>
   <action name="actionKeel_Slot_Options">
    <property name="text">
-    <string>Keel Slot Options</string>
+    <string>&amp;Keel Slot Options</string>
    </property>
   </action>
  </widget>

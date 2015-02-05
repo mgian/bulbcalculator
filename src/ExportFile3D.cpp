@@ -23,23 +23,23 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtWidgets>
 #include <QMessageBox>
 
-#include "../include/ExportFile.h"
+#include "../include/ExportFile3D.h"
 #include "../include/Utils.h"
 
 const float DEG2RAD = 3.14159/180;
 
 
-ExportFile::ExportFile() {
+ExportFile3D::ExportFile3D() {
 
 }
 
-void ExportFile::SetBc(BulbCalculator *bcp) {
+void ExportFile3D::SetBc(BulbCalculator *bcp) {
 
     this->bc = bcp;
 
 }
 
-void ExportFile::ExportAsciiSTL(QString FileName) {
+void ExportFile3D::ExportAsciiSTL(QString FileName, int half) {
 
     long w, mult;
     double step;
@@ -66,20 +66,20 @@ void ExportFile::ExportAsciiSTL(QString FileName) {
 
     profile_data &pdi(this->bc->naca_profile[(unsigned)((double)0*mult)]);
     profile_data &pde(this->bc->naca_profile[(unsigned)((double)1*mult)]);
-    ExportFile::Triangles(x, (pdi.width*w), (pdi.height_u/2)*w, (pdi.height_l/2)*w, (pde.width*w), (pde.height_u/2)*w, (pde.height_l/2)*w, step, &fOut, RES_MED, true);
+    ExportFile3D::Triangles(x, (pdi.width*w), (pdi.height_u/2)*w, (pdi.height_l/2)*w, (pde.width*w), (pde.height_u/2)*w, (pde.height_l/2)*w, step, &fOut, RES_MED, true);
 
     for(int i=1; i<mult; i++) {
         profile_data &pdi(this->bc->naca_profile[(unsigned)((double)i*mult)]);
         profile_data &pde(this->bc->naca_profile[(unsigned)((double)(i+1)*mult)]);
         x = x + step;       
-        ExportFile::Triangles(x, (pdi.width*w), pdi.height_u/2*w, pdi.height_l/2*w, (pde.width*w), pde.height_u/2*w, pde.height_l/2*w, step, &fOut, RES_MED, true);
+        ExportFile3D::Triangles(x, (pdi.width*w), pdi.height_u/2*w, pdi.height_l/2*w, (pde.width*w), pde.height_u/2*w, pde.height_l/2*w, step, &fOut, RES_MED, true);
         this->bc->UpdateProgressValue(i);
 
     }
     profile_data &pdif(this->bc->naca_profile[(unsigned)((double)100*mult)]);
     profile_data &pdef(this->bc->naca_profile[(unsigned)((double)0*mult)]);
     x = x + step;
-    ExportFile::Triangles(x, (pdif.width*w), pdif.height_u/2*w, pdif.height_l/2*w, (pdef.width*w), pdef.height_u/2*w, pdef.height_l/2*w,0, &fOut, RES_MED, true);
+    ExportFile3D::Triangles(x, (pdif.width*w), pdif.height_u/2*w, pdif.height_l/2*w, (pdef.width*w), pdef.height_u/2*w, pdef.height_l/2*w,0, &fOut, RES_MED, true);
     this->bc->UpdateProgressValue(mult);
     fOut.close();
     this->bc->UpdateStatusMessage(QString(tr("Done")));
@@ -88,7 +88,7 @@ void ExportFile::ExportAsciiSTL(QString FileName) {
 
 
 
-void ExportFile::ExportBinarySTL(QString FileName) {
+void ExportFile3D::ExportBinarySTL(QString FileName, int half) {
 
     long w, mult;
     double step;
@@ -115,20 +115,20 @@ void ExportFile::ExportBinarySTL(QString FileName) {
 
     profile_data &pdi(this->bc->naca_profile[(unsigned)((double)0*mult)]);
     profile_data &pde(this->bc->naca_profile[(unsigned)((double)1*mult)]);
-    ExportFile::Triangles(x, (pdi.width*w), (pdi.height_u/2)*w, (pdi.height_l/2)*w, (pde.width*w), (pde.height_u/2)*w, (pde.height_l/2)*w, step, &fOut, RES_MED, false);
+    ExportFile3D::Triangles(x, (pdi.width*w), (pdi.height_u/2)*w, (pdi.height_l/2)*w, (pde.width*w), (pde.height_u/2)*w, (pde.height_l/2)*w, step, &fOut, RES_MED, false);
 
     for(int i=1; i<mult; i++) {
         profile_data &pdi(this->bc->naca_profile[(unsigned)((double)i*mult)]);
         profile_data &pde(this->bc->naca_profile[(unsigned)((double)(i+1)*mult)]);
         x = x + step;
-        ExportFile::Triangles(x, (pdi.width*w), pdi.height_u/2*w, pdi.height_l/2*w, (pde.width*w), pde.height_u/2*w, pde.height_l/2*w, step, &fOut, RES_MED, false);
+        ExportFile3D::Triangles(x, (pdi.width*w), pdi.height_u/2*w, pdi.height_l/2*w, (pde.width*w), pde.height_u/2*w, pde.height_l/2*w, step, &fOut, RES_MED, false);
         this->bc->UpdateProgressValue(i);
 
     }
     profile_data &pdif(this->bc->naca_profile[(unsigned)((double)100*mult)]);
     profile_data &pdef(this->bc->naca_profile[(unsigned)((double)0*mult)]);
     x = x + step;
-    ExportFile::Triangles(x, (pdif.width*w), pdif.height_u/2*w, pdif.height_l/2*w, (pdef.width*w), pdef.height_u/2*w, pdef.height_l/2*w,0, &fOut, RES_MED, false);
+    ExportFile3D::Triangles(x, (pdif.width*w), pdif.height_u/2*w, pdif.height_l/2*w, (pdef.width*w), pdef.height_u/2*w, pdef.height_l/2*w,0, &fOut, RES_MED, false);
     this->bc->UpdateProgressValue(mult);
     fOut.close();
     this->bc->UpdateStatusMessage(QString(tr("Done")));
@@ -136,7 +136,7 @@ void ExportFile::ExportBinarySTL(QString FileName) {
 }
 
 
-void ExportFile::Triangles(float x, float xradius, float yradiusi_u, float yradiusi_l, float xradiuse, float yradiuse_u,  float yradiuse_l, float step, QFile *fo, int divisor, bool ascii) {
+void ExportFile3D::Triangles(float x, float xradius, float yradiusi_u, float yradiusi_l, float xradiuse, float yradiuse_u,  float yradiuse_l, float step, QFile *fo, int divisor, bool ascii) {
 
     float diam_i, diam_e, ecc_i, ecc_e;
     int gr;

@@ -2,12 +2,14 @@ HEADERS = include/BulbCalculator.h \
     include/SetBulParameter.h \
     include/BulbDataOptions.h \
     include/PrintBulb.h \
-    include/ExportDraw.h \
     include/Utils.h \
     include/Preferences.h \
-    include/ExportFile.h \
     include/KeelOptions.h \
-    include/NacaFoil.h
+    include/NacaFoil.h \
+    Ui/data/gian/Devel/Personali/bulbcalculator/include/exportstl.h \
+    include/ExportSTL.h \
+    include/ExportFile3D.h \
+    include/ExportFileData.h
 
 SOURCES = src/BulbCalculator.cpp \
     src/View_3D.cpp \
@@ -15,20 +17,22 @@ SOURCES = src/BulbCalculator.cpp \
     src/BulbDataOptions.cpp \
     src/PrintBulb.cpp \
     src/ViewArea.cpp \
-    src/ExportDraw.cpp \
     src/Utils.cpp \
     src/Prefereces.cpp \
-    src/ExportFile.cpp \
     src/KeelOptions.cpp \
     src/NacaFoil.cpp \
-    src/Main.cpp
+    src/Main.cpp \
+    src/ExportSTL.cpp \
+    src/ExportFile3D.cpp \
+    src/ExportFileData.cpp
 
 FORMS = Ui/MainWindow.ui \
     Ui/SetBulbParameterDialog.ui \
     Ui/BulbDataOptions.ui \
     Ui/BulbPrintOptions.ui \
     Ui/Preferences.ui \
-    Ui/KeelOptions.ui
+    Ui/KeelOptions.ui \
+    Ui/ExportSTL.ui
 
 CONFIG += debug release
 

@@ -1,15 +1,18 @@
 #ifndef KEELOPTIONS
 #define KEELOPTIONS
 
-#include "../ui_KeelOptions.h"
+#include <QDialog>
 
+namespace Ui {
+    class QKeelOptions;
+}
 
-class KeelOptions : public QDialog, private Ui::QKeelOptions
-{
+class KeelOptions : public QDialog {
+
     Q_OBJECT
 
     public:
-        KeelOptions();
+        explicit KeelOptions(QWidget *parent = 0);
         float GetKeelSlotPos(void);
         float GetKeelSlotLenght(void);
         float GetKeelSlotWidth(void);
@@ -18,7 +21,10 @@ class KeelOptions : public QDialog, private Ui::QKeelOptions
         void SetCurrentValues(float SlotP, float SlotLen, float SlotWid, float ScrewPos, float ScrewDiam);
         bool GetKeelSlotState(void);
         bool GetScrewHoleState(void);
+        ~KeelOptions();
 
+private:
+    Ui::QKeelOptions *ui;
 };
 
 #endif // KEELOPTIONS

@@ -22,12 +22,12 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "../include/BulbCalculator.h"
 
-class ExportDraw: public QObject {
+class ExportFileData: public QObject {
 
     Q_OBJECT
 
     public:
-        ExportDraw();
+        ExportFileData();
         void ExportTextFile(QString FileName);
         void SetBc(BulbCalculator *bcp);
 

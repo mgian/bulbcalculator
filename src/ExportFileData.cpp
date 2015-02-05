@@ -23,22 +23,20 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtWidgets>
 #include <QMessageBox>
 
-#include "../include/ExportDraw.h"
+#include "../include/ExportFileData.h"
 #include "../include/Utils.h"
 
-ExportDraw::ExportDraw() {
+ExportFileData::ExportFileData() {
 
 }
 
-void ExportDraw::SetBc(BulbCalculator *bcp) {
+void ExportFileData::SetBc(BulbCalculator *bcp) {
 
     this->bc = bcp;
 
 }
 
-void ExportDraw::ExportTextFile(QString fileName) {
-
-
+void ExportFileData::ExportTextFile(QString fileName) {
 
     QString ext = ".txt";
 
@@ -57,9 +55,10 @@ void ExportDraw::ExportTextFile(QString fileName) {
             this->ExportTextFileInchF(fileName);
             break;
     }
+
 }
 
-void ExportDraw::ExportTextFileMM(QString FileOut) {
+void ExportFileData::ExportTextFileMM(QString FileOut) {
 
     double tl;
 
@@ -103,10 +102,11 @@ void ExportDraw::ExportTextFileMM(QString FileOut) {
     }
     fos << "\n" << "\n";
     fo.close();
+
 }
 
 
-void ExportDraw::ExportTextFileInchD(QString FileOut) {
+void ExportFileData::ExportTextFileInchD(QString FileOut) {
 
     double tl;
 
@@ -146,7 +146,7 @@ void ExportDraw::ExportTextFileInchD(QString FileOut) {
 
 }
 
-void ExportDraw::ExportTextFileInchF(QString FileOut) {
+void ExportFileData::ExportTextFileInchF(QString FileOut) {
 
     double tl;
 

@@ -1,63 +1,72 @@
-#include "../include/KeelOptions.h"
+
 #include "QtWidgets"
 #include <QDialogButtonBox>
 
+#include "../include/BulbCalculator.h"
+#include "../include/KeelOptions.h"
 
-KeelOptions::KeelOptions() {
+#include "ui_KeelOptions.h"
 
-    setupUi(this);
-    //connect(buttonBox->button(QDialogButtonBox::Ok), SIGNAL(clicked()), this, SLOT(accept()));
+KeelOptions::KeelOptions(QWidget *parent) : QDialog(parent), ui(new Ui::QKeelOptions) {
+
+    ui->setupUi(this);
+
+}
+
+KeelOptions::~KeelOptions() {
+
+    delete ui;
 
 }
 
 float KeelOptions::GetKeelSlotPos(void) {
 
-    return this->SP_SlotPos->value();
+    return ui->SP_SlotPos->value();
 
 }
 
 float KeelOptions::GetKeelSlotLenght(void) {
 
-    return this->SP_SlotLenght->value();
+    return ui->SP_SlotLenght->value();
 
 }
 
 float KeelOptions::GetKeelSlotWidth(void) {
 
-    return this->SP_SlotWidth->value();
+    return ui->SP_SlotWidth->value();
 
 }
 
 float KeelOptions::GetScrewHolePos(void) {
 
-    return this->SP_ScrewHolePos->value();
+    return ui->SP_ScrewHolePos->value();
 
 }
 
 float KeelOptions::GetScrewHoleDiam(void) {
 
-    return this->SP_ScrewHoleDiam->value();
+    return ui->SP_ScrewHoleDiam->value();
 
 }
 
 bool KeelOptions::GetKeelSlotState(void) {
 
-    return this->GB_KeelSlot->isChecked();
+    return ui->GB_KeelSlot->isChecked();
 
 }
 
 bool KeelOptions::GetScrewHoleState(void) {
 
-    return this->GB_ScrewHole->isChecked();
+    return ui->GB_ScrewHole->isChecked();
 
 }
 
 void KeelOptions::SetCurrentValues(float SlotP, float SlotLen, float SlotWid, float ScrewPos, float ScrewDiam) {
 
-    this->SP_SlotPos->setValue(SlotP);
-    this->SP_SlotLenght->setValue(SlotLen);
-    this->SP_SlotWidth->setValue(SlotWid);
-    this->SP_ScrewHolePos->setValue(ScrewPos);
-    this->SP_ScrewHoleDiam->setValue(ScrewDiam);
+    ui->SP_SlotPos->setValue(SlotP);
+    ui->SP_SlotLenght->setValue(SlotLen);
+    ui->SP_SlotWidth->setValue(SlotWid);
+    ui->SP_ScrewHolePos->setValue(ScrewPos);
+    ui->SP_ScrewHoleDiam->setValue(ScrewDiam);
 
 }

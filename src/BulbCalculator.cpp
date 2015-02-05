@@ -35,14 +35,14 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #include "../include/BulbCalculator.h"
 #include "../include/NacaFoil.h"
 #include "../include/SetBulParameter.h"
-#include "../include/ExportDraw.h"
-#include "../include/ExportFile.h"
+#include "../include/ExportFileData.h"
+#include "../include/ExportFile3D.h"
 #include "../include/Utils.h"
 #include "../include/BulbDataOptions.h"
 #include "../include/PrintBulb.h"
 #include "../include/Preferences.h"
 #include "../include/KeelOptions.h"
-
+#include "../include/ExportSTL.h"
 
 BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
 
@@ -83,8 +83,7 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     connect( ui.action_SetParameters, SIGNAL (triggered() ), this, SLOT(SetBulbParameter()));
     connect( ui.action_Save, SIGNAL (triggered()), this, SLOT(Save()));
     connect( ui.action_Saveas, SIGNAL (triggered()), this, SLOT(SaveAs()));
-    connect( ui.actionSTL_File, SIGNAL (triggered()), this, SLOT(ExportAsciiSTL()));
-    connect( ui.actionBinary_STL_File, SIGNAL (triggered()), this, SLOT(ExportBinarySTL()));
+    connect( ui.actionSTL_File, SIGNAL (triggered()), this, SLOT(ExportSTL()));
     connect( ui.action_New, SIGNAL (triggered()), this,SLOT(NewBulb()));
     connect( ui.actionShow_Axis, SIGNAL (toggled(bool)), this, SLOT(Show3DAxis()));
     connect( ui.actionShow_Grid, SIGNAL (toggled(bool)), this, SLOT(ShowGrid()));
@@ -195,7 +194,7 @@ void BulbCalculator::ShowKeelOptions() {
 
     int ret;
 
-    KeelOptions *KeelDlg = new KeelOptions;
+    KeelOptions *KeelDlg = new KeelOptions();
 
     ret = KeelDlg->exec();
 
@@ -265,7 +264,7 @@ void BulbCalculator::Set3dViewMode(int mode3d) {
 
 void BulbCalculator::ExportTextFile() {
 
-    ExportDraw *ExpDraw = new ExportDraw();
+    ExportFileData *ExpDraw = new ExportFileData();
 
     QString fileName = QFileDialog::getSaveFileName(this,
             tr("Export Text Data"),
@@ -299,16 +298,39 @@ void BulbCalculator::ExportTextFile() {
 }
 
 
-void BulbCalculator::ExportSTL(bool ascii) {
+void BulbCalculator::ExportSTL(void) {
 
-    ExportFile *ExpFile = new ExportFile();
+    int ret;
+    int format = STL_NONE;
+    int half = OBJECT_FULL;
+
+    ExportFile3D *ExpFile = new ExportFile3D();
+
+    ExportStl *stldlg = new ExportStl();
+
+    ret = stldlg->exec();
+
+    if (ret ==  QDialog::Accepted) {
+        qDebug() << "Get options";
+        format = stldlg->GetFormat();
+        half = stldlg->GetHalf();
+    }
+
+    if (ret == QDialog::Rejected) {
+        return;
+    }
 
     QString msg;
 
-    if (ascii == true) {
-        msg = tr("Export Ascii STL File");
-    } else {
-        msg = tr("Export Binary STL File");
+    switch(format) {
+        case STL_ASCII:
+            msg = tr("Export Ascii STL File");
+            break;
+        case STL_BINARY:
+            msg = tr("Export Binary STL File");
+            break;
+        default:
+            break;
     }
 
 
@@ -317,7 +339,7 @@ void BulbCalculator::ExportSTL(bool ascii) {
                         "",
                         tr("STL File(*.stl)"));
 
-    ExpFile->SetBc(this);
+
 
     if (fileName.isEmpty()) {
         QMessageBox::warning(NULL, tr("BulbCalculator"),
@@ -325,29 +347,21 @@ void BulbCalculator::ExportSTL(bool ascii) {
                                 QMessageBox::Ok );
         return;
     }
-    if (ascii == true) {
-        ExpFile->ExportAsciiSTL(fileName);
-    } else {
-        ExpFile->ExportBinarySTL(fileName);
+
+    ExpFile->SetBc(this);
+
+    switch(format) {
+        case STL_ASCII:
+            ExpFile->ExportAsciiSTL(fileName, half);
+            break;
+        case STL_BINARY:
+            ExpFile->ExportBinarySTL(fileName, half);
+            break;
+        default:
+            break;
     }
 
 }
-
-
-void BulbCalculator::ExportBinarySTL() {
-
-    BulbCalculator::ExportSTL(false);
-
-}
-
-
-void BulbCalculator::ExportAsciiSTL() {
-
-    BulbCalculator::ExportSTL(true);
-
-}
-
-
 
 QString BulbCalculator::GetSectionData(int SectNum) {
 
@@ -379,7 +393,7 @@ void BulbCalculator::ShowAbout() {
     msg.append(VERSION);
     msg.append("</h2>");
     msg.append(tr("Copyright 2000, 2001 by Marko Majic (Some Rights Reserved)<br>"));
-    msg.append(tr("Copyright 2010, 2013 by Gianluca Montecchi (Some Rights Reserved)<p>"));
+    msg.append(tr("Copyright 2010, 2015 by Gianluca Montecchi (Some Rights Reserved)<p>"));
     msg.append(tr("Contact: gian@grys.it"));
     msg.append("</center>");
     QMessageBox::about(this, tr("About BulbCalculator"), msg);
