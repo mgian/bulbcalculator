@@ -6,7 +6,6 @@ HEADERS = include/BulbCalculator.h \
     include/Preferences.h \
     include/KeelOptions.h \
     include/NacaFoil.h \
-    Ui/data/gian/Devel/Personali/bulbcalculator/include/exportstl.h \
     include/ExportSTL.h \
     include/ExportFile3D.h \
     include/ExportFileData.h

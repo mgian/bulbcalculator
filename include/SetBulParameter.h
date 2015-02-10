@@ -21,23 +21,27 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #define SETBULPARAMETER_H
 
 #include "../ui_SetBulbParameterDialog.h"
+#include <QDialog>
 
-
-class SetBulbParam : public QDialog, private Ui::D_BulbParam
+class SetBulbParam : public QDialog
 {
     Q_OBJECT
 
     public:
-        SetBulbParam();
+        explicit SetBulbParam(QWidget *parent = 0);
         void SetDefaultValue(void);
         float GetTargetWeight(void);
         float GetMaterialDensity(void);
         double GetHLR(void);
         double GetWHR(void);
         void SetCurrentValue(float tw, float md, double hrl, double whr);
+        ~SetBulbParam();
 
     private slots:
         void ResetValues();
+
+    private:
+        Ui::D_BulbParam *ui;
 
 
 };

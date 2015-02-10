@@ -226,7 +226,7 @@ void BulbCalculator::ShowKeelOptions() {
 
     }
 
-    free(KeelDlg);
+    delete KeelDlg;
 }
 
 
@@ -362,6 +362,9 @@ void BulbCalculator::ExportSTL(void) {
         default:
             break;
     }
+
+    delete ExpFile;
+    delete stldlg;
 
 }
 
@@ -1384,28 +1387,26 @@ void BulbCalculator::SetBulbParameter() {
 
     int ret;
 
-    SetBulbParam *DlgParam = new SetBulbParam;
+    SetBulbParam *DlgParam = new SetBulbParam();
 
     DlgParam->SetCurrentValue(this->target_weight, this->material_density,
                               naca_profile.HLRatio*100, naca_profile.WHRatio*100);
 
     ret = DlgParam->exec();
+
     if (ret == QDialog::Accepted) {
         naca_profile.HLRatio = DlgParam->GetHLR();
         naca_profile.WHRatio = DlgParam->GetWHR();
-
         this->target_weight = DlgParam->GetTargetWeight();
         this->material_density = DlgParam->GetMaterialDensity();
-        delete DlgParam;
         BulbCalculator::UpdateCalculations();
         this->GV_2DView->UpdateView();
         this->BcStatus->St_Modified = YES;
     }
 
-    free(DlgParam);
-
     view3d->SetProfile();
 
+    delete DlgParam;
 }
 
 void BulbCalculator::ClearBulb() {
