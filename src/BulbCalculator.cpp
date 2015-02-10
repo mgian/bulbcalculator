@@ -254,6 +254,7 @@ void BulbCalculator::UpdateProgressRange(int min, int max) {
 void BulbCalculator::UpdateProgressValue(int value) {
 
     this->SB_Progress->setValue(value);
+    qApp->processEvents();
 
 }
 
@@ -305,24 +306,30 @@ void BulbCalculator::ExportSTL(void) {
     int ret;
     int format = STL_NONE;
     int half = OBJECT_FULL;
+    int res = RES_HIGHEST;
+    QString msg;
 
     ExportFile3D *ExpFile = new ExportFile3D();
-
     ExportStl *stldlg = new ExportStl();
 
     ret = stldlg->exec();
 
     if (ret ==  QDialog::Accepted) {
-        qDebug() << "Get options";
         format = stldlg->GetFormat();
         half = stldlg->GetHalf();
+        res = stldlg->GetResolution();
+        if (res < 0) {
+            QMessageBox::warning(NULL, tr("BulbCalculator"),
+                                    tr("The resolution is wrong\nAborting operation"),
+                                    QMessageBox::Ok );
+
+            return;
+        }
     }
 
     if (ret == QDialog::Rejected) {
         return;
     }
-
-    QString msg;
 
     switch(format) {
         case STL_ASCII:
@@ -335,29 +342,29 @@ void BulbCalculator::ExportSTL(void) {
             break;
     }
 
-
-    QString fileName = QFileDialog::getSaveFileName(this,
-                        msg,
-                        "",
-                        tr("STL File(*.stl)"));
-
-
-
-    if (fileName.isEmpty()) {
+    QFileDialog dlg(this);
+    dlg.setNameFilter("*.stl");
+    dlg.setDefaultSuffix("stl");
+    dlg.setWindowTitle(msg);
+    dlg.setAcceptMode(QFileDialog::AcceptSave);
+    if (dlg.exec() == QDialog::Rejected) {
         QMessageBox::warning(NULL, tr("BulbCalculator"),
                                 tr("No filename given, aborting operation"),
                                 QMessageBox::Ok );
+
         return;
     }
+    QString fileName = dlg.selectedFiles()[0];
+
 
     ExpFile->SetBc(this);
 
     switch(format) {
         case STL_ASCII:
-            ExpFile->ExportAsciiSTL(fileName, half);
+            ExpFile->ExportAsciiSTL(fileName, half, res);
             break;
         case STL_BINARY:
-            ExpFile->ExportBinarySTL(fileName, half);
+            ExpFile->ExportBinarySTL(fileName, half, res);
             break;
         default:
             break;
@@ -954,6 +961,7 @@ void BulbCalculator::Save() {
         QFileDialog dlg(this);
         dlg.setNameFilter("*.blb");
         dlg.setDefaultSuffix("blb");
+        dlg.setWindowTitle(QString("Save project"));
         dlg.setAcceptMode(QFileDialog::AcceptSave);
         if (dlg.exec() == QDialog::Rejected) {
             QMessageBox::warning(NULL, tr("BulbCalculator"),
@@ -963,7 +971,6 @@ void BulbCalculator::Save() {
             return;
         }
         QString fileName = dlg.selectedFiles()[0];
-        qDebug() << "-------->"<< fileName;
         this->BcStatus->CurFile = fileName;
     } else {
         if (this->CheckFileExist(this->BcStatus->CurFile) == YES) {
@@ -1065,6 +1072,7 @@ void BulbCalculator::SaveAs() {
     QFileDialog dlg(this);
     dlg.setNameFilter("*.blb");
     dlg.setDefaultSuffix("blb");
+    dlg.setWindowTitle("Save project As...");
     dlg.setAcceptMode(QFileDialog::AcceptSave);
     if (dlg.exec() == QDialog::Rejected) {
         QMessageBox::warning(NULL, tr("BulbCalculator"),

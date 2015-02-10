@@ -10,8 +10,8 @@ class ExportFile3D: public QObject {
 
     public:
         ExportFile3D();
-        void ExportAsciiSTL(QString FileName, int half);
-        void ExportBinarySTL(QString FileName, int half);
+        void ExportAsciiSTL(QString FileName, int half, int res);
+        void ExportBinarySTL(QString FileName, int half, int res);
         void SetBc(BulbCalculator *bcp);
 
 

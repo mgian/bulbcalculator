@@ -17,6 +17,7 @@ You should have received a copy of the GNU General Public License
 along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <QDebug>
 
 #include "../include/BulbCalculator.h"
 #include "../include/ExportSTL.h"
@@ -52,6 +53,24 @@ int ExportStl::GetFormat(void) {
 }
 
 int ExportStl::GetResolution(void) {
+
+
+
+    switch(ui->CB_STLResolution->currentIndex()) {
+        case 0:
+            return RES_LOW;
+            break;
+        case 1:
+            return RES_MED;
+            break;
+        case 2:
+            return RES_HIGH;
+            break;
+        case 3:
+            return RES_HIGHEST-1;
+            break;
+    }
+    return -1;
 
 }
 

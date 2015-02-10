@@ -22,340 +22,329 @@
 <context>
     <name>BulbCalculator</name>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="114"/>
+        <location filename="../src/BulbCalculator.cpp" line="115"/>
         <source>Low</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="114"/>
+        <location filename="../src/BulbCalculator.cpp" line="115"/>
         <source>Medium</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="114"/>
+        <location filename="../src/BulbCalculator.cpp" line="115"/>
         <source>High</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="114"/>
+        <location filename="../src/BulbCalculator.cpp" line="115"/>
         <source>Highest</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="118"/>
+        <location filename="../src/BulbCalculator.cpp" line="119"/>
         <source>Wireframe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="118"/>
+        <location filename="../src/BulbCalculator.cpp" line="119"/>
         <source>Triangles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="118"/>
+        <location filename="../src/BulbCalculator.cpp" line="119"/>
         <source>Surface</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="120"/>
+        <location filename="../src/BulbCalculator.cpp" line="121"/>
         <source>3D resolution</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="121"/>
+        <location filename="../src/BulbCalculator.cpp" line="122"/>
         <source>Profile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="122"/>
+        <location filename="../src/BulbCalculator.cpp" line="123"/>
         <source>View Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="271"/>
+        <location filename="../src/BulbCalculator.cpp" line="273"/>
         <source>Export Text Data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="273"/>
+        <location filename="../src/BulbCalculator.cpp" line="275"/>
         <source>Text Files (*.txt)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="278"/>
-        <location filename="../src/BulbCalculator.cpp" line="323"/>
-        <location filename="../src/BulbCalculator.cpp" line="938"/>
-        <location filename="../src/BulbCalculator.cpp" line="1028"/>
-        <location filename="../src/BulbCalculator.cpp" line="1538"/>
-        <location filename="../src/BulbCalculator.cpp" line="1590"/>
+        <location filename="../src/BulbCalculator.cpp" line="280"/>
+        <location filename="../src/BulbCalculator.cpp" line="353"/>
+        <location filename="../src/BulbCalculator.cpp" line="969"/>
+        <location filename="../src/BulbCalculator.cpp" line="1055"/>
+        <location filename="../src/BulbCalculator.cpp" line="1080"/>
+        <location filename="../src/BulbCalculator.cpp" line="1573"/>
+        <location filename="../src/BulbCalculator.cpp" line="1687"/>
         <source>BulbCalculator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="279"/>
-        <location filename="../src/BulbCalculator.cpp" line="324"/>
-        <location filename="../src/BulbCalculator.cpp" line="939"/>
+        <location filename="../src/BulbCalculator.cpp" line="281"/>
+        <location filename="../src/BulbCalculator.cpp" line="354"/>
+        <location filename="../src/BulbCalculator.cpp" line="970"/>
+        <location filename="../src/BulbCalculator.cpp" line="1081"/>
         <source>No filename given, aborting operation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="309"/>
+        <location filename="../src/BulbCalculator.cpp" line="332"/>
         <source>Export Ascii STL File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="311"/>
+        <location filename="../src/BulbCalculator.cpp" line="335"/>
         <source>Export Binary STL File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="318"/>
-        <source>STL File(*.stl)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/BulbCalculator.cpp" line="378"/>
+        <location filename="../src/BulbCalculator.cpp" line="406"/>
         <source>Version: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="381"/>
+        <location filename="../src/BulbCalculator.cpp" line="409"/>
         <source>Copyright 2000, 2001 by Marko Majic (Some Rights Reserved)&lt;br&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="382"/>
-        <source>Copyright 2010, 2013 by Gianluca Montecchi (Some Rights Reserved)&lt;p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/BulbCalculator.cpp" line="383"/>
+        <location filename="../src/BulbCalculator.cpp" line="411"/>
         <source>Contact: gian@grys.it</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="385"/>
+        <location filename="../src/BulbCalculator.cpp" line="413"/>
         <source>About BulbCalculator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="404"/>
+        <location filename="../src/BulbCalculator.cpp" line="432"/>
         <source>2d View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="422"/>
+        <location filename="../src/BulbCalculator.cpp" line="450"/>
         <source>3d View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="440"/>
+        <location filename="../src/BulbCalculator.cpp" line="468"/>
         <source>General data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="441"/>
+        <location filename="../src/BulbCalculator.cpp" line="469"/>
         <source>Sections data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="447"/>
+        <location filename="../src/BulbCalculator.cpp" line="475"/>
         <source>Unit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="451"/>
+        <location filename="../src/BulbCalculator.cpp" line="479"/>
         <source>Lenght / Height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="451"/>
+        <location filename="../src/BulbCalculator.cpp" line="479"/>
         <source>Material density</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="452"/>
+        <location filename="../src/BulbCalculator.cpp" line="480"/>
         <source>Center / Lenght</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="452"/>
+        <location filename="../src/BulbCalculator.cpp" line="480"/>
         <source>Projected Weight</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="453"/>
+        <location filename="../src/BulbCalculator.cpp" line="481"/>
         <source>Wetted Surface</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="453"/>
+        <location filename="../src/BulbCalculator.cpp" line="481"/>
         <source>Max Diameter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="453"/>
+        <location filename="../src/BulbCalculator.cpp" line="481"/>
         <source>Frontal Area</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="496"/>
+        <location filename="../src/BulbCalculator.cpp" line="524"/>
         <source>Bulb Data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="509"/>
+        <location filename="../src/BulbCalculator.cpp" line="537"/>
         <source>Position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="510"/>
+        <location filename="../src/BulbCalculator.cpp" line="538"/>
         <source>X</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="511"/>
+        <location filename="../src/BulbCalculator.cpp" line="539"/>
         <source>Height Max</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="512"/>
+        <location filename="../src/BulbCalculator.cpp" line="540"/>
         <source>Height Min</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="513"/>
+        <location filename="../src/BulbCalculator.cpp" line="541"/>
         <source>Half Width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="514"/>
+        <location filename="../src/BulbCalculator.cpp" line="542"/>
         <source>Width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="893"/>
+        <location filename="../src/BulbCalculator.cpp" line="921"/>
         <source>The file already exist.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="894"/>
+        <location filename="../src/BulbCalculator.cpp" line="922"/>
         <source>Do you want to overwrite it ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="1669"/>
-        <location filename="../src/BulbCalculator.cpp" line="1734"/>
-        <location filename="../src/BulbCalculator.cpp" line="1758"/>
+        <location filename="../src/BulbCalculator.cpp" line="1056"/>
+        <source>Cannot save target file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbCalculator.cpp" line="1767"/>
+        <location filename="../src/BulbCalculator.cpp" line="1832"/>
+        <location filename="../src/BulbCalculator.cpp" line="1856"/>
         <source>Import foil data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="1670"/>
-        <location filename="../src/BulbCalculator.cpp" line="1759"/>
+        <location filename="../src/BulbCalculator.cpp" line="1768"/>
+        <location filename="../src/BulbCalculator.cpp" line="1857"/>
         <source>The profile cannot be imported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="1710"/>
+        <location filename="../src/BulbCalculator.cpp" line="1808"/>
         <source>Do yuo want to import the foil to the local repository ?&lt;p&gt;&lt;b&gt;If not, the project cannot be saved&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="1735"/>
+        <location filename="../src/BulbCalculator.cpp" line="1833"/>
         <source>Cannot copy the file to the local reporitory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="1958"/>
+        <location filename="../src/BulbCalculator.cpp" line="2056"/>
         <source>&amp;%1 %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="451"/>
-        <location filename="../src/BulbCalculator.cpp" line="517"/>
+        <location filename="../src/BulbCalculator.cpp" line="479"/>
+        <location filename="../src/BulbCalculator.cpp" line="545"/>
         <source>Lenght</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="518"/>
+        <location filename="../src/BulbCalculator.cpp" line="546"/>
         <source>Projected weight</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="451"/>
-        <location filename="../src/BulbCalculator.cpp" line="519"/>
+        <location filename="../src/BulbCalculator.cpp" line="479"/>
+        <location filename="../src/BulbCalculator.cpp" line="547"/>
         <source>Center</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="453"/>
-        <location filename="../src/BulbCalculator.cpp" line="520"/>
+        <location filename="../src/BulbCalculator.cpp" line="410"/>
+        <source>Copyright 2010, 2015 by Gianluca Montecchi (Some Rights Reserved)&lt;p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/BulbCalculator.cpp" line="481"/>
+        <location filename="../src/BulbCalculator.cpp" line="548"/>
         <source>Volume</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="521"/>
+        <location filename="../src/BulbCalculator.cpp" line="549"/>
         <source>Wetted surface</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="861"/>
-        <location filename="../src/BulbCalculator.cpp" line="1493"/>
+        <location filename="../src/BulbCalculator.cpp" line="889"/>
+        <location filename="../src/BulbCalculator.cpp" line="1527"/>
         <source>The design has been modified.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="862"/>
-        <location filename="../src/BulbCalculator.cpp" line="1494"/>
+        <location filename="../src/BulbCalculator.cpp" line="890"/>
+        <location filename="../src/BulbCalculator.cpp" line="1528"/>
         <source>Do you want to save your changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="925"/>
+        <location filename="../src/BulbCalculator.cpp" line="953"/>
         <source>The project cannot be saved.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="926"/>
+        <location filename="../src/BulbCalculator.cpp" line="954"/>
         <source>The foil definition was not imported in the local repository.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="934"/>
-        <location filename="../src/BulbCalculator.cpp" line="1046"/>
-        <source>Save File</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/BulbCalculator.cpp" line="936"/>
-        <location filename="../src/BulbCalculator.cpp" line="1048"/>
-        <location filename="../src/BulbCalculator.cpp" line="1514"/>
+        <location filename="../src/BulbCalculator.cpp" line="1548"/>
         <source>Bulb (*.blb)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="1029"/>
-        <source>Cannot open target file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/BulbCalculator.cpp" line="1100"/>
+        <location filename="../src/BulbCalculator.cpp" line="1136"/>
         <source>Bulb Name: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="1512"/>
+        <location filename="../src/BulbCalculator.cpp" line="1546"/>
         <source>Open File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="1539"/>
+        <location filename="../src/BulbCalculator.cpp" line="1574"/>
         <source>Cannot open file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/BulbCalculator.cpp" line="1591"/>
+        <location filename="../src/BulbCalculator.cpp" line="1688"/>
         <source>Not a valid file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -819,176 +808,239 @@
     </message>
 </context>
 <context>
-    <name>ExportDraw</name>
+    <name>ExportFile3D</name>
     <message>
-        <location filename="../src/ExportDraw.cpp" line="72"/>
-        <location filename="../src/ExportDraw.cpp" line="117"/>
-        <location filename="../src/ExportDraw.cpp" line="157"/>
+        <location filename="../src/ExportFile3D.cpp" line="51"/>
+        <location filename="../src/ExportFile3D.cpp" line="100"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ExportDraw.cpp" line="72"/>
-        <location filename="../src/ExportDraw.cpp" line="117"/>
-        <location filename="../src/ExportDraw.cpp" line="157"/>
+        <location filename="../src/ExportFile3D.cpp" line="51"/>
+        <location filename="../src/ExportFile3D.cpp" line="100"/>
         <source>Could not open file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ExportDraw.cpp" line="79"/>
+        <location filename="../src/ExportFile3D.cpp" line="57"/>
+        <location filename="../src/ExportFile3D.cpp" line="106"/>
+        <source>Exporting to ASCII STL file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ExportFile3D.cpp" line="85"/>
+        <location filename="../src/ExportFile3D.cpp" line="134"/>
+        <source>Done</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ExportFileData</name>
+    <message>
+        <location filename="../src/ExportFileData.cpp" line="71"/>
+        <location filename="../src/ExportFileData.cpp" line="117"/>
+        <location filename="../src/ExportFileData.cpp" line="157"/>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ExportFileData.cpp" line="71"/>
+        <location filename="../src/ExportFileData.cpp" line="117"/>
+        <location filename="../src/ExportFileData.cpp" line="157"/>
+        <source>Could not open file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ExportFileData.cpp" line="78"/>
         <source>Foil Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ExportDraw.cpp" line="80"/>
+        <location filename="../src/ExportFileData.cpp" line="79"/>
         <source>Height/Length Ratio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ExportDraw.cpp" line="81"/>
+        <location filename="../src/ExportFileData.cpp" line="80"/>
         <source>Width/Height Ratio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ExportDraw.cpp" line="83"/>
+        <location filename="../src/ExportFileData.cpp" line="82"/>
         <source>Lenght (cm)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ExportDraw.cpp" line="84"/>
+        <location filename="../src/ExportFileData.cpp" line="83"/>
         <source>Center (cm)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ExportDraw.cpp" line="85"/>
+        <location filename="../src/ExportFileData.cpp" line="84"/>
         <source>Wetted Surface (cm^2)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ExportDraw.cpp" line="86"/>
+        <location filename="../src/ExportFileData.cpp" line="85"/>
         <source>Volume (cm^3)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ExportDraw.cpp" line="88"/>
-        <location filename="../src/ExportDraw.cpp" line="129"/>
-        <location filename="../src/ExportDraw.cpp" line="169"/>
+        <location filename="../src/ExportFileData.cpp" line="87"/>
+        <location filename="../src/ExportFileData.cpp" line="129"/>
+        <location filename="../src/ExportFileData.cpp" line="169"/>
         <source>Position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ExportDraw.cpp" line="89"/>
-        <location filename="../src/ExportDraw.cpp" line="170"/>
+        <location filename="../src/ExportFileData.cpp" line="88"/>
+        <location filename="../src/ExportFileData.cpp" line="170"/>
         <source>X</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ExportDraw.cpp" line="90"/>
-        <location filename="../src/ExportDraw.cpp" line="171"/>
+        <location filename="../src/ExportFileData.cpp" line="89"/>
+        <location filename="../src/ExportFileData.cpp" line="171"/>
         <source>Height Max</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ExportDraw.cpp" line="91"/>
-        <location filename="../src/ExportDraw.cpp" line="172"/>
+        <location filename="../src/ExportFileData.cpp" line="90"/>
+        <location filename="../src/ExportFileData.cpp" line="172"/>
         <source>Height Min</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ExportDraw.cpp" line="92"/>
-        <location filename="../src/ExportDraw.cpp" line="173"/>
+        <location filename="../src/ExportFileData.cpp" line="91"/>
+        <location filename="../src/ExportFileData.cpp" line="173"/>
         <source>Width/2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ExportDraw.cpp" line="95"/>
-        <location filename="../src/ExportDraw.cpp" line="96"/>
-        <location filename="../src/ExportDraw.cpp" line="97"/>
-        <location filename="../src/ExportDraw.cpp" line="98"/>
+        <location filename="../src/ExportFileData.cpp" line="94"/>
+        <location filename="../src/ExportFileData.cpp" line="95"/>
+        <location filename="../src/ExportFileData.cpp" line="96"/>
+        <location filename="../src/ExportFileData.cpp" line="97"/>
         <source>(cm)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ExportDraw.cpp" line="124"/>
-        <location filename="../src/ExportDraw.cpp" line="164"/>
+        <location filename="../src/ExportFileData.cpp" line="124"/>
+        <location filename="../src/ExportFileData.cpp" line="164"/>
         <source>Lenght (in.)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ExportDraw.cpp" line="125"/>
-        <location filename="../src/ExportDraw.cpp" line="165"/>
+        <location filename="../src/ExportFileData.cpp" line="125"/>
+        <location filename="../src/ExportFileData.cpp" line="165"/>
         <source>Center (in.)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ExportDraw.cpp" line="126"/>
-        <location filename="../src/ExportDraw.cpp" line="166"/>
+        <location filename="../src/ExportFileData.cpp" line="126"/>
+        <location filename="../src/ExportFileData.cpp" line="166"/>
         <source>Wetted Surface (sq.in.)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ExportDraw.cpp" line="127"/>
-        <location filename="../src/ExportDraw.cpp" line="167"/>
+        <location filename="../src/ExportFileData.cpp" line="127"/>
+        <location filename="../src/ExportFileData.cpp" line="167"/>
         <source>Volume (cu.in.)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ExportDraw.cpp" line="130"/>
+        <location filename="../src/ExportFileData.cpp" line="130"/>
         <source>X (in.)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ExportDraw.cpp" line="131"/>
+        <location filename="../src/ExportFileData.cpp" line="131"/>
         <source>Height Max (in.)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ExportDraw.cpp" line="132"/>
+        <location filename="../src/ExportFileData.cpp" line="132"/>
         <source>Height Min (in.)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ExportDraw.cpp" line="133"/>
+        <location filename="../src/ExportFileData.cpp" line="133"/>
         <source>Width/2 (in.)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ExportDraw.cpp" line="136"/>
-        <location filename="../src/ExportDraw.cpp" line="137"/>
-        <location filename="../src/ExportDraw.cpp" line="138"/>
-        <location filename="../src/ExportDraw.cpp" line="139"/>
-        <location filename="../src/ExportDraw.cpp" line="176"/>
-        <location filename="../src/ExportDraw.cpp" line="177"/>
-        <location filename="../src/ExportDraw.cpp" line="178"/>
-        <location filename="../src/ExportDraw.cpp" line="179"/>
+        <location filename="../src/ExportFileData.cpp" line="136"/>
+        <location filename="../src/ExportFileData.cpp" line="137"/>
+        <location filename="../src/ExportFileData.cpp" line="138"/>
+        <location filename="../src/ExportFileData.cpp" line="139"/>
+        <location filename="../src/ExportFileData.cpp" line="176"/>
+        <location filename="../src/ExportFileData.cpp" line="177"/>
+        <location filename="../src/ExportFileData.cpp" line="178"/>
+        <location filename="../src/ExportFileData.cpp" line="179"/>
         <source>(in.)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>ExportFile</name>
+    <name>ExportStl</name>
     <message>
-        <location filename="../src/ExportFile.cpp" line="51"/>
-        <location filename="../src/ExportFile.cpp" line="100"/>
-        <source>Error</source>
+        <location filename="../Ui/ExportSTL.ui" line="14"/>
+        <source>STL Export</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ExportFile.cpp" line="51"/>
-        <location filename="../src/ExportFile.cpp" line="100"/>
-        <source>Could not open file</source>
+        <location filename="../Ui/ExportSTL.ui" line="20"/>
+        <source>STL File Format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ExportFile.cpp" line="57"/>
-        <location filename="../src/ExportFile.cpp" line="106"/>
-        <source>Exporting to ASCII STL file</source>
+        <location filename="../Ui/ExportSTL.ui" line="32"/>
+        <source>Ascii</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ExportFile.cpp" line="85"/>
-        <location filename="../src/ExportFile.cpp" line="134"/>
-        <source>Done</source>
+        <location filename="../Ui/ExportSTL.ui" line="48"/>
+        <source>Bi&amp;nary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Ui/ExportSTL.ui" line="56"/>
+        <source>Resolution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Ui/ExportSTL.ui" line="73"/>
+        <source>Half Ob&amp;ject</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Ui/ExportSTL.ui" line="85"/>
+        <source>&amp;XY Plane (Horizontal simmetry)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Ui/ExportSTL.ui" line="92"/>
+        <source>X&amp;Z Plane (Vertical simmetry)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ExportSTL.cpp" line="32"/>
+        <source>Low</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ExportSTL.cpp" line="32"/>
+        <source>Medium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ExportSTL.cpp" line="32"/>
+        <source>High</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ExportSTL.cpp" line="32"/>
+        <source>Highest</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1005,12 +1057,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="103"/>
+        <location filename="../Ui/MainWindow.ui" line="101"/>
         <source>&amp;Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="112"/>
+        <location filename="../Ui/MainWindow.ui" line="110"/>
         <source>&amp;Bulb</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1020,288 +1072,288 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="64"/>
+        <location filename="../Ui/MainWindow.ui" line="62"/>
         <source>P&amp;rint</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="72"/>
+        <location filename="../Ui/MainWindow.ui" line="70"/>
         <source>&amp;Sections...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="79"/>
+        <location filename="../Ui/MainWindow.ui" line="77"/>
         <source>&amp;Linesplan...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="116"/>
+        <location filename="../Ui/MainWindow.ui" line="114"/>
         <source>D&amp;ownload Airfoil Data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="130"/>
+        <location filename="../Ui/MainWindow.ui" line="128"/>
         <source>&amp;3D Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="137"/>
+        <location filename="../Ui/MainWindow.ui" line="135"/>
         <source>Wi&amp;ndow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="152"/>
+        <location filename="../Ui/MainWindow.ui" line="150"/>
         <source>Tools</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="173"/>
+        <location filename="../Ui/MainWindow.ui" line="171"/>
         <source>toolBar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="188"/>
+        <location filename="../Ui/MainWindow.ui" line="186"/>
         <source>&amp;New Bulb design</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="191"/>
+        <location filename="../Ui/MainWindow.ui" line="189"/>
         <source>Ctrl+N</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="203"/>
+        <location filename="../Ui/MainWindow.ui" line="201"/>
         <source>&amp;Open Bulb design</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="206"/>
+        <location filename="../Ui/MainWindow.ui" line="204"/>
         <source>Ctrl+O</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="218"/>
+        <location filename="../Ui/MainWindow.ui" line="216"/>
         <source>&amp;Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="221"/>
+        <location filename="../Ui/MainWindow.ui" line="219"/>
         <source>Ctrl+S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="233"/>
+        <location filename="../Ui/MainWindow.ui" line="231"/>
         <source>Save &amp;as</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="236"/>
+        <location filename="../Ui/MainWindow.ui" line="234"/>
         <source>Ctrl+A</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="245"/>
+        <location filename="../Ui/MainWindow.ui" line="243"/>
         <source>&amp;Quit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="248"/>
+        <location filename="../Ui/MainWindow.ui" line="246"/>
         <source>Ctrl+Q</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="253"/>
-        <location filename="../Ui/MainWindow.ui" line="381"/>
+        <location filename="../Ui/MainWindow.ui" line="251"/>
+        <location filename="../Ui/MainWindow.ui" line="379"/>
         <source>&amp;Cascade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="256"/>
+        <location filename="../Ui/MainWindow.ui" line="254"/>
         <source>Ctrl+C</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="261"/>
-        <location filename="../Ui/MainWindow.ui" line="376"/>
+        <location filename="../Ui/MainWindow.ui" line="259"/>
+        <location filename="../Ui/MainWindow.ui" line="374"/>
         <source>&amp;Tile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="264"/>
+        <location filename="../Ui/MainWindow.ui" line="262"/>
         <source>Ctrl+T</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="269"/>
+        <location filename="../Ui/MainWindow.ui" line="267"/>
         <source>&amp;3D view</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="274"/>
-        <location filename="../Ui/MainWindow.ui" line="467"/>
+        <location filename="../Ui/MainWindow.ui" line="272"/>
+        <location filename="../Ui/MainWindow.ui" line="465"/>
         <source>Calculation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="279"/>
+        <location filename="../Ui/MainWindow.ui" line="277"/>
         <source>S&amp;ide view</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="284"/>
+        <location filename="../Ui/MainWindow.ui" line="282"/>
         <source>&amp;Top view</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="289"/>
+        <location filename="../Ui/MainWindow.ui" line="287"/>
         <source>&amp;Bulb dimension</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="294"/>
+        <location filename="../Ui/MainWindow.ui" line="292"/>
         <source>&amp;Calculation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="299"/>
+        <location filename="../Ui/MainWindow.ui" line="297"/>
         <source>&amp;Set Bulb Parameter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="304"/>
+        <location filename="../Ui/MainWindow.ui" line="302"/>
         <source>&amp;About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="335"/>
+        <location filename="../Ui/MainWindow.ui" line="333"/>
         <source>&amp;Show Top view</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="344"/>
+        <location filename="../Ui/MainWindow.ui" line="342"/>
         <source>Show Side &amp;view</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="353"/>
+        <location filename="../Ui/MainWindow.ui" line="351"/>
         <source>Show &amp;3D view</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="371"/>
+        <location filename="../Ui/MainWindow.ui" line="369"/>
         <source>Show &amp;Bulb Data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="386"/>
+        <location filename="../Ui/MainWindow.ui" line="384"/>
         <source>Bulb &amp;Data Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="462"/>
+        <location filename="../Ui/MainWindow.ui" line="460"/>
         <source>&amp;Data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="476"/>
-        <location filename="../Ui/MainWindow.ui" line="490"/>
+        <location filename="../Ui/MainWindow.ui" line="474"/>
+        <location filename="../Ui/MainWindow.ui" line="488"/>
         <source>From &amp;Side</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="481"/>
+        <location filename="../Ui/MainWindow.ui" line="479"/>
         <source>&amp;UIUC foils</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="511"/>
+        <location filename="../Ui/MainWindow.ui" line="509"/>
         <source>&amp;Preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="516"/>
+        <location filename="../Ui/MainWindow.ui" line="514"/>
         <source>&amp;Page setup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="521"/>
-        <source>Ascii &amp;STL File</source>
+        <location filename="../Ui/MainWindow.ui" line="519"/>
+        <source>STL File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="526"/>
+        <location filename="../Ui/MainWindow.ui" line="529"/>
+        <source>&amp;Keel Slot Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Ui/MainWindow.ui" line="524"/>
         <source>&amp;Binary STL File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="531"/>
-        <source>Keel Slot Options</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../Ui/MainWindow.ui" line="315"/>
+        <location filename="../Ui/MainWindow.ui" line="313"/>
         <source>Show &amp;Axis</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="326"/>
+        <location filename="../Ui/MainWindow.ui" line="324"/>
         <source>Show &amp;Grid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="362"/>
+        <location filename="../Ui/MainWindow.ui" line="360"/>
         <source>Show Calculation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="391"/>
+        <location filename="../Ui/MainWindow.ui" line="389"/>
         <source>Print options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="400"/>
-        <location filename="../Ui/MainWindow.ui" line="419"/>
+        <location filename="../Ui/MainWindow.ui" line="398"/>
+        <location filename="../Ui/MainWindow.ui" line="417"/>
         <source>&amp;From Top</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="405"/>
+        <location filename="../Ui/MainWindow.ui" line="403"/>
         <source>&amp;Text File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="410"/>
+        <location filename="../Ui/MainWindow.ui" line="408"/>
         <source>&amp;Import Foil Data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="422"/>
-        <location filename="../Ui/MainWindow.ui" line="425"/>
+        <location filename="../Ui/MainWindow.ui" line="420"/>
+        <location filename="../Ui/MainWindow.ui" line="423"/>
         <source>From Top</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="433"/>
+        <location filename="../Ui/MainWindow.ui" line="431"/>
         <source>Low</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="441"/>
+        <location filename="../Ui/MainWindow.ui" line="439"/>
         <source>Medium</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="449"/>
+        <location filename="../Ui/MainWindow.ui" line="447"/>
         <source>High</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="457"/>
+        <location filename="../Ui/MainWindow.ui" line="455"/>
         <source>Highest</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Ui/MainWindow.ui" line="499"/>
+        <location filename="../Ui/MainWindow.ui" line="497"/>
         <source>Options</source>
         <translation type="unfinished"></translation>
     </message>
