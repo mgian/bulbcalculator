@@ -68,6 +68,7 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     this->sect_dist = DIST_EVEN;
 
 
+
     this->BulbMenu = new QActionGroup(this);
     this->Resolution3D = new QActionGroup(this);
     this->setWindowTitle(QString("Bulb Calculator - Version ").append(VERSION));
@@ -78,6 +79,7 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     BulbCalculator::Create3dWin();
     BulbCalculator::Create2dWin();
     view3d->SetBc(this);
+    view3d->Set3dViewMode(WIREFRAME);
 
     connect( ui.action_Quit, SIGNAL( triggered() ), this, SLOT(close()) );
     connect( ui.action_SetParameters, SIGNAL (triggered() ), this, SLOT(SetBulbParameter()));
