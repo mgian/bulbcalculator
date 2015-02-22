@@ -60,6 +60,7 @@ void ExportFile3D::ExportAsciiSTL(QString FileName, int half, int res) {
     mult = this->bc->naca_profile.num_step/(double)100.0;
     step = w/(mult*1.0);
     fOutStream << "solid " << this->bc->naca_profile.foil_name.c_str() << "\n";
+    fOutStream.flush();
 
     x = 0.0;
     this->bc->UpdateProgressRange(0, mult);
@@ -81,6 +82,9 @@ void ExportFile3D::ExportAsciiSTL(QString FileName, int half, int res) {
     x = x + step;
     ExportFile3D::Triangles(x, (pdif.width*w), pdif.height_u/2*w, pdif.height_l/2*w, (pdef.width*w), pdef.height_u/2*w, pdef.height_l/2*w,0, &fOut, res, true);
     this->bc->UpdateProgressValue(mult);
+    fOutStream << "endsolid " << this->bc->naca_profile.foil_name.c_str() << "\n";
+    fOutStream.flush();
+
     fOut.close();
     this->bc->UpdateStatusMessage(QString(tr("Done")));
 
@@ -158,11 +162,14 @@ void ExportFile3D::Triangles(float x, float xradius, float yradiusi_u, float yra
         fOut << "    vertex " << x+step << " " << cos(degInRad1)*xradiuse << " " <<  (sin(degInRad1)*diam_e)+ecc_e << "\n";
         fOut << "    vertex " << x+step << " " << cos(degInRad)*xradiuse << " " << (sin(degInRad)*diam_e)+ecc_e << "\n";
         fOut << "  endloop" << "\n";
+        fOut << "endfacet" << "\n";
+        fOut << "facet normal 0 0 0" << "\n";
         fOut << "  outer loop" << "\n";
         fOut << "    vertex " << x << " " <<  cos(degInRad)*xradius << " " << (sin(degInRad)*diam_i)+ecc_i << "\n";
         fOut << "    vertex " << x+step << " " << cos(degInRad1)*xradiuse << " " << (sin(degInRad1)*diam_e)+ecc_e << "\n";
         fOut << "    vertex " << x << " " << cos(degInRad1)*xradius << " " << (sin(degInRad1)*diam_i)+ecc_i << "\n";
         fOut << "  endloop" << "\n";
+        fOut << "endfacet" << "\n";
     }
 
 
