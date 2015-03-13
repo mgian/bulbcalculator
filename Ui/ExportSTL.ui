@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>351</width>
-    <height>247</height>
+    <width>364</width>
+    <height>278</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,35 +19,25 @@
      <property name="title">
       <string>STL File Format</string>
      </property>
-     <widget class="QRadioButton" name="RB_AsciiFormat">
-      <property name="geometry">
-       <rect>
-        <x>12</x>
-        <y>32</y>
-        <width>52</width>
-        <height>23</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Ascii</string>
-      </property>
-      <property name="checked">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="RB_BinaryFormat">
-      <property name="geometry">
-       <rect>
-        <x>12</x>
-        <y>61</y>
-        <width>62</width>
-        <height>23</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Bi&amp;nary</string>
-      </property>
-     </widget>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QRadioButton" name="RB_AsciiFormat">
+        <property name="text">
+         <string>Ascii</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="RB_BinaryFormat">
+        <property name="text">
+         <string>Bi&amp;nary</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
    <item row="0" column="1">
@@ -55,16 +45,11 @@
      <property name="title">
       <string>Resolution</string>
      </property>
-     <widget class="QComboBox" name="CB_STLResolution">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>40</y>
-        <width>79</width>
-        <height>25</height>
-       </rect>
-      </property>
-     </widget>
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <widget class="QComboBox" name="CB_STLResolution"/>
+      </item>
+     </layout>
     </widget>
    </item>
    <item row="1" column="0" colspan="2">
@@ -78,19 +63,65 @@
      <property name="checked">
       <bool>false</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
+     <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QRadioButton" name="RB_XYPlane">
-        <property name="text">
-         <string>&amp;XY Plane (Horizontal simmetry)</string>
+       <widget class="QGroupBox" name="GB_Simmetry">
+        <property name="title">
+         <string>Simmetry</string>
         </property>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QRadioButton" name="RB_XYPlane">
+           <property name="text">
+            <string>&amp;XY Plane (Horizontal simmetry)</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="RB_XZPlane">
+           <property name="text">
+            <string>X&amp;Z Plane (Vertical simmetry)</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
       <item>
-       <widget class="QRadioButton" name="RB_XZPlane">
-        <property name="text">
-         <string>X&amp;Z Plane (Vertical simmetry)</string>
+       <widget class="QGroupBox" name="GB_Side">
+        <property name="title">
+         <string>Side</string>
         </property>
+        <layout class="QGridLayout" name="gridLayout_2">
+         <item row="0" column="0">
+          <widget class="QRadioButton" name="RB_TopSim">
+           <property name="text">
+            <string>Top</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QRadioButton" name="RB_RightSim">
+           <property name="text">
+            <string>Right</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QRadioButton" name="RB_BottomSim">
+           <property name="text">
+            <string>Bottom</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QRadioButton" name="RB_LeftSim">
+           <property name="text">
+            <string>Left</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
      </layout>

@@ -32,6 +32,30 @@ ExportStl::ExportStl(QWidget *parent) : QDialog(parent), ui(new Ui::ExportStl) {
     res << tr("Low") << tr("Medium") << tr("High") << tr("Highest");
     ui->CB_STLResolution->addItems(res);
     ui->CB_STLResolution->setCurrentIndex(3);
+    connect( ui->RB_XYPlane, SIGNAL( toggled(bool) ), this, SLOT( EnableTopBottom()) );
+    connect( ui->RB_XZPlane, SIGNAL(toggled(bool) ), this, SLOT( EnableLeftRight()) );
+    ui->RB_XYPlane->setChecked(true);
+    ui->RB_TopSim->setChecked(true);
+
+}
+
+void ExportStl::EnableTopBottom() {
+
+    ui->RB_LeftSim->setEnabled(false);
+    ui->RB_RightSim->setEnabled(false);
+    ui->RB_TopSim->setEnabled(true);
+    ui->RB_BottomSim->setEnabled(true);
+    ui->RB_TopSim->setChecked(true);
+
+}
+
+void ExportStl::EnableLeftRight() {
+
+    ui->RB_LeftSim->setEnabled(true);
+    ui->RB_RightSim->setEnabled(true);
+    ui->RB_TopSim->setEnabled(false);
+    ui->RB_BottomSim->setEnabled(false);
+    ui->RB_RightSim->setChecked(true);
 
 }
 
@@ -55,7 +79,6 @@ int ExportStl::GetFormat(void) {
 int ExportStl::GetResolution(void) {
 
 
-
     switch(ui->CB_STLResolution->currentIndex()) {
         case 0:
             return RES_LOW;
@@ -74,6 +97,34 @@ int ExportStl::GetResolution(void) {
 
 }
 
+int ExportStl::GetSimmetry(void) {
+
+    if(ui->RB_TopSim->isChecked() == true) {
+        return OBJECT_HALF_TOP;
+    } else if (ui->RB_BottomSim->isChecked() == true) {
+        return OBJECT_HALF_BOTTOM;
+    } else if(ui->RB_LeftSim->isChecked() == true) {
+        return OBJECT_HALF_LEFT;
+    } else if(ui->RB_RightSim->isChecked() == true) {
+        return OBJECH_HALF_RIGHT;
+    }
+    return -1;
+
+}
+
 int ExportStl::GetHalf(void) {
 
+    int obj;
+
+    obj = OBJECT_FULL;
+    if (ui->GB_HalfObject->isEnabled() == true) {
+        if (ui->RB_XYPlane->isChecked() == true) {
+            obj = OBJECT_HALF_XY;
+        }
+        if (ui->RB_XZPlane->isChecked() == true) {
+            obj = OBJECT_HALF_XZ;
+        }
+    }
+
+    return obj;
 }

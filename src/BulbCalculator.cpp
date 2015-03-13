@@ -307,9 +307,10 @@ void BulbCalculator::ExportSTL(void) {
     int format = STL_NONE;
     int half = OBJECT_FULL;
     int res = RES_HIGHEST;
+    int sim = 0;
     QString msg;
 
-    ExportFile3D *ExpFile = new ExportFile3D();
+    ExportFile3D *ExpFile3D = new ExportFile3D();
     ExportStl *stldlg = new ExportStl();
 
     ret = stldlg->exec();
@@ -318,14 +319,29 @@ void BulbCalculator::ExportSTL(void) {
         format = stldlg->GetFormat();
         half = stldlg->GetHalf();
         res = stldlg->GetResolution();
+
+        if (half != OBJECT_FULL) {
+            sim = stldlg->GetSimmetry();
+            if ( (sim == -1 ) || (sim == 0) ) {
+                QMessageBox::warning(NULL, tr("BulbCalculator"),
+                                        tr("Simmetry Value incorrect\nAborting operation"),
+                                        QMessageBox::Ok );
+                return;
+            }
+
+        }
+
         if (res < 0) {
             QMessageBox::warning(NULL, tr("BulbCalculator"),
                                     tr("The resolution is wrong\nAborting operation"),
                                     QMessageBox::Ok );
-
             return;
         }
     }
+
+    ExpFile3D->SetResolution(res);
+    ExpFile3D->SetFileType(format);
+    ExpFile3D->SetHalf(half, sim);
 
     if (ret == QDialog::Rejected) {
         return;
@@ -357,20 +373,20 @@ void BulbCalculator::ExportSTL(void) {
     QString fileName = dlg.selectedFiles()[0];
 
 
-    ExpFile->SetBc(this);
+    ExpFile3D->SetBc(this);
 
     switch(format) {
         case STL_ASCII:
-            ExpFile->ExportAsciiSTL(fileName, half, res);
+            ExpFile3D->ExportAsciiSTL(fileName);
             break;
         case STL_BINARY:
-            ExpFile->ExportBinarySTL(fileName, half, res);
+            ExpFile3D->ExportBinarySTL(fileName);
             break;
         default:
             break;
     }
 
-    delete ExpFile;
+    delete ExpFile3D;
     delete stldlg;
 
 }

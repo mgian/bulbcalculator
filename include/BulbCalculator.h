@@ -74,6 +74,10 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #define OBJECT_HALF_XY  201
 #define OBJECT_HALF_XZ  202
 
+#define OBJECT_HALF_TOP     300
+#define OBJECT_HALF_BOTTOM  301
+#define OBJECH_HALF_RIGHT   302
+#define OBJECT_HALF_LEFT    303
 
 enum WF_RES {
     WF_LOW,

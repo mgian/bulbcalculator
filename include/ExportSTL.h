@@ -31,15 +31,21 @@ class ExportStl : public QDialog {
 
     Q_OBJECT
 
-public:
-    explicit ExportStl(QWidget *parent = 0);
-    int GetFormat(void);
-    int GetHalf(void);
-    int GetResolution(void);
-    ~ExportStl();
+    public:
+        explicit ExportStl(QWidget *parent = 0);
+        int GetFormat(void);
+        int GetHalf(void);
+        int GetSimmetry(void);
+        int GetResolution(void);
+        ~ExportStl();
 
-private:
-    Ui::ExportStl *ui;
+
+    public slots:
+        void EnableTopBottom();
+        void EnableLeftRight();
+
+    private:
+        Ui::ExportStl *ui;
 };
 
 #endif // EXPORTSTL_H
