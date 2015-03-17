@@ -750,28 +750,42 @@ void BulbCalculator::UpdateCalcs() {
 
 void BulbCalculator::Show2dWindow() {
 
-    this->View2DWin->show();
-    this->GV_2DView->show();
+    if (this->View2DWin->isVisible() == false) {
+        this->View2DWin->show();
+        this->GV_2DView->show();
+    }
+    if (this->View2DWin->hasFocus() == false) {
+        this->View2DWin->setFocus();
+    }
 
 }
 
 void BulbCalculator::Show3dWindow() {
     
-    this->View3DWin->show();
-    this->view3d->show();
+    if (this->View3DWin->isVisible() == false) {
+        this->View3DWin->show();
+        this->view3d->show();
+    }
+    if (this->View3DWin->hasFocus() == false) {
+        this->View3DWin->setFocus();
+    }
 
 }
 
 
 void BulbCalculator::ShowDataWindow() {
     
-    this->BulbData->show();
-    this->gb1->show();
-    this->gb2->show();
-    this->TW_SubBulbDataSec->show();
-    this->TW_SubBulbDataGen->show();
-    this->wdData->show();
-
+    if (this->BulbData->hasFocus() == false) {
+        this->BulbData->setFocus();
+    }
+    if (this->BulbData->isVisible() == false) {
+        this->BulbData->show();
+        this->gb1->show();
+        this->gb2->show();
+        this->TW_SubBulbDataSec->show();
+        this->TW_SubBulbDataGen->show();
+        this->wdData->show();
+    }
 }
 
 void BulbCalculator::PrintBulbSectionFromTop() {
