@@ -91,6 +91,7 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     connect( ui.actionShow_Grid, SIGNAL (toggled(bool)), this, SLOT(ShowGrid()));
     connect( ui.action_Open, SIGNAL(triggered()), this, SLOT(Open()));
     connect( ui.actionShow_3D_view, SIGNAL(triggered()), this, SLOT(Show3dWindow()));
+    connect( ui.actionShow_2Dview, SIGNAL(triggered()), this, SLOT(Show2dWindow()));
     connect( ui.actionShow_Bulb_Data, SIGNAL(triggered()), this, SLOT(ShowDataWindow()));
     connect( ui.actionCascade, SIGNAL(triggered()), ui.mdiArea, SLOT(cascadeSubWindows()));
     connect( ui.actionTile, SIGNAL(triggered()), ui.mdiArea, SLOT(tileSubWindows()));
@@ -534,8 +535,9 @@ void BulbCalculator::CreateDataWin() {
     MainLayout->addLayout(Row1Layout,1);
     MainLayout->addWidget(this->TW_Bulb,1);
     this->wdData->setLayout(MainLayout);
-    BulbData->setWidget(wdData);
-    BulbData->setWindowTitle(tr("Bulb Data"));
+    this->BulbData->setWidget(wdData);
+    this->BulbData->setWindowTitle(tr("Bulb Data"));
+    this->BulbData->setObjectName("bulb_data");
     ui.mdiArea->addSubWindow(this->BulbData);
 
 }

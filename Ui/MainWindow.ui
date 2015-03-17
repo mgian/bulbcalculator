@@ -134,8 +134,7 @@
     <property name="title">
      <string>Wi&amp;ndow</string>
     </property>
-    <addaction name="actionShow_Top_view"/>
-    <addaction name="actionShow_Side_view"/>
+    <addaction name="actionShow_2Dview"/>
     <addaction name="actionShow_3D_view"/>
     <addaction name="actionShow_Bulb_Data"/>
     <addaction name="separator"/>
@@ -324,13 +323,13 @@
     <string>Show &amp;Grid</string>
    </property>
   </action>
-  <action name="actionShow_Top_view">
+  <action name="actionShow_2Dview">
    <property name="icon">
     <iconset resource="../BulbCalculator.qrc">
      <normaloff>:/MainWin/share/images/2d.png</normaloff>:/MainWin/share/images/2d.png</iconset>
    </property>
    <property name="text">
-    <string>&amp;Show Top view</string>
+    <string>Show &amp;2D view</string>
    </property>
   </action>
   <action name="actionShow_Side_view">
@@ -516,7 +515,7 @@
   </action>
   <action name="actionSTL_File">
    <property name="text">
-    <string>STL File</string>
+    <string>&amp;STL File</string>
    </property>
   </action>
   <action name="actionBinary_STL_File">
