@@ -117,7 +117,7 @@ int ExportStl::GetHalf(void) {
     int obj;
 
     obj = OBJECT_FULL;
-    if (ui->GB_HalfObject->isEnabled() == true) {
+    if (ui->GB_HalfObject->isChecked() == true) {
         if (ui->RB_XYPlane->isChecked() == true) {
             obj = OBJECT_HALF_XY;
         }
