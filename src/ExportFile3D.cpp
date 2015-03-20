@@ -91,6 +91,11 @@ void ExportFile3D::WriteSTLBinTriangle(QFile *fp, STLTriangle *v) {
 
     QDataStream ds(fp);
     ds.setByteOrder(QDataStream::LittleEndian); // *** set little endian byte order
+    ds << v->normal[0] << v->normal[1] << v->normal[2];
+    ds << v->vertex_1[0] << v->vertex_1[1] << v->vertex_1[2];
+    ds << v->vertex_2[0] << v->vertex_2[1] << v->vertex_2[2];
+    ds << v->vertex_3[0] << v->vertex_3[1] << v->vertex_3[2];
+    ds << v->attbytecount;
 
 }
 
@@ -99,9 +104,9 @@ void ExportFile3D::WriteSTLAsciiTriangle(QFile *fp, STLTriangle *v) {
     QTextStream ts(fp);
     ts << "facet normal " << v->normal[0] << " " << v->normal[1] << " " << v->normal[2] << " " << "\n";
     ts << "  outer loop" << "\n";
-    ts << "    vertex " << v->vertex_1[0] << " " << v->vertex_1[0] << " " << v->vertex_1[0] << "\n";
-    ts << "    vertex " << v->vertex_2[0] << " " << v->vertex_2[1] << " " << v->vertex_2[1] << "\n";
-    ts << "    vertex " << v->vertex_3[0] << " " << v->vertex_3[2] << " " << v->vertex_3[2] << "\n";
+    ts << "    vertex " << v->vertex_1[0] << " " << v->vertex_1[1] << " " << v->vertex_1[2] << "\n";
+    ts << "    vertex " << v->vertex_2[0] << " " << v->vertex_2[1] << " " << v->vertex_2[2] << "\n";
+    ts << "    vertex " << v->vertex_3[0] << " " << v->vertex_3[1] << " " << v->vertex_3[2] << "\n";
     ts << "  endloop" << "\n";
     ts << "endfacet" << "\n";
 
