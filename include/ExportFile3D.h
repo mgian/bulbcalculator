@@ -43,6 +43,7 @@ class ExportFile3D: public QObject {
         int file_type;
         int half;
         int half_side;
+        int tr_num;
 
 };
 

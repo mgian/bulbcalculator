@@ -79,7 +79,7 @@ void ExportFile3D::WriteSTLBinHeader(QFile *fp) {
 
     this->ClearBinHeader(bsh);
     memcpy(bsh->header,this->bc->naca_profile.foil_name.c_str(), strlen(this->bc->naca_profile.foil_name.c_str()));
-    bsh->triangle_number = 0;
+    bsh->triangle_number = this->tr_num;
     QDataStream fOutBinStream(fp);
     fOutBinStream.setByteOrder(QDataStream::LittleEndian); // *** set little endian byte order
     fOutBinStream << bsh->header << bsh->triangle_number;
@@ -126,6 +126,8 @@ void ExportFile3D::ExportSTL(QString FileName) {
     double step;
     double x;
 
+    this->tr_num = 0;
+
     QFile fOut(FileName);
     if (!fOut.open(QIODevice::WriteOnly | QIODevice::Text)) {
         QMessageBox::warning(NULL, tr("Error"), tr("Could not open file"), QMessageBox::Ok);
@@ -145,7 +147,6 @@ void ExportFile3D::ExportSTL(QString FileName) {
             this->WriteSTLBinHeader(&fOut);
             break;
     }
-
 
     x = 0.0;
     this->bc->UpdateProgressRange(0, mult);
@@ -178,7 +179,6 @@ void ExportFile3D::ExportSTL(QString FileName) {
 
     fOut.close();
     this->bc->UpdateStatusMessage(QString(tr("Done")));
-
 
 }
 
@@ -249,6 +249,7 @@ void ExportFile3D::Triangles(float x, float xradius, float yradiusi_u, float yra
                 break;
             case STL_BINARY:
                 WriteSTLBinTriangle(fo, Triangle);
+                this->tr_num++;
                 break;
         }
 
