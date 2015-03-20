@@ -375,17 +375,7 @@ void BulbCalculator::ExportSTL(void) {
 
 
     ExpFile3D->SetBc(this);
-
-    switch(format) {
-        case STL_ASCII:
-            ExpFile3D->ExportAsciiSTL(fileName);
-            break;
-        case STL_BINARY:
-            ExpFile3D->ExportBinarySTL(fileName);
-            break;
-        default:
-            break;
-    }
+    ExpFile3D->ExportSTL(fileName);
 
     delete ExpFile3D;
     delete stldlg;
