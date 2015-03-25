@@ -1,1 +1,14 @@
 BulbCalculator.pro.user
+release*
+Makefile*
+ui_BulbDataOptions.h
+ui_ExportSTL.h
+ui_Preferences.h
+ui_KeelOptions.h
+ui_SetBulbParameterDialog.h
+ui_MainWindow.h
+ui_BulbPrintOptions.h
+object_script.BulbCalculator.Release
+object_script.BulbCalculator.Debug
+test_bin.stl
+test_ascii.stl
