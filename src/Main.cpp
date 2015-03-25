@@ -19,7 +19,11 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QApplication>
 #include <QBoxLayout>
+#if QT_VERSION >= 0x050000
 #include <QtWidgets>
+#else
+#include <QtGui>
+#endif
 
 #include "include/BulbCalculator.h"
 

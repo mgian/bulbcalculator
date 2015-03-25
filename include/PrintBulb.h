@@ -20,7 +20,12 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef PRINTBULB_H
 #define PRINTBULB_H
 
+#if QT_VERSION >= 0x050000
 #include <QtWidgets>
+#else
+#include <QtGui>
+#endif
+
 #include <QPrintDialog>
 #include <QPrinter>
 
