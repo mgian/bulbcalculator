@@ -17,6 +17,9 @@ You should have received a copy of the GNU General Public License
 along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "../include/Preferences.h"
+#include "../include/BulbCalculator.h"
+
 #if QT_VERSION >= 0x050000
 #include <QtWidgets>
 #else
@@ -24,8 +27,6 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #include <QMessageBox>
 
-#include "../include/Preferences.h"
-#include "../include/BulbCalculator.h"
 
 BcPreference::BcPreference() {
 

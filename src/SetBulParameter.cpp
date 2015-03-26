@@ -17,13 +17,15 @@ You should have received a copy of the GNU General Public License
 along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "../include/SetBulParameter.h"
+
 #if QT_VERSION >= 0x050000
 #include <QtWidgets>
 #else
 #include <QtGui>
 #endif
 
-#include "../include/SetBulParameter.h"
+
 
 #include <QDialogButtonBox>
 

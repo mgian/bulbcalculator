@@ -17,6 +17,19 @@ You should have received a copy of the GNU General Public License
 along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+
+#include "../include/BulbCalculator.h"
+#include "../include/NacaFoil.h"
+#include "../include/SetBulParameter.h"
+#include "../include/ExportFileData.h"
+#include "../include/ExportFile3D.h"
+#include "../include/Utils.h"
+#include "../include/BulbDataOptions.h"
+#include "../include/PrintBulb.h"
+#include "../include/Preferences.h"
+#include "../include/KeelOptions.h"
+#include "../include/ExportSTL.h"
+
 #if QT_VERSION >= 0x050000
 #include <QtWidgets>
 #else
@@ -37,17 +50,6 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #include <QPrinter>
 #include <QPageSetupDialog>
 
-#include "../include/BulbCalculator.h"
-#include "../include/NacaFoil.h"
-#include "../include/SetBulParameter.h"
-#include "../include/ExportFileData.h"
-#include "../include/ExportFile3D.h"
-#include "../include/Utils.h"
-#include "../include/BulbDataOptions.h"
-#include "../include/PrintBulb.h"
-#include "../include/Preferences.h"
-#include "../include/KeelOptions.h"
-#include "../include/ExportSTL.h"
 
 BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
 
