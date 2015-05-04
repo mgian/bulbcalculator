@@ -32,6 +32,9 @@
       </item>
       <item>
        <widget class="QRadioButton" name="RB_BinaryFormat">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>Bi&amp;nary</string>
         </property>
