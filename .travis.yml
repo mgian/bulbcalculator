@@ -7,4 +7,5 @@ before_install:
 
 script:
  - qmake 
+ - qmake -project
  - make
