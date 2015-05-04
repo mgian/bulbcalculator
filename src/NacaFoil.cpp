@@ -420,6 +420,7 @@ void profile::calc()
 			break;
 		}
 	}
+    delete foil;
 }
 
 bool get_number_pair(istream& is, double& x, double& y)

@@ -200,6 +200,8 @@ void ExportFile3D::Triangles(float x, float xradius, float yradiusi_u, float yra
     ecc_e = yradiuse_u - (diam_e/2.0);
     gr = 360/this->resolution;
     gr = 360/gr;
+    start_angle = 0;
+    end_angle= 360;
 
     switch(this->half) {
         case OBJECT_FULL:
@@ -285,6 +287,6 @@ void ExportFile3D::Triangles(float x, float xradius, float yradiusi_u, float yra
                 break;
         }
     }
-
+    delete Triangle;
 }
 
