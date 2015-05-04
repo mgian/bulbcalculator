@@ -36,6 +36,8 @@ BulbDataOptions::BulbDataOptions() {
     connect(RB_Imp_F, SIGNAL(clicked()), this, SLOT(SetInchF()));
     connect(RB_Imp_D, SIGNAL(clicked()), this, SLOT(SetInchD()));
 
+    this->cosine = DIST_EVEN;
+
 
 }
 

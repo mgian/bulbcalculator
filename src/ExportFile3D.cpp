@@ -34,11 +34,7 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 const float DEG2RAD = 3.14159/180;
 
 
-ExportFile3D::ExportFile3D() {
-
-}
-
-void ExportFile3D::SetBc(BulbCalculator *bcp) {
+ExportFile3D::ExportFile3D(BulbCalculator *bcp) {
 
     this->bc = bcp;
 

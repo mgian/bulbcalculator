@@ -66,7 +66,12 @@ Vista3D::Vista3D(QWidget *parent) : QGLViewer(parent) {
     this->show_grid = true;
     this->res_divisor = RES_LOW;
     this->l_res_divisor = L_RES_LOW;
-
+    this->xRot = 0;
+    this->yRot = 0;
+    this->zRot = 0;
+    this->zMin = 0;
+    this->zMax = 0;
+    this->bc = NULL;
 }
 
 Vista3D::~Vista3D() {

@@ -22,9 +22,8 @@ class ExportFile3D: public QObject {
     Q_OBJECT
 
     public:
-        ExportFile3D();
+        ExportFile3D(BulbCalculator *bcp);
         void ExportSTL(QString FileName);
-        void SetBc(BulbCalculator *bcp);
         void SetResolution(int res);
         void SetFileType(int filetype);
         void SetHalf(int half_sim, int halfside);
