@@ -31,11 +31,17 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #include "../include/ExportFileData.h"
 #include "../include/Utils.h"
 
-ExportFileData::ExportFileData(BulbCalculator *bcp) {
+ExportFileData::ExportFileData() {
 
-    this->bc = bcp;
+    this->bc = NULL;
 
 }
+
+void ExportFileData::SetBc(BulbCalculator *bcp) {
+
+     this->bc = bcp;
+
+ }
 
 
 void ExportFileData::ExportTextFile(QString fileName) {

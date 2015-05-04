@@ -37,6 +37,10 @@ const float DEG2RAD = 3.14159/180;
 ExportFile3D::ExportFile3D(BulbCalculator *bcp) {
 
     this->bc = bcp;
+    this->resolution = RES_HIGHEST;
+    this->file_type = STL_NONE;
+    this->half = OBJECT_FULL;
+    this->half_side = OBJECT_HALF_NONE;
 
 }
 

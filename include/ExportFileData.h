@@ -27,9 +27,9 @@ class ExportFileData: public QObject {
     Q_OBJECT
 
     public:
-        ExportFileData(BulbCalculator *bcp);
+        ExportFileData();
         void ExportTextFile(QString FileName);
-
+        void SetBc(BulbCalculator *bcp);
 
     private:
         void ExportTextFileMM(QString FileOut);

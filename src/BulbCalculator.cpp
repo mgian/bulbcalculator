@@ -380,8 +380,6 @@ void BulbCalculator::ExportSTL(void) {
     }
     QString fileName = dlg.selectedFiles()[0];
 
-
-    //ExpFile3D->SetBc(this);
     ExpFile3D->ExportSTL(fileName);
 
     delete ExpFile3D;
