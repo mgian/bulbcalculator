@@ -37,7 +37,15 @@ BulbDataOptions::BulbDataOptions() {
     connect(RB_Imp_D, SIGNAL(clicked()), this, SLOT(SetInchD()));
 
     this->cosine = DIST_EVEN;
-
+    this->w_ws = 0;
+    this->w_vl = 0;
+    this->w_md = 0;
+    this->w_ns = 0;
+    this->cosine = 0;
+    this->unit = 0;
+    this->sect = 0;
+    this->slice = 0;
+    this->slice_thickness = 0;
 
 }
 
