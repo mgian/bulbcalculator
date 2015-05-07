@@ -43,6 +43,7 @@ protected:
 public:
 	Foil() {}
 	virtual void get_y(double x, double& u, double& l);
+    virtual ~Foil() {}
 };
 
 class NACA4Foil : public Foil
