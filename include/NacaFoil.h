@@ -158,6 +158,11 @@ struct profile : public vector<profile_data>
 		xl				= p.xl;
 		yl				= p.yl;
 		flatten		= p.flatten;
+        wetted_surface = p.wetted_surface;
+        max_width = p.max_width;
+        max_height_u = p.max_height_u;
+        max_height_l = p.max_height_l;
+        max_chord_pos = p.max_chord_pos;
 	}
 	void calc();
 	bool import_foil(string filename, int format = 0); // 0 = UIUC, 1 = NASG
