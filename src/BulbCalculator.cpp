@@ -372,10 +372,6 @@ void BulbCalculator::ExportSTL(void) {
     dlg.setWindowTitle(msg);
     dlg.setAcceptMode(QFileDialog::AcceptSave);
     if (dlg.exec() == QDialog::Rejected) {
-        QMessageBox::warning(NULL, tr("BulbCalculator"),
-                                tr("No filename given, aborting operation"),
-                                QMessageBox::Ok );
-
         return;
     }
     QString fileName = dlg.selectedFiles()[0];
