@@ -41,6 +41,7 @@ ExportFile3D::ExportFile3D(BulbCalculator *bcp) {
     this->file_type = STL_NONE;
     this->half = OBJECT_FULL;
     this->half_side = OBJECT_HALF_NONE;
+    this->tr_num = 0;
 
 }
 
