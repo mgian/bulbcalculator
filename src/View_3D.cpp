@@ -72,12 +72,18 @@ Vista3D::Vista3D(QWidget *parent) : QGLViewer(parent) {
     this->zMin = 0;
     this->zMax = 0;
     this->bc = NULL;
+    //this->object
+    this->target_weight = 0;
+    this->material_density = 0;
+    this->bulb_volume = 0;
+    this->bulb_wet_surface = 0;
+    this->mode_3d_view = WIREFRAME;
 }
 
 Vista3D::~Vista3D() {
 
     makeCurrent();
-    glDeleteLists(object, 1);
+    //glDeleteLists(object, 1);
 
  }
 

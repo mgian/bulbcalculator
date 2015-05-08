@@ -300,7 +300,7 @@ class Vista3D : public QGLViewer
         void DrawWireframe();
         void DrawTriangle();
         void DrawSurface();
-        GLuint object;
+        //GLuint object;
         int xRot;
         int yRot;
         int zRot;
