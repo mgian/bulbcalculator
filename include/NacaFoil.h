@@ -99,7 +99,9 @@ struct profile_data
 		height_u	= pd.height_u;
 		height_l	= pd.height_l;
 		area		= pd.area;
-		volume	= pd.volume;
+        volume      = pd.volume;
+        circumference = pd.circumference;
+        wetted_surface = pd.wetted_surface;
 	}
 	void calc(double whr, double prev_volume);
 	double get_height()			{return fabs(height_u-height_l);}
