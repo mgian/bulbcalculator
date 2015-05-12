@@ -92,6 +92,8 @@ struct profile_data
 		height_l	= 0.0;
 		area		= 0.0;
 		volume	= 0.0;
+        circumference = 0.0;
+        wetted_surface = 0.0;
 	}
 	profile_data(const profile_data& pd)
 	{
