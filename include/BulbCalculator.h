@@ -31,6 +31,7 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #include <QLabel>
 #include <QComboBox>
 #include <QProgressBar>
+#include <QSignalMapper>
 
 #define VERSION     "2.3.0"
 
@@ -214,6 +215,7 @@ class BulbCalculator : public QMainWindow
         int cosine;
         QLabel *SB_Message;
         QProgressBar *SB_Progress;
+        QSignalMapper *windowMapper;
 
         void SetDefaultValue();
         void Create3dWin();

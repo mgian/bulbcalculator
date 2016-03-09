@@ -59,7 +59,11 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     this->BcStatus = new BulbCalcStatus;
     ReadPreferences();
 
+
     this->setCentralWidget(ui.mdiArea);
+    windowMapper = new QSignalMapper(this);
+    connect(windowMapper, SIGNAL(mapped(QWidget*)),
+                this, SLOT(setActiveSubWindow(QWidget*)));
 
     ui.mdiArea->setViewMode((QMdiArea::ViewMode)this->BcPrefs->Gui_BcViewMode);
     if (this->BcPrefs->Gui_BcViewMode == TABBED) {
@@ -463,6 +467,7 @@ void BulbCalculator::CreateDataWin() {
 
     // Bulb data window
     this->BulbData = new QMdiSubWindow;
+
     this->BulbData->setWindowIcon(QIcon(QString("share/images/data.png")));
     this->TW_SubBulbDataGen = new QTableWidget(5,2);
     this->TW_SubBulbDataGen->setAlternatingRowColors(true);
@@ -1927,7 +1932,7 @@ void BulbCalculator::ReadPreferences() {
 
     QSettings settings("GRYS","BulbCalculator");
 
-    if (settings.childGroups().contains("Windowb",Qt::CaseInsensitive)){
+    if (settings.childGroups().contains("Window",Qt::CaseInsensitive)){
         settings.beginGroup("Window");
         resize(settings.value("size", QSize(400, 400)).toSize());
         move(settings.value("pos", QPoint(200, 200)).toPoint());
@@ -1952,6 +1957,7 @@ void BulbCalculator::ReadGuiPreferences() {
     QSettings settings("GRYS","BulbCalculator");
     if (settings.childGroups().contains("Gui",Qt::CaseInsensitive)){
         settings.beginGroup("Gui");
+        qDebug() << settings.value("ViewMode");
         this->BcPrefs->Gui_BcViewMode = settings.value("ViewMode").toInt();
         this->BcPrefs->Gui_TabPos = settings.value("TabPos").toInt();
         this->BcPrefs->Gui_Unit = settings.value("Unit").toInt();
