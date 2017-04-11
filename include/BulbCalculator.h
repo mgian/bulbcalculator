@@ -26,14 +26,15 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QGLWidget>
 #include <QGraphicsView>
-#include <QGLViewer/qglviewer.h>
+#include <qglviewer.h>
 #include <QGroupBox>
 #include <QLabel>
 #include <QComboBox>
 #include <QProgressBar>
 #include <QSignalMapper>
+#include <QOpenGLWidget>
 
-#define VERSION     "2.3.0"
+#define VERSION     "3.0.0"
 
 #define UNIT_MM      0
 #define UNIT_INCH    1
