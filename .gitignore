@@ -12,3 +12,4 @@ object_script.BulbCalculator.Release
 object_script.BulbCalculator.Debug
 test_bin.stl
 test_ascii.stl
+*.stash

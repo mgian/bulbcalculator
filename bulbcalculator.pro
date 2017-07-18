@@ -49,10 +49,10 @@ unix:LIBS *= -lQGLViewer-qt4 -lGLU
 # INCLUDEPATH *= /usr/include/QGLViewer/
 # LIBS *= -L/usr/lib -lQGLViewer
 # }
-# win32 {
-# INCLUDEPATH *= C:/Programmi/libQGLViewer
-# LIBS *= -LC:/WINDOWS/system32 -lQGLViewer2
-# }
+win32 {
+INCLUDEPATH *= ..\\libQGLViewer
+LIBS *= -L..\\libQGLViewer\QGLViewer -lQGLViewer2  -lopengl32 -lglu32
+}
 
 # install
 
