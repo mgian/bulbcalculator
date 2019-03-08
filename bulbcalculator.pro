@@ -43,15 +43,16 @@ QT *= opengl \
 TRANSLATIONS = i18n/BulbCalculator_it.ts
 TARGET = bin/BulbCalculator
 win32:LIBS *= -lQGLViewer2
-unix:LIBS *= -lQGLViewer-qt4 -lGLU
+unix:LIBS *= -lQGLViewer-qt5 -lGLU
 
-# !win32 {
-# INCLUDEPATH *= /usr/include/QGLViewer/
-# LIBS *= -L/usr/lib -lQGLViewer
-# }
+#!win32 {
+#    INCLUDEPATH *= /usr/include/QGLViewer/
+#    LIBS *= -L/usr/lib -lQGLViewer-qt5
+#}
+
 win32 {
-INCLUDEPATH *= ..\\libQGLViewer
-LIBS *= -L..\\libQGLViewer\QGLViewer -lQGLViewer2  -lopengl32 -lglu32
+    INCLUDEPATH *= ..\\libQGLViewer
+    LIBS *= -L..\\libQGLViewer\QGLViewer -lQGLViewer2  -lopengl32 -lglu32
 }
 
 # install
