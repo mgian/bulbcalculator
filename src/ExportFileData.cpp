@@ -34,7 +34,7 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 
 ExportFileData::ExportFileData() {
 
-    this->bc = NULL;
+    this->bc = nullptr;
 
 }
 

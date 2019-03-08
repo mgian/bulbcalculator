@@ -1113,8 +1113,8 @@ void BulbCalculator::SaveAs() {
 }
 
 void BulbCalculator::DownloadUIUC() {
-
-    QDesktopServices::openUrl(QUrl("http://www.ae.illinois.edu/m-selig/ads/coord_database.html"));
+    QDesktopServices::openUrl(QUrl("http://airfoiltools.com/search/index"));
+//    QDesktopServices::openUrl(QUrl("http://www.ae.illinois.edu/m-selig/ads/coord_database.html"));
 }
 
 void BulbCalculator::resizeEvent( QResizeEvent *e ) {

@@ -48,7 +48,7 @@ void SetBulbParam::ResetValues(void) {
 
 }
 
-float SetBulbParam::GetTargetWeight(void) {
+double SetBulbParam::GetTargetWeight(void) {
 
     return(ui->DSP_TW->value());
 

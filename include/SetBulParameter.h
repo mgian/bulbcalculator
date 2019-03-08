@@ -28,9 +28,9 @@ class SetBulbParam : public QDialog
     Q_OBJECT
 
     public:
-        explicit SetBulbParam(QWidget *parent = 0);
+        explicit SetBulbParam(QWidget *parent = nullptr);
         void SetDefaultValue(void);
-        float GetTargetWeight(void);
+        double GetTargetWeight(void);
         float GetMaterialDensity(void);
         double GetHLR(void);
         double GetWHR(void);
