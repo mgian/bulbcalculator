@@ -17,6 +17,7 @@ You should have received a copy of the GNU General Public License
 along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "../include/BulbCalculator.h"
 #if QT_VERSION >= 0x050000
 #include <QtWidgets>
 #else
@@ -26,7 +27,6 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <math.h>
 
-#include "../include/BulbCalculator.h"
 #include "../include/NacaFoil.h"
 
 

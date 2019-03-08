@@ -289,7 +289,7 @@ void BulbCalculator::ExportTextFile() {
     ExpDraw->SetBc(this);
 
     if (fileName.isEmpty()) {
-        QMessageBox::warning(NULL, tr("BulbCalculator"),
+        QMessageBox::warning(nullptr, tr("BulbCalculator"),
                                 tr("No filename given, aborting operation"),
                                 QMessageBox::Ok );
 
@@ -335,7 +335,7 @@ void BulbCalculator::ExportSTL(void) {
         if (half != OBJECT_FULL) {
             sim = stldlg->GetSimmetry();
             if ( (sim == -1 ) || (sim == 0) ) {
-                QMessageBox::warning(NULL, tr("BulbCalculator"),
+                QMessageBox::warning(nullptr, tr("BulbCalculator"),
                                         tr("Simmetry Value incorrect\nAborting operation"),
                                         QMessageBox::Ok );
                 return;
@@ -344,7 +344,7 @@ void BulbCalculator::ExportSTL(void) {
         }
 
         if (res < 0) {
-            QMessageBox::warning(NULL, tr("BulbCalculator"),
+            QMessageBox::warning(nullptr, tr("BulbCalculator"),
                                     tr("The resolution is wrong\nAborting operation"),
                                     QMessageBox::Ok );
             return;
@@ -819,7 +819,7 @@ void BulbCalculator::PageSetup() {
     QPrinter printer;
     printer.setPaperSize((QPrinter::PaperSize)this->BcPrefs->PaperSize);
     printer.setOrientation((QPrinter::Orientation)this->BcPrefs->PageOrientation);
-    QPageSetupDialog QPageSetupDlg(&printer, 0);
+    QPageSetupDialog QPageSetupDlg(&printer, nullptr);
 
 
     if (QPageSetupDlg.exec() == QPageSetupDlg.Accepted) {
@@ -925,7 +925,6 @@ void BulbCalculator::NewBulb() {
                 break;
             case QMessageBox::Cancel:
                 return;
-                break;
             default:
                 break;
         }
@@ -952,10 +951,8 @@ int BulbCalculator::ConfirmOverwrite(void) {
     switch (ret) {
         case QMessageBox::No:
             return NO;
-            break;
         case QMessageBox::Yes:
-            return YES;
-            break;
+            return YES; 
         default:
             break;
     }
@@ -992,7 +989,7 @@ void BulbCalculator::Save() {
         dlg.setWindowTitle(QString("Save project"));
         dlg.setAcceptMode(QFileDialog::AcceptSave);
         if (dlg.exec() == QDialog::Rejected) {
-            QMessageBox::warning(NULL, tr("BulbCalculator"),
+            QMessageBox::warning(nullptr, tr("BulbCalculator"),
                                     tr("No filename given, aborting operation"),
                                     QMessageBox::Ok );
 
@@ -1103,7 +1100,7 @@ void BulbCalculator::SaveAs() {
     dlg.setWindowTitle("Save project As...");
     dlg.setAcceptMode(QFileDialog::AcceptSave);
     if (dlg.exec() == QDialog::Rejected) {
-        QMessageBox::warning(NULL, tr("BulbCalculator"),
+        QMessageBox::warning(nullptr, tr("BulbCalculator"),
                                 tr("No filename given, aborting operation"),
                                 QMessageBox::Ok );
 
@@ -1563,7 +1560,6 @@ void BulbCalculator::Open() {
                 break;
             case QMessageBox::Cancel:
                 return;
-                break;
             default:
                 break;
         }

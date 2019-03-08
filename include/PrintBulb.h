@@ -20,16 +20,17 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef PRINTBULB_H
 #define PRINTBULB_H
 
+#include "../include/BulbCalculator.h"
+
 #if QT_VERSION >= 0x050000
-#include <QtWidgets>
+    #include <QtWidgets>
 #else
-#include <QtGui>
+    #include <QtGui>
 #endif
 
 #include <QPrintDialog>
 #include <QPrinter>
 
-#include "../include/BulbCalculator.h"
 
 #define P_SECTIONS_TOP      1
 #define P_SECTIONS_SIDE     2

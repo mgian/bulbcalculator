@@ -17,6 +17,8 @@ You should have received a copy of the GNU General Public License
 along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <QtGlobal>
+
 #if QT_VERSION >= 0x050000
 #include <QtWidgets>
 #else
@@ -31,7 +33,7 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #include "../include/ExportFile3D.h"
 #include "../include/Utils.h"
 
-const float DEG2RAD = 3.14159/180;
+const float DEG2RAD = 3.14159/180.0;
 
 
 ExportFile3D::ExportFile3D(BulbCalculator *bcp) {

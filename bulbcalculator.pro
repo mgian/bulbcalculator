@@ -45,10 +45,10 @@ TARGET = bin/BulbCalculator
 win32:LIBS *= -lQGLViewer2
 unix:LIBS *= -lQGLViewer-qt5 -lGLU
 
-#!win32 {
-#    INCLUDEPATH *= /usr/include/QGLViewer/
-#    LIBS *= -L/usr/lib -lQGLViewer-qt5
-#}
+!win32 {
+    INCLUDEPATH *= /usr/include/QGLViewer/
+    LIBS *= -L/usr/lib -lQGLViewer-qt5
+}
 
 win32 {
     INCLUDEPATH *= ..\\libQGLViewer

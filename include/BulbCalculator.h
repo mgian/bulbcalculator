@@ -19,11 +19,11 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifndef BULBCAL_H
 #define BULBCAL_H
-
 #include "../ui_MainWindow.h"
 #include "../include/NacaFoil.h"
 #include "QTableWidget"
 
+#include <QtGlobal>
 #include <QGLWidget>
 #include <QGraphicsView>
 #include <qglviewer.h>
@@ -105,7 +105,7 @@ class BulbCalculator : public QMainWindow
     Q_OBJECT
     
     public:
-        BulbCalculator(QMainWindow *form=0);
+        BulbCalculator(QMainWindow *form=nullptr);
         void UpdateCalculations();
         void UpdateResults();
         void UpdateCalcs();
@@ -334,7 +334,7 @@ class Vista3D : public QGLViewer
 class ViewArea : public QGraphicsView {
     Q_OBJECT
     public:
-        ViewArea(QGraphicsScene *scene,  BulbCalculator *bcp, int type, QWidget *parent = 0);
+        ViewArea(QGraphicsScene *scene,  BulbCalculator *bcp, int type, QWidget *parent = nullptr);
         void UpdateView();
         profile naca_profile;
         profile_data data_profile;
