@@ -30,6 +30,7 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #include "../include/KeelOptions.h"
 #include "../include/ExportSTL.h"
 
+#include <QtGlobal>
 #if QT_VERSION >= 0x050000
 #include <QtWidgets>
 #else
@@ -218,7 +219,7 @@ void BulbCalculator::ShowKeelOptions() {
             this->KeelSlotLenght = KeelDlg->GetKeelSlotLenght();
             this->KeelSlotWidth = KeelDlg->GetKeelSlotWidth();
 
-            if ( (this->KeelSlotPosition > 0) &&  (this->KeelSlotLenght > 0) && (this->KeelSlotWidth) ) {
+            if ( (this->KeelSlotPosition > 0) &&  (this->KeelSlotLenght > 0) && (this->KeelSlotWidth > 0) ) {
                 // Update Bulb Param
             } else {
                 // Show Error Message and exit
@@ -658,7 +659,7 @@ void BulbCalculator::UpdateCalcs() {
 
     // Volume
     QTableWidgetItem *itG3 = new QTableWidgetItem;
-    double vol = this->bulb_volume;
+    float vol = this->bulb_volume;
     switch(this->BcPrefs->Gui_Unit) {
         case UNIT_MM:
             itG3->setText(QString::number(vol,'.',2));
