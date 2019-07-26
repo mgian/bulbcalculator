@@ -66,13 +66,13 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     connect(windowMapper, SIGNAL(mapped(QWidget*)),
                 this, SLOT(setActiveSubWindow(QWidget*)));
 
-    ui.mdiArea->setViewMode((QMdiArea::ViewMode)this->BcPrefs->Gui_BcViewMode);
+    ui.mdiArea->setViewMode(static_cast<QMdiArea::ViewMode>(this->BcPrefs->Gui_BcViewMode));
     if (this->BcPrefs->Gui_BcViewMode == TABBED) {
         ui.actionTile->setEnabled(false);
         ui.actionCascade->setEnabled(false);
     }
 
-    ui.mdiArea->setTabPosition((QTabWidget::TabPosition)this->BcPrefs->Gui_TabPos);
+    ui.mdiArea->setTabPosition(static_cast<QTabWidget::TabPosition>(this->BcPrefs->Gui_TabPos));
 
     this->BcStatus->St_Modified = NO;
     this->BcStatus->St_CanSave = YES;
@@ -568,7 +568,7 @@ void BulbCalculator::UpdateCalcs() {
 
     sect_pos.clear();
     for(int i=1; i<this->num_sect+1; i++) {
-        double xc = (double)i/(double)(this->num_sect+1);
+        double xc = static_cast<double>(i)/static_cast<double>(this->num_sect+1);
         if(this->sect_dist == DIST_EVEN){
             sect_pos.push_back(xc);
         } else {
@@ -673,7 +673,7 @@ void BulbCalculator::UpdateCalcs() {
 
     // Wetted surface
     QTableWidgetItem *itG4 = new QTableWidgetItem;
-    double ws_e = naca_profile.wetted_surface* (double)pow(tl, 2);
+    double ws_e = naca_profile.wetted_surface* static_cast<double>(pow(tl, 2));
     switch(this->BcPrefs->Gui_Unit) {
         case UNIT_MM:
             itG4->setText(QString::number(ws_e,'.',2));

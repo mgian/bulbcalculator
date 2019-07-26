@@ -71,7 +71,7 @@ Vista3D::Vista3D(QWidget *parent) : QGLViewer(parent) {
     this->zRot = 0;
     this->zMin = 0;
     this->zMax = 0;
-    this->bc = NULL;
+    this->bc = nullptr;
     //this->object
     this->target_weight = 0;
     this->material_density = 0;
@@ -158,7 +158,6 @@ void Vista3D::DrawWireframe() {
 
     long w, mult;
     double step;
-    QSize t;
     double x;
     int in = 0;
     float p;
@@ -175,7 +174,7 @@ void Vista3D::DrawWireframe() {
     w = 2.0;
     glColor3f(1.0,1.0,1.0);
 
-    mult = this->naca_profile.num_step/(double)100.0;
+    mult = this->naca_profile.num_step/static_cast<double>(100.0);
     step = w/(mult*1.0);
 
     zMin = 0;
