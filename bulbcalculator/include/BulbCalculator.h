@@ -82,6 +82,8 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #define OBJECT_HALF_LEFT    303
 #define OBJECT_HALF_NONE    304
 
+#define CELL_COLOR_GREEN    "#00aa00"
+
 enum WF_RES {
     WF_LOW,
     WF_MEDIUM,
