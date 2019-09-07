@@ -695,7 +695,7 @@ void BulbCalculator::UpdateCalcs() {
     for(vector<double>::iterator sp_it = data_pos.begin(); sp_it != data_pos.end(); sp_it++) {
         this->TW_SubBulbDataSec->insertRow(count);
         double x = *sp_it;
-        profile_data& pd(this->naca_profile[(unsigned)floor(profile::num_step*x+0.5)]);
+        profile_data& pd(this->naca_profile[static_cast<unsigned>(floor(profile::num_step*x+0.5))]);
         double x_pos		= x * this->length;
         double height_max	= pd.height_u * this->length;
         double height_min	= pd.height_l * this->length;

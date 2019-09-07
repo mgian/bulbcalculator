@@ -33,7 +33,7 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #include "../include/ExportFile3D.h"
 #include "../include/Utils.h"
 
-const float DEG2RAD = 3.14159/180.0;
+const double DEG2RAD = static_cast<double>(3.14159/180.0);
 
 
 ExportFile3D::ExportFile3D(BulbCalculator *bcp) {
@@ -87,7 +87,7 @@ void ExportFile3D::WriteSTLBinHeader(QFile *fp) {
 
     this->ClearBinHeader(bsh);
     memcpy(bsh->header,this->bc->naca_profile.foil_name.c_str(), strlen(this->bc->naca_profile.foil_name.c_str()));
-    bsh->triangle_number = this->tr_num;
+    bsh->triangle_number = static_cast<quint32>(this->tr_num);
     QDataStream fOutBinStream(fp);
     fOutBinStream.setByteOrder(QDataStream::LittleEndian); // *** set little endian byte order
     fOutBinStream << bsh->header << bsh->triangle_number;
@@ -130,7 +130,8 @@ void ExportFile3D::WriteSTLAsciiFooter(QFile *fp) {
 
 void ExportFile3D::ExportSTL(QString FileName) {
 
-    long w, mult;
+    long mult;
+    double w;
     double step;
     double x;
 
@@ -145,7 +146,7 @@ void ExportFile3D::ExportSTL(QString FileName) {
     this->bc->UpdateStatusMessage(QString(tr("Exporting to ASCII STL file")));
     w = this->bc->length*10;
 
-    mult = this->bc->naca_profile.num_step/(double)100.0;
+    mult = static_cast<long>(this->bc->naca_profile.num_step/static_cast<double>(100.0));
     step = w/(mult*1.0);
     switch (this->file_type) {
         case STL_ASCII:
@@ -157,25 +158,27 @@ void ExportFile3D::ExportSTL(QString FileName) {
     }
 
     x = 0.0;
-    this->bc->UpdateProgressRange(0, mult);
+    this->bc->UpdateProgressRange(0, static_cast<int>(mult));
 
-    profile_data &pdi(this->bc->naca_profile[(unsigned)((double)0*mult)]);
-    profile_data &pde(this->bc->naca_profile[(unsigned)((double)1*mult)]);
+//    profile_data &pdi(this->bc->naca_profile[(unsigned)((double)0*mult)]);
+    profile_data &pdi(this->bc->naca_profile[static_cast<unsigned>((static_cast<double>(0*mult)))]);
+//    profile_data &pde(this->bc->naca_profile[(unsigned)((double)1*mult)]);
+    profile_data &pde(this->bc->naca_profile[static_cast<unsigned>((static_cast<double>(1*mult)))]);
     ExportFile3D::Triangles(x, (pdi.width*w), (pdi.height_u/2)*w, (pdi.height_l/2)*w, (pde.width*w), (pde.height_u/2)*w, (pde.height_l/2)*w, step, &fOut);
 
     for(int i=1; i<mult; i++) {
-        profile_data &pdi(this->bc->naca_profile[(unsigned)((double)i*mult)]);
-        profile_data &pde(this->bc->naca_profile[(unsigned)((double)(i+1)*mult)]);
+        profile_data &pdi(this->bc->naca_profile[static_cast<unsigned>((static_cast<double>(i*mult)))]);
+        profile_data &pde(this->bc->naca_profile[static_cast<unsigned>((static_cast<double>(i+1*mult)))]);
         x = x + step;       
         ExportFile3D::Triangles(x, (pdi.width*w), pdi.height_u/2*w, pdi.height_l/2*w, (pde.width*w), pde.height_u/2*w, pde.height_l/2*w, step, &fOut);
         this->bc->UpdateProgressValue(i);
 
     }
-    profile_data &pdif(this->bc->naca_profile[(unsigned)((double)100*mult)]);
-    profile_data &pdef(this->bc->naca_profile[(unsigned)((double)0*mult)]);
+    profile_data &pdif(this->bc->naca_profile[static_cast<unsigned>((static_cast<double>(100*mult)))]);
+    profile_data &pdef(this->bc->naca_profile[static_cast<unsigned>((static_cast<double>(0*mult)))]);
     x = x + step;
     ExportFile3D::Triangles(x, (pdif.width*w), pdif.height_u/2*w, pdif.height_l/2*w, (pdef.width*w), pdef.height_u/2*w, pdef.height_l/2*w,0, &fOut);
-    this->bc->UpdateProgressValue(mult);
+    this->bc->UpdateProgressValue(static_cast<int>(mult));
 
     switch (this->file_type) {
         case STL_ASCII:
@@ -190,9 +193,9 @@ void ExportFile3D::ExportSTL(QString FileName) {
 
 }
 
-void ExportFile3D::Triangles(float x, float xradius, float yradiusi_u, float yradiusi_l, float xradiuse, float yradiuse_u,  float yradiuse_l, float step, QFile *fo) {
+void ExportFile3D::Triangles(double x, double xradius, double yradiusi_u, double yradiusi_l, double xradiuse, double yradiuse_u,  double yradiuse_l, double step, QFile *fo) {
 
-    float diam_i, diam_e, ecc_i, ecc_e;
+    double diam_i, diam_e, ecc_i, ecc_e;
     int gr;
     int start_angle, end_angle, m = 1;
     STLTriangle *Triangle = new(STLTriangle);
@@ -233,8 +236,8 @@ void ExportFile3D::Triangles(float x, float xradius, float yradiusi_u, float yra
     }
 
     for (int i=start_angle; i < end_angle;  i=i + this->resolution) {
-        float degInRad = i*DEG2RAD;
-        float degInRad1 = (i+gr)*DEG2RAD;
+        double degInRad = i*DEG2RAD;
+        double degInRad1 = (i+gr)*DEG2RAD;
         memset(Triangle, 0x00, sizeof(STLTriangle));
 
         Triangle->normal[0] = 0.0;

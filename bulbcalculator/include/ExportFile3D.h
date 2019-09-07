@@ -10,10 +10,10 @@ struct BinSTLHeader {
 };
 
 struct STLTriangle {
-    float normal[3];
-    float vertex_1[3];
-    float vertex_2[3];
-    float vertex_3[3];
+    double normal[3];
+    double vertex_1[3];
+    double vertex_2[3];
+    double vertex_3[3];
     quint16 attbytecount;
 };
 
@@ -37,7 +37,7 @@ class ExportFile3D: public QObject {
         void WriteSTLBinTriangle(QFile *fp, STLTriangle *v);
         void WriteSTLAsciiTriangle(QFile *fp, STLTriangle *v);
         void WriteSTLAsciiFooter(QFile *fp);
-        void Triangles(float x, float xradius, float yradiusi_u, float yradiusi_l, float xradiuse, float yradiuse_u,  float yradiuse_l, float step, QFile *fo);
+        void Triangles(double x, double xradius, double yradiusi_u, double yradiusi_l, double xradiuse, double yradiuse_u,  double yradiuse_l, double step, QFile *fo);
         int resolution;
         int file_type;
         int half;
