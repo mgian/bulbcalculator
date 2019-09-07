@@ -60,12 +60,6 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     this->BcStatus = new BulbCalcStatus;
     ReadPreferences();
 
-
-    this->setCentralWidget(ui.mdiArea);
-    windowMapper = new QSignalMapper(this);
-    connect(windowMapper, SIGNAL(mapped(QWidget*)),
-                this, SLOT(setActiveSubWindow(QWidget*)));
-
     ui.mdiArea->setViewMode(static_cast<QMdiArea::ViewMode>(this->BcPrefs->Gui_BcViewMode));
     if (this->BcPrefs->Gui_BcViewMode == TABBED) {
         ui.actionTile->setEnabled(false);
