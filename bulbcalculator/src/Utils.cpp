@@ -35,15 +35,12 @@ QString DisplayValue(double val, int which) {
     switch(which) {
         case UNIT_MM:
             return DisplayMM(val);
-            break;
         case UNIT_INCH:
             return DisplayInchesDecimal(val);
-            break;
         case UNIT_INCH_F:
             return DisplayInchesFractional(val);
-            break;
     }
-    return QString::null;
+    return QString();
 }
 
 QString DisplayMM(double val) {

@@ -1614,7 +1614,7 @@ void QGLViewer::setMouseGrabberIsEnabled(
 QString QGLViewer::mouseActionString(QGLViewer::MouseAction ma) {
   switch (ma) {
   case QGLViewer::NO_MOUSE_ACTION:
-    return QString::null;
+    return QString();
   case QGLViewer::ROTATE:
     return QGLViewer::tr("Rotates", "ROTATE mouse action");
   case QGLViewer::ZOOM:
@@ -1640,13 +1640,13 @@ QString QGLViewer::mouseActionString(QGLViewer::MouseAction ma) {
   case QGLViewer::ZOOM_ON_REGION:
     return QGLViewer::tr("Zooms on region for", "ZOOM_ON_REGION mouse action");
   }
-  return QString::null;
+  return QString();
 }
 
 QString QGLViewer::clickActionString(QGLViewer::ClickAction ca) {
   switch (ca) {
   case QGLViewer::NO_CLICK_ACTION:
-    return QString::null;
+    return QString();
   case QGLViewer::ZOOM_ON_PIXEL:
     return QGLViewer::tr("Zooms on pixel", "ZOOM_ON_PIXEL click action");
   case QGLViewer::ZOOM_TO_FIT:
@@ -1671,7 +1671,7 @@ QString QGLViewer::clickActionString(QGLViewer::ClickAction ca) {
   case QGLViewer::ALIGN_CAMERA:
     return QGLViewer::tr("Aligns camera", "ALIGN_CAMERA click action");
   }
-  return QString::null;
+  return QString();
 }
 
 static QString keyString(unsigned int key) {
@@ -1963,7 +1963,7 @@ void QGLViewer::setKeyDescription(unsigned int key, QString description) {
 
 QString QGLViewer::cameraPathKeysString() const {
   if (pathIndex_.isEmpty())
-    return QString::null;
+    return QString();
 
   QVector<Qt::Key> keys;
   keys.reserve(pathIndex_.count());
@@ -3672,7 +3672,7 @@ This is the name of the XML file where saveStateToFile() saves the viewer state
 restoreStateFromFile() to restore this state later (usually in your init()
 method).
 
-Setting this value to \c QString::null will disable the automatic state file
+Setting this value to \c QString() will disable the automatic state file
 saving that normally occurs on exit.
 
 If more than one viewer are created by the application, this function will
@@ -3703,7 +3703,7 @@ Use restoreStateFromFile() to restore this viewer state.
 
 This method is automatically called when a viewer is closed (using Escape or
 using the window's upper right \c x close button). setStateFileName() to \c
-QString::null to prevent this. */
+QString() to prevent this. */
 void QGLViewer::saveStateToFile() {
   QString name = stateFileName();
 
