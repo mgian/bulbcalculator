@@ -138,7 +138,7 @@ void ExportFile3D::ExportSTL(QString FileName) {
 
     QFile fOut(FileName);
     if (!fOut.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        QMessageBox::warning(NULL, tr("Error"), tr("Could not open file"), QMessageBox::Ok);
+        QMessageBox::warning(nullptr, tr("Error"), tr("Could not open file"), QMessageBox::Ok);
         return;
     }
 

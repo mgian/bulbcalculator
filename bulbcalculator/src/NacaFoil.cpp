@@ -440,13 +440,6 @@ bool get_number_pair(istream& is, double& x, double& y)
 		if(strlen(linebuf)>0) break;
 	}
         str = QString(linebuf);
-        /*
-	char *end_ptr;
-	x = strtod(linebuf, &end_ptr);
-	if(end_ptr==NULL) return false;
-	y = strtod(end_ptr, &end_ptr);
-	if(end_ptr==NULL) return false;
-        */
 
         ret = sscanf(linebuf, "%s  %s", t1, t2);
         sx = QString(t1);

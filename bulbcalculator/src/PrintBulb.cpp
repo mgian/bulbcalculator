@@ -252,7 +252,7 @@ void PrintDraw::CheckBulbDimension(QPainter *painter, int ori) {
     }
 
     if (wr > w) {
-        QMessageBox::warning(NULL, tr("BulbCalculator"),
+        QMessageBox::warning(nullptr, tr("BulbCalculator"),
                                 tr("The draw is bigger than the printing area"),
                                 QMessageBox::Ok );
     }

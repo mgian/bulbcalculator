@@ -77,7 +77,7 @@ void ExportFileData::ExportTextFileMM(QString FileOut) {
 
     QFile fo(FileOut);
     if (!fo.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        QMessageBox::warning(NULL, tr("Error"), tr("Could not open file"), QMessageBox::Ok);
+        QMessageBox::warning(nullptr, tr("Error"), tr("Could not open file"), QMessageBox::Ok);
         return;
     }
 
@@ -123,7 +123,7 @@ void ExportFileData::ExportTextFileInchD(QString FileOut) {
 
     QFile fo(FileOut);
     if (!fo.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        QMessageBox::warning(NULL, tr("Error"), tr("Could not open file"), QMessageBox::Ok);
+        QMessageBox::warning(nullptr, tr("Error"), tr("Could not open file"), QMessageBox::Ok);
         return;
     }
 
@@ -163,7 +163,7 @@ void ExportFileData::ExportTextFileInchF(QString FileOut) {
 
     QFile fo(FileOut);
     if (!fo.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        QMessageBox::warning(NULL, tr("Error"), tr("Could not open file"), QMessageBox::Ok);
+        QMessageBox::warning(nullptr, tr("Error"), tr("Could not open file"), QMessageBox::Ok);
         return;
     }
 
