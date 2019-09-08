@@ -85,7 +85,8 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     BulbCalculator::Create3dWin();
     BulbCalculator::Create2dWin();
     view3d->SetBc(this);
-    view3d->Set3dViewMode(WIREFRAME);
+    view3d->Set3dViewMode(this->BcPrefs->View_3dMode);
+    view3d->Set3DResolution(this->BcPrefs->Res_3d);
 
     connect( ui.action_Quit, SIGNAL( triggered() ), this, SLOT(close()) );
     connect( ui.action_SetParameters, SIGNAL (triggered() ), this, SLOT(SetBulbParameter()));
@@ -121,10 +122,13 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     QStringList res;
     res << tr("Low") << tr("Medium") << tr("High") << tr("Highest");
     this->res3d->addItems(res);
+    this->res3d->setCurrentIndex(this->BcPrefs->Res_3d);
     this->view3dMode = new  QComboBox;
     QStringList vm;
     vm << tr("Wireframe") << tr("Triangles") << tr("Surface");
     this->view3dMode->addItems(vm);
+    this->view3dMode->setCurrentIndex(this->BcPrefs->View_3dMode);
+
     QLabel *res3dl = new QLabel(tr("3D resolution"));
     QLabel *profsl = new QLabel(tr("Profile"));
     QLabel *viewmodel = new QLabel(tr("View Mode"));
@@ -180,6 +184,9 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
     connect(this->profs, SIGNAL(currentIndexChanged(QString)), this, SLOT(SetFoilProfile(QString)));
     connect(this->view3dMode, SIGNAL(currentIndexChanged(int)), this, SLOT(Set3dViewMode(int)));
 
+    connect(this->res3d, SIGNAL(currentIndexChanged(int)), this, SLOT(persistResolution(int)));
+    connect(this->view3dMode, SIGNAL(currentIndexChanged(int)), this, SLOT(persistViewMode(int)));
+
     separatorAct = ui.menu_File->addSeparator();
     for (int i = 0; i < MAXRECENTFILE; ++i) {
         RecentProjects[i] = new QAction(this);
@@ -196,6 +203,28 @@ BulbCalculator::BulbCalculator(QMainWindow *form) : QMainWindow(form){
         this->SetCurrentFile(QApplication::arguments().takeAt(1));
         this->LoadFile();
     }
+
+}
+
+void BulbCalculator::persistResolution(int res) {
+
+    QSettings settings("GRYS","BulbCalculator");
+
+    this->BcPrefs->Res_3d = res;
+    settings.beginGroup("GuiState");
+    settings.setValue("3DResolution", res);
+    settings.endGroup();
+
+}
+
+void BulbCalculator::persistViewMode(int mode) {
+
+    QSettings settings("GRYS","BulbCalculator");
+
+    this->BcPrefs->View_3dMode = mode;
+    settings.beginGroup("GuiState");
+    settings.setValue("3DViewMode", mode);
+    settings.endGroup();
 
 }
 
@@ -1684,7 +1713,6 @@ void BulbCalculator::LoadFile() {
         }
         this->KeelScrewHolePos = value.toElement().text().toFloat() / 100;
 
-
         props = root.firstChildElement("Properties");
         value = props.namedItem("screw_hole_diam");
         if (props.isNull()) {
@@ -1698,9 +1726,7 @@ void BulbCalculator::LoadFile() {
         this->KeelSlotWidth = 0.0;
         this->KeelScrewHolePos = 0.0;
         this->KeelScrewHoleDiam = 0.0;
-
     }
-
 
     if (err == 1) {
         QMessageBox::critical(this, tr("BulbCalculator"),
@@ -1975,7 +2001,7 @@ void BulbCalculator::ReadGuiPreferences() {
 void BulbCalculator::ReadBulbPreferences() {
 
     QSettings settings("GRYS","BulbCalculator");
-    if (settings.childGroups().contains("BulbDefault",Qt::CaseInsensitive)){
+    if (settings.childGroups().contains("BulbDefault", Qt::CaseInsensitive)){
         settings.beginGroup("BulbDefault");
         this->BcPrefs->Bulb_Tw = settings.value("TargetWeight").toFloat();
         this->BcPrefs->Bulb_Md = settings.value("MatDensity").toFloat();
@@ -2001,7 +2027,21 @@ void BulbCalculator::ReadBulbPreferences() {
         settings.endGroup();
     }
 
+    if (settings.childGroups().contains("GuiState", Qt::CaseInsensitive)) {
+        settings.beginGroup("GuiState");
+        this->BcPrefs->View_3dMode = settings.value("3DViewMode").toInt();
+        this->BcPrefs->Res_3d = settings.value("3DResolution").toInt();
+        settings.endGroup();
+    } else {
+        settings.beginGroup("GuiState");
+        settings.setValue("3DViewMode", 0);
+        settings.setValue("3DResolution", 0);
+        this->BcPrefs->View_3dMode = 0;
+        this->BcPrefs->Res_3d = 0;
+        settings.endGroup();
+    }
 }
+
 
 void BulbCalculator::ReadPrinterPreferences() {
 

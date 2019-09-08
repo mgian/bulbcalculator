@@ -66,7 +66,6 @@ BcPreference::BcPreference() {
 
 }
 
-
 void BcPreference::SaveChanges() {
 
     if (this->ModPref == YES) {
@@ -178,7 +177,6 @@ void BcPreference::ReadCurrentPref() {
     }
     settings.endArray();
 
-
 }
 
 
@@ -236,11 +234,7 @@ void BcPreference::UpdInterfacePref() {
         settings.setValue("2dViewColor", VIEW2D_COLOR_WHITE);
     }
 
-
     settings.endGroup();
-
-
-
 
 }
 
@@ -260,7 +254,6 @@ void BcPreference::UpdBulbPref() {
     settings.setValue("SliceThickness", this->DSP_DefSliceThickness->value());
     settings.setValue("HLRatio", this->SP_DefHLR->value());
     settings.setValue("WHRatio", this->SP_DefWHR->value());
-
 
     settings.endGroup();
 

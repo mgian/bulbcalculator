@@ -192,6 +192,8 @@ class BulbCalculator : public QMainWindow
         void ExportSTL(void);
         void SetCurrentFile(const QString &ProjectName);
         void ShowKeelOptions();
+        void persistResolution(int res);
+        void persistViewMode(int mode);
 
     private:
         QMdiSubWindow *BulbCalculation;
@@ -391,6 +393,9 @@ class BulbCalcPref {
         int PaperSize;
         int PageOrientation;
 
+        /* Bulb 3dview preferences */
+        int Res_3d;
+        int View_3dMode;
 };
 
 class BulbCalcStatus {
