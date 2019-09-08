@@ -1136,15 +1136,15 @@ void BulbCalculator::UpdateResults() {
 
     data_profile.calc(this->naca_profile.WHRatio, naca_profile.volume);
 
-    tl = pow((target_weight*1000.0)/(naca_profile.volume*material_density), 1.0/3.0);
+    tl = pow((static_cast<double>(target_weight)*1000.0)/(naca_profile.volume*static_cast<double>(material_density)), 1.0/3.0);
     this->length = tl;
-    this->bulb_volume = naca_profile.volume*(double)pow(tl,3);
-    this->bulb_wet_surface = naca_profile.wetted_surface*(double)pow(tl,2);
+    this->bulb_volume = static_cast<float>(naca_profile.volume*static_cast<double>(pow(tl,3)));
+    this->bulb_wet_surface = static_cast<float>(naca_profile.wetted_surface*static_cast<double>(pow(tl,2)));
     tl = floor(tl*1000.0+.5)/1000.0;
 
     hl = this->naca_profile.HLRatio * 100;
 
-    hs = ceil(this->naca_profile.HLRatio * 100) - 3;
+    hs = static_cast<int>(ceil(this->naca_profile.HLRatio * 100.0) - 3.0);
 
     QString tmpBulbName = "";
     QString tmpVal = "";
@@ -1245,11 +1245,11 @@ void BulbCalculator::UpdateResults() {
         }
         switch(this->BcPrefs->Gui_Unit) {
             case UNIT_MM:
-                it->setText(QString::number(this->material_density,'.',2));
+                it->setText(QString::number(static_cast<double>(this->material_density),'.',2));
                 break;
             case UNIT_INCH_F:
             case UNIT_INCH:
-                it->setText(DisplayValue(this->material_density*62.42, this->BcPrefs->Gui_Unit));
+                it->setText(DisplayValue(static_cast<double>(this->material_density)*62.42, this->BcPrefs->Gui_Unit));
                 break;
         }
         this->TW_Bulb->setItem(1,i,it);
@@ -1261,7 +1261,7 @@ void BulbCalculator::UpdateResults() {
         }
         this->naca_profile.HLRatio = cur_h / 100.0;
         this->naca_profile.calc();
-        tl = pow((target_weight*1000.0)/(naca_profile.volume*material_density), 1.0/3.0);
+        tl = pow((static_cast<double>(target_weight)*1000.0)/(naca_profile.volume*static_cast<double>(material_density)), 1.0/3.0);
 
         switch(this->BcPrefs->Gui_Unit) {
             case UNIT_MM:
@@ -1300,14 +1300,14 @@ void BulbCalculator::UpdateResults() {
         it->setText(QString::number(this->naca_profile.gcentre*100,'.',2).append(("%")));
         this->TW_Bulb->setItem(4,i,it);
 
-        vol = naca_profile.volume * (double)pow(tl, 3);
+        vol = naca_profile.volume * static_cast<double>(pow(tl, 3));
 
         // Projected Weight
         it = new QTableWidgetItem;
         if(i == 4) {
             it->setBackground(QColor(CELL_COLOR_GREEN));
         }
-        double vol_e = vol * (double)this->material_density;
+        double vol_e = vol * static_cast<double>(this->material_density);
 
         switch(this->BcPrefs->Gui_Unit) {
             case UNIT_MM:
@@ -1343,7 +1343,7 @@ void BulbCalculator::UpdateResults() {
         if(i == 4) {
             it->setBackground(QColor(CELL_COLOR_GREEN));
         }
-        double ws_e = naca_profile.wetted_surface* (double)pow(tl, 2);
+        double ws_e = naca_profile.wetted_surface* static_cast<double>(pow(tl, 2));
         switch(this->BcPrefs->Gui_Unit) {
             case UNIT_MM:
                 it->setText(QString::number(ws_e,'.',2));
@@ -1427,7 +1427,7 @@ void BulbCalculator::SetBulbParameter() {
     if (ret == QDialog::Accepted) {
         naca_profile.HLRatio = DlgParam->GetHLR();
         naca_profile.WHRatio = DlgParam->GetWHR();
-        this->target_weight = DlgParam->GetTargetWeight();
+        this->target_weight = static_cast<float>(DlgParam->GetTargetWeight());
         this->material_density = DlgParam->GetMaterialDensity();
         BulbCalculator::UpdateCalculations();
         this->GV_2DView->UpdateView();
@@ -1628,25 +1628,25 @@ void BulbCalculator::LoadFile() {
     if (value.isNull()) {
         err = 1;
     }
-    this->naca_profile.WHRatio = value.toElement().text().toFloat() / 100.0;
+    this->naca_profile.WHRatio = value.toElement().text().toDouble() / 100.0;
 
     value = params.namedItem("hlr");
     if (value.isNull()) {
         err = 1;
     }
-    this->naca_profile.HLRatio = value.toElement().text().toFloat() / 100.0;
+    this->naca_profile.HLRatio = value.toElement().text().toDouble() / 100.0;
 
     value = params.namedItem("target_weight");
     if (value.isNull()) {
         err = 1;
     }
-    this->target_weight = value.toElement().text().toFloat() / 1000.0;
+    this->target_weight = static_cast<float>(value.toElement().text().toDouble() / 1000.0);
 
     value = params.namedItem("material_density");
     if (value.isNull()) {
         err = 1;
     }
-    this->material_density = value.toElement().text().toFloat() / 100.0;
+    this->material_density = static_cast<float>(value.toElement().text().toDouble() / 100.0);
 
     if (ver == BULBV2) {
         props = root.firstChildElement("Properties");
@@ -1722,7 +1722,7 @@ void BulbCalculator::SetDefaultValue() {
     naca_profile.HLRatio = this->BcPrefs->Bulb_Hrl/100.0;
     naca_profile.WHRatio = this->BcPrefs->Bulb_Whr/100.0;
     this->slice = this->BcPrefs->Bulb_Ds;
-    this->slice_thickness = this->BcPrefs->Bulb_St;
+    this->slice_thickness = static_cast<float>(this->BcPrefs->Bulb_St);
     this->KeelSlotPosition = 0.0;
     this->KeelSlotLenght = 0.0;
     this->KeelSlotWidth = 0.0;

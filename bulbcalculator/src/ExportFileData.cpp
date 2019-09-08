@@ -71,7 +71,7 @@ void ExportFileData::ExportTextFileMM(QString FileOut) {
 
     double tl;
 
-    tl = pow((this->bc->target_weight*1000.0)/(this->bc->naca_profile.volume*this->bc->material_density), 1.0/3.0);
+    tl = pow((static_cast<double>(this->bc->target_weight)*1000.0)/(this->bc->naca_profile.volume*static_cast<double>(this->bc->material_density)), 1.0/3.0);
 
 
 
@@ -119,7 +119,7 @@ void ExportFileData::ExportTextFileInchD(QString FileOut) {
 
     double tl;
 
-    tl = pow((this->bc->target_weight*1000.0)/(this->bc->naca_profile.volume*this->bc->material_density), 1.0/3.0);
+    tl = pow((static_cast<double>(this->bc->target_weight)*1000.0)/(this->bc->naca_profile.volume*static_cast<double>(this->bc->material_density)), 1.0/3.0);
 
     QFile fo(FileOut);
     if (!fo.open(QIODevice::WriteOnly | QIODevice::Text)) {
@@ -132,8 +132,8 @@ void ExportFileData::ExportTextFileInchD(QString FileOut) {
 
     fos << QString("%1").arg(tr("Lenght (in.)"), -25, ' ') << ": " << DisplayValue(this->bc->length/2.54, this->bc->BcPrefs->Gui_Unit) << "\n";
     fos << QString("%1").arg(tr("Center (in.)"), -25, ' ') << ": " << DisplayValue(tl * this->bc->naca_profile.gcentre/2.54, this->bc->BcPrefs->Gui_Unit) << "\n";
-    fos << QString("%1").arg(tr("Wetted Surface (sq.in.)"), -25, ' ') << ": " << DisplayValue(this->bc->bulb_wet_surface*0.155, this->bc->BcPrefs->Gui_Unit) << "\n";
-    fos << QString("%1").arg(tr("Volume (cu.in.)"), -25, ' ') << ": " << DisplayValue(this->bc->bulb_volume*0.061, this->bc->BcPrefs->Gui_Unit) << "\n";
+    fos << QString("%1").arg(tr("Wetted Surface (sq.in.)"), -25, ' ') << ": " << DisplayValue(static_cast<double>(this->bc->bulb_wet_surface)*0.155, this->bc->BcPrefs->Gui_Unit) << "\n";
+    fos << QString("%1").arg(tr("Volume (cu.in.)"), -25, ' ') << ": " << DisplayValue(static_cast<double>(this->bc->bulb_volume)*0.061, this->bc->BcPrefs->Gui_Unit) << "\n";
     fos << "\n" << "\n";
     fos << QString("%1").arg(tr("Position"), 15, ' ');
     fos << QString("%1").arg(tr("X (in.)"), 15, ' ');
@@ -159,7 +159,7 @@ void ExportFileData::ExportTextFileInchF(QString FileOut) {
 
     double tl;
 
-    tl = pow((this->bc->target_weight*1000.0)/(this->bc->naca_profile.volume*this->bc->material_density), 1.0/3.0);
+    tl = pow((static_cast<double>(this->bc->target_weight)*1000.0)/(this->bc->naca_profile.volume*static_cast<double>(this->bc->material_density)), 1.0/3.0);
 
     QFile fo(FileOut);
     if (!fo.open(QIODevice::WriteOnly | QIODevice::Text)) {
@@ -172,8 +172,8 @@ void ExportFileData::ExportTextFileInchF(QString FileOut) {
 
     fos << QString("%1").arg(tr("Lenght (in.)"), -25, ' ') << ": " << DisplayValue(this->bc->length/2.54, this->bc->BcPrefs->Gui_Unit) << "\n";
     fos << QString("%1").arg(tr("Center (in.)"), -25, ' ') << ": " << DisplayValue(tl * this->bc->naca_profile.gcentre/2.54, this->bc->BcPrefs->Gui_Unit) << "\n";
-    fos << QString("%1").arg(tr("Wetted Surface (sq.in.)"), -25, ' ') << ": " << DisplayValue(this->bc->bulb_wet_surface*0.155, this->bc->BcPrefs->Gui_Unit) << "\n";
-    fos << QString("%1").arg(tr("Volume (cu.in.)"), -25, ' ') << ": " << DisplayValue(this->bc->bulb_volume*0.061, this->bc->BcPrefs->Gui_Unit) << "\n";
+    fos << QString("%1").arg(tr("Wetted Surface (sq.in.)"), -25, ' ') << ": " << DisplayValue(static_cast<double>(this->bc->bulb_wet_surface)*0.155, this->bc->BcPrefs->Gui_Unit) << "\n";
+    fos << QString("%1").arg(tr("Volume (cu.in.)"), -25, ' ') << ": " << DisplayValue(static_cast<double>(this->bc->bulb_volume)*0.061, this->bc->BcPrefs->Gui_Unit) << "\n";
     fos << "\n" << "\n";
     fos << QString("%1").arg(tr("Position"), 15, ' ');
     fos << QString("%1").arg(tr("X"), 15, ' ');

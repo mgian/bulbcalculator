@@ -82,16 +82,12 @@ int ExportStl::GetResolution(void) {
     switch(ui->CB_STLResolution->currentIndex()) {
         case 0:
             return RES_LOW;
-            break;
         case 1:
             return RES_MED;
-            break;
         case 2:
             return RES_HIGH;
-            break;
         case 3:
             return RES_HIGHEST-1;
-            break;
     }
     return -1;
 

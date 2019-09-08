@@ -37,8 +37,8 @@ PrintDraw::PrintDraw(BulbCalculator *bc, int pt) {
 
     QPrinter printer(QPrinter::HighResolution);
 
-    printer.setPageSize((QPrinter::PageSize)this->bc->BcPrefs->PaperSize);
-    printer.setOrientation((QPrinter::Orientation)this->bc->BcPrefs->PageOrientation);
+    printer.setPageSize(static_cast<QPrinter::PageSize>(this->bc->BcPrefs->PaperSize));
+    printer.setOrientation(static_cast<QPrinter::Orientation>(this->bc->BcPrefs->PageOrientation));
 
     QPrintPreviewDialog *preview = new QPrintPreviewDialog(&printer);
 
@@ -72,12 +72,12 @@ void PrintDraw::PrintPreview(QPrinter *pr) {
         aPainter.begin(pr);
         o = pr->orientation();
         if (o == QPrinter::Landscape) {
-            aPainter.setWindow(0, 0, aLogicalHeight, aLogicalWidth);
-            aPainter.setViewport(0, 0, aPhysicalHeight,aPhysicalWidth);
+            aPainter.setWindow(0, 0, static_cast<int>(aLogicalHeight), static_cast<int>(aLogicalWidth));
+            aPainter.setViewport(0, 0, static_cast<int>(aPhysicalHeight), static_cast<int>(aPhysicalWidth));
         }
         if (o == QPrinter::Portrait) {
-            aPainter.setWindow(0, 0, aLogicalWidth, aLogicalHeight);
-            aPainter.setViewport(0, 0, aPhysicalWidth, aPhysicalHeight);
+            aPainter.setWindow(0, 0, static_cast<int>(aLogicalWidth), static_cast<int>(aLogicalHeight));
+            aPainter.setViewport(0, 0, static_cast<int>(aPhysicalWidth), static_cast<int>(aPhysicalHeight));
 
         }
 
@@ -125,7 +125,7 @@ void PrintDraw::DrawBulbData(QPrinter *prn) {
 
     QPainter p;
     p.begin(prn);
-    y =  this->DrawBulbView(&p, w);
+    y =  this->DrawBulbView(&p, static_cast<int>(w));
 
     p.setFont(TextFont);
 

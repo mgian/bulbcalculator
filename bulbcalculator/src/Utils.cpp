@@ -66,9 +66,9 @@ QString DisplayInchesFractional(double inch) {
 
     bool neg = (inch<0.0);
     inch = fabs(inch);
-    int whole = floor(inch);
+    int whole = static_cast<int>(floor(inch));
     int denominator = 64;
-    int numerator = floor((inch-floor(inch))*(double)denominator+0.5);
+    int numerator = static_cast<int>(floor((inch-floor(inch))*static_cast<double>(denominator+0.5)));
     if(numerator>0)
             while((numerator%2)==0) {
                     denominator /= 2;
