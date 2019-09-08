@@ -627,18 +627,18 @@ void BulbCalculator::UpdateCalcs() {
     QTableWidgetItem *itG1 = new QTableWidgetItem;
     switch(this->BcPrefs->Gui_Unit) {
         case UNIT_MM:
-            itG1->setText(QString::number(this->target_weight*1000,'.',2));
+            itG1->setText(QString::number(static_cast<double>(this->target_weight)*1000,'.',2));
             break;
         case UNIT_INCH_F:
         case UNIT_INCH:
-            itG1->setText(DisplayValue(this->target_weight*1000*0.035, this->BcPrefs->Gui_Unit));
+            itG1->setText(DisplayValue(static_cast<double>(this->target_weight)*1000*0.035, this->BcPrefs->Gui_Unit));
             break;
     }
     this->TW_SubBulbDataGen->setItem(1,1,itG1);
 
     // Center
     QTableWidgetItem *itG2 = new QTableWidgetItem;
-    tl = pow((target_weight*1000.0)/(naca_profile.volume*material_density), 1.0/3.0);
+    tl = pow((static_cast<double>(this->target_weight)*1000.0)/(naca_profile.volume*static_cast<double>(material_density)), 1.0/3.0);
     double gc = tl * this->naca_profile.gcentre;
     switch(this->BcPrefs->Gui_Unit) {
         case UNIT_MM:
@@ -656,11 +656,11 @@ void BulbCalculator::UpdateCalcs() {
     float vol = this->bulb_volume;
     switch(this->BcPrefs->Gui_Unit) {
         case UNIT_MM:
-            itG3->setText(QString::number(vol,'.',2));
+            itG3->setText(QString::number(static_cast<double>(vol),'.',2));
             break;
         case UNIT_INCH_F:
         case UNIT_INCH:
-            itG3->setText(DisplayValue(vol*0.061, this->BcPrefs->Gui_Unit));
+            itG3->setText(DisplayValue(static_cast<double>(vol)*0.061, this->BcPrefs->Gui_Unit));
             break;
     }
     this->TW_SubBulbDataGen->setItem(3,1,itG3);
@@ -812,8 +812,8 @@ void BulbCalculator::PrintBulbData() {
 void BulbCalculator::PageSetup() {
 
     QPrinter printer;
-    printer.setPaperSize((QPrinter::PaperSize)this->BcPrefs->PaperSize);
-    printer.setOrientation((QPrinter::Orientation)this->BcPrefs->PageOrientation);
+    printer.setPaperSize(static_cast<QPrinter::PaperSize>(this->BcPrefs->PaperSize));
+    printer.setOrientation(static_cast<QPrinter::Orientation>(this->BcPrefs->PageOrientation));
     QPageSetupDialog QPageSetupDlg(&printer, nullptr);
 
 
@@ -842,7 +842,9 @@ void BulbCalculator::ShowPrefWindow() {
             ui.actionCascade->setEnabled(false);
         }
         this->UpdateCalcs();
+        this->GV_2DView->setColors();
     }
+    this->GV_2DView->UpdateView();
 
 }
 
@@ -852,10 +854,10 @@ void BulbCalculator::SetBulbDataOptions() {
     double tl;
 
     BulbDataOptions *DlgBulbDataOpt = new BulbDataOptions;
-    tl = pow((target_weight*1000.0)/(naca_profile.volume*material_density), 1.0/3.0);
+    tl = pow((static_cast<double>(target_weight)*1000.0)/(naca_profile.volume*static_cast<double>(material_density)), 1.0/3.0);
 
-    DlgBulbDataOpt->SetBulbValue(tl, this->target_weight, this->bulb_volume,
-                                this->bulb_wet_surface, this->num_sect, this->sect_dist, this->BcPrefs->Gui_Unit,
+    DlgBulbDataOpt->SetBulbValue(tl, static_cast<double>(this->target_weight), static_cast<double>(this->bulb_volume),
+                                static_cast<double>(this->bulb_wet_surface), this->num_sect, this->sect_dist, this->BcPrefs->Gui_Unit,
                                 this->slice_thickness);
 
     ret = DlgBulbDataOpt->exec();
@@ -1030,12 +1032,12 @@ void BulbCalculator::Save() {
 
     QDomElement tw = doc.createElement("target_weight");
     param.appendChild(tw);
-    QDomText vtw = doc.createTextNode(QString("%1").arg(this->target_weight*1000));
+    QDomText vtw = doc.createTextNode(QString("%1").arg(static_cast<double>(this->target_weight)*1000));
     tw.appendChild(vtw);
 
     QDomElement md = doc.createElement("material_density");
     param.appendChild(md);
-    QDomText vmd = doc.createTextNode(QString("%1").arg(this->material_density*100));
+    QDomText vmd = doc.createTextNode(QString("%1").arg(static_cast<double>(this->material_density)*100));
     md.appendChild(vmd);
 
     QDomElement metadata = doc.createElement("Properties");
@@ -1043,27 +1045,27 @@ void BulbCalculator::Save() {
 
     QDomElement kl = doc.createElement("keel_slot_pos");
     metadata.appendChild(kl);
-    QDomText klv = doc.createTextNode(QString("%1").arg(this->KeelSlotPosition));
+    QDomText klv = doc.createTextNode(QString("%1").arg(static_cast<double>(this->KeelSlotPosition)));
     kl.appendChild(klv);
 
     QDomElement kll = doc.createElement("keel_slot_len");
     metadata.appendChild(kll);
-    QDomText kllv = doc.createTextNode(QString("%1").arg(this->KeelSlotLenght));
+    QDomText kllv = doc.createTextNode(QString("%1").arg(static_cast<double>(this->KeelSlotLenght)));
     kll.appendChild(kllv);
 
     QDomElement klw = doc.createElement("keel_slot_wid");
     metadata.appendChild(klw);
-    QDomText klwv = doc.createTextNode(QString("%1").arg(this->KeelSlotWidth));
+    QDomText klwv = doc.createTextNode(QString("%1").arg(static_cast<double>(this->KeelSlotWidth)));
     klw.appendChild(klwv);
 
     QDomElement shp = doc.createElement("screw_hole_pos");
     metadata.appendChild(shp);
-    QDomText shpv = doc.createTextNode(QString("%1").arg(this->KeelScrewHolePos));
+    QDomText shpv = doc.createTextNode(QString("%1").arg(static_cast<double>(this->KeelScrewHolePos)));
     shp.appendChild(shpv);
 
     QDomElement shd = doc.createElement("screw_hole_diam");
     metadata.appendChild(shd);
-    QDomText shdv = doc.createTextNode(QString("%1").arg(this->KeelScrewHoleDiam));
+    QDomText shdv = doc.createTextNode(QString("%1").arg(static_cast<double>(this->KeelScrewHoleDiam)));
     shd.appendChild(shdv);
 
 
@@ -1948,13 +1950,13 @@ void BulbCalculator::ReadGuiPreferences() {
     QSettings settings("GRYS","BulbCalculator");
     if (settings.childGroups().contains("Gui",Qt::CaseInsensitive)){
         settings.beginGroup("Gui");
-        qDebug() << settings.value("ViewMode");
         this->BcPrefs->Gui_BcViewMode = settings.value("ViewMode").toInt();
         this->BcPrefs->Gui_TabPos = settings.value("TabPos").toInt();
         this->BcPrefs->Gui_Unit = settings.value("Unit").toInt();
+        this->BcPrefs->Gui_2dviewColor = settings.value("2dViewColor").toInt();
         settings.endGroup();
-        ui.mdiArea->setViewMode((QMdiArea::ViewMode)this->BcPrefs->Gui_BcViewMode);
-        ui.mdiArea->setTabPosition((QTabWidget::TabPosition)this->BcPrefs->Gui_TabPos);
+        ui.mdiArea->setViewMode(static_cast<QMdiArea::ViewMode>(this->BcPrefs->Gui_BcViewMode));
+        ui.mdiArea->setTabPosition(static_cast<QTabWidget::TabPosition>(this->BcPrefs->Gui_TabPos));
     } else {
         settings.beginGroup("Gui");
         settings.setValue("ViewMode", 0);
@@ -1962,6 +1964,7 @@ void BulbCalculator::ReadGuiPreferences() {
         this->BcPrefs->Gui_BcViewMode = MDI;
         this->BcPrefs->Gui_TabPos = 0;
         this->BcPrefs->Gui_Unit = UNIT_MM;
+        this->BcPrefs->Gui_2dviewColor = VIEW2D_COLOR_BLACK;
         settings.endGroup();
         ui.mdiArea->setViewMode(QMdiArea::SubWindowView);
         ui.mdiArea->setTabPosition(QTabWidget::North);
@@ -1974,8 +1977,8 @@ void BulbCalculator::ReadBulbPreferences() {
     QSettings settings("GRYS","BulbCalculator");
     if (settings.childGroups().contains("BulbDefault",Qt::CaseInsensitive)){
         settings.beginGroup("BulbDefault");
-        this->BcPrefs->Bulb_Tw = settings.value("TargetWeight").toDouble();
-        this->BcPrefs->Bulb_Md = settings.value("MatDensity").toDouble();
+        this->BcPrefs->Bulb_Tw = settings.value("TargetWeight").toFloat();
+        this->BcPrefs->Bulb_Md = settings.value("MatDensity").toFloat();
         this->BcPrefs->Bulb_Ds = settings.value("DrawSlice").toInt();
         this->BcPrefs->Bulb_St = settings.value("SliceThickness").toDouble();
         this->BcPrefs->Bulb_Hrl = settings.value("HLRatio").toInt();
@@ -1989,8 +1992,8 @@ void BulbCalculator::ReadBulbPreferences() {
         settings.setValue("SliceThickness", 0.2);
         settings.setValue("HLRatio", 15);
         settings.setValue("WHRatio", 100);
-        this->BcPrefs->Bulb_Tw = 2.4;
-        this->BcPrefs->Bulb_Md = 11.34;
+        this->BcPrefs->Bulb_Tw = static_cast<float>(2.4);
+        this->BcPrefs->Bulb_Md = static_cast<float>(11.34);
         this->BcPrefs->Bulb_Ds = YES;
         this->BcPrefs->Bulb_St = 0.2;
         this->BcPrefs->Bulb_Hrl = 15;
@@ -2049,7 +2052,7 @@ void BulbCalculator::SetCurrentFile(const QString &ProjectName) {
 
     this->BcStatus->CurFile = ProjectName;
 
-    QSettings settings("GRYS","BulbCalculator");;
+    QSettings settings("GRYS","BulbCalculator");
     QStringList files = settings.value("RecentProject").toStringList();
     files.removeAll(ProjectName);
     files.prepend(ProjectName);
@@ -2065,7 +2068,7 @@ void BulbCalculator::SetCurrentFile(const QString &ProjectName) {
 
 void BulbCalculator::UpdateRecentFileActions() {
 
-    QSettings settings("GRYS","BulbCalculator");;
+    QSettings settings("GRYS","BulbCalculator");
     QStringList files = settings.value("RecentProject").toStringList();
 
     int numRecentFiles = qMin(files.size(), MAXRECENTFILE);

@@ -38,6 +38,26 @@ ViewArea::ViewArea(QGraphicsScene *scene, BulbCalculator *bcp,  int type, QWidge
     this->bc = bcp;
     this->view = type;
 
+    this->setColors();
+}
+
+void ViewArea::setColors() {
+
+    switch (this->bc->BcPrefs->Gui_2dviewColor) {
+        case VIEW2D_COLOR_WHITE:
+            this->penDrawColor = QPen(Qt::white);
+            this->penTextColor = QPen(Qt::white, 0.4);
+            break;
+        case VIEW2D_COLOR_BLACK:
+            this->penDrawColor = QPen(Qt::black);
+            this->penTextColor = QPen(Qt::black, 0.4);
+            break;
+        default:
+            this->penDrawColor = QPen(Qt::gray);
+            this->penTextColor = QPen(Qt::gray, 0.4);
+            break;
+    }
+
 }
 
 void ViewArea::resizeEvent( QResizeEvent * event ) {
@@ -55,17 +75,16 @@ void ViewArea::UpdateView() {
     long h,w, hl, hy;
     long TopAxis_y, SideAxis_y ;
 
-    w = (int)this->scene()->width();
-    h = (int)this->scene()->height();
+    w = static_cast<int>(this->scene()->width());
+    h = static_cast<int>(this->scene()->height());
 
     SideAxis_y = (h/4) * 2;
     TopAxis_y = SideAxis_y + h/2;
     hy = h/2;
-    hl = w*0.75;
-
+    hl = static_cast<long>(w*0.75);
     this->scene()->clear();
-    this->scene()->addLine(10,h/2.0,w-10,h/2.0,QPen(Qt::black));
-    this->scene()->addLine(hl,h+10,hl,h/h-10,QPen(Qt::black));
+    this->scene()->addLine(10,h/2.0,w-10,h/2.0,this->penDrawColor);
+    this->scene()->addLine(hl,h+10,hl,h/h-10,this->penDrawColor);
 
     ViewArea::DrawAxisTopSide(hl,hy,TopAxis_y);
     ViewArea::DrawAxisTopSide(hl,hy,SideAxis_y);
@@ -106,7 +125,7 @@ void ViewArea::DrawText(long w, long h) {
     prof.append(tr(" - Front view"));
     path.addText(w*0.75+15, 15, font,  prof);
 
-    this->scene()->addPath(path, QPen(QBrush(Qt::black), 0.4), QBrush(Qt::black));
+    this->scene()->addPath(path, this->penTextColor, QBrush(Qt::black));
 
 }
 
@@ -162,11 +181,11 @@ void ViewArea::DrawBulbTop(long hl, long Origin_Top) {
 
     for(int i=1; i < w; i++) {
         this->scene()->addLine(15 + point_x[i-1],OriginY-point_wyu[i-1],
-                             15 + point_x[i],OriginY-point_wyu[i],QPen(Qt::black));
+                             15 + point_x[i],OriginY-point_wyu[i],this->penDrawColor);
     }
     for(int i=1; i < w; i++) {
         this->scene()->addLine(15 + point_x[i-1],OriginY-point_wyl[i-1],
-                             15 + point_x[i],OriginY-point_wyl[i],QPen(Qt::black));
+                             15 + point_x[i],OriginY-point_wyl[i],this->penDrawColor);
     }
 
 }
@@ -187,18 +206,18 @@ void ViewArea::DrawBulbSide(long hl, long Origin_Side) {
 
     for(int i=0;i < w; i++) {
         point_x[i] = i;
-        profile_data& pd(this->bc->naca_profile[(unsigned)((double)i*mult)]);
+        profile_data& pd(this->bc->naca_profile[static_cast<unsigned>(static_cast<double>(i*mult))]);
         point_hyu[i] = pd.height_u * w;
         point_hyl[i] = pd.height_l * w;
     }
 
     for(int i=1; i < w; i++) {
         this->scene()->addLine(15 + point_x[i-1],OriginY-point_hyu[i-1],
-                             15 + point_x[i],OriginY-point_hyu[i],QPen(Qt::black));
+                             15 + point_x[i],OriginY-point_hyu[i],this->penDrawColor);
     }
     for(int i=1; i < w; i++) {
         this->scene()->addLine(15 + point_x[i-1],OriginY-point_hyl[i-1],
-                             15 + point_x[i],OriginY-point_hyl[i],QPen(Qt::black));
+                             15 + point_x[i],OriginY-point_hyl[i],this->penDrawColor);
     }
 
 }
@@ -220,11 +239,13 @@ void ViewArea::DrawBulbFront(long Origin_X, long Origin_Top) {
     yl = this->bc->naca_profile.max_height_l * w;
 
     QGraphicsEllipseItem* itemU = new QGraphicsEllipseItem(OriginX-xa,OriginY-yu, xa*2, yu*2);
+    itemU->setPen(this->penDrawColor);
     itemU->setStartAngle(0);
     itemU->setSpanAngle(180*16);
     this->scene()->addItem(itemU);
 
     QGraphicsEllipseItem* itemL = new QGraphicsEllipseItem(OriginX-xa,OriginY-yl, xa*2, yl*2);
+    itemL->setPen(this->penDrawColor);
     itemL->setStartAngle(180*16);
     itemL->setSpanAngle(180*16);
     this->scene()->addItem(itemL);

@@ -54,6 +54,8 @@ BcPreference::BcPreference() {
     connect(this->CB_TabPosition, SIGNAL(currentIndexChanged(int)), this, SLOT(EnableApply()));
     connect(this->B_LocRepoSelect, SIGNAL(clicked()), this, SLOT(SelectLocalRepo()));
     connect(this->LE_LocalRepo, SIGNAL(textChanged(QString)), SLOT(EnableApply()));
+    connect(this->RB_pref_colorBlack, SIGNAL(toggled(bool)), this, SLOT(EnableApply()));
+    connect(this->RB_pref_colorWhite, SIGNAL(toggled(bool)), this, SLOT(EnableApply()));
 
 
     this->lw_category->setCurrentRow(0);
@@ -139,6 +141,16 @@ void BcPreference::ReadCurrentPref() {
             this->RB_DefImp_F->setChecked(true);
             break;
     }
+
+    val = settings.value("2dViewColor").toInt();
+    switch (val) {
+        case VIEW2D_COLOR_BLACK:
+            this->RB_pref_colorBlack->setChecked(true);
+            break;
+        case VIEW2D_COLOR_WHITE:
+            this->RB_pref_colorWhite->setChecked(true);
+            break;
+    }
     settings.endGroup();
 
     settings.beginGroup("BulbDefault");
@@ -218,6 +230,13 @@ void BcPreference::UpdInterfacePref() {
     } else if (this->RB_DefImp_F->isChecked() == true) {
         settings.setValue("Unit", UNIT_INCH_F);
     }
+    if (this->RB_pref_colorBlack->isChecked() == true) {
+        settings.setValue("2dViewColor", VIEW2D_COLOR_BLACK);
+    } else if (this->RB_pref_colorWhite->isChecked() == true) {
+        settings.setValue("2dViewColor", VIEW2D_COLOR_WHITE);
+    }
+
+
     settings.endGroup();
 
 

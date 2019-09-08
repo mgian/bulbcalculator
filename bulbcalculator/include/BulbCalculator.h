@@ -84,6 +84,10 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 
 #define CELL_COLOR_GREEN    "#00aa00"
 
+#define VIEW2D_COLOR_WHITE  400
+#define VIEW2D_COLOR_BLACK  401
+
+
 enum WF_RES {
     WF_LOW,
     WF_MEDIUM,
@@ -338,6 +342,7 @@ class ViewArea : public QGraphicsView {
     public:
         ViewArea(QGraphicsScene *scene,  BulbCalculator *bcp, int type, QWidget *parent = nullptr);
         void UpdateView();
+        void setColors();
         profile naca_profile;
         profile_data data_profile;
 
@@ -353,7 +358,8 @@ class ViewArea : public QGraphicsView {
         void DrawBulbFront(long Origin_X, long Origin_Top);
         void DrawText(long w, long h);
         int view;
-
+        QPen penDrawColor;
+        QPen penTextColor;
 };
 #endif
 
@@ -367,6 +373,7 @@ class BulbCalcPref {
         int Gui_BcViewMode;
         int Gui_TabPos;
         int Gui_Unit;
+        int Gui_2dviewColor;
 
         /* Bulb Preferences */
         float Bulb_Tw;
