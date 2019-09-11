@@ -53,7 +53,7 @@ void QGLViewer::defaultConstructor() {
   // qWarning("Unable to get OpenGL version, context may not be available -
   // Check your configuration");
 
-  int poolIndex = QGLViewer::QGLViewerPool_.indexOf(NULL);
+  int poolIndex = QGLViewer::QGLViewerPool_.indexOf(nullptr);
   setFocusPolicy(Qt::StrongFocus);
 
   if (poolIndex >= 0)
@@ -83,15 +83,15 @@ void QGLViewer::defaultConstructor() {
   // setFullScreen(true)
 
   // #CONNECTION# default values in initFromDOMElement()
-  manipulatedFrame_ = NULL;
+  manipulatedFrame_ = nullptr;
   manipulatedFrameIsACamera_ = false;
   mouseGrabberIsAManipulatedFrame_ = false;
   mouseGrabberIsAManipulatedCameraFrame_ = false;
   displayMessage_ = false;
   connect(&messageTimer_, SIGNAL(timeout()), SLOT(hideMessage()));
   messageTimer_.setSingleShot(true);
-  helpWidget_ = NULL;
-  setMouseGrabber(NULL);
+  helpWidget_ = nullptr;
+  setMouseGrabber(nullptr);
 
   setSceneRadius(1.0);
   showEntireScene();
@@ -112,7 +112,7 @@ void QGLViewer::defaultConstructor() {
   stopAnimation();
   setAnimationPeriod(40); // 25Hz
 
-  selectBuffer_ = NULL;
+  selectBuffer_ = nullptr;
   setSelectBufferSize(4 * 1000);
   setSelectRegionWidth(3);
   setSelectRegionHeight(3);
@@ -129,7 +129,7 @@ void QGLViewer::defaultConstructor() {
 
   setAttribute(Qt::WA_NoSystemBackground);
 
-  tileRegion_ = NULL;
+  tileRegion_ = nullptr;
 }
 
 /*! Constructor. See \c QGLWidget documentation for details.
@@ -192,7 +192,7 @@ QGLViewer::QGLViewer(const QGLFormat &format, QWidget *parent,
 
 /*! Virtual destructor.
 
-The viewer is replaced by \c NULL in the QGLViewerPool() (in order to preserve
+The viewer is replaced by \c nullptr in the QGLViewerPool() (in order to preserve
 other viewer's indexes) and allocated memory is released. The camera() is
 deleted and should be copied before if it is shared by an other viewer. */
 QGLViewer::~QGLViewer() {
@@ -202,7 +202,7 @@ QGLViewer::~QGLViewer() {
   // saveStateToFileForAllViewers();
 
   QGLViewer::QGLViewerPool_.replace(QGLViewer::QGLViewerPool_.indexOf(this),
-                                    NULL);
+                                    nullptr);
 
   delete camera();
   delete[] selectBuffer_;
@@ -628,7 +628,7 @@ It you simply want to save and restore Camera positions, use
 qglviewer::Camera::addKeyFrameToPath() and qglviewer::Camera::playPath()
 instead.
 
-This method silently ignores \c NULL \p camera pointers. The calling method is
+This method silently ignores \c nullptr \p camera pointers. The calling method is
 responsible for deleting the previous camera pointer in order to prevent memory
 leaks if needed.
 
@@ -810,7 +810,7 @@ void QGLViewer::drawText(int x, int y, const QString &text, const QFont &fnt) {
   if (!textIsEnabled())
     return;
 
-  if (tileRegion_ != NULL) {
+  if (tileRegion_ != nullptr) {
     renderText(int((x - tileRegion_->xMin) * width() /
                    (tileRegion_->xMax - tileRegion_->xMin)),
                int((y - tileRegion_->yMin) * height() /
@@ -906,7 +906,7 @@ void QGLViewer::startScreenCoordinatesSystem(bool upward) const {
   glMatrixMode(GL_PROJECTION);
   glPushMatrix();
   glLoadIdentity();
-  if (tileRegion_ != NULL)
+  if (tileRegion_ != nullptr)
     if (upward)
       glOrtho(tileRegion_->xMin, tileRegion_->xMax, tileRegion_->yMin,
               tileRegion_->yMax, 0.0, -1.0);
@@ -1396,7 +1396,7 @@ void QGLViewer::mouseMoveEvent(QMouseEvent *e) {
       else
         mouseGrabber()->mouseMoveEvent(e, camera());
     else
-      setMouseGrabber(NULL);
+      setMouseGrabber(nullptr);
     update();
   }
 
@@ -1446,7 +1446,7 @@ void QGLViewer::mouseReleaseEvent(QMouseEvent *e) {
       mouseGrabber()->mouseReleaseEvent(e, camera());
     mouseGrabber()->checkIfGrabsMouse(e->x(), e->y(), camera());
     if (!(mouseGrabber()->grabsMouse()))
-      setMouseGrabber(NULL);
+      setMouseGrabber(nullptr);
     // update();
   } else
       //#CONNECTION# mouseMoveEvent has the same structure
@@ -1600,9 +1600,9 @@ void QGLViewer::setMouseGrabber(MouseGrabber *mouseGrabber) {
   mouseGrabber_ = mouseGrabber;
 
   mouseGrabberIsAManipulatedFrame_ =
-      (dynamic_cast<ManipulatedFrame *>(mouseGrabber) != NULL);
+      (dynamic_cast<ManipulatedFrame *>(mouseGrabber) != nullptr);
   mouseGrabberIsAManipulatedCameraFrame_ =
-      ((dynamic_cast<ManipulatedCameraFrame *>(mouseGrabber) != NULL) &&
+      ((dynamic_cast<ManipulatedCameraFrame *>(mouseGrabber) != nullptr) &&
        (mouseGrabber != camera()->frame()));
   Q_EMIT mouseGrabberChanged(mouseGrabber);
 }
@@ -2144,13 +2144,13 @@ void QGLViewer::help() {
                             tr("&About", "Help window about title")};
 
   if (!helpWidget()) {
-    // Qt4 requires a NULL parent...
-    helpWidget_ = new QTabWidget(NULL);
+    // Qt4 requires a nullptr parent...
+    helpWidget_ = new QTabWidget(nullptr);
     helpWidget()->setWindowTitle(tr("Help", "Help window title"));
 
     resize = true;
     for (int i = 0; i < 4; ++i) {
-      QTextEdit *tab = new QTextEdit(NULL);
+      QTextEdit *tab = new QTextEdit(nullptr);
       tab->setReadOnly(true);
 
       helpWidget()->insertTab(i, tab, label[i]);
@@ -2289,7 +2289,7 @@ void QGLViewer::keyPressEvent(QKeyEvent *e) {
           camera()->deletePath(index);
         }
       } else {
-        bool nullBefore = (camera()->keyFrameInterpolator(index) == NULL);
+        bool nullBefore = (camera()->keyFrameInterpolator(index) == nullptr);
         camera()->addKeyFrameToPath(index);
         if (nullBefore)
           connect(camera()->keyFrameInterpolator(index), SIGNAL(interpolated()),
@@ -3376,7 +3376,7 @@ void QGLViewer::setManipulatedFrame(ManipulatedFrame *frame) {
 
   manipulatedFrameIsACamera_ =
       ((manipulatedFrame() != camera()->frame()) &&
-       (dynamic_cast<ManipulatedCameraFrame *>(manipulatedFrame()) != NULL));
+       (dynamic_cast<ManipulatedCameraFrame *>(manipulatedFrame()) != nullptr));
 
   if (manipulatedFrame()) {
     // Prevent multiple connections, that would result in useless display
@@ -3431,7 +3431,7 @@ void QGLViewer::drawVisualHints() {
   // drawText(80, 10, "Play");
 
   // Screen rotate line
-  ManipulatedFrame *mf = NULL;
+  ManipulatedFrame *mf = nullptr;
   Vec pnt;
   if (camera()->frame()->action_ == SCREEN_ROTATE) {
     mf = camera()->frame();
@@ -4138,7 +4138,7 @@ void QGLViewer::copyBufferToTexture(GLint internalFormat, GLenum format) {
       format = GLenum(internalFormat);
 
     glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, bufferTextureWidth_,
-                 bufferTextureHeight_, 0, format, GL_UNSIGNED_BYTE, NULL);
+                 bufferTextureHeight_, 0, format, GL_UNSIGNED_BYTE, nullptr);
   }
 
   glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, width(), height());
