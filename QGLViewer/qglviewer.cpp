@@ -155,7 +155,7 @@ will share the OpenGL context with \p shareWidget (see isSharing()). */
 QGLViewer::QGLViewer(QWidget *parent, const QGLWidget *shareWidget,
                      Qt::WindowFlags flags)
     : QOpenGLWidget(parent, flags) {
-  Q_UNUSED(shareWidget);
+  Q_UNUSED(shareWidget)
   qWarning("The constructor with a shareWidget is deprecated, use the regular "
            "contructor instead.");
   defaultConstructor();
@@ -167,8 +167,8 @@ otherwise). */
 QGLViewer::QGLViewer(QGLContext *context, QWidget *parent,
                      const QGLWidget *shareWidget, Qt::WindowFlags flags)
     : QOpenGLWidget(parent, flags) {
-  Q_UNUSED(context);
-  Q_UNUSED(shareWidget);
+  Q_UNUSED(context)
+  Q_UNUSED(shareWidget)
   qWarning("The constructor with a QGLContext is deprecated, use the regular "
            "contructor instead.");
   defaultConstructor();
@@ -182,8 +182,8 @@ example</a>). */
 QGLViewer::QGLViewer(const QGLFormat &format, QWidget *parent,
                      const QGLWidget *shareWidget, Qt::WindowFlags flags)
     : QOpenGLWidget(parent, flags) {
-  Q_UNUSED(format);
-  Q_UNUSED(shareWidget);
+  Q_UNUSED(format)
+  Q_UNUSED(shareWidget)
   qWarning("The constructor with a QGLFormat is deprecated, use the regular "
            "contructor instead.");
   defaultConstructor();
@@ -568,7 +568,7 @@ void QGLViewer::setDefaultMouseBindings() {
 
   //#CONNECTION# toggleCameraMode()
   for (int handler = 0; handler < 2; ++handler) {
-    MouseHandler mh = (MouseHandler)(handler);
+    MouseHandler mh = static_cast<MouseHandler>(handler);
     Qt::KeyboardModifiers modifiers =
         (mh == FRAME) ? frameKeyboardModifiers : cameraKeyboardModifiers;
 
@@ -721,23 +721,23 @@ void QGLViewer::drawLight(GLenum light, qreal scale) const {
     float pos[4];
     glGetLightfv(light, GL_POSITION, pos);
 
-    if (pos[3] != 0.0) {
+    if (static_cast<double>(pos[3]) != 0.0) {
       glTranslatef(pos[0] / pos[3], pos[1] / pos[3], pos[2] / pos[3]);
 
       GLfloat cutOff;
       glGetLightfv(light, GL_SPOT_CUTOFF, &cutOff);
-      if (cutOff != 180.0) {
+      if (static_cast<double>(cutOff) != 180.0) {
         GLfloat dir[4];
         glGetLightfv(light, GL_SPOT_DIRECTION, dir);
         glMultMatrixd(Quaternion(Vec(0, 0, 1), Vec(dir)).matrix());
         QGLViewer::drawArrow(length);
-        gluCylinder(quadric, 0.0, 0.7 * length * sin(cutOff * M_PI / 180.0),
-                    0.7 * length * cos(cutOff * M_PI / 180.0), 12, 1);
+        gluCylinder(quadric, 0.0, 0.7 * length * sin(static_cast<double>(cutOff) * M_PI / 180.0),
+                    0.7 * length * cos(static_cast<double>(cutOff) * M_PI / 180.0), 12, 1);
       } else
         gluSphere(quadric, 0.2 * length, 10, 10);
     } else {
       // Directional light.
-      Vec dir(pos[0], pos[1], pos[2]);
+      Vec dir(static_cast<double>(pos[0]), static_cast<double>(pos[1]), static_cast<double>(pos[2]));
       dir.normalize();
       Frame fr =
           Frame(camera()->cameraCoordinatesOf(
@@ -1160,7 +1160,7 @@ setSelectedName((selectBuffer())[i*4+3])
 See the <a href="../examples/multiSelect.html">multiSelect example</a> for
 a multi-object selection implementation of this method. */
 void QGLViewer::endSelection(const QPoint &point) {
-  Q_UNUSED(point);
+  Q_UNUSED(point)
 
   // Flush GL buffers
   glFlush();
@@ -1294,7 +1294,7 @@ void QGLViewer::mousePressEvent(QMouseEvent *e) {
   //#CONNECTION# mouseString() concatenates bindings description in inverse
   // order.
   ClickBindingPrivate cbp(e->modifiers(), e->button(), false,
-                          (Qt::MouseButtons)(e->buttons() & ~(e->button())),
+                          static_cast<Qt::MouseButtons>((e->buttons() & ~(e->button()))),
                           currentlyPressedKey_);
 
   if (clickBinding_.contains(cbp)) {
@@ -1528,7 +1528,7 @@ setMouseBinding() and the <a href="../mouse.html">mouse page</a>. */
 void QGLViewer::mouseDoubleClickEvent(QMouseEvent *e) {
   //#CONNECTION# mousePressEvent has the same structure
   ClickBindingPrivate cbp(e->modifiers(), e->button(), true,
-                          (Qt::MouseButtons)(e->buttons() & ~(e->button())),
+                          static_cast<Qt::MouseButtons>(e->buttons() & ~(e->button())),
                           currentlyPressedKey_);
   if (clickBinding_.contains(cbp))
     performClickAction(clickBinding_[cbp], e);
@@ -1619,7 +1619,7 @@ void QGLViewer::setMouseGrabberIsEnabled(
 QString QGLViewer::mouseActionString(QGLViewer::MouseAction ma) {
   switch (ma) {
   case QGLViewer::NO_MOUSE_ACTION:
-    return QString::null;
+    return QString();
   case QGLViewer::ROTATE:
     return QGLViewer::tr("Rotates", "ROTATE mouse action");
   case QGLViewer::ZOOM:
@@ -1645,13 +1645,13 @@ QString QGLViewer::mouseActionString(QGLViewer::MouseAction ma) {
   case QGLViewer::ZOOM_ON_REGION:
     return QGLViewer::tr("Zooms on region for", "ZOOM_ON_REGION mouse action");
   }
-  return QString::null;
+  return QString();
 }
 
 QString QGLViewer::clickActionString(QGLViewer::ClickAction ca) {
   switch (ca) {
   case QGLViewer::NO_CLICK_ACTION:
-    return QString::null;
+    return QString();
   case QGLViewer::ZOOM_ON_PIXEL:
     return QGLViewer::tr("Zooms on pixel", "ZOOM_ON_PIXEL click action");
   case QGLViewer::ZOOM_TO_FIT:
@@ -1676,7 +1676,7 @@ QString QGLViewer::clickActionString(QGLViewer::ClickAction ca) {
   case QGLViewer::ALIGN_CAMERA:
     return QGLViewer::tr("Aligns camera", "ALIGN_CAMERA click action");
   }
-  return QString::null;
+  return QString();
 }
 
 static QString keyString(unsigned int key) {
@@ -1968,7 +1968,7 @@ void QGLViewer::setKeyDescription(unsigned int key, QString description) {
 
 QString QGLViewer::cameraPathKeysString() const {
   if (pathIndex_.isEmpty())
-    return QString::null;
+    return QString();
 
   QVector<Qt::Key> keys;
   keys.reserve(pathIndex_.count());
@@ -2192,7 +2192,7 @@ void QGLViewer::help() {
       break;
     }
 
-    QTextEdit *textEdit = (QTextEdit *)(helpWidget()->widget(i));
+    QTextEdit *textEdit = static_cast<QTextEdit *>(helpWidget()->widget(i));
     textEdit->setHtml(text);
     textEdit->setText(text);
 
@@ -3053,7 +3053,7 @@ int QGLViewer::mouseButtonState(MouseHandler handler, MouseAction action,
        it != end; ++it)
     if ((it.value().handler == handler) && (it.value().action == action) &&
         (it.value().withConstraint == withConstraint))
-      return (int)it.key().modifiers | (int)it.key().button;
+      return static_cast<int>(it.key().modifiers) | static_cast<int>(it.key().button);
 
   return Qt::NoButton;
 }
