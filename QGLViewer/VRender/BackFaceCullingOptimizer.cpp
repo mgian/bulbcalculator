@@ -15,13 +15,13 @@ void BackFaceCullingOptimizer::optimize(std::vector<PtrPrimitive>& primitives_ta
 	int nb_culled = 0 ;
 
 	for(size_t i=0;i<primitives_tab.size();++i)
-		if((P = dynamic_cast<Polygone *>(primitives_tab[i])) != nullptr)
+		if((P = dynamic_cast<Polygone *>(primitives_tab[i])) != NULL)
 		{
 						for(unsigned int j=0;j<P->nbVertices();++j)
 				if(( (P->vertex(j+2) - P->vertex(j+1))^(P->vertex(j+1) - P->vertex(j))).z() > 0.0 )
 				{
 					delete primitives_tab[i] ;
-					primitives_tab[i] = nullptr ;
+					primitives_tab[i] = NULL ;
 					++nb_culled ;
 					break ;
 				}
@@ -31,7 +31,7 @@ void BackFaceCullingOptimizer::optimize(std::vector<PtrPrimitive>& primitives_ta
 
 	int j=0 ;
 	for(size_t k=0;k<primitives_tab.size();++k)
-		if(primitives_tab[k] != nullptr)
+		if(primitives_tab[k] != NULL)
 			primitives_tab[j++] = primitives_tab[k] ;
 
 	primitives_tab.resize(j) ;

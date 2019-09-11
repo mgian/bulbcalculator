@@ -183,13 +183,13 @@ private:
   static QProgressDialog *progressDialog;
 };
 
-QProgressDialog *ProgressDialog::progressDialog = nullptr;
+QProgressDialog *ProgressDialog::progressDialog = NULL;
 
 void ProgressDialog::showProgressDialog(QOpenGLWidget *parent) {
   progressDialog = new QProgressDialog(parent);
   progressDialog->setWindowTitle("Image rendering progress");
   progressDialog->setMinimumSize(300, 40);
-  progressDialog->setCancelButton(nullptr);
+  progressDialog->setCancelButton(NULL);
   progressDialog->show();
 }
 
@@ -206,7 +206,7 @@ void ProgressDialog::updateProgress(float progress, const QString &stepString) {
 void ProgressDialog::hideProgressDialog() {
   progressDialog->close();
   delete progressDialog;
-  progressDialog = nullptr;
+  progressDialog = NULL;
 }
 
 class VRenderInterface : public QDialog, public Ui::VRenderInterface {
@@ -221,7 +221,7 @@ public:
 // problem.
 static int saveVectorialSnapshot(const QString &fileName, QOpenGLWidget *widget,
                                  const QString &snapshotFormat) {
-  static VRenderInterface *VRinterface = nullptr;
+  static VRenderInterface *VRinterface = NULL;
 
   if (!VRinterface)
     VRinterface = new VRenderInterface(widget);
@@ -297,7 +297,7 @@ public:
 // Pops-up an image settings dialog box and save to fileName.
 // Returns false in case of problem.
 bool QGLViewer::saveImageSnapshot(const QString &fileName) {
-  static ImageInterface *imageInterface = nullptr;
+  static ImageInterface *imageInterface = NULL;
 
   if (!imageInterface)
     imageInterface = new ImageInterface(this);
@@ -466,7 +466,7 @@ bool QGLViewer::saveImageSnapshot(const QString &fileName) {
   // setCursor(QCursor(Qt::ArrowCursor));
 
   delete tileRegion_;
-  tileRegion_ = nullptr;
+  tileRegion_ = NULL;
 
   if (imageInterface->whiteBackground->isChecked())
     setBackgroundColor(previousBGColor);

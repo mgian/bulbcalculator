@@ -93,7 +93,7 @@ void ParserGL::parseFeedbackBuffer(	GLfloat *buffer,int size,
 
 					primitive_tab.push_back(ParserUtils::checkSegment(S)) ;
 
-					if(S == nullptr)
+					if(S == NULL)
 						nb_degenerated_lines++ ;
 
 					nb_lines++ ;
@@ -115,7 +115,7 @@ void ParserGL::parseFeedbackBuffer(	GLfloat *buffer,int size,
 
 					primitive_tab.push_back(ParserUtils::checkPolygon(P)) ;
 
-					if(P == nullptr)
+					if(P == NULL)
 						nb_degenerated_polys++ ;
 
 					nb_polys++ ;
@@ -128,7 +128,7 @@ void ParserGL::parseFeedbackBuffer(	GLfloat *buffer,int size,
 
 					primitive_tab.push_back(Pt);//ParserUtils::checkPoint(Pt)) ;
 
-					if(Pt == nullptr)
+					if(Pt == NULL)
 						nb_degenerated_points++ ;
 
 					nb_points++ ;
@@ -156,7 +156,7 @@ PtrPrimitive ParserUtils::checkSegment(Segment *& P)
 	{
 		Point *pp = new Point(P->sommet3DColor(0)) ;
 		delete P ;
-		P = nullptr ;
+		P = NULL ;
 
 		return checkPoint(pp) ;
 	}
@@ -170,7 +170,7 @@ PtrPrimitive ParserUtils::checkPolygon(Polygone *& P)
 	{
 		cout << "unexpected case: Polygon with " << P->nbVertices() << " vertices !" << endl ;
 		delete P ;
-		return nullptr ;
+		return NULL ;
 	}
 
 	if(P->FlatFactor() < FLAT_POLYGON_EPS)
@@ -184,14 +184,14 @@ PtrPrimitive ParserUtils::checkPolygon(Polygone *& P)
 			{
 				Segment *pp = new Segment(P->sommet3DColor((i+1)%n),P->sommet3DColor((i+2)%n)) ;
 				delete P ;
-				P = nullptr ;
+				P = NULL ;
 
 				return checkSegment(pp) ;
 			}
 
 		Point *pp = new Point(P->sommet3DColor(0)) ;
 		delete P ;
-		P = nullptr ;
+		P = NULL ;
 
 		return checkPoint(pp) ;
 	}

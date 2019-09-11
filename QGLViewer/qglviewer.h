@@ -7,7 +7,6 @@
 #include <QGL>
 #include <QMap>
 #include <QTime>
-#include <QGL>
 
 class QTabWidget;
 
@@ -48,33 +47,9 @@ class QGLVIEWER_EXPORT QGLViewer : public QOpenGLWidget {
   Q_OBJECT
 
 public:
-// Complete implementation is provided so that the constructor is defined with
-// QT3_SUPPORT when .h is included. (Would not be available otherwise since lib
-// is compiled without QT3_SUPPORT).
-#ifdef QT3_SUPPORT
-  explicit QGLViewer(QWidget *parent = nullptr, const char *name = 0,
-                     const QGLWidget *shareWidget = 0,
-                     Qt::WindowFlags flags = 0)
-      : QGLWidget(parent, name, shareWidget, flags) {
-    defaultConstructor();
-  }
-
-  explicit QGLViewer(const QGLFormat &format, QWidget *parent = 0,
-                     const char *name = 0, const QGLWidget *shareWidget = 0,
-                     Qt::WindowFlags flags = 0)
-      : QGLWidget(format, parent, name, shareWidget, flags) {
-    defaultConstructor();
-  }
-
-  QGLViewer(QGLContext *context, QWidget *parent, const char *name = 0,
-            const QGLWidget *shareWidget = 0, Qt::WindowFlags flags = 0)
-      : QGLWidget(context, parent, name, shareWidget, flags) {
-    defaultConstructor();
-  }
-
-#else
-
-  explicit QGLViewer(QWidget *parent = 0, const QGLWidget *shareWidget = 0,
+  explicit QGLViewer(QWidget *parent = 0,
+                     Qt::WindowFlags flags = Qt::WindowFlags());
+  explicit QGLViewer(QWidget *parent, const QGLWidget *shareWidget,
                      Qt::WindowFlags flags = 0);
   explicit QGLViewer(QGLContext *context, QWidget *parent = 0,
                      const QGLWidget *shareWidget = 0,
@@ -82,7 +57,6 @@ public:
   explicit QGLViewer(const QGLFormat &format, QWidget *parent = 0,
                      const QGLWidget *shareWidget = 0,
                      Qt::WindowFlags flags = 0);
-#endif
 
   virtual ~QGLViewer();
 
@@ -283,7 +257,7 @@ public Q_SLOTS:
   /*! @name Associated objects */
   //@{
 public:
-  /*! Returns the associated qglviewer::Camera, never \c nullptr. */
+  /*! Returns the associated qglviewer::Camera, never \c NULL. */
   qglviewer::Camera *camera() const { return camera_; }
 
   /*! Returns the viewer's qglviewer::ManipulatedFrame.
@@ -295,7 +269,7 @@ public:
   See the <a href="../examples/manipulatedFrame.html">manipulatedFrame
   example</a> for a complete implementation.
 
-  Default value is \c nullptr, meaning that no qglviewer::ManipulatedFrame is set.
+  Default value is \c NULL, meaning that no qglviewer::ManipulatedFrame is set.
 */
   qglviewer::ManipulatedFrame *manipulatedFrame() const {
     return manipulatedFrame_;
@@ -309,7 +283,7 @@ public Q_SLOTS:
   /*! @name Mouse grabbers */
   //@{
 public:
-  /*! Returns the current qglviewer::MouseGrabber, or \c nullptr if no
+  /*! Returns the current qglviewer::MouseGrabber, or \c NULL if no
   qglviewer::MouseGrabber currently grabs mouse events.
 
   When qglviewer::MouseGrabber::grabsMouse(), the different mouse events are
@@ -597,7 +571,7 @@ public:
   Note that this method is not needed if you use drawText() which already calls
   it internally. */
   QFont scaledFont(const QFont &font) const {
-    if (tileRegion_ == nullptr)
+    if (tileRegion_ == NULL)
       return font;
     else {
       QFont f(font);
@@ -763,7 +737,7 @@ Q_SIGNALS:
   /*! Signal emitted by setMouseGrabber() when the mouseGrabber() is changed.
 
   \p mouseGrabber is a pointer to the new MouseGrabber. Note that this signal is
-  emitted with a \c nullptr parameter each time a MouseGrabber stops grabbing
+  emitted with a \c NULL parameter each time a MouseGrabber stops grabbing
   mouse. */
   void mouseGrabberChanged(qglviewer::MouseGrabber *mouseGrabber);
 
@@ -1224,8 +1198,8 @@ public Q_SLOTS:
   void setStateFileName(const QString &name) { stateFileName_ = name; }
 
 #ifndef DOXYGEN
-  void saveToFile(const QString &fileName = QString());
-  bool restoreFromFile(const QString &fileName = QString());
+  void saveToFile(const QString &fileName = QString::null);
+  bool restoreFromFile(const QString &fileName = QString::null);
 #endif
 
 private:
@@ -1236,7 +1210,7 @@ private:
   //@{
 public:
   /*! Returns a \c QList that contains pointers to all the created QGLViewers.
-    Note that this list may contain \c nullptr pointers if the associated viewer
+    Note that this list may contain \c NULL pointers if the associated viewer
   has been deleted.
 
   Can be useful to apply a method or to connect a signal to all the viewers:
@@ -1255,7 +1229,7 @@ public:
   index in unique and can be used to identify the different created QGLViewers
   (see stateFileName() for an application example).
 
-  When a QGLViewer is deleted, the QGLViewers' indexes are preserved and nullptr is
+  When a QGLViewer is deleted, the QGLViewers' indexes are preserved and NULL is
   set for that index. When a QGLViewer is created, it is placed in the first
   available position in that list. Returns -1 if the QGLViewer could not be
   found (which should not be possible). */

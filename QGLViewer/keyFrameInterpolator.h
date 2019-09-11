@@ -112,7 +112,7 @@ class QGLVIEWER_EXPORT KeyFrameInterpolator : public QObject {
   Q_OBJECT
 
 public:
-  KeyFrameInterpolator(Frame *fr = nullptr);
+  KeyFrameInterpolator(Frame *fr = NULL);
   virtual ~KeyFrameInterpolator();
 
 Q_SIGNALS:

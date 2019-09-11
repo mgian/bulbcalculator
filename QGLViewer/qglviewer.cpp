@@ -26,7 +26,6 @@ using namespace qglviewer;
 // Static private variable
 QList<QGLViewer *> QGLViewer::QGLViewerPool_;
 
-
 /*! \mainpage
 
 libQGLViewer is a free C++ library based on Qt that enables the quick creation
@@ -54,7 +53,7 @@ void QGLViewer::defaultConstructor() {
   // qWarning("Unable to get OpenGL version, context may not be available -
   // Check your configuration");
 
-  int poolIndex = QGLViewer::QGLViewerPool_.indexOf(nullptr);
+  int poolIndex = QGLViewer::QGLViewerPool_.indexOf(NULL);
   setFocusPolicy(Qt::StrongFocus);
 
   if (poolIndex >= 0)
@@ -84,15 +83,15 @@ void QGLViewer::defaultConstructor() {
   // setFullScreen(true)
 
   // #CONNECTION# default values in initFromDOMElement()
-  manipulatedFrame_ = nullptr;
+  manipulatedFrame_ = NULL;
   manipulatedFrameIsACamera_ = false;
   mouseGrabberIsAManipulatedFrame_ = false;
   mouseGrabberIsAManipulatedCameraFrame_ = false;
   displayMessage_ = false;
   connect(&messageTimer_, SIGNAL(timeout()), SLOT(hideMessage()));
   messageTimer_.setSingleShot(true);
-  helpWidget_ = nullptr;
-  setMouseGrabber(nullptr);
+  helpWidget_ = NULL;
+  setMouseGrabber(NULL);
 
   setSceneRadius(1.0);
   showEntireScene();
@@ -113,7 +112,7 @@ void QGLViewer::defaultConstructor() {
   stopAnimation();
   setAnimationPeriod(40); // 25Hz
 
-  selectBuffer_ = nullptr;
+  selectBuffer_ = NULL;
   setSelectBufferSize(4 * 1000);
   setSelectRegionWidth(3);
   setSelectRegionHeight(3);
@@ -130,15 +129,23 @@ void QGLViewer::defaultConstructor() {
 
   setAttribute(Qt::WA_NoSystemBackground);
 
-  tileRegion_ = nullptr;
+  tileRegion_ = NULL;
+}
+
+/*! Constructor. See \c QGLWidget documentation for details.
+
+All viewer parameters (display flags, scene parameters, associated objects...)
+are set to their default values. See the associated documentation. */
+QGLViewer::QGLViewer(QWidget *parent, Qt::WindowFlags flags)
+    : QOpenGLWidget(parent, flags) {
+  defaultConstructor();
 }
 
 #ifndef DOXYGEN
 /*! These contructors are deprecated since version 2.7.0, since they are not
  * supported by QOpenGlWidget */
 
-#if !defined QT3_SUPPORT
-/*! Constructor. See \c QOpenGLWidget documentation for details.
+/*! Constructor. See \c QGLWidget documentation for details.
 
 All viewer parameters (display flags, scene parameters, associated objects...)
 are set to their default values. See the associated documentation.
@@ -181,12 +188,11 @@ QGLViewer::QGLViewer(const QGLFormat &format, QWidget *parent,
            "contructor instead.");
   defaultConstructor();
 }
-#endif // QT3_SUPPORT
 #endif // DOXYGEN
 
 /*! Virtual destructor.
 
-The viewer is replaced by \c nullptr in the QGLViewerPool() (in order to preserve
+The viewer is replaced by \c NULL in the QGLViewerPool() (in order to preserve
 other viewer's indexes) and allocated memory is released. The camera() is
 deleted and should be copied before if it is shared by an other viewer. */
 QGLViewer::~QGLViewer() {
@@ -196,7 +202,7 @@ QGLViewer::~QGLViewer() {
   // saveStateToFileForAllViewers();
 
   QGLViewer::QGLViewerPool_.replace(QGLViewer::QGLViewerPool_.indexOf(this),
-                                    nullptr);
+                                    NULL);
 
   delete camera();
   delete[] selectBuffer_;
@@ -622,7 +628,7 @@ It you simply want to save and restore Camera positions, use
 qglviewer::Camera::addKeyFrameToPath() and qglviewer::Camera::playPath()
 instead.
 
-This method silently ignores \c nullptr \p camera pointers. The calling method is
+This method silently ignores \c NULL \p camera pointers. The calling method is
 responsible for deleting the previous camera pointer in order to prevent memory
 leaks if needed.
 
@@ -804,7 +810,7 @@ void QGLViewer::drawText(int x, int y, const QString &text, const QFont &fnt) {
   if (!textIsEnabled())
     return;
 
-  if (tileRegion_ != nullptr) {
+  if (tileRegion_ != NULL) {
     renderText(int((x - tileRegion_->xMin) * width() /
                    (tileRegion_->xMax - tileRegion_->xMin)),
                int((y - tileRegion_->yMin) * height() /
@@ -853,10 +859,9 @@ When FPSIsDisplayed() is \c true (default is \c false), this method is called by
 postDraw() to display the currentFPS(). Use QApplication::setFont() to define
 the font (see drawText()). */
 void QGLViewer::displayFPS() {
-  drawText(10,
-           int(1.5 * ((QApplication::font().pixelSize() > 0)
-                          ? QApplication::font().pixelSize()
-                          : QApplication::font().pointSize())),
+  drawText(10, int(1.5 * ((QApplication::font().pixelSize() > 0)
+                              ? QApplication::font().pixelSize()
+                              : QApplication::font().pointSize())),
            fpsString_);
 }
 
@@ -901,7 +906,7 @@ void QGLViewer::startScreenCoordinatesSystem(bool upward) const {
   glMatrixMode(GL_PROJECTION);
   glPushMatrix();
   glLoadIdentity();
-  if (tileRegion_ != nullptr)
+  if (tileRegion_ != NULL)
     if (upward)
       glOrtho(tileRegion_->xMin, tileRegion_->xMax, tileRegion_->yMin,
               tileRegion_->yMax, 0.0, -1.0);
@@ -1391,7 +1396,7 @@ void QGLViewer::mouseMoveEvent(QMouseEvent *e) {
       else
         mouseGrabber()->mouseMoveEvent(e, camera());
     else
-      setMouseGrabber(nullptr);
+      setMouseGrabber(NULL);
     update();
   }
 
@@ -1441,7 +1446,7 @@ void QGLViewer::mouseReleaseEvent(QMouseEvent *e) {
       mouseGrabber()->mouseReleaseEvent(e, camera());
     mouseGrabber()->checkIfGrabsMouse(e->x(), e->y(), camera());
     if (!(mouseGrabber()->grabsMouse()))
-      setMouseGrabber(nullptr);
+      setMouseGrabber(NULL);
     // update();
   } else
       //#CONNECTION# mouseMoveEvent has the same structure
@@ -1595,9 +1600,9 @@ void QGLViewer::setMouseGrabber(MouseGrabber *mouseGrabber) {
   mouseGrabber_ = mouseGrabber;
 
   mouseGrabberIsAManipulatedFrame_ =
-      (dynamic_cast<ManipulatedFrame *>(mouseGrabber) != nullptr);
+      (dynamic_cast<ManipulatedFrame *>(mouseGrabber) != NULL);
   mouseGrabberIsAManipulatedCameraFrame_ =
-      ((dynamic_cast<ManipulatedCameraFrame *>(mouseGrabber) != nullptr) &&
+      ((dynamic_cast<ManipulatedCameraFrame *>(mouseGrabber) != NULL) &&
        (mouseGrabber != camera()->frame()));
   Q_EMIT mouseGrabberChanged(mouseGrabber);
 }
@@ -1614,7 +1619,7 @@ void QGLViewer::setMouseGrabberIsEnabled(
 QString QGLViewer::mouseActionString(QGLViewer::MouseAction ma) {
   switch (ma) {
   case QGLViewer::NO_MOUSE_ACTION:
-    return QString();
+    return QString::null;
   case QGLViewer::ROTATE:
     return QGLViewer::tr("Rotates", "ROTATE mouse action");
   case QGLViewer::ZOOM:
@@ -1640,13 +1645,13 @@ QString QGLViewer::mouseActionString(QGLViewer::MouseAction ma) {
   case QGLViewer::ZOOM_ON_REGION:
     return QGLViewer::tr("Zooms on region for", "ZOOM_ON_REGION mouse action");
   }
-  return QString();
+  return QString::null;
 }
 
 QString QGLViewer::clickActionString(QGLViewer::ClickAction ca) {
   switch (ca) {
   case QGLViewer::NO_CLICK_ACTION:
-    return QString();
+    return QString::null;
   case QGLViewer::ZOOM_ON_PIXEL:
     return QGLViewer::tr("Zooms on pixel", "ZOOM_ON_PIXEL click action");
   case QGLViewer::ZOOM_TO_FIT:
@@ -1671,7 +1676,7 @@ QString QGLViewer::clickActionString(QGLViewer::ClickAction ca) {
   case QGLViewer::ALIGN_CAMERA:
     return QGLViewer::tr("Aligns camera", "ALIGN_CAMERA click action");
   }
-  return QString();
+  return QString::null;
 }
 
 static QString keyString(unsigned int key) {
@@ -1963,7 +1968,7 @@ void QGLViewer::setKeyDescription(unsigned int key, QString description) {
 
 QString QGLViewer::cameraPathKeysString() const {
   if (pathIndex_.isEmpty())
-    return QString();
+    return QString::null;
 
   QVector<Qt::Key> keys;
   keys.reserve(pathIndex_.count());
@@ -2139,13 +2144,13 @@ void QGLViewer::help() {
                             tr("&About", "Help window about title")};
 
   if (!helpWidget()) {
-    // Qt4 requires a nullptr parent...
-    helpWidget_ = new QTabWidget(nullptr);
+    // Qt4 requires a NULL parent...
+    helpWidget_ = new QTabWidget(NULL);
     helpWidget()->setWindowTitle(tr("Help", "Help window title"));
 
     resize = true;
     for (int i = 0; i < 4; ++i) {
-      QTextEdit *tab = new QTextEdit(nullptr);
+      QTextEdit *tab = new QTextEdit(NULL);
       tab->setReadOnly(true);
 
       helpWidget()->insertTab(i, tab, label[i]);
@@ -2284,7 +2289,7 @@ void QGLViewer::keyPressEvent(QKeyEvent *e) {
           camera()->deletePath(index);
         }
       } else {
-        bool nullBefore = (camera()->keyFrameInterpolator(index) == nullptr);
+        bool nullBefore = (camera()->keyFrameInterpolator(index) == NULL);
         camera()->addKeyFrameToPath(index);
         if (nullBefore)
           connect(camera()->keyFrameInterpolator(index), SIGNAL(interpolated()),
@@ -3371,7 +3376,7 @@ void QGLViewer::setManipulatedFrame(ManipulatedFrame *frame) {
 
   manipulatedFrameIsACamera_ =
       ((manipulatedFrame() != camera()->frame()) &&
-       (dynamic_cast<ManipulatedCameraFrame *>(manipulatedFrame()) != nullptr));
+       (dynamic_cast<ManipulatedCameraFrame *>(manipulatedFrame()) != NULL));
 
   if (manipulatedFrame()) {
     // Prevent multiple connections, that would result in useless display
@@ -3426,7 +3431,7 @@ void QGLViewer::drawVisualHints() {
   // drawText(80, 10, "Play");
 
   // Screen rotate line
-  ManipulatedFrame *mf = nullptr;
+  ManipulatedFrame *mf = NULL;
   Vec pnt;
   if (camera()->frame()->action_ == SCREEN_ROTATE) {
     mf = camera()->frame();
@@ -3672,7 +3677,7 @@ This is the name of the XML file where saveStateToFile() saves the viewer state
 restoreStateFromFile() to restore this state later (usually in your init()
 method).
 
-Setting this value to \c QString() will disable the automatic state file
+Setting this value to \c QString::null will disable the automatic state file
 saving that normally occurs on exit.
 
 If more than one viewer are created by the application, this function will
@@ -3703,7 +3708,7 @@ Use restoreStateFromFile() to restore this viewer state.
 
 This method is automatically called when a viewer is closed (using Escape or
 using the window's upper right \c x close button). setStateFileName() to \c
-QString() to prevent this. */
+QString::null to prevent this. */
 void QGLViewer::saveStateToFile() {
   QString name = stateFileName();
 
@@ -4133,7 +4138,7 @@ void QGLViewer::copyBufferToTexture(GLint internalFormat, GLenum format) {
       format = GLenum(internalFormat);
 
     glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, bufferTextureWidth_,
-                 bufferTextureHeight_, 0, format, GL_UNSIGNED_BYTE, nullptr);
+                 bufferTextureHeight_, 0, format, GL_UNSIGNED_BYTE, NULL);
   }
 
   glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, width(), height());

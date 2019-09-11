@@ -47,7 +47,7 @@ unix:LIBS *= -lQGLViewer-qt5 -lGLU
 
 !win32 {
     INCLUDEPATH *= ../QGLViewer/
-    LIBS *= -L../ -lQGLViewer-qt5
+    LIBS *= -L../ -L../QGLViewer -lQGLViewer-qt5
 }
 
 win32 {
