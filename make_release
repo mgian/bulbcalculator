@@ -6,6 +6,9 @@ VER="3.0.0"
 echo "Creating tar.gz file"
 git archive --format=tar --prefix=bulbcalculator-$VER/ master | gzip > ../bulbcalculator-src-$VER.tar.gz
 
+echo "Creating zip file"
+git archive --format=zip --prefix=bulbcalculator-$VER/ master > ../bulbcalculator-src-$VER.zip
+
 echo "Creating tar.xz file"
 git archive --format=tar --prefix=bulbcalculator-$VER/ master | xz > ../bulbcalculator-src-$VER.tar
 xz ../bulbcalculator-src-$VER.tar

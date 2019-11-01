@@ -114,7 +114,7 @@ unix {
 	# INCLUDE_DIR and LIB_DIR specify where to install the include files and the library.
 	# Use qmake INCLUDE_DIR=... LIB_DIR=... , or qmake PREFIX=... to customize your installation.
 	isEmpty( PREFIX ) {
-		PREFIX_=/usr/local
+        PREFIX_=/usr
 	} else {
 		PREFIX_=$${PREFIX}
 	}
