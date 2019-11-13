@@ -42,7 +42,6 @@ QT *= opengl \
     network widgets printsupport
 TRANSLATIONS = i18n/BulbCalculator_it.ts
 TARGET = bin/BulbCalculator
-win32:LIBS *= -lQGLViewer2
 unix:LIBS *= -lQGLViewer-qt5 -lGLU
 
 !win32 {
@@ -51,8 +50,8 @@ unix:LIBS *= -lQGLViewer-qt5 -lGLU
 }
 
 win32 {
-    INCLUDEPATH *= ..\\QGLViewer
-    LIBS *= -L..\\QGLViewer\QGLViewer -lQGLViewer2  -lopengl32 -lglu32
+    INCLUDEPATH *= ../QGLViewer
+    LIBS *= -L../QGLViewer -lQGLViewer2  -lopengl32 -lglu32
 }
 
 # install
