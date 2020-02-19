@@ -1,7 +1,7 @@
 ;BulbCalculator Installer
 
 !define PRODUCT_NAME "BulbCalculator" 
-!define PRODUCT_VERSION "2.2.0"
+!define PRODUCT_VERSION "3.0.0"
 !define PRODUCT_DIR_REGKEY "Software\${PRODUCT_NAME}"
 
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
@@ -22,7 +22,7 @@ InstallDirRegKey HKCU "${PRODUCT_DIR_REGKEY}" ""
 !insertmacro MUI_PAGE_INSTFILES
 !define MUI_FINISHPAGE_RUN "$INSTDIR\bulbcalculator.exe"
 !define MUI_FINISHPAGE_LINK "Visit the BulbCalculator website"
-!define MUI_FINISHPAGE_LINK_LOCATION "http://bulbcalculator.wordpress.com/"
+!define MUI_FINISHPAGE_LINK_LOCATION "http://www.bulbcalculator.com/"
 !insertmacro MUI_PAGE_FINISH
   
 !insertmacro MUI_UNPAGE_CONFIRM
@@ -36,13 +36,16 @@ Section "BulbCalculator"  SecBulbCalculator
   SetOutPath "$INSTDIR"
   WriteRegStr HKCU "${PRODUCT_DIR_REGKEY}" "" $INSTDIR
 
-  File release\bin\bulbcalculator.exe
-  File release\bin\*.dll
-  ;File ChangeLog
+  File setup_32\*
+  File setup_32\bulbcalculator.exe
+  File setup_32\*.dll
   File COPYING
-  ;File README
-  ;File /r data
-  File /r release\bin\share
+  File /r setup_32\iconengines
+  File /r setup_32\styles
+  File /r setup_32\translations
+  File /r setup_32\imageformats
+  File /r setup_32\platforms
+  File /r setup_32\printsupport
 
   WriteUninstaller "$INSTDIR\uninstall.exe"
 SectionEnd
@@ -53,22 +56,15 @@ SectionEnd
 
 Section "Start Menu Shortcuts" SecShortcut
   CreateDirectory "$SMPROGRAMS\${PRODUCT_NAME}"
-  CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\BulbCalculator.lnk" "$INSTDIR\bulbcalculator.exe" "" "$INSTDIR\share\images\bulbcalculator.ico"
+  CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\BulbCalculator64.lnk" "$INSTDIR\bulbcalculator.exe" "" "$INSTDIR\share\images\bulbcalculator.ico"
   CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Uninstall.lnk" "$INSTDIR\uninstall.exe"
 SectionEnd
 
-;Section "Register File Types" SecFileType
-;  WriteRegStr HKCR "BulbCalculator.blb" "" "BulbCalculator Bulb definition"
-;  WriteRegStr HKCR "BulbCalculator.blb\shell\open\command" "" '"$INSTDIR\bulbcalculator.exe" "%1"'
-;  WriteRegStr HKCR "BulbCalculator.blb\DefaultIcon" "" "$INSTDIR\share\images\bulbcalculator.ico"
-;  WriteRegStr HKCR ".blb" "" "BulbCalculator.blb"
-;SectionEnd
 
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
   !insertmacro MUI_DESCRIPTION_TEXT ${SecBulbCalculator} "Installs BulbCalculator."
   !insertmacro MUI_DESCRIPTION_TEXT ${DescShortcut} "Installs BulbCalculator."
   !insertmacro MUI_DESCRIPTION_TEXT ${SecShortcut} "Adds share to your start menu for easy access."
-;  !insertmacro MUI_DESCRIPTION_TEXT ${SecFileType} "Register BulbCalculator file types."
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 Section "Uninstall"
@@ -83,9 +79,12 @@ Section "Uninstall"
   Delete "$INSTDIR\ChangeLog"
   Delete "$INSTDIR\COPYING"
   Delete "$INSTDIR\README"
-  RMDir /r "$INSTDIR\data"
-  RMDir /r "$INSTDIR\share"
-  RMDir /r "$INSTDIR\doc"
+  RMDir /r "$INSTDIR\iconengines"
+  RMDir /r "$INSTDIR\styles"
+  RMDir /r "$INSTDIR\translations"
+  RMDir /r "$INSTDIR\imageformats"
+  RMDir /r "$INSTDIR\platforms"
+  RMDir /r "$INSTDIR\printsupport"
   Delete "$INSTDIR\uninstall.exe"
   RMDir "$INSTDIR"
 SectionEnd
