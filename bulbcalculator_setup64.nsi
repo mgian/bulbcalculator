@@ -5,7 +5,7 @@
 !define PRODUCT_DIR_REGKEY "Software\${PRODUCT_NAME}"
 
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
-OutFile "bulbcalculator-${PRODUCT_VERSION}-win64.exe"
+OutFile "..\bulbcalculator-${PRODUCT_VERSION}-win64.exe"
 
 SetCompressor lzma
 
