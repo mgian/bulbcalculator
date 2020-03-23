@@ -34,7 +34,7 @@ along with BulbCalculator.  If not, see <http://www.gnu.org/licenses/>.
 #include <QSignalMapper>
 #include <QOpenGLWidget>
 
-#define VERSION     "3.0.0"
+#define VERSION     "3.1.0"
 
 #define UNIT_MM      0
 #define UNIT_INCH    1

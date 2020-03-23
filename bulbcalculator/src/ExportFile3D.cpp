@@ -156,7 +156,6 @@ void ExportFile3D::ExportSTL(QString FileName) {
         profile_data &pdi(this->bc->naca_profile[static_cast<unsigned>((static_cast<double>(i*mult)))]);
         profile_data &pde(this->bc->naca_profile[static_cast<unsigned>((static_cast<double>((i+1)*mult)))]);
         x = x + step;
-        qDebug() << "GIANLUCA ---> " << pdi.circumference << pde.circumference;
         ExportFile3D::Triangles(x, (pdi.width*w), pdi.height_u/2*w, pdi.height_l/2*w, (pde.width*w), pde.height_u/2*w, pde.height_l/2*w, step, &fOut);
         this->bc->UpdateProgressValue(i);
 
