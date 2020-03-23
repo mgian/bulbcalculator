@@ -4,11 +4,12 @@
 VER="3.1.0"
 
 echo "Creating tar.gz file"
-git archive --format=tar --prefix=bulbcalculator-$VER/ master | gzip > ../bulbcalculator-src-$VER.tar.gz
+git archive --format=tar --prefix=bulbcalculator-$VER/ master | gzip > ../bulbcalculator-src-$VER.tgz
 
 echo "Creating zip file"
 git archive --format=zip --prefix=bulbcalculator-$VER/ master > ../bulbcalculator-src-$VER.zip
 
-echo "Creating tar.xz file"
-git archive --format=tar --prefix=bulbcalculator-$VER/ master | xz > ../bulbcalculator-src-$VER.tar
-xz ../bulbcalculator-src-$VER.tar
+#echo "Creating tar.xz file"
+#git archive --format=tar --prefix=bulbcalculator-$VER/ master | xz > ../bulbcalculator-src-$VER.tar
+#xz ../bulbcalculator-src-$VER.tar
+#mv ../bulbcalculator-src-$VER.tar.xz ../bulbcalculator-src-$VER.txf
