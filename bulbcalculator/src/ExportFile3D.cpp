@@ -95,18 +95,6 @@ void ExportFile3D::WriteSTLBinHeader(QFile *fp) {
     delete bsh;
 }
 
-void ExportFile3D::WriteSTLBinTriangle(QFile *fp, STLTriangle *v) {
-
-    QDataStream ds(fp);
-    ds.setByteOrder(QDataStream::LittleEndian); // *** set little endian byte order
-    ds << v->normal[0] << v->normal[1] << v->normal[2];
-    ds << v->vertex_1[0] << v->vertex_1[1] << v->vertex_1[2];
-    ds << v->vertex_2[0] << v->vertex_2[1] << v->vertex_2[2];
-    ds << v->vertex_3[0] << v->vertex_3[1] << v->vertex_3[2];
-    ds << v->attbytecount;
-
-}
-
 void ExportFile3D::WriteSTLAsciiTriangle(QFile *fp, STLTriangle *v) {
 
     QTextStream ts(fp);
@@ -160,16 +148,15 @@ void ExportFile3D::ExportSTL(QString FileName) {
     x = 0.0;
     this->bc->UpdateProgressRange(0, static_cast<int>(mult));
 
-//    profile_data &pdi(this->bc->naca_profile[(unsigned)((double)0*mult)]);
     profile_data &pdi(this->bc->naca_profile[static_cast<unsigned>((static_cast<double>(0*mult)))]);
-//    profile_data &pde(this->bc->naca_profile[(unsigned)((double)1*mult)]);
     profile_data &pde(this->bc->naca_profile[static_cast<unsigned>((static_cast<double>(1*mult)))]);
     ExportFile3D::Triangles(x, (pdi.width*w), (pdi.height_u/2)*w, (pdi.height_l/2)*w, (pde.width*w), (pde.height_u/2)*w, (pde.height_l/2)*w, step, &fOut);
 
     for(int i=1; i<mult; i++) {
         profile_data &pdi(this->bc->naca_profile[static_cast<unsigned>((static_cast<double>(i*mult)))]);
-        profile_data &pde(this->bc->naca_profile[static_cast<unsigned>((static_cast<double>(i+1*mult)))]);
-        x = x + step;       
+        profile_data &pde(this->bc->naca_profile[static_cast<unsigned>((static_cast<double>((i+1)*mult)))]);
+        x = x + step;
+        qDebug() << "GIANLUCA ---> " << pdi.circumference << pde.circumference;
         ExportFile3D::Triangles(x, (pdi.width*w), pdi.height_u/2*w, pdi.height_l/2*w, (pde.width*w), pde.height_u/2*w, pde.height_l/2*w, step, &fOut);
         this->bc->UpdateProgressValue(i);
 
@@ -259,10 +246,9 @@ void ExportFile3D::Triangles(double x, double xradius, double yradiusi_u, double
         switch(this->file_type) {
             case STL_ASCII:
                 WriteSTLAsciiTriangle(fo, Triangle);
+                this->tr_num++;
                 break;
             case STL_BINARY:
-                WriteSTLBinTriangle(fo, Triangle);
-                this->tr_num++;
                 break;
         }
 
@@ -289,7 +275,6 @@ void ExportFile3D::Triangles(double x, double xradius, double yradiusi_u, double
                 WriteSTLAsciiTriangle(fo, Triangle);
                 break;
             case STL_BINARY:
-                WriteSTLBinTriangle(fo, Triangle);
                 break;
         }
     }

@@ -69,8 +69,6 @@ int ExportStl::GetFormat(void) {
 
     if (ui->RB_AsciiFormat->isChecked() == true) {
         return STL_ASCII;
-    } else if(ui->RB_BinaryFormat->isChecked() == true) {
-        return STL_BINARY;
     }
     return STL_NONE;
 

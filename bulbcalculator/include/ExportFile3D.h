@@ -34,7 +34,6 @@ class ExportFile3D: public QObject {
         BulbCalculator *bc;
         void WriteSTLBinHeader(QFile *fp);
         void WriteSTLAsciiHeader(QFile *fp);
-        void WriteSTLBinTriangle(QFile *fp, STLTriangle *v);
         void WriteSTLAsciiTriangle(QFile *fp, STLTriangle *v);
         void WriteSTLAsciiFooter(QFile *fp);
         void Triangles(double x, double xradius, double yradiusi_u, double yradiusi_l, double xradiuse, double yradiuse_u,  double yradiuse_l, double step, QFile *fo);
